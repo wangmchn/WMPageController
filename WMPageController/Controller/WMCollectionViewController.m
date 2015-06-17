@@ -23,7 +23,7 @@ static NSString * const reuseIdentifier = @"WMCollectionCell";
     flow.itemSize = CGSizeMake(width,width);
     self = [self initWithCollectionViewLayout:flow];
     if (self) {
-        // insert code there...
+        // insert code here...
     }
     return self;
 }
