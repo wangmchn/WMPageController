@@ -7,7 +7,7 @@ An easy solution to page controllers like `NetEase News`
 First Drag files in red frame to your project.<br>
 ![Guide](https://github.com/wangmchn/WMPageController/blob/master/WMPageController/ScreenShot/guide1.png)
 
-Then,create an controller that extends `WMPageController`.I recommend to use<br>
+Then,create an controller that extends from `WMPageController`.I recommend to use<br>
 ```objective-c
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles;
 ```
