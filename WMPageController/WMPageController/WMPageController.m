@@ -36,6 +36,19 @@
     }
     return self;
 }
+- (instancetype)init{
+    if (self = [super init]) {
+        self.titleSizeSelected = WMTitleSizeSelected;
+        self.titleColorSelected = WMTitleColorSelected;
+        self.titleSizeNormal = WMTitleSizeNormal;
+        self.titleColorNormal = WMTitleColorNormal;
+        
+        self.menuBGColor = WMMenuBGColor;
+        self.menuHeight = WMMenuHeight;
+        self.menuItemWidth = WMMenuItemWidth;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self calculateSize];
