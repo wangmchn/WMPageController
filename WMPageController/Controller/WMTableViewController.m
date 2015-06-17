@@ -41,9 +41,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"WMCell"];
     }
     cell.textLabel.text = @"Hello,I'm Mark.";
-    cell.textLabel.numberOfLines = 0;
     cell.detailTextLabel.text = @"And I'm now a student.";
-    cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.textColor = [UIColor grayColor];
     cell.imageView.image = [UIImage imageNamed:@"github.png"];
     return cell;
