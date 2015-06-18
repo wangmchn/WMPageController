@@ -29,7 +29,6 @@
 		4D6BDF891B2DB408008282D1 /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6BDF881B2DB408008282D1 /* WMMenuView.m */; };
 		4D6BDF8C1B2DC2A7008282D1 /* ScreenShot.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF8B1B2DC2A7008282D1 /* ScreenShot.gif */; };
 		4D6BDF8E1B2DC3DE008282D1 /* console.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF8D1B2DC3DE008282D1 /* console.png */; };
-		4D6BDF901B2DC623008282D1 /* easynetnews.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF8F1B2DC623008282D1 /* easynetnews.png */; };
 		4D71C6EF1B29CCD500BF9B12 /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D71C6E81B29CCD500BF9B12 /* WMMenuItem.m */; };
 		4D71C6F51B29CDB800BF9B12 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D71C6F41B29CDB800BF9B12 /* WMPageController.m */; };
 /* End PBXBuildFile section */
@@ -78,7 +77,6 @@
 		4D6BDF881B2DB408008282D1 /* WMMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuView.m; sourceTree = "<group>"; };
 		4D6BDF8B1B2DC2A7008282D1 /* ScreenShot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ScreenShot.gif; sourceTree = "<group>"; };
 		4D6BDF8D1B2DC3DE008282D1 /* console.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = console.png; sourceTree = "<group>"; };
-		4D6BDF8F1B2DC623008282D1 /* easynetnews.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = easynetnews.png; sourceTree = "<group>"; };
 		4D71C6E71B29CCD500BF9B12 /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
 		4D71C6E81B29CCD500BF9B12 /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
 		4D71C6E91B29CCD500BF9B12 /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 		4D6BDF8A1B2DC2A7008282D1 /* ScreenShot */ = {
 			isa = PBXGroup;
 			children = (
-				4D6BDF8F1B2DC623008282D1 /* easynetnews.png */,
 				4D6BDF8D1B2DC3DE008282D1 /* console.png */,
 				4D6BDF8B1B2DC2A7008282D1 /* ScreenShot.gif */,
 			);
@@ -329,7 +326,6 @@
 				4D38F7671B29CA4600203BC9 /* LaunchScreen.xib in Resources */,
 				4D6BDF6F1B2DA66B008282D1 /* Dragon Spirit.jpg in Resources */,
 				4D6BDF741B2DA66B008282D1 /* The roar.jpg in Resources */,
-				4D6BDF901B2DC623008282D1 /* easynetnews.png in Resources */,
 				4D38F7641B29CA4600203BC9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
