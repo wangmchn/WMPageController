@@ -46,4 +46,5 @@
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
 @property (nonatomic, weak) id<WMMenuItemDelegate> delegate;
 - (void)selectedItemWithoutAnimation;
+- (void)deselectedItemWithoutAnimation;
 @end

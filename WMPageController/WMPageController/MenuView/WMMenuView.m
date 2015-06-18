@@ -48,7 +48,9 @@
     WMMenuItem *nextItem = (WMMenuItem *)[self viewWithTag:tag+1];
     if (rate == 0.0) {
         rate = 1.0;
+        [self.selItem deselectedItemWithoutAnimation];
         self.selItem = currentItem;
+        [self.selItem selectedItemWithoutAnimation];
         [self refreshContenOffset];
         return;
     }

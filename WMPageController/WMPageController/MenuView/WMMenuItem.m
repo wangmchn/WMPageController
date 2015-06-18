@@ -64,6 +64,13 @@
     _selected = YES;
     [self setNeedsDisplay];
 }
+- (void)deselectedItemWithoutAnimation{
+    self.titleColor = self.normalColor;
+    self.font = [UIFont systemFontOfSize:self.normalSize];
+    _rate = 0;
+    _selected = NO;
+    [self setNeedsDisplay];
+}
 #pragma mark - Lazy loading
 - (CGFloat)normalSize{
     if (!_normalSize) {
