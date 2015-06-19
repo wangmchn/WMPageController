@@ -82,6 +82,7 @@
     UIViewController *viewController = [[vcClass alloc] init];
     viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [self addChildViewController:viewController];
+    [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     self.currentViewController = viewController;
     
@@ -144,6 +145,7 @@
         }else{
             if (vc) {
                 [vc.view removeFromSuperview];
+                [vc willMoveToParentViewController:nil];
                 [vc removeFromParentViewController];
                 
                 [self.displayVC removeObjectForKey:@(i)];
