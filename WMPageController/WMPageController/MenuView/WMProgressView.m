@@ -14,10 +14,7 @@
     CGFloat step;
 }
 - (void)setProgress:(CGFloat)progress{
-    if (self.progress == progress) {
-        return;
-    }
-    NSLog(@"%f %f",self.progress,progress);
+    if (self.progress == progress) return;
     if (fabs(progress - _progress) >= 0.94 && fabs(progress - _progress) < 1.2) {
         gap = fabs(self.progress - progress);
         sign = self.progress>progress?-1:1;

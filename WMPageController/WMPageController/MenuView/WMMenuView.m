@@ -121,7 +121,7 @@ static CGFloat const WMProgressHeight = 2.0;
             itemW = [self.delegate menuView:self widthForItemAtIndex:i];
         }
         CGRect frame = CGRectMake(contentWidth, 0, itemW, self.frame.size.height);
-        // 添加frame
+        // 记录frame
         [self.frames addObject:[NSValue valueWithCGRect:frame]];
         contentWidth += itemW;
         WMMenuItem *item = [[WMMenuItem alloc] initWithFrame:frame];
