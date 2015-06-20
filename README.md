@@ -10,10 +10,12 @@ An easy solution to page controllers like `NetEase News`
 ![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageController/ScreenShot/ScreenShot2.gif)
 <br>
 <br>
-And you can easily have this style only by one step;and set the property `itemsWidths` to have different width!
+And you can easily have this style only by one step;
 ```objective-c
 pageController.menuViewStyle = WMMenuViewStyleLine;
 ```
+<br>
+And set the property `itemsWidths` to have **different width**!
 ## Basic use
 
 First Drag files in red frame to your project.<br>
