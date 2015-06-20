@@ -45,7 +45,10 @@
     WMPageController *pageVC = [[WMPageController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
     pageVC.title = @"Test";
     pageVC.menuItemWidth = 80;
+    pageVC.titleSizeSelected = 15;
     pageVC.pageAnimatable = YES;
+//    pageVC.itemsWidths = @[@(150),@(100),@(80),@(90),@(180),@(150),@(100),@(80),@(90),@(180)];
+    pageVC.menuViewStyle = WMMenuViewStyleLine;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pageVC];
     self.window.rootViewController = nav;
     return YES;

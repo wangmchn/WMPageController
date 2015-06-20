@@ -25,29 +25,25 @@
         self.viewControllerClasses = [NSArray arrayWithArray:classes];
         self.titles = titles;
         
-        self.titleSizeSelected = WMTitleSizeSelected;
-        self.titleColorSelected = WMTitleColorSelected;
-        self.titleSizeNormal = WMTitleSizeNormal;
-        self.titleColorNormal = WMTitleColorNormal;
-        
-        self.menuBGColor = WMMenuBGColor;
-        self.menuHeight = WMMenuHeight;
-        self.menuItemWidth = WMMenuItemWidth;
+        [self setup];
     }
     return self;
 }
 - (instancetype)init{
     if (self = [super init]) {
-        self.titleSizeSelected = WMTitleSizeSelected;
-        self.titleColorSelected = WMTitleColorSelected;
-        self.titleSizeNormal = WMTitleSizeNormal;
-        self.titleColorNormal = WMTitleColorNormal;
-        
-        self.menuBGColor = WMMenuBGColor;
-        self.menuHeight = WMMenuHeight;
-        self.menuItemWidth = WMMenuItemWidth;
+        [self setup];
     }
     return self;
+}
+- (void)setup{
+    self.titleSizeSelected = WMTitleSizeSelected;
+    self.titleColorSelected = WMTitleColorSelected;
+    self.titleSizeNormal = WMTitleSizeNormal;
+    self.titleColorNormal = WMTitleColorNormal;
+    
+    self.menuBGColor = WMMenuBGColor;
+    self.menuHeight = WMMenuHeight;
+    self.menuItemWidth = WMMenuItemWidth;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -119,6 +115,7 @@
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.menuHeight);
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonItems:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
     menuView.delegate = self;
+    menuView.style = self.menuViewStyle;
     [self.view addSubview:menuView];
     self.menuView = menuView;
 }
@@ -189,6 +186,9 @@
     [self.scrollView setContentOffset:targetP animated:gap > 1?NO:self.pageAnimatable];
 }
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index{
+    if (self.itemsWidths) {
+        return [self.itemsWidths[index] floatValue];
+    }
     return self.menuItemWidth;
 }
 @end

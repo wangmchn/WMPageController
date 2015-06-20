@@ -28,8 +28,12 @@
 @property (nonatomic, assign) CGFloat menuHeight;
 // 每个MenuItem的宽度
 @property (nonatomic, assign) CGFloat menuItemWidth;
+// 各个MenuItem的宽度，可不等，数组内为NSNumber
+@property (nonatomic, strong) NSArray *itemsWidths;
 // 导航栏背景色
 @property (nonatomic, strong) UIColor *menuBGColor;
+// 默认为无下划线
+@property (nonatomic, assign) WMMenuViewStyle menuViewStyle;
 // init方法,请使用该方法创建控制器
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles;
 @end

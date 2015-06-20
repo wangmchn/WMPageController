@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D24C1041B35BE7C00828022 /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D24C1031B35BE7C00828022 /* WMProgressView.m */; };
 		4D38F7591B29CA4600203BC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D38F7581B29CA4600203BC9 /* main.m */; };
 		4D38F75C1B29CA4600203BC9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D38F75B1B29CA4600203BC9 /* AppDelegate.m */; };
 		4D38F7621B29CA4600203BC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D38F7601B29CA4600203BC9 /* Main.storyboard */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D24C1021B35BE7C00828022 /* WMProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProgressView.h; sourceTree = "<group>"; };
+		4D24C1031B35BE7C00828022 /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
 		4D38F7531B29CA4600203BC9 /* WMPageController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WMPageController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D38F7571B29CA4600203BC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D38F7581B29CA4600203BC9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -230,6 +233,8 @@
 				4D71C6E81B29CCD500BF9B12 /* WMMenuItem.m */,
 				4D71C6E91B29CCD500BF9B12 /* WMMenuView.h */,
 				4D6BDF881B2DB408008282D1 /* WMMenuView.m */,
+				4D24C1021B35BE7C00828022 /* WMProgressView.h */,
+				4D24C1031B35BE7C00828022 /* WMProgressView.m */,
 			);
 			path = MenuView;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 				4D6BDF7F1B2DB3CE008282D1 /* WMTableViewController.m in Sources */,
 				4D6BDF801B2DB3CE008282D1 /* WMViewController.m in Sources */,
 				4D6BDF871B2DB3EE008282D1 /* WMLoopView.m in Sources */,
+				4D24C1041B35BE7C00828022 /* WMProgressView.m in Sources */,
 				4D71C6EF1B29CCD500BF9B12 /* WMMenuItem.m in Sources */,
 				4D6BDF861B2DB3EE008282D1 /* WMImageViewCell.m in Sources */,
 				4D38F7591B29CA4600203BC9 /* main.m in Sources */,

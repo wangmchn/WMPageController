@@ -14,6 +14,11 @@ typedef enum{
     WMMenuSlideToFrontItem
 } WMMenuSlideType;
 
+typedef enum{
+    WMMenuViewStyleDefault,
+    WMMenuViewStyleLine
+} WMMenuViewStyle;
+
 @protocol WMMenuViewDelegate <NSObject>
 @optional
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex;
@@ -23,6 +28,7 @@ typedef enum{
 @interface WMMenuView : UIView
 
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, assign) WMMenuViewStyle style;
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor;

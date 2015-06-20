@@ -9,12 +9,14 @@
 #import "WMMenuItem.h"
 #define kSelectedSize 18
 #define kNormolSize   15
-#define kAnimateStep  0.2
+#define kAnimateStep  0.05
 #define kAnimateRate  0.1
 
 #define kBGColor        [UIColor whiteColor]
 #define kSelectedColor  [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1]
 #define kNormalColor    [UIColor colorWithRed:0 green:0 blue:0 alpha:1]
+
+static CGFloat const lineWidth = 2.0;
 @interface WMMenuItem (){
     CGFloat rgba[4];
     CGFloat rgbaGAP[4];
@@ -140,16 +142,11 @@
     hasRGBA = YES;
 }
 // 触摸事件，告诉代理被触摸(点击)
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     if ([self.delegate respondsToSelector:@selector(didPressedMenuItem:)]) {
         [self.delegate didPressedMenuItem:self];
     }
 }
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-//    if ([self.delegate respondsToSelector:@selector(didPressedMenuItem:)]) {
-//        [self.delegate didPressedMenuItem:self];
-//    }
-//}
 // 更新自身的标题的字体大小及颜色
 - (void)updateFontAndRGB{
     if (!hasRGBA) {
