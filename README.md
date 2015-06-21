@@ -2,12 +2,12 @@
 An easy solution to page controllers like `NetEase News`
 ## Overview
 **Default style** <br>
-![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageController/ScreenShot/ScreenShot.gif)
+![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif)
 <br>
 <br>
 **New style!** `WMMenuViewStyleLine` <br>
 **CHEERS!** <br>
-![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageController/ScreenShot/ScreenShot2.gif)
+![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot2.gif)
 <br>
 <br>
 And you can easily have this style only by one step;
@@ -19,7 +19,7 @@ Set the property `itemsWidths` to have **different width**!
 ## Basic use
 
 First Drag files in red frame to your project.<br>
-![Guide](https://github.com/wangmchn/WMPageController/blob/master/WMPageController/ScreenShot/guide1.png)
+![Guide](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/guide1.png)
 
 Then,create an controller that extends from `WMPageController`.I recommend to use<br>
 ```objective-c
