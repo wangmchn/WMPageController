@@ -14,11 +14,11 @@
 		<string>https://github.com/wangmchn/WMPageController.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>WMPageController.xcodeproj</string>
+	<string>WMPageControllerDemo/WMPageController.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>6DA71733656E4D6D655376376446B23C61CEBD52</key>
-		<string>../..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/wangmchn/WMPageController.git</string>
