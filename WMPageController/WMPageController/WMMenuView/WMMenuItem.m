@@ -16,7 +16,6 @@
 #define kSelectedColor  [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1]
 #define kNormalColor    [UIColor colorWithRed:0 green:0 blue:0 alpha:1]
 
-static CGFloat const lineWidth = 2.0;
 @interface WMMenuItem (){
     CGFloat rgba[4];
     CGFloat rgbaGAP[4];
