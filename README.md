@@ -15,7 +15,7 @@ And you can easily have this style only by one step;
 pageController.menuViewStyle = WMMenuViewStyleLine;
 ```
 <br>
-And set the property `itemsWidths` to have **different width**!
+Set the property `itemsWidths` to have **different width**!
 ## Basic use
 
 First Drag files in red frame to your project.<br>
