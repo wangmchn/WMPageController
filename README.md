@@ -32,6 +32,9 @@ to init the controller.Here are two important porperties<br>
 
 To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,and also `itemsWidths`.
 
+## pod
+        pod 'WMPageController', '~> 1.0.0'
+
 ## Final
 You can put every controller in `WMPageController`,But if you want have a `UICollectionViewController` in, please have an attention to `UICollectionViewController's` init method.<br>
 You should override the `- init` to give `UICollectionViewController` a `UICollectionViewLayout`.
