@@ -141,7 +141,7 @@
     hasRGBA = YES;
 }
 // 触摸事件，告诉代理被触摸(点击)
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if ([self.delegate respondsToSelector:@selector(didPressedMenuItem:)]) {
         [self.delegate didPressedMenuItem:self];
     }

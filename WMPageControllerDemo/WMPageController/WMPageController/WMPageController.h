@@ -19,7 +19,9 @@
 // titles of view controllers in page controller. Use NSString.
 @property (nonatomic, strong) NSArray *titles;
 @property (nonatomic, strong) UIViewController *currentViewController;
-@property (nonatomic, assign) int selectedIndex;
+// 设置选中几号item
+// to select item at index
+@property (nonatomic, assign) int selectIndex;
 
 // 点击相邻的MenuItem是否触发翻页动画(当当前选中与点击Item相差大于1是不触发)
 // whether to animate when press the MenuItem

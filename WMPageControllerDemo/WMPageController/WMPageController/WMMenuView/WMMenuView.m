@@ -30,6 +30,19 @@
 static CGFloat const WMProgressHeight = 2.0;
 @implementation WMMenuView
 #pragma mark - Public Methods
+- (void)selectItemAtIndex:(NSInteger)index{
+    NSInteger tag = index + kTagGap;
+    NSInteger currentIndex = self.selItem.tag - kTagGap;
+    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
+    [self.selItem deselectedItemWithoutAnimation];
+    self.selItem = item;
+    [self.selItem selectedItemWithoutAnimation];
+    self.progressView.progress = index;
+    if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
+        [self.delegate menuView:self didSelesctedIndex:index currentIndex:currentIndex];
+    }
+    [self refreshContenOffset];
+}
 - (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor{
     if (self = [super initWithFrame:frame]) {
         self.items = items;

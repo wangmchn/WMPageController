@@ -35,6 +35,12 @@
     }
     return self;
 }
+- (void)setSelectIndex:(int)selectIndex{
+    _selectIndex = selectIndex;
+    if (self.menuView) {
+        [self.menuView selectItemAtIndex:selectIndex];
+    }
+}
 - (void)setup{
     self.titleSizeSelected = WMTitleSizeSelected;
     self.titleColorSelected = WMTitleColorSelected;
@@ -50,6 +56,9 @@
     [self calculateSize];
     [self addScrollView];
     [self addMenuView];
+    if (self.selectIndex != 0) {
+        [self.menuView selectItemAtIndex:self.selectIndex];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -175,7 +184,7 @@
     animate = YES;
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    self.selectedIndex = (int)scrollView.contentOffset.x / viewWidth;
+    _selectIndex = (int)scrollView.contentOffset.x / viewWidth;
 }
 #pragma mark - WMMenuView Delegate
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex{
