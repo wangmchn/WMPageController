@@ -26,8 +26,6 @@
 		4D6BDF801B2DB3CE008282D1 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6BDF7D1B2DB3CE008282D1 /* WMViewController.m */; };
 		4D6BDF861B2DB3EE008282D1 /* WMImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6BDF831B2DB3EE008282D1 /* WMImageViewCell.m */; };
 		4D6BDF871B2DB3EE008282D1 /* WMLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6BDF851B2DB3EE008282D1 /* WMLoopView.m */; };
-		4D6BDF8C1B2DC2A7008282D1 /* ScreenShot.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF8B1B2DC2A7008282D1 /* ScreenShot.gif */; };
-		4D6BDF8E1B2DC3DE008282D1 /* console.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF8D1B2DC3DE008282D1 /* console.png */; };
 		4D71C6F51B29CDB800BF9B12 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D71C6F41B29CDB800BF9B12 /* WMPageController.m */; };
 		4DC1EC3B1B368AA60042DA2B /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC1EC361B368AA60042DA2B /* WMMenuItem.m */; };
 		4DC1EC3C1B368AA60042DA2B /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC1EC381B368AA60042DA2B /* WMMenuView.m */; };
@@ -75,8 +73,6 @@
 		4D6BDF831B2DB3EE008282D1 /* WMImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMImageViewCell.m; sourceTree = "<group>"; };
 		4D6BDF841B2DB3EE008282D1 /* WMLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLoopView.h; sourceTree = "<group>"; };
 		4D6BDF851B2DB3EE008282D1 /* WMLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLoopView.m; sourceTree = "<group>"; };
-		4D6BDF8B1B2DC2A7008282D1 /* ScreenShot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ScreenShot.gif; sourceTree = "<group>"; };
-		4D6BDF8D1B2DC3DE008282D1 /* console.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = console.png; sourceTree = "<group>"; };
 		4D71C6F31B29CDB800BF9B12 /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
 		4D71C6F41B29CDB800BF9B12 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
 		4DC1EC351B368AA60042DA2B /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
@@ -142,7 +138,6 @@
 		4D38F7561B29CA4600203BC9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4D6BDF8A1B2DC2A7008282D1 /* ScreenShot */,
 				4D6BDF661B2DA66B008282D1 /* Images */,
 				4D38F7571B29CA4600203BC9 /* Info.plist */,
 				4D38F7581B29CA4600203BC9 /* main.m */,
@@ -204,15 +199,6 @@
 				4D6BDF851B2DB3EE008282D1 /* WMLoopView.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		4D6BDF8A1B2DC2A7008282D1 /* ScreenShot */ = {
-			isa = PBXGroup;
-			children = (
-				4D6BDF8D1B2DC3DE008282D1 /* console.png */,
-				4D6BDF8B1B2DC2A7008282D1 /* ScreenShot.gif */,
-			);
-			path = ScreenShot;
 			sourceTree = "<group>";
 		};
 		4D71C6D51B29CC3A00BF9B12 /* WMPageController */ = {
@@ -323,11 +309,9 @@
 				4D38F7621B29CA4600203BC9 /* Main.storyboard in Resources */,
 				4D6BDF721B2DA66B008282D1 /* Night.jpg in Resources */,
 				4D6BDF731B2DA66B008282D1 /* onepiece.jpg in Resources */,
-				4D6BDF8C1B2DC2A7008282D1 /* ScreenShot.gif in Resources */,
 				4D6BDF761B2DA66B008282D1 /* zoro.jpg in Resources */,
 				4D6BDF751B2DA66B008282D1 /* three.jpg in Resources */,
 				4D6BDF701B2DA66B008282D1 /* github.png in Resources */,
-				4D6BDF8E1B2DC3DE008282D1 /* console.png in Resources */,
 				4D38F7671B29CA4600203BC9 /* LaunchScreen.xib in Resources */,
 				4D6BDF6F1B2DA66B008282D1 /* Dragon Spirit.jpg in Resources */,
 				4D6BDF741B2DA66B008282D1 /* The roar.jpg in Resources */,

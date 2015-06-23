@@ -31,7 +31,7 @@
 @property (nonatomic, assign) CGFloat titleSizeSelected;
 @property (nonatomic, assign) CGFloat titleSizeNormal;
 
-// 标题颜色
+// 标题颜色,请注意, 颜色必须要有RGBA分量.(比如blackColor和grayColor都不像，建议使用RBGA创建)
 // the title color,the color is animatable, make sure they have RGBA components.
 @property (nonatomic, strong) UIColor *titleColorSelected;
 @property (nonatomic, strong) UIColor *titleColorNormal;
