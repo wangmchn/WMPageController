@@ -30,8 +30,10 @@ to init the controller.Here are two important porperties<br>
     classes :contains the classes of view controller, you can put obj in like [UITableViewController class];
     titles  :Each View controller's title to show in the menu view at the top of the view;
 
-To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,and also `itemsWidths`.
+To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,and also `itemsWidths`.<br>
 
+**Attention**
+When you are setting the title color, please use those have RGBA components, (except like [UIColor blackColor],[UIColor grayColor],ect.),or **USE [UIColor colorWithRed:green:blue:alpha:] to make sure the color definitely work**.
 ## pod
         pod 'WMPageController', '~> 1.0.0'
 
