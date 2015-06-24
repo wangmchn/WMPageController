@@ -35,7 +35,7 @@ To have a custom page controller,please set the properties in `WMPageController`
 **Attention**
 When you are setting the title color, please use those have RGBA components, `except like [UIColor blackColor],[UIColor grayColor],ect.`,or **USE [UIColor colorWithRed:green:blue:alpha:] to make sure the color definitely work**.
 ## pod
-    pod 'WMPageController', '~> 1.1.0'
+    pod 'WMPageController'
 
 ## Final
 You can put every controller in `WMPageController`,But if you want have a `UICollectionViewController` in, please have an attention to `UICollectionViewController's` init method.<br>
