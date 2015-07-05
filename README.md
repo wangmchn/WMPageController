@@ -61,6 +61,7 @@ If you want a controller reusable, I fully recommended you to use a `View` reuse
 **Reusable view version see this:** https://github.com/wangmchn/YKPageView
 <br>
 <br>
+**And:**<br>
 * If you have problems, please issue me.
 * If you have suggestions, please issue me.
 * If you like me, please issue me, or you can give me a little star :)
