@@ -56,8 +56,10 @@ Here is an example:
 }
 ```
 ## Final
-If you want a controller reusable, I fully recommended you to use a `View` reuse instead of a controller.As we have to handle models all in a controller, why have we must get a parent controller interfering? And I do not think it's a great way to have a heavy view reuse (lightweight, like a `role pick view` or `simple description of serial things`,is fine. `News?` forget it),it's too difficult to deal with a lot of infos. Maybe I am not experienced enough. @_@ <br>
-Reusable view version see this: https://github.com/wangmchn/YKPageView
+If you want a controller reusable, I fully recommended you to use a `View` reuse instead of a controller.As we have to handle models all in a controller, why have we must get a parent controller interfering? And I do not think it's a great way to have a heavy view reuse ( lightweight, like a `role pick view` or `simple description of serial things`,is fine.  `News` ? forget it. ), it's too difficult to deal with a lot of infos. Maybe I am not experienced enough. @_@ <br>
+<br>
+*Reusable view version see this:* https://github.com/wangmchn/YKPageView
+<br>
 <br>
 * If you have problems, please issue me.
 * If you have suggestions, please issue me.
