@@ -23,6 +23,8 @@ pageController.menuViewStyle = WMMenuViewStyleLine;
 * Adjust view and frames when device's orientation changed;
 * Set the property `itemsWidths` to have **different width**!Like @[@(100),@(80),@(50).....];
 * Waiting for new function...
+
+
 ## Basic use
 
 First Drag files in red frame to your project.<br>
