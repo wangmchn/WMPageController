@@ -49,6 +49,7 @@
     pageVC.titleSizeSelected = 15;
     pageVC.pageAnimatable = YES;
     pageVC.menuViewStyle = WMMenuViewStyleLine;
+    pageVC.rememberLocation = YES;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pageVC];
     self.window.rootViewController = nav;
     return YES;

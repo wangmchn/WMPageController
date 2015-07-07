@@ -69,6 +69,14 @@
 // Whether notify observer when finish init or fully displayed to user, the default is NO.
 @property (nonatomic, assign) BOOL postNotification;
 
+// 是否记录Controller的位置，并在下次回来的时候回到相应位置,默认为NO
+// 比如`UITabelViewController`,当然你也可以在自己的控制器中自行设置
+// 如果将Controller.view替换为scrollView或者在Controller.view上添加了一个和自身bounds一样的scrollView也是OK的
+// NOTE：在viewDidLoad中controller.view.bounds等于屏幕的bounds
+// Whether to remember controller's positon if it's a kind of scrollView controller,like UITableViewController
+// The default value is NO.
+@property (nonatomic, assign) BOOL rememberLocation;
+
 /**
  *  构造方法，请使用该方法创建控制器 (此方法不重用控制器).
  *  Init method，recommend to use this instead of `-init` (not usable).
