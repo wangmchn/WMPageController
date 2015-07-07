@@ -8,10 +8,10 @@
 
 #import "WMProgressView.h"
 @implementation WMProgressView{
-    CADisplayLink *link;
-    CGFloat gap;
     int sign;
+    CGFloat gap;
     CGFloat step;
+    CADisplayLink *link;
 }
 - (void)setProgress:(CGFloat)progress{
     if (self.progress == progress) return;
@@ -48,7 +48,9 @@
     CGFloat nextWidth = [self.itemFrames[nextIndex] CGRectValue].size.width;
     CGFloat height = self.frame.size.height;
     CGFloat constY = height/2;
-    CGFloat startX = currentFrame.origin.x + currentWidth * rate;
+    CGFloat currentX = currentFrame.origin.x;
+    CGFloat nextX = [self.itemFrames[nextIndex] CGRectValue].origin.x;
+    CGFloat startX = currentX + (nextX - currentX) * rate;
     CGFloat endX = startX + currentWidth + (nextWidth - currentWidth)*rate;
     CGContextMoveToPoint(ctx, startX, constY);
     CGContextAddLineToPoint(ctx, endX, constY);

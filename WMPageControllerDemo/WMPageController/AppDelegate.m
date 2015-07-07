@@ -23,15 +23,15 @@
     // .....
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     NSMutableArray *titles = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 5; i++) {
         Class vcClass;
         NSString *title;
         switch (i%3) {
-            case 0:
+            case 1:
                 vcClass = [WMTableViewController class];
                 title = @"Greetings";
                 break;
-            case 1:
+            case 2:
                 vcClass = [WMViewController class];
                 title = @"Hit Me";
                 break;
@@ -48,7 +48,6 @@
     pageVC.menuItemWidth = 80;
     pageVC.titleSizeSelected = 15;
     pageVC.pageAnimatable = YES;
-//    pageVC.itemsWidths = @[@(150),@(100),@(80),@(90),@(180),@(150),@(100),@(80),@(90),@(180)];
     pageVC.menuViewStyle = WMMenuViewStyleLine;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pageVC];
     self.window.rootViewController = nav;
