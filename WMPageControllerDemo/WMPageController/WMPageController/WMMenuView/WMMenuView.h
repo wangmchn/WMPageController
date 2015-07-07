@@ -10,13 +10,8 @@
 @class WMMenuView;
 @class WMMenuItem;
 typedef enum{
-    WMMenuSlideToNextItem,
-    WMMenuSlideToFrontItem
-} WMMenuSlideType;
-
-typedef enum{
-    WMMenuViewStyleDefault,
-    WMMenuViewStyleLine
+    WMMenuViewStyleDefault, // 默认
+    WMMenuViewStyleLine     // 带下划线 (若要选中字体大小不变，设置选中和非选中大小一样即可)
 } WMMenuViewStyle;
 
 @protocol WMMenuViewDelegate <NSObject>
@@ -29,6 +24,7 @@ typedef enum{
 
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, assign) WMMenuViewStyle style;
+@property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor;

@@ -9,12 +9,12 @@
 #import "WMMenuView.h"
 #import "WMMenuItem.h"
 #import "WMProgressView.h"
-//  导航菜单栏距边界的间距
+// 导航菜单栏距边界的间距
 #define WMMenuMargin 0
-#define kMaskWidth 20
-#define kItemWidth 60
-#define kTagGap    6250
-#define kBGColor   [UIColor colorWithRed:172.0/255.0 green:165.0/255.0 blue:162.0/255.0 alpha:1.0];
+#define kMaskWidth   0
+#define kItemWidth   60
+#define kTagGap      6250
+#define kBGColor     [UIColor colorWithRed:172.0/255.0 green:165.0/255.0 blue:162.0/255.0 alpha:1.0]
 @interface WMMenuView () <WMMenuItemDelegate>{
     CGFloat _norSize;
     CGFloat _selSize;
@@ -22,27 +22,28 @@
     UIColor *_selColor;
 }
 @property (nonatomic, weak) UIScrollView *scrollView;
-@property (nonatomic, strong) WMMenuItem *selItem;
+@property (nonatomic, weak) WMProgressView *progressView;
+@property (nonatomic, weak) WMMenuItem *selItem;
 @property (nonatomic, strong) UIColor *bgColor;
 @property (nonatomic, strong) NSMutableArray *frames;
-@property (nonatomic, weak) WMProgressView *progressView;
 @end
+// 下划线的高度
 static CGFloat const WMProgressHeight = 2.0;
 @implementation WMMenuView
-#pragma mark - Public Methods
-- (void)selectItemAtIndex:(NSInteger)index{
-    NSInteger tag = index + kTagGap;
-    NSInteger currentIndex = self.selItem.tag - kTagGap;
-    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
-    [self.selItem deselectedItemWithoutAnimation];
-    self.selItem = item;
-    [self.selItem selectedItemWithoutAnimation];
-    self.progressView.progress = index;
-    if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
-        [self.delegate menuView:self didSelesctedIndex:index currentIndex:currentIndex];
+#pragma mark - Lazy
+- (UIColor *)lineColor{
+    if (!_lineColor) {
+        _lineColor = _selColor;
     }
-    [self refreshContenOffset];
+    return _lineColor;
 }
+- (NSMutableArray *)frames{
+    if (_frames == nil) {
+        _frames = [NSMutableArray array];
+    }
+    return _frames;
+}
+#pragma mark - Public Methods
 - (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor{
     if (self = [super initWithFrame:frame]) {
         self.items = items;
@@ -57,12 +58,6 @@ static CGFloat const WMProgressHeight = 2.0;
         _selColor = selColor;
     }
     return self;
-}
-- (NSMutableArray *)frames{
-    if (_frames == nil) {
-        _frames = [NSMutableArray array];
-    }
-    return _frames;
 }
 - (void)slideMenuAtProgress:(CGFloat)progress{
     if (self.style == WMMenuViewStyleLine) {
@@ -85,16 +80,33 @@ static CGFloat const WMProgressHeight = 2.0;
     currentItem.rate = 1-rate;
     nextItem.rate = rate;
 }
+- (void)selectItemAtIndex:(NSInteger)index{
+    NSInteger tag = index + kTagGap;
+    NSInteger currentIndex = self.selItem.tag - kTagGap;
+    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
+    [self.selItem deselectedItemWithoutAnimation];
+    self.selItem = item;
+    [self.selItem selectedItemWithoutAnimation];
+    self.progressView.progress = index;
+    if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
+        [self.delegate menuView:self didSelesctedIndex:index currentIndex:currentIndex];
+    }
+    [self refreshContenOffset];
+}
 #pragma mark - Private Methods
 - (void)willMoveToSuperview:(UIView *)newSuperview{
     [self addScrollView];
     [self addItems];
+    [self makeStyle];
+}
+// 有没更好地命名
+- (void)makeStyle{
     if (self.style == WMMenuViewStyleLine) {
         [self addProgress];
     }
 }
+// 让选中的item位于中间
 - (void)refreshContenOffset{
-    // 让选中的item位于中间
     CGRect frame = self.selItem.frame;
     CGFloat itemX = frame.origin.x;
     CGFloat width = self.scrollView.frame.size.width;
@@ -127,21 +139,15 @@ static CGFloat const WMProgressHeight = 2.0;
     self.scrollView = scrollView;
 }
 - (void)addItems{
-    CGFloat contentWidth = WMMenuMargin;
+    [self calculateItemFrames];
+    
     for (int i = 0; i < self.items.count; i++) {
-        CGFloat itemW = kItemWidth;
-        if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
-            itemW = [self.delegate menuView:self widthForItemAtIndex:i];
-        }
-        CGRect frame = CGRectMake(contentWidth, 0, itemW, self.frame.size.height);
-        // 记录frame
-        [self.frames addObject:[NSValue valueWithCGRect:frame]];
-        contentWidth += itemW;
+        CGRect frame = [self.frames[i] CGRectValue];
         WMMenuItem *item = [[WMMenuItem alloc] initWithFrame:frame];
         item.tag = (i+kTagGap);
         item.title = self.items[i];
         item.delegate = self;
-        item.backgroundColor = self.bgColor;
+        item.backgroundColor = [UIColor clearColor];
         if (_norSize > 0.0001) {
             item.normalSize = _norSize;
         }
@@ -160,13 +166,40 @@ static CGFloat const WMProgressHeight = 2.0;
         }
         [self.scrollView addSubview:item];
     }
+}
+// 计算所有item的frame值，主要是为了适配所有item的宽度之和小于屏幕宽的情况
+// 这里与后面的 `-addItems` 做了重复的操作，并不是很合理
+- (void)calculateItemFrames{
+    CGFloat contentWidth = WMMenuMargin;
+    for (int i = 0; i < self.items.count; i++) {
+        CGFloat itemW = kItemWidth;
+        if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
+            itemW = [self.delegate menuView:self widthForItemAtIndex:i];
+        }
+        CGRect frame = CGRectMake(contentWidth, 0, itemW, self.frame.size.height);
+        // 记录frame
+        [self.frames addObject:[NSValue valueWithCGRect:frame]];
+        contentWidth += itemW;
+    }
     contentWidth += WMMenuMargin;
+    // 如果总宽度小于屏幕宽,重新计算frame,为item间添加间距
+    if (contentWidth < self.frame.size.width) {
+        // 计算间距
+        CGFloat distance = self.frame.size.width - contentWidth;
+        CGFloat gap = distance / (self.items.count + 1);
+        for (int i = 0; i < self.frames.count; i++) {
+            CGRect frame = [self.frames[i] CGRectValue];
+            frame.origin.x += gap*(i+1);
+            self.frames[i] = [NSValue valueWithCGRect:frame];
+        }
+        contentWidth = self.frame.size.width;
+    }
     self.scrollView.contentSize = CGSizeMake(contentWidth, self.frame.size.height);
 }
 - (void)addProgress{
     WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-WMProgressHeight, self.scrollView.contentSize.width, WMProgressHeight)];
     pView.itemFrames = self.frames;
-    pView.color = _selColor.CGColor;
+    pView.color = self.lineColor.CGColor;
     pView.backgroundColor = [UIColor clearColor];
     self.progressView = pView;
     [self.scrollView addSubview:pView];
