@@ -3,11 +3,13 @@ An easy solution to page controllers like `NetEase News`
 ## Overview
 **Default style** <br>
 ![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif
-=200x357)
+=200*357)
 <br>
 <br>
-**New style!** `WMMenuViewStyleLine` <br>
+**New style!**
+`WMMenuViewStyleLine` <br>
 **CHEERS!** <br>
+**And it's also remember the position now!**
 ![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif)
 <br>
 <br>
