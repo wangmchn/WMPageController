@@ -2,7 +2,7 @@
 An easy solution to page controllers like `NetEase News`
 ## Overview
 **Default style** <br>
-![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif)
+![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif=200x357)
 <br>
 <br>
 **New style!** `WMMenuViewStyleLine` <br>
@@ -30,10 +30,11 @@ to init the controller.Here are two important porperties<br>
     classes :contains the classes of view controller, you can put obj in like [UITableViewController class];
     titles  :Each View controller's title to show in the menu view at the top of the view;
 
-To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,and also `itemsWidths`.<br>
+To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,`rememberLocation`,and also `itemsWidths`.<br>
 
 ### Attention
-When you are setting the title color, please use those have RGBA components, `except like [UIColor blackColor],[UIColor grayColor],ect.`,or **USE** `[UIColor colorWithRed:green:blue:alpha:]` **to make sure the color definitely work**.
+* 
+* When you are setting the title color, please use those have RGBA components, `except like [UIColor blackColor],[UIColor grayColor],ect.`,or **USE** `[UIColor colorWithRed:green:blue:alpha:]` **to make sure the color definitely work**.
 ## Pod
     pod 'WMPageController'
 
@@ -56,7 +57,6 @@ Here is an example:
 }
 ```
 ## Final
-If you want a controller reusable, I fully recommended you to use a `View` reuse instead of a controller.As we have to handle models all in a controller, why have we must get a parent controller interfering? And I do not think it's a great way to have a heavy view reuse ( lightweight, like a `role pick view` or `simple description of serial things`,is fine.  `News` ? forget it. ), it's too difficult to deal with a lot of infos. Maybe I am not experienced enough. @_@ <br>
 <br>
 **Reusable view version see this:** https://github.com/wangmchn/YKPageView
 <br>
