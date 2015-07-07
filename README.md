@@ -2,14 +2,14 @@
 An easy solution to page controllers like `NetEase News`
 ## Overview
 **Default style** <br>
-<img width="200" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
+<img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
 <br>
 <br>
-**New style!**
+**New style!**<br>
 `WMMenuViewStyleLine` <br>
-**CHEERS!** <br>
 **And it's also remember the position now!**<br>
-![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif)
+**CHEERS!** <br>
+<img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif" />               <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot3.gif" />
 <br>
 <br>
 And you can easily have this style only by one step;
@@ -17,7 +17,12 @@ And you can easily have this style only by one step;
 pageController.menuViewStyle = WMMenuViewStyleLine;
 ```
 <br>
-Set the property `itemsWidths` to have **different width**!
+## What's New
+* If items width didn't fill the screen width,page controller will calculate width and add gap between each item automatically;
+* Page controller will remember the position, if it's a kind of scrollView controller,(that means: UITabelViewController,UICollectionViewController,or you a controller you have replaced `controller.view` to scrollview,or you have add a scrollview as a first subview);
+* Adjust view and frames when device's orientation changed;
+* Set the property `itemsWidths` to have **different width**!Like @[@(100),@(80),@(50).....];
+* Waiting for new function...
 ## Basic use
 
 First Drag files in red frame to your project.<br>
@@ -35,7 +40,6 @@ to init the controller.Here are two important porperties<br>
 To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,`rememberLocation`,and also `itemsWidths`.<br>
 
 ### Attention
-* 
 * When you are setting the title color, please use those have RGBA components, `except like [UIColor blackColor],[UIColor grayColor],ect.`,or **USE** `[UIColor colorWithRed:green:blue:alpha:]` **to make sure the color definitely work**.
 ## Pod
     pod 'WMPageController'
