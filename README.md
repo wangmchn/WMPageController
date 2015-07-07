@@ -2,12 +2,13 @@
 An easy solution to page controllers like `NetEase News`
 ## Overview
 **Default style** <br>
-![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif=200x357)
+![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif
+=200x357)
 <br>
 <br>
 **New style!** `WMMenuViewStyleLine` <br>
 **CHEERS!** <br>
-![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot2.gif)
+![Example](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif)
 <br>
 <br>
 And you can easily have this style only by one step;
