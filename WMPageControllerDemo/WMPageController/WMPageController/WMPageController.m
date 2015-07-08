@@ -11,18 +11,27 @@
 @interface WMPageController () <WMMenuViewDelegate,UIScrollViewDelegate>{
     CGFloat viewHeight;
     CGFloat viewWidth;
-    BOOL animate;
+    BOOL    animate;
 }
 @property (nonatomic, weak) WMMenuView *menuView;
 @property (nonatomic, weak) UIScrollView *scrollView;
+
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
 @property (nonatomic, strong) NSMutableArray *childViewFrames;
 // 当前展示在屏幕上的控制器，方便在滚动的时候读取 (避免不必要计算)
 @property (nonatomic, strong) NSMutableDictionary *displayVC;
+// 用于记录销毁的viewController的位置 (如果它是某一种scrollView的Controller的话)
+@property (nonatomic, strong) NSMutableDictionary *posRecords;
 @end
 
 @implementation WMPageController
 #pragma mark - Lazy Loading
+- (NSMutableDictionary *)posRecords{
+    if (_posRecords == nil) {
+        _posRecords = [[NSMutableDictionary alloc] init];
+    }
+    return _posRecords;
+}
 - (NSMutableDictionary *)displayVC{
     if (_displayVC == nil) {
         _displayVC = [NSMutableDictionary dictionary];
@@ -166,18 +175,54 @@
     [self addChildViewController:viewController];
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
-    self.currentViewController = viewController;
     [self.displayVC setObject:viewController forKey:@(index)];
-    
     [self postFinishInitNotificationWithIndex:index];
+    
+    self.currentViewController = viewController;
+    
+    [self backToPositionIfNeeded:viewController atIndex:index];
 }
 // 移除控制器，且从display中移除
 - (void)removeViewController:(UIViewController *)viewController atIndex:(NSInteger)index{
+    [self rememberPositionIfNeeded:viewController atIndex:index];
     [viewController.view removeFromSuperview];
     [viewController willMoveToParentViewController:nil];
     [viewController removeFromParentViewController];
-    
     [self.displayVC removeObjectForKey:@(index)];
+}
+- (void)backToPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index{
+    if (!self.rememberLocation) return;
+    UIScrollView *scrollView = [self isKindOfScrollViewController:controller];
+    if (scrollView) {
+        NSValue *pointValue = self.posRecords[@(index)];
+        if (pointValue) {
+            CGPoint pos = [pointValue CGPointValue];
+            // 奇怪的现象，我发现collectionView的contentSize是 {0, 0};
+            [scrollView setContentOffset:pos];
+        }
+    }
+}
+- (void)rememberPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index{
+    if (!self.rememberLocation) return;
+    UIScrollView *scrollView = [self isKindOfScrollViewController:controller];
+    if (scrollView) {
+        CGPoint pos = scrollView.contentOffset;
+        self.posRecords[@(index)] = [NSValue valueWithCGPoint:pos];
+    }
+}
+- (UIScrollView *)isKindOfScrollViewController:(UIViewController *)controller{
+    UIScrollView *scrollView = nil;
+    if ([controller.view isKindOfClass:[UIScrollView class]]) {
+        // Controller的view是scrollView的子类(UITableViewController/UIViewController替换view为scrollView)
+        scrollView = (UIScrollView *)controller.view;
+    }else if (controller.view.subviews.count >= 1) {
+        // Controller的view的subViews[0]存在且是scrollView的子类，并且frame等与view得frame(UICollectionViewController/UIViewController添加UIScrollView)
+        UIView *view = controller.view.subviews[0];
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            scrollView = (UIScrollView *)view;
+        }
+    }
+    return scrollView;
 }
 - (BOOL)isInScreen:(CGRect)frame{
     CGFloat x = frame.origin.x;
@@ -206,7 +251,6 @@
 }
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    // 第一次 或者 屏幕状态改变？
     // 计算宽高及子控制器的视图frame
     [self calculateSize];
     CGRect scrollFrame = CGRectMake(0, self.menuHeight, viewWidth, viewHeight);
@@ -216,7 +260,7 @@
     self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
     
     [self resetMenuView];
-    
+
     [self.view layoutIfNeeded];
 }
 - (void)viewDidAppear:(BOOL)animated{
@@ -227,7 +271,8 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-
+    [self.posRecords removeAllObjects];
+    self.posRecords = nil;
 }
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

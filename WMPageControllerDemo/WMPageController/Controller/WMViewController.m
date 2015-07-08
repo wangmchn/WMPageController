@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    
+
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 180)];
     imageView.image = [UIImage imageNamed:@"hitMark.jpg"];
     self.imageView = imageView;
