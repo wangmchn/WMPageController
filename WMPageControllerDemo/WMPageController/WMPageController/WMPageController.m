@@ -218,9 +218,7 @@
     }else if (controller.view.subviews.count >= 1) {
         // Controller的view的subViews[0]存在且是scrollView的子类，并且frame等与view得frame(UICollectionViewController/UIViewController添加UIScrollView)
         UIView *view = controller.view.subviews[0];
-        CGRect controllerBounds = controller.view.bounds;
-        CGRect viewFrame = view.frame;
-        if ([view isKindOfClass:[UIScrollView class]] && CGRectEqualToRect(controllerBounds, viewFrame)) {
+        if ([view isKindOfClass:[UIScrollView class]]) {
             scrollView = (UIScrollView *)view;
         }
     }
