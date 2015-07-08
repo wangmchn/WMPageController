@@ -73,3 +73,4 @@ Here is an example:
 * If you have problems, please issue me.
 * If you have suggestions, please issue me.
 * If you like me, please issue me, or you can give me a little star :)
+* If you want a new style, please issue me! (I'm waiting for it..)
