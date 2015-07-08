@@ -19,9 +19,9 @@ pageController.menuViewStyle = WMMenuViewStyleLine;
 <br>
 ## What's New
 * If items width didn't fill the screen width,page controller will calculate width and add gap between each item automatically;
-* Page controller will remember the position, if it's a kind of scrollView controller,(that means: UITabelViewController,UICollectionViewController,or you a controller you have replaced `controller.view` to scrollview,or you have add a scrollview as a first subview);
-* Adjust view and frames when device's orientation changed;
-* Set the property `itemsWidths` to have **different width**!Like @[@(100),@(80),@(50).....];
+* Page controller will remember the position, if it's a kind of scrollView controller,(that means: `UITabelViewController` , `UICollectionViewController` ,or a controller you have replaced `controller.view` to `scrollview`,or you have add a scrollview as it's first subview);
+* Adjust views and frames when device's orientation changed;
+* Set the property `itemsWidths` to have **different width**!Like `@[@(100),@(80),@(50).....]`;
 * Waiting for new function...
 
 
