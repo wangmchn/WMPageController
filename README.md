@@ -22,8 +22,8 @@ pageController.menuViewStyle = WMMenuViewStyleLine;
 * Page controller will remember the position, if it's a kind of scrollView controller,(that means: `UITabelViewController` , `UICollectionViewController` ,or a controller you have replaced `controller.view` to `scrollview`,or you have add a scrollview as it's first subview);
 * Adjust views and frames when device's orientation changed;
 * Set the property `itemsWidths` to have **different width**!Like `@[@(100),@(80),@(50).....]`;
-* Waiting for new function...
-
+* Set the property `titleFontName` to custom the font of titles.
+* Waiting for new function...<br>
 
 ## Basic use
 
@@ -65,6 +65,8 @@ Here is an example:
     return self;
 }
 ```
+## To do
+    Add a cache policy to let views scroll more fluently!<br>
 ## Final
 <br>
 **Reusable view version see this:** https://github.com/wangmchn/YKPageView
@@ -73,5 +75,5 @@ Here is an example:
 **And:**
 * If you have problems, please issue me.
 * If you have suggestions, please issue me.
-* If you like me, please issue me, or you can give me a little star :)
 * If you want a new style, please issue me! (I'm waiting for it..)
+* If you like me, please issue me, or you can give me a little star :)
