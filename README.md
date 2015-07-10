@@ -66,7 +66,7 @@ Here is an example:
 }
 ```
 ## To do
-    Add a cache policy to let views scroll more fluently!<br>
+    Add a cache policy to let views scroll more fluently!
 ## Final
 <br>
 **Reusable view version see this:** https://github.com/wangmchn/YKPageView
