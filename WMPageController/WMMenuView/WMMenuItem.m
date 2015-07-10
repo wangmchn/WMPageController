@@ -21,6 +21,7 @@
     CGFloat rgbaGAP[4];
     BOOL    hasRGBA;
 }
+@property (nonatomic, strong) UIFont *font;
 @property (nonatomic, strong) CADisplayLink *link;
 @property (nonatomic, assign) CGFloat sizeGap;
 @end
@@ -38,8 +39,18 @@
     _title = title;
     [self setNeedsDisplay];
 }
-- (void)setFont:(UIFont *)font{
-    _font = font;
+- (void)setFontSize:(CGFloat)fontSize{
+    if (self.fontName) {
+        self.font = [UIFont fontWithName:self.fontName size:fontSize];
+    }else{
+        self.font = [UIFont systemFontOfSize:fontSize];
+    }
+    _fontSize = fontSize;
+    [self setNeedsDisplay];
+}
+- (void)setFontName:(NSString *)fontName{
+    _fontName = fontName;
+    self.fontSize = self.normalSize+self.sizeGap*self.rate;
     [self setNeedsDisplay];
 }
 - (void)setTitleColor:(UIColor *)titleColor{
@@ -60,14 +71,14 @@
 }
 - (void)selectedItemWithoutAnimation{
     self.titleColor = self.selectedColor;
-    self.font = [UIFont systemFontOfSize:self.selectedSize];
+    self.fontSize = self.selectedSize;
     _rate = 1.0;
     _selected = YES;
     [self setNeedsDisplay];
 }
 - (void)deselectedItemWithoutAnimation{
     self.titleColor = self.normalColor;
-    self.font = [UIFont systemFontOfSize:self.normalSize];
+    self.fontSize = self.normalSize;
     _rate = 0;
     _selected = NO;
     [self setNeedsDisplay];
@@ -108,7 +119,7 @@
 - (void)drawRect:(CGRect)rect {
     if (self.title) {
         if (self.font == nil) {
-            self.font = [UIFont systemFontOfSize:self.normalSize];
+            self.fontSize = self.normalSize;
         }
         if (self.titleColor == nil) {
             self.titleColor = self.normalColor;
@@ -157,7 +168,7 @@
     CGFloat b = rgba[2] + rgbaGAP[2]*self.rate;
     CGFloat a = rgba[3] + rgbaGAP[3]*self.rate;
     self.titleColor = [UIColor colorWithRed:r green:g blue:b alpha:a];
-    self.font = [UIFont systemFontOfSize:fontSize];
+    self.fontSize = fontSize;
 }
 // 隐式动画的实现
 - (void)changeTitle{

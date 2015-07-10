@@ -39,6 +39,10 @@
 @property (nonatomic, strong) UIColor *titleColorSelected;
 @property (nonatomic, strong) UIColor *titleColorNormal;
 
+// 标题的字体名字
+// The name of title's font
+@property (nonatomic, copy) NSString *titleFontName;
+
 // 导航栏高度
 // The menu view height
 @property (nonatomic, assign) CGFloat menuHeight;
