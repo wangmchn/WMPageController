@@ -128,6 +128,9 @@
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonItems:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
     menuView.delegate = self;
     menuView.style = self.menuViewStyle;
+    if (self.titleFontName) {
+        menuView.fontName = self.titleFontName;
+    }
     if (self.lineColor && self.menuViewStyle == WMMenuViewStyleLine) {
         menuView.lineColor = self.lineColor;
     }

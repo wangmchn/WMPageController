@@ -87,7 +87,7 @@ static CGFloat const WMProgressHeight = 2.0;
     [self.selItem deselectedItemWithoutAnimation];
     self.selItem = item;
     [self.selItem selectedItemWithoutAnimation];
-    self.progressView.progress = index;
+    [self.progressView setProgressWithOutAnimate:index];
     if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
         [self.delegate menuView:self didSelesctedIndex:index currentIndex:currentIndex];
     }
@@ -163,6 +163,9 @@ static CGFloat const WMProgressHeight = 2.0;
         if (i == 0) {
             [item selectedItemWithoutAnimation];
             self.selItem = item;
+        }
+        if (self.fontName) {
+            item.fontName = self.fontName;
         }
         [self.scrollView addSubview:item];
     }

@@ -12,4 +12,5 @@
 @property (nonatomic, strong) NSArray *itemFrames;
 @property (nonatomic, assign) CGColorRef color;
 @property (nonatomic, assign) CGFloat progress;
+- (void)setProgressWithOutAnimate:(CGFloat)progress;
 @end
