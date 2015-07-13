@@ -7,10 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "WMPageController.h"
-#import "WMTableViewController.h"
-#import "WMViewController.h"
-#import "WMCollectionViewController.h"
+#import "WMMainTableViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -21,37 +18,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     // .....
-    NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
-    NSMutableArray *titles = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 5; i++) {
-        Class vcClass;
-        NSString *title;
-        switch (i%3) {
-            case 1:
-                vcClass = [WMTableViewController class];
-                title = @"Greetings";
-                break;
-            case 2:
-                vcClass = [WMViewController class];
-                title = @"Hit Me";
-                break;
-            default:
-                vcClass = [WMCollectionViewController class];
-                title = @"Fluency";
-                break;
-        }
-        [viewControllers addObject:vcClass];
-        [titles addObject:title];
-    }
-    WMPageController *pageVC = [[WMPageController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
-    pageVC.title = @"Test";
-    pageVC.menuItemWidth = 80;
-    pageVC.titleSizeSelected = 15;
-    pageVC.pageAnimatable = YES;
-    pageVC.menuViewStyle = WMMenuViewStyleLine;
-    pageVC.titleFontName = @"Verdana";
-    pageVC.rememberLocation = YES;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pageVC];
+    WMMainTableViewController *tableViewController = [[WMMainTableViewController alloc] init];
+    tableViewController.title = @"Test";
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tableViewController];
     self.window.rootViewController = nav;
     return YES;
 }

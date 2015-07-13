@@ -131,8 +131,8 @@
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }
-    if (self.lineColor && self.menuViewStyle == WMMenuViewStyleLine) {
-        menuView.lineColor = self.lineColor;
+    if (self.progressColor) {
+        menuView.lineColor = self.progressColor;
     }
     [self.view addSubview:menuView];
     self.menuView = menuView;
@@ -251,6 +251,8 @@
     
     [self addScrollView];
     [self addMenuView];
+    
+    [self addViewControllerAtIndex:0];
 }
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
@@ -268,7 +270,6 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self addViewControllerAtIndex:0];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
 }
 - (void)didReceiveMemoryWarning {

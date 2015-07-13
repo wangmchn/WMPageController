@@ -64,10 +64,10 @@
 // Menu view's style, now has two different styles, 'Line','default'
 @property (nonatomic, assign) WMMenuViewStyle menuViewStyle;
 
-// 下划线的颜色，默认和选中颜色一致(如果不是 style 不为 line，则该属性无用)
-// The line color,the default color is same with `titleColorSelected`.
+// 进度条的颜色，默认和选中颜色一致(如果不是 style 为 Default，则该属性无用)
+// The progress's color,the default color is same with `titleColorSelected`.
 // If you want to have a different color, set this property.
-@property (nonatomic, strong) UIColor *lineColor;
+@property (nonatomic, strong) UIColor *progressColor;
 
 // 是否发送在创建控制器或者视图完全展现在用户眼前时通知观察者，默认为不开启，如需利用通知请开启
 // Whether notify observer when finish init or fully displayed to user, the default is NO.

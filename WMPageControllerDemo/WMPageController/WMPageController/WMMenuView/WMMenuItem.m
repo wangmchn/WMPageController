@@ -12,7 +12,6 @@
 #define kAnimateStep  0.05
 #define kAnimateRate  0.1
 
-#define kBGColor        [UIColor whiteColor]
 #define kSelectedColor  [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1]
 #define kNormalColor    [UIColor colorWithRed:0 green:0 blue:0 alpha:1]
 
@@ -30,7 +29,6 @@
 #pragma mark - Public Methods
 - (instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
-        self.backgroundColor = kBGColor;
         hasRGBA = NO;
     }
     return self;
