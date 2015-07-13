@@ -5,16 +5,19 @@ An easy solution to page controllers like `NetEase News`
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
 <br>
 <br>
-**New style!**<br>
-`WMMenuViewStyleLine` <br>
-**And it's also remember the position now!**<br>
+**New styles!**<br>
 **CHEERS!** <br>
-<img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif" />               <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot3.gif" />
 <br>
+`WMMenuViewStyleLine` <br>
+<img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif" />               <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot3.gif" /> 
+`WMMenuViewStyleFlood`<br>
+<img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot2.gif" />
+<br> 
 <br>
 And you can easily have this style only by one step;
 ```objective-c
 pageController.menuViewStyle = WMMenuViewStyleLine;
+pageController.menuViewStyle = WMMenuViewStyleFlood;
 ```
 <br>
 ## What's New
@@ -32,7 +35,8 @@ First Drag files in red frame to your project.<br>
 
 Then,create an controller that extends from `WMPageController`.I recommend to use<br>
 ```objective-c
-- (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles;
+- (instancetype)initWithViewControllerClasses:(NSArray *)classes 
+                               andTheirTitles:(NSArray *)titles;
 ```
 to init the controller.Here are two important porperties<br>
 
@@ -41,9 +45,6 @@ to init the controller.Here are two important porperties<br>
 
 To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,`rememberLocation`,and also `itemsWidths`.<br>
 
-### Attention
-When you are setting the title color, please use those have RGBA components, `except like [UIColor blackColor],[UIColor grayColor],ect.`,or **USE** `[UIColor colorWithRed:green:blue:alpha:]` **to make sure the color definitely work**.
-<br>
 ## Pod
     pod 'WMPageController'
 
