@@ -34,8 +34,8 @@
 @property (nonatomic, assign) CGFloat titleSizeSelected;
 @property (nonatomic, assign) CGFloat titleSizeNormal;
 
-// 标题颜色, 请注意, 颜色是可动画的,且必须要有 RGBA 分量.(比如 blackColor 和 grayColor 都不行，建议使用 RBGA 创建)
-// The title color,the color is animatable, make sure they have RGBA components.
+// 标题颜色, 颜色是可动画的.
+// The title color,the color is animatable.
 @property (nonatomic, strong) UIColor *titleColorSelected;
 @property (nonatomic, strong) UIColor *titleColorNormal;
 
@@ -83,7 +83,7 @@
 
 /**
  *  构造方法，请使用该方法创建控制器 (此方法不重用控制器).
- *  Init method，recommend to use this instead of `-init` (not usable).
+ *  Init method，recommend to use this instead of `-init` (not reusable).
  *
  *  @param classes 子控制器的 class，确保数量与 titles 的数量相等
  *  @param titles  各个子控制器的标题，用 NSString 描述
