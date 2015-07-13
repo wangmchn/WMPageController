@@ -13,6 +13,8 @@
 		4D38F7641B29CA4600203BC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D38F7631B29CA4600203BC9 /* Images.xcassets */; };
 		4D38F7671B29CA4600203BC9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D38F7651B29CA4600203BC9 /* LaunchScreen.xib */; };
 		4D38F7731B29CA4600203BC9 /* WMPageControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D38F7721B29CA4600203BC9 /* WMPageControllerTests.m */; };
+		4D60B5F71B537F8A00BDD962 /* WMFooldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D60B5F61B537F8A00BDD962 /* WMFooldView.m */; };
+		4D60B5FA1B53A1E600BDD962 /* WMMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D60B5F91B53A1E600BDD962 /* WMMainTableViewController.m */; };
 		4D6BDF6F1B2DA66B008282D1 /* Dragon Spirit.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF671B2DA66B008282D1 /* Dragon Spirit.jpg */; };
 		4D6BDF701B2DA66B008282D1 /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF681B2DA66B008282D1 /* github.png */; };
 		4D6BDF711B2DA66B008282D1 /* hitMark.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF691B2DA66B008282D1 /* hitMark.jpg */; };
@@ -55,6 +57,10 @@
 		4D38F7711B29CA4600203BC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D38F7721B29CA4600203BC9 /* WMPageControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMPageControllerTests.m; sourceTree = "<group>"; };
 		4D4D3E651B2B413900854961 /* WMPageConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMPageConst.h; sourceTree = "<group>"; };
+		4D60B5F51B537F8A00BDD962 /* WMFooldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFooldView.h; sourceTree = "<group>"; };
+		4D60B5F61B537F8A00BDD962 /* WMFooldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFooldView.m; sourceTree = "<group>"; };
+		4D60B5F81B53A1E600BDD962 /* WMMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMainTableViewController.h; sourceTree = "<group>"; };
+		4D60B5F91B53A1E600BDD962 /* WMMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMainTableViewController.m; sourceTree = "<group>"; };
 		4D6BDF671B2DA66B008282D1 /* Dragon Spirit.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Dragon Spirit.jpg"; sourceTree = "<group>"; };
 		4D6BDF681B2DA66B008282D1 /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
 		4D6BDF691B2DA66B008282D1 /* hitMark.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hitMark.jpg; sourceTree = "<group>"; };
@@ -127,6 +133,8 @@
 				4D6BDF771B2DB3CE008282D1 /* Controller */,
 				4D38F75A1B29CA4600203BC9 /* AppDelegate.h */,
 				4D38F75B1B29CA4600203BC9 /* AppDelegate.m */,
+				4D60B5F81B53A1E600BDD962 /* WMMainTableViewController.h */,
+				4D60B5F91B53A1E600BDD962 /* WMMainTableViewController.m */,
 				4D38F7601B29CA4600203BC9 /* Main.storyboard */,
 				4D38F7631B29CA4600203BC9 /* Images.xcassets */,
 				4D38F7651B29CA4600203BC9 /* LaunchScreen.xib */,
@@ -221,6 +229,8 @@
 				4DC1EC381B368AA60042DA2B /* WMMenuView.m */,
 				4DC1EC391B368AA60042DA2B /* WMProgressView.h */,
 				4DC1EC3A1B368AA60042DA2B /* WMProgressView.m */,
+				4D60B5F51B537F8A00BDD962 /* WMFooldView.h */,
+				4D60B5F61B537F8A00BDD962 /* WMFooldView.m */,
 			);
 			path = WMMenuView;
 			sourceTree = "<group>";
@@ -336,6 +346,7 @@
 				4D71C6F51B29CDB800BF9B12 /* WMPageController.m in Sources */,
 				4DC1EC3C1B368AA60042DA2B /* WMMenuView.m in Sources */,
 				4D38F75C1B29CA4600203BC9 /* AppDelegate.m in Sources */,
+				4D60B5F71B537F8A00BDD962 /* WMFooldView.m in Sources */,
 				4D6BDF7E1B2DB3CE008282D1 /* WMCollectionViewController.m in Sources */,
 				4D6BDF7F1B2DB3CE008282D1 /* WMTableViewController.m in Sources */,
 				4D6BDF801B2DB3CE008282D1 /* WMViewController.m in Sources */,
@@ -343,6 +354,7 @@
 				4DC1EC3D1B368AA60042DA2B /* WMProgressView.m in Sources */,
 				4D6BDF871B2DB3EE008282D1 /* WMLoopView.m in Sources */,
 				4D6BDF861B2DB3EE008282D1 /* WMImageViewCell.m in Sources */,
+				4D60B5FA1B53A1E600BDD962 /* WMMainTableViewController.m in Sources */,
 				4D38F7591B29CA4600203BC9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

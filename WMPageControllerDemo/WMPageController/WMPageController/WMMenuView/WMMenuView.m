@@ -9,6 +9,7 @@
 #import "WMMenuView.h"
 #import "WMMenuItem.h"
 #import "WMProgressView.h"
+#import "WMFooldView.h"
 // 导航菜单栏距边界的间距
 #define WMMenuMargin 0
 #define kMaskWidth   0
@@ -60,7 +61,7 @@ static CGFloat const WMProgressHeight = 2.0;
     return self;
 }
 - (void)slideMenuAtProgress:(CGFloat)progress{
-    if (self.style == WMMenuViewStyleLine) {
+    if (self.progressView) {
         self.progressView.progress = progress;
     }
     NSInteger tag = (NSInteger)progress + kTagGap;
@@ -101,8 +102,18 @@ static CGFloat const WMProgressHeight = 2.0;
 }
 // 有没更好地命名
 - (void)makeStyle{
-    if (self.style == WMMenuViewStyleLine) {
-        [self addProgress];
+    switch (self.style) {
+        case WMMenuViewStyleLine:
+            [self addProgressView];
+            break;
+        case WMMenuViewStyleFoold:
+            [self addFooldViewHollow:NO];
+            break;
+        case WMMenuViewStyleFooldHollow:
+            [self addFooldViewHollow:YES];
+            break;
+        default:
+            break;
     }
 }
 // 让选中的item位于中间
@@ -199,13 +210,23 @@ static CGFloat const WMProgressHeight = 2.0;
     }
     self.scrollView.contentSize = CGSizeMake(contentWidth, self.frame.size.height);
 }
-- (void)addProgress{
+// MARK:Progress View
+- (void)addProgressView{
     WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-WMProgressHeight, self.scrollView.contentSize.width, WMProgressHeight)];
     pView.itemFrames = self.frames;
     pView.color = self.lineColor.CGColor;
     pView.backgroundColor = [UIColor clearColor];
     self.progressView = pView;
     [self.scrollView addSubview:pView];
+}
+- (void)addFooldViewHollow:(BOOL)isHollow{
+    WMFooldView *fooldView = [[WMFooldView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.contentSize.width, self.frame.size.height)];
+    fooldView.itemFrames = self.frames;
+    fooldView.color = self.lineColor.CGColor;
+    fooldView.hollow = isHollow;
+    fooldView.backgroundColor = [UIColor clearColor];
+    self.progressView = fooldView;
+    [self.scrollView insertSubview:fooldView atIndex:0];
 }
 #pragma mark - Menu item delegate
 - (void)didPressedMenuItem:(WMMenuItem *)menuItem{
