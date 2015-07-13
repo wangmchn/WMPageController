@@ -12,7 +12,7 @@
 #define WMTitleSizeSelected 18
 #define WMTitleSizeNormal   15
 
-//  标题的颜色(选中/非选中) (P.S.标题颜色是可动画的，请确保颜色具有RGBA分量，如通过RGBA创建)
+//  标题的颜色(选中/非选中) (P.S.标题颜色是可动画的)
 #define WMTitleColorSelected [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1]
 #define WMTitleColorNormal   [UIColor colorWithRed:0 green:0 blue:0 alpha:1]
 

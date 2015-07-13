@@ -136,6 +136,7 @@
     int numNormal = (int)CGColorGetNumberOfComponents(self.normalColor.CGColor);
     int numSelected = (int)CGColorGetNumberOfComponents(self.selectedColor.CGColor);
     if (numNormal == 4&&numSelected == 4) {
+        // UIDeviceRGBColorSpace
         const CGFloat *norComponents = CGColorGetComponents(self.normalColor.CGColor);
         const CGFloat *selComponents = CGColorGetComponents(self.selectedColor.CGColor);
         rgba[0] = norComponents[0];
@@ -146,6 +147,17 @@
         rgbaGAP[2] = selComponents[2]-rgba[2];
         rgba[3] = norComponents[3];
         rgbaGAP[3] =  selComponents[3]-rgba[3];
+    }else{
+        if (numNormal == 2) {
+            const CGFloat *norComponents = CGColorGetComponents(self.normalColor.CGColor);
+            self.normalColor = [UIColor colorWithRed:norComponents[0] green:norComponents[0] blue:norComponents[0] alpha:norComponents[1]];
+        }
+        if (numSelected == 2) {
+            const CGFloat *selComponents = CGColorGetComponents(self.selectedColor.CGColor);
+            self.selectedColor = [UIColor colorWithRed:selComponents[0] green:selComponents[0] blue:selComponents[0] alpha:selComponents[1]];
+        }
+        [self setRBGA];
+        return;
     }
     hasRGBA = YES;
 }

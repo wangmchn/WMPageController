@@ -34,13 +34,11 @@
  */
 @property (nonatomic, assign) CGFloat selectedSize;
 /**
- *  normal状态的字体颜色，默认为黑色
- *  如果要动画，必须用rgb创建
+ *  normal状态的字体颜色，默认为黑色 (可动画)
  */
 @property (nonatomic, strong) UIColor *normalColor;
 /**
- *  selected状态的字体颜色，默认为红色
- *  如果要动画，必须用rgb创建
+ *  selected状态的字体颜色，默认为红色 (可动画)
  */
 @property (nonatomic, strong) UIColor *selectedColor;
 
