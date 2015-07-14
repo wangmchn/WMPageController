@@ -13,8 +13,9 @@
     CGFloat viewWidth;
     BOOL    animate;
 }
-@property (nonatomic, weak) WMMenuView *menuView;
-@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, strong, readwrite) UIViewController *currentViewController;
+@property (nonatomic, weak, readwrite) WMMenuView *menuView;
+@property (nonatomic, weak, readwrite) UIScrollView *scrollView;
 
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
 @property (nonatomic, strong) NSMutableArray *childViewFrames;

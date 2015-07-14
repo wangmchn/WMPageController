@@ -13,6 +13,7 @@
     CGFloat viewWidth;
     BOOL    animate;
 }
+@property (nonatomic, strong, readwrite) UIViewController *currentViewController;
 @property (nonatomic, weak) WMMenuView *menuView;
 @property (nonatomic, weak) UIScrollView *scrollView;
 
