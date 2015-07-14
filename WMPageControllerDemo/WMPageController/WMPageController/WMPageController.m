@@ -253,7 +253,7 @@
     [self addScrollView];
     [self addMenuView];
     
-    [self addViewControllerAtIndex:0];
+    [self addViewControllerAtIndex:self.selectIndex];
 }
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
