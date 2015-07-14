@@ -66,6 +66,10 @@ Here is an example:
     return self;
 }
 ```
+## To do
+    Add a cache policy to make views scroll much more fluently!
+    And also new styles!
+
 ## Final
 <br>
 **Reusable view version see this:** https://github.com/wangmchn/YKPageView
