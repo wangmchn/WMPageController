@@ -64,7 +64,7 @@
 // Menu view's style, now has two different styles, 'Line','default'
 @property (nonatomic, assign) WMMenuViewStyle menuViewStyle;
 
-// 进度条的颜色，默认和选中颜色一致(如果不是 style 为 Default，则该属性无用)
+// 进度条的颜色，默认和选中颜色一致(如果 style 为 default，则该属性无用)
 // The progress's color,the default color is same with `titleColorSelected`.
 // If you want to have a different color, set this property.
 @property (nonatomic, strong) UIColor *progressColor;
@@ -75,15 +75,14 @@
 
 // 是否记录Controller的位置，并在下次回来的时候回到相应位置,默认为NO
 // 比如`UITabelViewController`,当然你也可以在自己的控制器中自行设置
-// 如果将Controller.view替换为scrollView或者在Controller.view上添加了一个和自身bounds一样的scrollView也是OK的
-// NOTE：在viewDidLoad中controller.view.bounds等于屏幕的bounds
+// 如果将controller.view替换为scrollView或者在controller.view上添加了一个和自身bounds一样的scrollView也是OK的
 // Whether to remember controller's positon if it's a kind of scrollView controller,like UITableViewController
 // The default value is NO.
 @property (nonatomic, assign) BOOL rememberLocation;
 
 /**
- *  构造方法，请使用该方法创建控制器 (此方法不重用控制器).
- *  Init method，recommend to use this instead of `-init` (not reusable).
+ *  构造方法，请使用该方法创建控制器.
+ *  Init method，recommend to use this instead of `-init`.
  *
  *  @param classes 子控制器的 class，确保数量与 titles 的数量相等
  *  @param titles  各个子控制器的标题，用 NSString 描述
