@@ -8,14 +8,15 @@
 
 #import "WMPageController.h"
 #import "WMPageConst.h"
+
 @interface WMPageController () <WMMenuViewDelegate,UIScrollViewDelegate>{
     CGFloat viewHeight;
     CGFloat viewWidth;
     BOOL    animate;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
-@property (nonatomic, weak, readwrite) WMMenuView *menuView;
-@property (nonatomic, weak, readwrite) UIScrollView *scrollView;
+@property (nonatomic, weak) WMMenuView *menuView;
+@property (nonatomic, weak) UIScrollView *scrollView;
 
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
 @property (nonatomic, strong) NSMutableArray *childViewFrames;
@@ -23,6 +24,10 @@
 @property (nonatomic, strong) NSMutableDictionary *displayVC;
 // 用于记录销毁的viewController的位置 (如果它是某一种scrollView的Controller的话)
 @property (nonatomic, strong) NSMutableDictionary *posRecords;
+// 用于缓存加载过的控制器
+@property (nonatomic, strong) NSCache *memCache;
+// 收到内存警告的次数
+@property (nonatomic, assign) int memoryWarningCount;
 @end
 
 @implementation WMPageController
@@ -35,15 +40,16 @@
 }
 - (NSMutableDictionary *)displayVC{
     if (_displayVC == nil) {
-        _displayVC = [NSMutableDictionary dictionary];
+        _displayVC = [[NSMutableDictionary alloc] init];
     }
     return _displayVC;
 }
 #pragma mark - Public Methods
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles {
     if (self = [super init]) {
+        NSAssert(classes.count == titles.count, @"classes.count != titles.count");
         self.viewControllerClasses = [NSArray arrayWithArray:classes];
-        self.titles = titles;
+        self.titles = [NSArray arrayWithArray:titles];
 
         [self setup];
     }
@@ -54,6 +60,10 @@
         [self setup];
     }
     return self;
+}
+- (void)setCachePolicy:(WMPageControllerCachePolicy)cachePolicy {
+    _cachePolicy = cachePolicy;
+    self.memCache.countLimit = _cachePolicy;
 }
 - (void)setItemsWidths:(NSArray *)itemsWidths{
     if (itemsWidths.count != self.titles.count) {
@@ -99,6 +109,8 @@
     self.menuBGColor = WMMenuBGColor;
     self.menuHeight = WMMenuHeight;
     self.menuItemWidth = WMMenuItemWidth;
+    // cache
+    self.memCache = [[NSCache alloc] init];
 }
 // 包括宽高，子控制器视图frame
 - (void)calculateSize{
@@ -160,8 +172,15 @@
         UIViewController *vc = [self.displayVC objectForKey:@(i)];
         if ([self isInScreen:frame]) {
             if (vc == nil) {
-                // vc在视野中了，但不存在，创建并添加到display
-                [self addViewControllerAtIndex:i];
+                // 先从 cache 中取
+                vc = [self.memCache objectForKey:@(i)];
+                if (vc) {
+                    // cache 中存在，添加到 scrollView 上，并放入display
+                    [self addCachedViewController:vc atIndex:i];
+                }else{
+                    // cache 中也不存在，创建并添加到display
+                    [self addViewControllerAtIndex:i];
+                }
             }
         }else{
             if (vc) {
@@ -170,6 +189,14 @@
             }
         }
     }
+}
+- (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index{
+    [self addChildViewController:viewController];
+    [viewController didMoveToParentViewController:self];
+    [self.scrollView addSubview:viewController.view];
+    [self.displayVC setObject:viewController forKey:@(index)];
+
+    self.currentViewController = viewController;
 }
 // 添加子控制器
 - (void)addViewControllerAtIndex:(int)index{
@@ -193,6 +220,11 @@
     [viewController willMoveToParentViewController:nil];
     [viewController removeFromParentViewController];
     [self.displayVC removeObjectForKey:@(index)];
+    
+    // 放入缓存
+    if (![self.memCache objectForKey:@(index)]) {
+        [self.memCache setObject:viewController forKey:@(index)];
+    }
 }
 - (void)backToPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index{
     if (!self.rememberLocation) return;
@@ -244,6 +276,13 @@
     [self addMenuView];
     [oldMenuView removeFromSuperview];
 }
+- (void)growCachePolicyAfterMemoryWarning{
+    self.cachePolicy = WMPageControllerCachePolicyBalanced;
+    [self performSelector:@selector(growCachePolicyToHigh) withObject:nil afterDelay:2.0];
+}
+- (void)growCachePolicyToHigh{
+    self.cachePolicy = WMPageControllerCachePolicyHigh;
+}
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -253,7 +292,7 @@
     [self addScrollView];
     [self addMenuView];
     
-    [self addViewControllerAtIndex:0];
+    [self addViewControllerAtIndex:self.selectIndex];
 }
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
@@ -276,8 +315,20 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    self.memoryWarningCount++;
+    self.cachePolicy = WMPageControllerCachePolicyLowMemory;
+    // 取消正在增长的 cache 操作
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyAfterMemoryWarning) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyToHigh) object:nil];
+    
+    [self.memCache removeAllObjects];
     [self.posRecords removeAllObjects];
     self.posRecords = nil;
+    
+    // 如果收到内存警告次数小于 3，一段时间后切换到模式 Balanced
+    if (self.memoryWarningCount < 3) {
+        [self performSelector:@selector(growCachePolicyAfterMemoryWarning) withObject:nil afterDelay:3.0];
+    }
 }
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

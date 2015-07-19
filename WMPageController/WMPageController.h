@@ -9,12 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "WMMenuView.h"
 
+/**************************************************************************************************************
+ *  WMPageController 的缓存设置，默认缓存为无限制，当收到 memoryWarning 时，会自动切换到低缓存模式 (WMPageControllerCachePolicyLowMemory)，并在一段时间后切换回默认模式.
+ 收到多次警告后，会停留在到 WMPageControllerCachePolicyLowMemory 不再增长
+ **************************************************************************************************************
+ *  The Default cache policy is No Limit, when recieved memory warning, page controller will switch mode to 'LowMemory'
+    and continue to grow back after a while.
+    If recieved too much times, the cache policy will stay at 'LowMemory' and don't grow back any more.
+ */
 typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
-    WMPageControllerCachePolicyNoLimit   = 0,
-    WMPageControllerCachePolicyLowMemory = 1,
-    WMPageControllerCachePolicyDefault   = 3
+    WMPageControllerCachePolicyNoLimit   = 0,  // No limit
+    WMPageControllerCachePolicyLowMemory = 1,  // Low Memory but may block when scroll
+    WMPageControllerCachePolicyBalanced  = 3,  // Balanced ↑ and ↓
+    WMPageControllerCachePolicyHigh      = 5   // High
 };
-
 
 @interface WMPageController : UIViewController
 
@@ -26,7 +34,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 
 /**
  *  各个控制器标题, NSString
- *  Titles of view controllers in page controller. Use NSString.
+ *  Titles of view controllers in page controller. Use `NSString`.
  */
 @property (nonatomic, strong) NSArray *titles;
 @property (nonatomic, strong, readonly) UIViewController *currentViewController;
@@ -120,8 +128,11 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  Whether to remember controller's positon if it's a kind of scrollView controller,like UITableViewController,The default value is NO.
  *  比如 `UITabelViewController`, 当然你也可以在自己的控制器中自行设置, 如果将 Controller.view 替换为 scrollView 或者在Controller.view 上添加了一个和自身 bounds 一样的 scrollView 也是OK的
  */
-@property (nonatomic, assign) BOOL rememberLocation;
-
+@property (nonatomic, assign) BOOL rememberLocation __deprecated_msg("Because of the cache policy,this property can abondon now.");
+/**
+ *  缓存的机制，默认为无限制(如果收到内存警告)
+ */
+@property (nonatomic, assign) WMPageControllerCachePolicy cachePolicy;
 /**
  *  构造方法，请使用该方法创建控制器.
  *  Init method，recommend to use this instead of `-init`.
