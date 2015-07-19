@@ -148,7 +148,6 @@
         rgba[3] = norComponents[3];
         rgbaGAP[3] =  selComponents[3]-rgba[3];
     }else{
-        // UIDeviceWhiteColorSpace ——> UIDeviceRGBColorSpace
         if (numNormal == 2) {
             const CGFloat *norComponents = CGColorGetComponents(self.normalColor.CGColor);
             self.normalColor = [UIColor colorWithRed:norComponents[0] green:norComponents[0] blue:norComponents[0] alpha:norComponents[1]];

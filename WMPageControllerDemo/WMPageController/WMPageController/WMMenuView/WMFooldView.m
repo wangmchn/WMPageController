@@ -90,7 +90,6 @@
     CGContextClosePath(ctx);
     CGContextSetFillColorWithColor(ctx, self.color);
     CGContextFillPath(ctx);
-
 }
 
 

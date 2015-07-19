@@ -127,8 +127,6 @@
     pageVC.titleColorSelected = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
     pageVC.titleColorNormal = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
     pageVC.progressColor = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
-    pageVC.rememberLocation = YES;
-    
     pageVC.itemsWidths = @[@(70),@(100),@(70)]; // 这里可以设置不同的宽度
     return pageVC;
 }

@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>3714CD67-FF8F-49BA-9AA7-CED24285CAFC</string>
 	<key>IDESourceControlProjectName</key>
-	<string>WMPageController</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>6DA71733656E4D6D655376376446B23C61CEBD52</key>
 		<string>https://github.com/wangmchn/WMPageController.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>WMPageControllerDemo/WMPageController.xcodeproj</string>
+	<string>WMPageControllerDemo/WMPageController.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>6DA71733656E4D6D655376376446B23C61CEBD52</key>
