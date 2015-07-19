@@ -21,10 +21,11 @@ pageController.menuViewStyle = WMMenuViewStyleFlood;
 ```
 <br>
 ## What's New
+* **Now page controller has a cache policy and scroll much more fluently!**
 * If items width didn't fill the screen width,page controller will calculate width and add gap between each item automatically;
 * Page controller will remember the position, if it's a kind of scrollView controller,(that means: `UITabelViewController` , `UICollectionViewController` ,or a controller you have replaced `controller.view` to `scrollview`,or you have add a scrollview as it's first subview);
 * Adjust views and frames when device's orientation changed;
-* Set the property `itemsWidths` to have **different width**!Like `@[@(100),@(80),@(50).....]`;
+* Set the property `itemsWidths` to have **Different Width**! Like `@[@(100),@(80),@(50).....]`;
 * Waiting for new function...
 
 
@@ -43,7 +44,7 @@ to init the controller.Here are two important porperties<br>
     classes :contains the classes of view controller, you can put obj in like [UITableViewController class];
     titles  :Each View controller's title to show in the menu view at the top of the view;
 
-To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,`rememberLocation`,and also `itemsWidths`.<br>
+To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,~~`rememberLocation`~~,and also `itemsWidths`.<br>
 
 ## Pod
     pod 'WMPageController'
@@ -67,7 +68,6 @@ Here is an example:
 }
 ```
 ## To do
-    Add a cache policy to make views scroll much more fluently!
     And also new styles!
 
 ## Final
