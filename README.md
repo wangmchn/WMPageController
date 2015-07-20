@@ -68,7 +68,8 @@ Here is an example:
 }
 ```
 ## To do
-    And also new styles!
+    New styles!
+    And support Swift.
 
 ## Final
 <br>
