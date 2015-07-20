@@ -191,12 +191,11 @@
     }
 }
 - (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index{
+    viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [self addChildViewController:viewController];
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
-
-    self.currentViewController = viewController;
 }
 // 添加子控制器
 - (void)addViewControllerAtIndex:(int)index{
@@ -208,8 +207,6 @@
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
     [self postFinishInitNotificationWithIndex:index];
-    
-    self.currentViewController = viewController;
     
     [self backToPositionIfNeeded:viewController atIndex:index];
 }
@@ -308,6 +305,7 @@
     self.scrollView.frame = scrollFrame;
     self.scrollView.contentSize = CGSizeMake(self.titles.count*viewWidth, viewHeight);
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex*viewWidth, 0)];
+
     self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
     
     [self resetMenuView];
@@ -351,6 +349,7 @@
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     _selectIndex = (int)scrollView.contentOffset.x / viewWidth;
+    self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
 }
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
@@ -372,6 +371,7 @@
         }
     }
     _selectIndex = (int)index;
+    self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index{
     if (self.itemsWidths) {

@@ -29,7 +29,6 @@ static NSString * const reuseIdentifier = @"WMCollectionCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.imageNames = @[@"The roar.jpg",@"Dragon Spirit.jpg",@"Night.jpg"];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.collectionView registerClass:[WMImageViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
