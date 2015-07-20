@@ -136,6 +136,7 @@
     int numNormal = (int)CGColorGetNumberOfComponents(self.normalColor.CGColor);
     int numSelected = (int)CGColorGetNumberOfComponents(self.selectedColor.CGColor);
     if (numNormal == 4&&numSelected == 4) {
+        // UIDeviceRGBColorSpace
         const CGFloat *norComponents = CGColorGetComponents(self.normalColor.CGColor);
         const CGFloat *selComponents = CGColorGetComponents(self.selectedColor.CGColor);
         rgba[0] = norComponents[0];
@@ -146,9 +147,24 @@
         rgbaGAP[2] = selComponents[2]-rgba[2];
         rgba[3] = norComponents[3];
         rgbaGAP[3] =  selComponents[3]-rgba[3];
+    }else if (numNormal == 2 || numSelected == 2) {
+        // 将灰度空间 (grayColor blackColor ect.) 转为 RGBA 色彩空间
+        if (numNormal == 2) {
+            const CGFloat *norComponents = CGColorGetComponents(self.normalColor.CGColor);
+            self.normalColor = [UIColor colorWithRed:norComponents[0] green:norComponents[0] blue:norComponents[0] alpha:norComponents[1]];
+        }
+        if (numSelected == 2) {
+            const CGFloat *selComponents = CGColorGetComponents(self.selectedColor.CGColor);
+            self.selectedColor = [UIColor colorWithRed:selComponents[0] green:selComponents[0] blue:selComponents[0] alpha:selComponents[1]];
+        }
+        [self setRBGA];
+        return;
+    }else{
+        NSAssert(NO, @"Error with item's color (`titleColorSelected`), may use `colorWithRed:green:blue:alpha:` can solve the problem.");
     }
     hasRGBA = YES;
 }
+
 // 触摸事件，告诉代理被触摸(点击)
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if ([self.delegate respondsToSelector:@selector(didPressedMenuItem:)]) {
