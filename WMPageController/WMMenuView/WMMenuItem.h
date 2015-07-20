@@ -18,7 +18,8 @@
  *  设置rate,并刷新标题状态
  */
 @property (nonatomic, assign) CGFloat rate;
-@property (nonatomic, strong) UIFont *font;
+@property (nonatomic, assign) CGFloat fontSize;
+@property (nonatomic, copy)   NSString *fontName;
 @property (nonatomic, strong) UIColor *titleColor;
 /**
  *  标题

@@ -8,12 +8,13 @@
 
 #import "WMTableViewController.h"
 #import "WMLoopView.h"
+#import "WMPageConst.h"
+#import "WMMainTableViewController.h"
 @interface WMTableViewController () <WMLoopViewDelegate>
 
 @end
 
 @implementation WMTableViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -23,12 +24,14 @@
     self.tableView.tableHeaderView = loopView;
     self.tableView.rowHeight = 80;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
 
+}
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -46,6 +49,11 @@
     cell.detailTextLabel.textColor = [UIColor grayColor];
     cell.imageView.image = [UIImage imageNamed:@"github.png"];
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    WMMainTableViewController *main = [[WMMainTableViewController alloc] init];
+    NSLog(@"%@",[self.navigationController description]);
+    [self.navigationController pushViewController:main animated:YES];
 }
 - (void)dealloc{
     NSLog(@"%@ destroyed",[self class]);
