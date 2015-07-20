@@ -227,7 +227,10 @@
     }
 }
 - (void)backToPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Wdeprecated-declarations"
     if (!self.rememberLocation) return;
+#pragma clang diagnostic pop
     UIScrollView *scrollView = [self isKindOfScrollViewController:controller];
     if (scrollView) {
         NSValue *pointValue = self.posRecords[@(index)];
@@ -239,7 +242,10 @@
     }
 }
 - (void)rememberPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Wdeprecated-declarations"
     if (!self.rememberLocation) return;
+#pragma clang diagnostic pop
     UIScrollView *scrollView = [self isKindOfScrollViewController:controller];
     if (scrollView) {
         CGPoint pos = scrollView.contentOffset;
