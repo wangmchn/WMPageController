@@ -10,6 +10,7 @@ An easy solution to page controllers like `NetEase News`
 <br>
 `WMMenuViewStyleLine` <br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif" />               <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot3.gif" /> 
+<br>
 `WMMenuViewStyleFlood`<br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot2.gif" />
 <br> 
