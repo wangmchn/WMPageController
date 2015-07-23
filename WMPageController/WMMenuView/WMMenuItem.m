@@ -8,10 +8,7 @@
 
 #import "WMMenuItem.h"
 #define kSelectedSize 18
-#define kNormolSize   15
-#define kAnimateStep  0.05
-#define kAnimateRate  0.1
-
+#define kNormalSize   15
 #define kSelectedColor  [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1]
 #define kNormalColor    [UIColor colorWithRed:0 green:0 blue:0 alpha:1]
 
@@ -20,9 +17,6 @@
     CGFloat rgbaGAP[4];
     BOOL    hasRGBA;
 }
-@property (nonatomic, strong) UIFont *font;
-@property (nonatomic, strong) CADisplayLink *link;
-@property (nonatomic, assign) CGFloat sizeGap;
 @end
 
 @implementation WMMenuItem
@@ -30,107 +24,52 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
         hasRGBA = NO;
+        self.normalColor = kNormalColor;
+        self.selectedColor = kSelectedColor;
+        self.normalSize = kNormalSize;
+        self.selectedSize = kSelectedSize;
     }
     return self;
 }
-- (void)setTitle:(NSString *)title{
-    _title = title;
-    [self setNeedsDisplay];
-}
-- (void)setFontSize:(CGFloat)fontSize{
-    if (self.fontName) {
-        self.font = [UIFont fontWithName:self.fontName size:fontSize];
-    }else{
-        self.font = [UIFont systemFontOfSize:fontSize];
-    }
-    _fontSize = fontSize;
-    [self setNeedsDisplay];
-}
-- (void)setFontName:(NSString *)fontName{
-    _fontName = fontName;
-    self.fontSize = self.normalSize+self.sizeGap*self.rate;
-    [self setNeedsDisplay];
-}
-- (void)setTitleColor:(UIColor *)titleColor{
-    _titleColor = titleColor;
-    [self setNeedsDisplay];
-}
 // 设置选中，隐式动画所在
 - (void)setSelected:(BOOL)selected{
-    _selected = selected;
-    if (self.link) return;
-    self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(changeTitle)];
-    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    if (self.selected == selected) {
+        return;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        if (self.selected == YES) {
+            self.rate = 0.0;
+        }else{
+            self.rate = 1.0;
+        }
+    } completion:^(BOOL finished) {
+        _selected = selected;
+    }];
 }
 // 设置rate,并刷新标题状态
 - (void)setRate:(CGFloat)rate{
     _rate = rate;
-    [self updateFontAndRGB];
+    if (!hasRGBA) {
+        [self setRBGA];
+    }
+    CGFloat r = rgba[0] + rgbaGAP[0]*self.rate;
+    CGFloat g = rgba[1] + rgbaGAP[1]*self.rate;
+    CGFloat b = rgba[2] + rgbaGAP[2]*self.rate;
+    CGFloat a = rgba[3] + rgbaGAP[3]*self.rate;
+    self.textColor = [UIColor colorWithRed:r green:g blue:b alpha:a];
+    CGFloat minScale = self.normalSize / self.selectedSize;
+    CGFloat trueScale = minScale + (1-minScale)*rate;
+    self.transform = CGAffineTransformMakeScale(trueScale, trueScale);
 }
 - (void)selectedItemWithoutAnimation{
-    self.titleColor = self.selectedColor;
-    self.fontSize = self.selectedSize;
-    _rate = 1.0;
+    self.rate = 1.0;
     _selected = YES;
-    [self setNeedsDisplay];
 }
 - (void)deselectedItemWithoutAnimation{
-    self.titleColor = self.normalColor;
-    self.fontSize = self.normalSize;
-    _rate = 0;
+    self.rate = 0;
     _selected = NO;
-    [self setNeedsDisplay];
-}
-#pragma mark - Lazy loading
-- (CGFloat)normalSize{
-    if (!_normalSize) {
-        _normalSize = kNormolSize;
-    }
-    return _normalSize;
-}
-- (CGFloat)selectedSize{
-    if (!_selectedSize) {
-        _selectedSize = kSelectedSize;
-    }
-    return _selectedSize;
-}
-- (CGFloat)sizeGap{
-    if (!_sizeGap) {
-        _sizeGap = self.selectedSize - self.normalSize;
-    }
-    return _sizeGap;
-}
-- (UIColor *)selectedColor{
-    if (!_selectedColor) {
-        _selectedColor = kSelectedColor;
-    }
-    return _selectedColor;
-}
-- (UIColor *)normalColor{
-    if (!_normalColor) {
-        _normalColor = kNormalColor;
-    }
-    return _normalColor;
 }
 #pragma mark - Private Methods
-// 重绘
-- (void)drawRect:(CGRect)rect {
-    if (self.title) {
-        if (self.font == nil) {
-            self.fontSize = self.normalSize;
-        }
-        if (self.titleColor == nil) {
-            self.titleColor = self.normalColor;
-        }
-        NSDictionary *attrs = @{NSFontAttributeName:self.font,
-                                NSForegroundColorAttributeName:self.titleColor
-                                };
-        CGSize size = [self.title sizeWithAttributes:attrs];
-        CGFloat x = (self.frame.size.width - size.width)/2;
-        CGFloat y = (self.frame.size.height - size.height)/2;
-        [self.title drawAtPoint:CGPointMake(x, y) withAttributes:attrs];
-    }
-}
 // 记录normal的rgba值以及nor和sel的r、g、b、a的差值，以便后续使用
 - (void)setRBGA{
     int numNormal = (int)CGColorGetNumberOfComponents(self.normalColor.CGColor);
@@ -170,39 +109,4 @@
         [self.delegate didPressedMenuItem:self];
     }
 }
-// 更新自身的标题的字体大小及颜色
-- (void)updateFontAndRGB{
-    if (!hasRGBA) {
-        [self setRBGA];
-    }
-    CGFloat fontSize = self.normalSize+self.sizeGap*self.rate;
-    CGFloat r = rgba[0] + rgbaGAP[0]*self.rate;
-    CGFloat g = rgba[1] + rgbaGAP[1]*self.rate;
-    CGFloat b = rgba[2] + rgbaGAP[2]*self.rate;
-    CGFloat a = rgba[3] + rgbaGAP[3]*self.rate;
-    self.titleColor = [UIColor colorWithRed:r green:g blue:b alpha:a];
-    self.fontSize = fontSize;
-}
-// 隐式动画的实现
-- (void)changeTitle{
-    if (!hasRGBA) {
-        [self setRBGA];
-    }
-    if (self.isSelected) {
-        if (self.rate < 1.0f) {
-            self.rate += kAnimateRate;
-        }else{
-            [self.link invalidate];
-            self.link = nil;
-        }
-    }else{
-        if (self.rate > 0.0f) {
-            self.rate -= kAnimateRate;
-        }else{
-            [self.link invalidate];
-            self.link = nil;
-        }
-    }
-}
-
 @end
