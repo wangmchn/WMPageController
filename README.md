@@ -10,6 +10,7 @@ An easy solution to page controllers like `NetEase News`
 <br>
 `WMMenuViewStyleLine` <br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif" />               <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot3.gif" /> 
+<br>
 `WMMenuViewStyleFlood`<br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot2.gif" />
 <br> 
@@ -71,12 +72,10 @@ Here is an example:
     New styles!
     And support Swift.
 
+## License
+This project is under MIT License. See LICENSE file for more information.
+
 ## Final
-<br>
-**Reusable view version see this:** https://github.com/wangmchn/YKPageView
-<br>
-<br>
-**And:**
 * If you have problems, please issue me.
 * If you have suggestions, please issue me.
 * If you like me, please issue me, or you can give me a little star :)

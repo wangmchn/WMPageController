@@ -156,27 +156,26 @@ static CGFloat const WMProgressHeight = 2.0;
         CGRect frame = [self.frames[i] CGRectValue];
         WMMenuItem *item = [[WMMenuItem alloc] initWithFrame:frame];
         item.tag = (i+kTagGap);
-        item.title = self.items[i];
         item.delegate = self;
+        item.text = self.items[i];
+        item.textAlignment = NSTextAlignmentCenter;
+        item.textColor = _norColor;
+        item.userInteractionEnabled = YES;
+        if (self.fontName) {
+            item.font = [UIFont fontWithName:self.fontName size:_selSize];
+        }else{
+            item.font = [UIFont systemFontOfSize:_selSize];
+        }
         item.backgroundColor = [UIColor clearColor];
-        if (_norSize > 0.0001) {
-            item.normalSize = _norSize;
-        }
-        if ((int)_selSize > 0.0001) {
-            item.selectedSize = _selSize;
-        }
-        if (_norColor) {
-            item.normalColor = _norColor;
-        }
-        if (_selColor) {
-            item.selectedColor = _selColor;
-        }
+        item.normalSize = _norSize;
+        item.selectedSize = _selSize;
+        item.normalColor = _norColor;
+        item.selectedColor = _selColor;
         if (i == 0) {
             [item selectedItemWithoutAnimation];
             self.selItem = item;
-        }
-        if (self.fontName) {
-            item.fontName = self.fontName;
+        }else {
+            [item deselectedItemWithoutAnimation];
         }
         [self.scrollView addSubview:item];
     }

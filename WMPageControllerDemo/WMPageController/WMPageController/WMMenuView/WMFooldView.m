@@ -17,6 +17,8 @@
     CGFloat gap;
     CGFloat step;
     CADisplayLink *link;
+    
+    CGFloat kTime;
 }
 @synthesize progress = _progress;
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -25,6 +27,7 @@
         WMFooldMargin = WMFooldHeight * 0.15;
         WMFooldRadius = (WMFooldHeight - 2*WMFooldMargin)/2;
         WMFooldLength = frame.size.width  - 2*WMFooldRadius;
+        kTime = 20.0;
     }
     return self;
 }
@@ -38,7 +41,10 @@
     if (fabs(progress - _progress) >= 0.9 && fabs(progress - _progress) < 1.5) {
         gap  = fabs(self.progress - progress);
         sign = self.progress>progress?-1:1;
-        step = gap / 20.0;
+        if (self.itemFrames.count <= 3) {
+            kTime = 15.0;
+        }
+        step = gap / kTime;
         link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
         [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
         return;
@@ -48,8 +54,13 @@
 }
 - (void)progressChanged{
     if (gap >= 0.0) {
-        self.progress += sign * step;
         gap -= step;
+        if (gap < 0.0) {
+            self.progress = (int)(self.progress+0.5);
+            return;
+        }
+        self.progress += sign * step;
+//        gap -= step;
     }else{
         self.progress = (int)(self.progress+0.5);
         [link invalidate];

@@ -13,18 +13,11 @@
 - (void)didPressedMenuItem:(WMMenuItem *)menuItem;
 @end
 
-@interface WMMenuItem : UIView
+@interface WMMenuItem : UILabel
 /**
  *  设置rate,并刷新标题状态
  */
 @property (nonatomic, assign) CGFloat rate;
-@property (nonatomic, assign) CGFloat fontSize;
-@property (nonatomic, copy)   NSString *fontName;
-@property (nonatomic, strong) UIColor *titleColor;
-/**
- *  标题
- */
-@property (nonatomic, copy) NSString *title;
 /**
  *  normal状态的字体大小，默认大小为15
  */
