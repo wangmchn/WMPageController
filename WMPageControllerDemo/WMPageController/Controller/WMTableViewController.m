@@ -22,6 +22,8 @@
     loopView.delegate = self;
     self.tableView.tableHeaderView = loopView;
     self.tableView.rowHeight = 80;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataWhenRecieveNotification:) name:WMControllerDidFullyDisplayedNotification object:nil];
 }
 - (void)loadDataWhenRecieveNotification:(NSNotification *)note {
     NSLog(@"%@",[note object]);
@@ -30,7 +32,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     NSLog(@"%@ viewWillAppear",[self class]);
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataWhenRecieveNotification:) name:WMControllerDidFullyDisplayedNotification object:nil];
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
