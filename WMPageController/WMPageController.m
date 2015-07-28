@@ -9,9 +9,6 @@
 #import "WMPageController.h"
 #import "WMPageConst.h"
 
-NSString *const WMControllerDidFinishInitNotification     = @"WMControllerDidFinishInitNotification";
-NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFullyDisplayedNotification";
-
 @interface WMPageController () <WMMenuViewDelegate,UIScrollViewDelegate>{
     CGFloat viewHeight;
     CGFloat viewWidth;
@@ -194,8 +191,8 @@ NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFul
     }
 }
 - (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index{
-    viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [self addChildViewController:viewController];
+    viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
@@ -204,8 +201,8 @@ NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFul
 - (void)addViewControllerAtIndex:(int)index{
     Class vcClass = self.viewControllerClasses[index];
     UIViewController *viewController = [[vcClass alloc] init];
-    viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [self addChildViewController:viewController];
+    viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
@@ -231,6 +228,7 @@ NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFul
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
     if (!self.rememberLocation) return;
 #pragma clang diagnostic pop
+    if ([self.memCache objectForKey:@(index)]) return;
     UIScrollView *scrollView = [self isKindOfScrollViewController:controller];
     if (scrollView) {
         NSValue *pointValue = self.posRecords[@(index)];

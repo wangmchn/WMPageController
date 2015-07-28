@@ -24,22 +24,6 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
     WMPageControllerCachePolicyHigh      = 5   // High
 };
 
-//
-//  如需要利用观察者来订阅通知，请将 pageController 的 postNotification 设置为 YES
-//
-//  当一个控制器 init 完成且被添加成为子控制的时候会发布一个通知
-//  可用于判断当前控制器的序号，主要用于当同一个控制器管理时，通过判断序号来加载相应数据
-//  传递的数据包含两个信息，当前序号 (index) 以及标题 (title)
-//
-//  Note：由于在滚动中，上一个控制器还未被销毁，若两个相邻控制器都添加了观察，则都会收到通知。
-//  视图复用版本详见：https://github.com/wangmchn/YKPageView
-extern NSString *const WMControllerDidFinishInitNotification;
-
-//  当一个控制器完全被展示在用户面前时发送的通知
-//  可用于判断当前控制器的序号，加载或者刷新当前数据.
-//  传递的数据包含两个信息，当前序号 (index) 以及标题 title
-extern NSString *const WMControllerDidFullyDisplayedNotification;
-
 @interface WMPageController : UIViewController
 
 /**
@@ -140,7 +124,7 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 @property (nonatomic, assign) BOOL postNotification;
 
 /**
- *  是否记录 Controller 的位置，并在下次回来的时候回到相应位置，默认为 NO
+ *  是否记录 Controller 的位置，并在下次回来的时候回到相应位置，默认为 NO (若当前缓存中存在不会触发)
  *  Whether to remember controller's positon if it's a kind of scrollView controller,like UITableViewController,The default value is NO.
  *  比如 `UITabelViewController`, 当然你也可以在自己的控制器中自行设置, 如果将 Controller.view 替换为 scrollView 或者在Controller.view 上添加了一个和自身 bounds 一样的 scrollView 也是OK的
  */

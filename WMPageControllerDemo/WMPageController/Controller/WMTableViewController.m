@@ -12,7 +12,6 @@
 @interface WMTableViewController () <WMLoopViewDelegate>
 
 @end
-
 @implementation WMTableViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,6 +22,12 @@
     loopView.delegate = self;
     self.tableView.tableHeaderView = loopView;
     self.tableView.rowHeight = 80;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataWhenRecieveNotification:) name:WMControllerDidFullyDisplayedNotification object:nil];
+}
+- (void)loadDataWhenRecieveNotification:(NSNotification *)note {
+    NSLog(@"%@",[note object]);
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -39,6 +44,7 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     NSLog(@"%@ viewDidDisappear",[self class]);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

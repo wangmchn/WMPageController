@@ -95,6 +95,7 @@
     WMPageController *pageVC = [[WMPageController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
     pageVC.pageAnimatable = YES;
     pageVC.menuItemWidth = 85;
+    pageVC.postNotification = YES;
     return pageVC;
 }
 - (WMPageController *)pageControllerStyleFlood{
