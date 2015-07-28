@@ -231,6 +231,7 @@ NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFul
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
     if (!self.rememberLocation) return;
 #pragma clang diagnostic pop
+    if ([self.memCache objectForKey:@(index)]) return;
     UIScrollView *scrollView = [self isKindOfScrollViewController:controller];
     if (scrollView) {
         NSValue *pointValue = self.posRecords[@(index)];

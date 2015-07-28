@@ -140,7 +140,7 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 @property (nonatomic, assign) BOOL postNotification;
 
 /**
- *  是否记录 Controller 的位置，并在下次回来的时候回到相应位置，默认为 NO
+ *  是否记录 Controller 的位置，并在下次回来的时候回到相应位置，默认为 NO (若当前缓存中存在不会触发)
  *  Whether to remember controller's positon if it's a kind of scrollView controller,like UITableViewController,The default value is NO.
  *  比如 `UITabelViewController`, 当然你也可以在自己的控制器中自行设置, 如果将 Controller.view 替换为 scrollView 或者在Controller.view 上添加了一个和自身 bounds 一样的 scrollView 也是OK的
  */
