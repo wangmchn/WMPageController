@@ -191,8 +191,8 @@
     }
 }
 - (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index{
-    viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [self addChildViewController:viewController];
+    viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
@@ -201,8 +201,8 @@
 - (void)addViewControllerAtIndex:(int)index{
     Class vcClass = self.viewControllerClasses[index];
     UIViewController *viewController = [[vcClass alloc] init];
-    viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [self addChildViewController:viewController];
+    viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
