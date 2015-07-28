@@ -9,9 +9,6 @@
 #import "WMPageController.h"
 #import "WMPageConst.h"
 
-NSString *const WMControllerDidFinishInitNotification     = @"WMControllerDidFinishInitNotification";
-NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFullyDisplayedNotification";
-
 @interface WMPageController () <WMMenuViewDelegate,UIScrollViewDelegate>{
     CGFloat viewHeight;
     CGFloat viewWidth;
