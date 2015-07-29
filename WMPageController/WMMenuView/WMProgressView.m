@@ -7,18 +7,18 @@
 //
 
 #import "WMProgressView.h"
-@implementation WMProgressView{
+@implementation WMProgressView {
     int sign;
     CGFloat gap;
     CGFloat step;
     CADisplayLink *link;
 }
-- (void)setProgressWithOutAnimate:(CGFloat)progress{
+- (void)setProgressWithOutAnimate:(CGFloat)progress {
     if (self.progress == progress) return;
     _progress = progress;
     [self setNeedsDisplay];
 }
-- (void)setProgress:(CGFloat)progress{
+- (void)setProgress:(CGFloat)progress {
     if (self.progress == progress) return;
     if (fabs(progress - _progress) >= 0.94 && fabs(progress - _progress) < 1.2) {
         gap  = fabs(self.progress - progress);
@@ -31,7 +31,7 @@
     _progress = progress;
     [self setNeedsDisplay];
 }
-- (void)progressChanged{
+- (void)progressChanged {
     if (gap >= 0.0) {
         self.progress += sign * step;
         gap -= step;

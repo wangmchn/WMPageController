@@ -12,7 +12,7 @@
 #define kSelectedColor  [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1]
 #define kNormalColor    [UIColor colorWithRed:0 green:0 blue:0 alpha:1]
 
-@interface WMMenuItem (){
+@interface WMMenuItem () {
     CGFloat rgba[4];
     CGFloat rgbaGAP[4];
     BOOL    hasRGBA;
@@ -20,9 +20,10 @@
 @end
 
 @implementation WMMenuItem
+
 #pragma mark - Public Methods
-- (instancetype)initWithFrame:(CGRect)frame{
-    if(self = [super initWithFrame:frame]){
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
         hasRGBA = NO;
         self.normalColor = kNormalColor;
         self.selectedColor = kSelectedColor;
@@ -31,8 +32,9 @@
     }
     return self;
 }
+
 // 设置选中，隐式动画所在
-- (void)setSelected:(BOOL)selected{
+- (void)setSelected:(BOOL)selected {
     if (self.selected == selected) {
         return;
     }
@@ -46,8 +48,9 @@
         _selected = selected;
     }];
 }
+
 // 设置rate,并刷新标题状态
-- (void)setRate:(CGFloat)rate{
+- (void)setRate:(CGFloat)rate {
     _rate = rate;
     if (!hasRGBA) {
         [self setRBGA];
@@ -61,17 +64,20 @@
     CGFloat trueScale = minScale + (1-minScale)*rate;
     self.transform = CGAffineTransformMakeScale(trueScale, trueScale);
 }
-- (void)selectedItemWithoutAnimation{
+
+- (void)selectedItemWithoutAnimation {
     self.rate = 1.0;
     _selected = YES;
 }
-- (void)deselectedItemWithoutAnimation{
+
+- (void)deselectedItemWithoutAnimation {
     self.rate = 0;
     _selected = NO;
 }
+
 #pragma mark - Private Methods
 // 记录normal的rgba值以及nor和sel的r、g、b、a的差值，以便后续使用
-- (void)setRBGA{
+- (void)setRBGA {
     int numNormal = (int)CGColorGetNumberOfComponents(self.normalColor.CGColor);
     int numSelected = (int)CGColorGetNumberOfComponents(self.selectedColor.CGColor);
     if (numNormal == 4&&numSelected == 4) {
@@ -103,8 +109,9 @@
     }
     hasRGBA = YES;
 }
+
 // 触摸事件，告诉代理被触摸(点击)
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if ([self.delegate respondsToSelector:@selector(didPressedMenuItem:)]) {
         [self.delegate didPressedMenuItem:self];
     }

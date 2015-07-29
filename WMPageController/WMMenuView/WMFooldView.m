@@ -8,7 +8,7 @@
 
 #import "WMFooldView.h"
 
-@implementation WMFooldView{
+@implementation WMFooldView {
     CGFloat WMFooldMargin;
     CGFloat WMFooldRadius;
     CGFloat WMFooldLength;
@@ -21,7 +21,7 @@
     CGFloat kTime;
 }
 @synthesize progress = _progress;
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         WMFooldHeight = frame.size.height;
         WMFooldMargin = WMFooldHeight * 0.15;
@@ -31,12 +31,12 @@
     }
     return self;
 }
-- (void)setProgressWithOutAnimate:(CGFloat)progress{
+- (void)setProgressWithOutAnimate:(CGFloat)progress {
     if (self.progress == progress) return;
     _progress = progress;
     [self setNeedsDisplay];
 }
-- (void)setProgress:(CGFloat)progress{
+- (void)setProgress:(CGFloat)progress {
     if (self.progress == progress) return;
     if (fabs(progress - _progress) >= 0.9 && fabs(progress - _progress) < 1.5) {
         gap  = fabs(self.progress - progress);
@@ -52,7 +52,7 @@
     _progress = progress;
     [self setNeedsDisplay];
 }
-- (void)progressChanged{
+- (void)progressChanged {
     if (gap >= 0.0) {
         gap -= step;
         if (gap < 0.0) {
