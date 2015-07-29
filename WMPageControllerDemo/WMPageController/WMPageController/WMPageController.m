@@ -71,9 +71,7 @@
 }
 
 - (void)setItemsWidths:(NSArray *)itemsWidths {
-    if (itemsWidths.count != self.titles.count) {
-        return;
-    }
+    NSAssert(itemsWidths.count == self.titles.count, @"itemsWidths.count != self.titles.count");
     _itemsWidths = itemsWidths;
 }
 
