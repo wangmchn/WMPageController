@@ -13,6 +13,7 @@
 
 @end
 @implementation WMTableViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"%@ viewDidLoad",[self class]);
@@ -22,41 +23,42 @@
     loopView.delegate = self;
     self.tableView.tableHeaderView = loopView;
     self.tableView.rowHeight = 80;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataWhenRecieveNotification:) name:WMControllerDidFullyDisplayedNotification object:nil];
 }
-- (void)loadDataWhenRecieveNotification:(NSNotification *)note {
-    NSLog(@"%@",[note object]);
-    
-}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     NSLog(@"%@ viewWillAppear",[self class]);
 }
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     NSLog(@"%@ viewDidAppear",[self class]);
 }
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     NSLog(@"%@ viewWillDisappear",[self class]);
 }
+
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     NSLog(@"%@ viewDidDisappear",[self class]);
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 30;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WMCell"];
     if (cell == nil) {
@@ -68,7 +70,9 @@
     cell.imageView.image = [UIImage imageNamed:@"github.png"];
     return cell;
 }
+
 - (void)dealloc{
     NSLog(@"%@ destroyed",[self class]);
 }
+
 @end

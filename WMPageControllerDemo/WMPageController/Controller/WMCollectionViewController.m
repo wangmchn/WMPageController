@@ -9,12 +9,15 @@
 #import "WMCollectionViewController.h"
 #import "WMImageViewCell.h"
 @interface WMCollectionViewController ()
+
 @property (nonatomic, strong) NSArray *imageNames;
+
 @end
 
 @implementation WMCollectionViewController
 
 static NSString * const reuseIdentifier = @"WMCollectionCell";
+
 - (instancetype)init{
     UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
     flow.minimumLineSpacing = 1;
@@ -27,23 +30,28 @@ static NSString * const reuseIdentifier = @"WMCollectionCell";
     }
     return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.imageNames = @[@"The roar.jpg",@"Dragon Spirit.jpg",@"Night.jpg"];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.collectionView registerClass:[WMImageViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (void)dealloc{
     NSLog(@"%@ destroyed",[self class]);
 }
+
 #pragma mark <UICollectionViewDataSource>
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return 100;
 }

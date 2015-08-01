@@ -9,9 +9,10 @@
 #import "WMPageController.h"
 #import "WMPageConst.h"
 
-@interface WMPageController () <WMMenuViewDelegate,UIScrollViewDelegate>{
+@interface WMPageController () <WMMenuViewDelegate,UIScrollViewDelegate> {
     CGFloat viewHeight;
     CGFloat viewWidth;
+    CGFloat targetX;
     BOOL    animate;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
@@ -31,19 +32,21 @@
 @end
 
 @implementation WMPageController
+
 #pragma mark - Lazy Loading
-- (NSMutableDictionary *)posRecords{
+- (NSMutableDictionary *)posRecords {
     if (_posRecords == nil) {
         _posRecords = [[NSMutableDictionary alloc] init];
     }
     return _posRecords;
 }
-- (NSMutableDictionary *)displayVC{
+- (NSMutableDictionary *)displayVC {
     if (_displayVC == nil) {
         _displayVC = [[NSMutableDictionary alloc] init];
     }
     return _displayVC;
 }
+
 #pragma mark - Public Methods
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles {
     if (self = [super init]) {
@@ -55,41 +58,46 @@
     }
     return self;
 }
+
 - (instancetype)init {
     if (self = [super init]) {
         [self setup];
     }
     return self;
 }
+
 - (void)setCachePolicy:(WMPageControllerCachePolicy)cachePolicy {
     _cachePolicy = cachePolicy;
     self.memCache.countLimit = _cachePolicy;
 }
-- (void)setItemsWidths:(NSArray *)itemsWidths{
-    if (itemsWidths.count != self.titles.count) {
-        return;
-    }
+
+- (void)setItemsWidths:(NSArray *)itemsWidths {
+    NSAssert(itemsWidths.count == self.titles.count, @"itemsWidths.count != self.titles.count");
     _itemsWidths = itemsWidths;
 }
+
 - (void)setSelectIndex:(int)selectIndex {
     _selectIndex = selectIndex;
     if (self.menuView) {
         [self.menuView selectItemAtIndex:selectIndex];
     }
 }
+
 #pragma mark - Private Methods
+
 // 当子控制器init完成时发送通知
-- (void)postFinishInitNotificationWithIndex:(int)index{
+- (void)postAddToSuperViewNotificationWithIndex:(int)index {
     if (!self.postNotification) return;
     NSDictionary *info = @{
                            @"index":@(index),
                            @"title":self.titles[index]
                            };
-    [[NSNotificationCenter defaultCenter] postNotificationName:WMControllerDidFinishInitNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMControllerDidAddToSuperViewNotification
                                                         object:info];
 }
+
 // 当子控制器完全展示在user面前时发送通知
-- (void)postFullyDisplayedNotificationWithCurrentIndex:(int)index{
+- (void)postFullyDisplayedNotificationWithCurrentIndex:(int)index {
     if (!self.postNotification) return;
     NSDictionary *info = @{
                            @"index":@(index),
@@ -98,8 +106,9 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:WMControllerDidFullyDisplayedNotification
                                                         object:info];
 }
+
 // 初始化一些参数，在init中调用
-- (void)setup{
+- (void)setup {
     // title
     self.titleSizeSelected = WMTitleSizeSelected;
     self.titleColorSelected = WMTitleColorSelected;
@@ -112,8 +121,9 @@
     // cache
     self.memCache = [[NSCache alloc] init];
 }
+
 // 包括宽高，子控制器视图frame
-- (void)calculateSize{
+- (void)calculateSize {
     viewHeight = self.view.frame.size.height - self.menuHeight;
     viewWidth = self.view.frame.size.width;
     // 重新计算各个控制器视图的宽高
@@ -123,7 +133,8 @@
         [_childViewFrames addObject:[NSValue valueWithCGRect:frame]];
     }
 }
-- (void)addScrollView{
+
+- (void)addScrollView {
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     
     scrollView.pagingEnabled = YES;
@@ -136,7 +147,8 @@
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
 }
-- (void)addMenuView{
+
+- (void)addMenuView {
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.menuHeight);
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonItems:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
     menuView.delegate = self;
@@ -154,7 +166,8 @@
         [self.menuView selectItemAtIndex:self.selectIndex];
     }
 }
-- (void)layoutChildViewControllers{
+
+- (void)layoutChildViewControllers {
     int currentPage = (int)self.scrollView.contentOffset.x / viewWidth;
     int start,end;
     if (currentPage == 0) {
@@ -181,6 +194,7 @@
                     // cache 中也不存在，创建并添加到display
                     [self addViewControllerAtIndex:i];
                 }
+                [self postAddToSuperViewNotificationWithIndex:i];
             }
         }else{
             if (vc) {
@@ -190,15 +204,17 @@
         }
     }
 }
-- (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index{
+
+- (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
     [self addChildViewController:viewController];
     viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
 }
+
 // 添加子控制器
-- (void)addViewControllerAtIndex:(int)index{
+- (void)addViewControllerAtIndex:(int)index {
     Class vcClass = self.viewControllerClasses[index];
     UIViewController *viewController = [[vcClass alloc] init];
     [self addChildViewController:viewController];
@@ -206,12 +222,12 @@
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
-    [self postFinishInitNotificationWithIndex:index];
     
     [self backToPositionIfNeeded:viewController atIndex:index];
 }
+
 // 移除控制器，且从display中移除
-- (void)removeViewController:(UIViewController *)viewController atIndex:(NSInteger)index{
+- (void)removeViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
     [self rememberPositionIfNeeded:viewController atIndex:index];
     [viewController.view removeFromSuperview];
     [viewController willMoveToParentViewController:nil];
@@ -223,7 +239,8 @@
         [self.memCache setObject:viewController forKey:@(index)];
     }
 }
-- (void)backToPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index{
+
+- (void)backToPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
     if (!self.rememberLocation) return;
@@ -239,7 +256,8 @@
         }
     }
 }
-- (void)rememberPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index{
+
+- (void)rememberPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
     if (!self.rememberLocation) return;
@@ -250,7 +268,8 @@
         self.posRecords[@(index)] = [NSValue valueWithCGPoint:pos];
     }
 }
-- (UIScrollView *)isKindOfScrollViewController:(UIViewController *)controller{
+
+- (UIScrollView *)isKindOfScrollViewController:(UIViewController *)controller {
     UIScrollView *scrollView = nil;
     if ([controller.view isKindOfClass:[UIScrollView class]]) {
         // Controller的view是scrollView的子类(UITableViewController/UIViewController替换view为scrollView)
@@ -264,7 +283,8 @@
     }
     return scrollView;
 }
-- (BOOL)isInScreen:(CGRect)frame{
+
+- (BOOL)isInScreen:(CGRect)frame {
     CGFloat x = frame.origin.x;
     CGFloat ScreenWidth = self.scrollView.frame.size.width;
     
@@ -275,18 +295,22 @@
         return NO;
     }
 }
-- (void)resetMenuView{
+
+- (void)resetMenuView {
     WMMenuView *oldMenuView = self.menuView;
     [self addMenuView];
     [oldMenuView removeFromSuperview];
 }
-- (void)growCachePolicyAfterMemoryWarning{
+
+- (void)growCachePolicyAfterMemoryWarning {
     self.cachePolicy = WMPageControllerCachePolicyBalanced;
     [self performSelector:@selector(growCachePolicyToHigh) withObject:nil afterDelay:2.0];
 }
-- (void)growCachePolicyToHigh{
+
+- (void)growCachePolicyToHigh {
     self.cachePolicy = WMPageControllerCachePolicyHigh;
 }
+
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -298,7 +322,8 @@
     
     [self addViewControllerAtIndex:self.selectIndex];
 }
-- (void)viewDidLayoutSubviews{
+
+- (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     // 计算宽高及子控制器的视图frame
     [self calculateSize];
@@ -313,10 +338,12 @@
 
     [self.view layoutIfNeeded];
 }
-- (void)viewDidAppear:(BOOL)animated{
+
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -335,29 +362,44 @@
         [self performSelector:@selector(growCachePolicyAfterMemoryWarning) withObject:nil afterDelay:3.0];
     }
 }
+
 #pragma mark - UIScrollView Delegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self layoutChildViewControllers];
     if (animate) {
-        CGFloat width = scrollView.frame.size.width;
         CGFloat contentOffsetX = scrollView.contentOffset.x;
-        CGFloat rate = contentOffsetX / width;
+        CGFloat rate = contentOffsetX / viewWidth;
         [self.menuView slideMenuAtProgress:rate];
     }
 }
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     animate = YES;
 }
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _selectIndex = (int)scrollView.contentOffset.x / viewWidth;
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
 }
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
 }
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        CGFloat rate = targetX / viewWidth;
+        [self.menuView slideMenuAtProgress:rate];
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    targetX = targetContentOffset->x;
+}
+
 #pragma mark - WMMenuView Delegate
-- (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex{
+- (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex {
     NSInteger gap = (NSInteger)labs(index - currentIndex);
     animate = NO;
     CGPoint targetP = CGPointMake(viewWidth*index, 0);
@@ -374,7 +416,8 @@
     _selectIndex = (int)index;
     self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
-- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index{
+
+- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
     if (self.itemsWidths) {
         return [self.itemsWidths[index] floatValue];
     }

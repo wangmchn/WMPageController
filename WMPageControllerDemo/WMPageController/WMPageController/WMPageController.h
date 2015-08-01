@@ -133,6 +133,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  缓存的机制，默认为无限制(如果收到内存警告)
  */
 @property (nonatomic, assign) WMPageControllerCachePolicy cachePolicy;
+
 /**
  *  构造方法，请使用该方法创建控制器.
  *  Init method，recommend to use this instead of `-init`.
