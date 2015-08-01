@@ -12,6 +12,7 @@
 @interface WMPageController () <WMMenuViewDelegate,UIScrollViewDelegate> {
     CGFloat viewHeight;
     CGFloat viewWidth;
+    CGFloat targetX;
     BOOL    animate;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
@@ -366,9 +367,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self layoutChildViewControllers];
     if (animate) {
-        CGFloat width = scrollView.frame.size.width;
         CGFloat contentOffsetX = scrollView.contentOffset.x;
-        CGFloat rate = contentOffsetX / width;
+        CGFloat rate = contentOffsetX / viewWidth;
         [self.menuView slideMenuAtProgress:rate];
     }
 }
@@ -385,6 +385,17 @@
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        CGFloat rate = targetX / viewWidth;
+        [self.menuView slideMenuAtProgress:rate];
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    targetX = targetContentOffset->x;
 }
 
 #pragma mark - WMMenuView Delegate
