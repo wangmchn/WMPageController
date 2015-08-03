@@ -4,16 +4,13 @@ An easy solution to page controllers like `NetEase News`
 **Default style** <br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
 <br>
-<br>
 **New styles!**<br>
 **CHEERS!** <br>
-<br>
 `WMMenuViewStyleLine` <br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif" />               <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot3.gif" /> 
 <br>
 `WMMenuViewStyleFlood`<br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot2.gif" />
-<br> 
 <br>
 And you can easily have this style only by one step;
 ```objective-c
@@ -74,9 +71,3 @@ Here is an example:
 
 ## License
 This project is under MIT License. See LICENSE file for more information.
-
-## Final
-* If you have problems, please issue me.
-* If you have suggestions, please issue me.
-* If you like me, please issue me, or you can give me a little star :)
-* If you want a new style, please issue me! (I'm waiting for it..)
