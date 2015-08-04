@@ -20,7 +20,6 @@ pageController.menuViewStyle = WMMenuViewStyleLine;
 * If items width didn't fill the screen width,page controller will calculate width and add gap between each item automatically;
 * Adjust views and frames when device's orientation changed;
 * Set the property `itemsWidths` to have **Different Width**! Like `@[@(100),@(80),@(50).....]`;
-
 ## Basic use
 
 First Drag files in red frame to your project.<br>
@@ -47,12 +46,8 @@ You should override the `- init` to give `UICollectionViewController` a `UIColle
 Here is an example:
 ```objective-c
 - (instancetype)init{
-    UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
-    flow.minimumLineSpacing = 1;
-    flow.minimumInteritemSpacing = .1;
-    CGFloat width = [[UIScreen mainScreen] bounds].size.width / 4 - 3*0.1;
-    flow.itemSize = CGSizeMake(width,width);
-    self = [self initWithCollectionViewLayout:flow];
+    // init layout here...
+    self = [self initWithCollectionViewLayout:layout];
     if (self) {
         // insert code here...
     }
