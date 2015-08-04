@@ -14,12 +14,12 @@ And you can easily change styles by setting `menuViewStyle` property:
 ```objective-c
 pageController.menuViewStyle = WMMenuViewStyleLine;
 ```
-<br>
 ## What's New
 * **Now page controller has a cache policy and scroll much more fluently!**
 * If items width didn't fill the screen width,page controller will calculate width and add gap between each item automatically;
 * Adjust views and frames when device's orientation changed;
 * Set the property `itemsWidths` to have **Different Width**! Like `@[@(100),@(80),@(50).....]`;
+
 ## Basic use
 
 First Drag files in red frame to your project.<br>
