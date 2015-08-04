@@ -4,28 +4,22 @@ An easy solution to page controllers like `NetEase News`
 **Default style** <br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
 <br>
-**New styles!**<br>
-**CHEERS!** <br>
 `WMMenuViewStyleLine` <br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif" />               <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot3.gif" /> 
 <br>
 `WMMenuViewStyleFlood`<br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot2.gif" />
 <br>
-And you can easily have this style only by one step;
+And you can easily change styles by setting `menuViewStyle` property:
 ```objective-c
 pageController.menuViewStyle = WMMenuViewStyleLine;
-pageController.menuViewStyle = WMMenuViewStyleFlood;
 ```
 <br>
 ## What's New
 * **Now page controller has a cache policy and scroll much more fluently!**
 * If items width didn't fill the screen width,page controller will calculate width and add gap between each item automatically;
-* Page controller will remember the position, if it's a kind of scrollView controller,(that means: `UITabelViewController` , `UICollectionViewController` ,or a controller you have replaced `controller.view` to `scrollview`,or you have add a scrollview as it's first subview);
 * Adjust views and frames when device's orientation changed;
 * Set the property `itemsWidths` to have **Different Width**! Like `@[@(100),@(80),@(50).....]`;
-* Waiting for new function...
-
 
 ## Basic use
 
