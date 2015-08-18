@@ -84,9 +84,10 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  The menu view's height
  */
 @property (nonatomic, assign) CGFloat menuHeight;
-// **************************************************************************************
+
 // 当所有item的宽度加起来小于屏幕宽时，PageController会自动帮助排版，添加每个item之间的间隙以填充整个宽度
 // When the sum of all the item's width is smaller than the screen's width, pageController will add gap to each item automatically, in order to fill the width.
+
 /**
  *  每个 MenuItem 的宽度
  *  The item width,when all are same,use this property
@@ -129,6 +130,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  比如 `UITabelViewController`, 当然你也可以在自己的控制器中自行设置, 如果将 Controller.view 替换为 scrollView 或者在Controller.view 上添加了一个和自身 bounds 一样的 scrollView 也是OK的
  */
 @property (nonatomic, assign) BOOL rememberLocation __deprecated_msg("Because of the cache policy,this property can abondon now.");
+
 /**
  *  缓存的机制，默认为无限制(如果收到内存警告)
  */
@@ -144,4 +146,5 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  @return instancetype
  */
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles;
+
 @end

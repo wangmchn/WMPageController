@@ -21,12 +21,16 @@
 
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
 @property (nonatomic, strong) NSMutableArray *childViewFrames;
+
 // 当前展示在屏幕上的控制器，方便在滚动的时候读取 (避免不必要计算)
 @property (nonatomic, strong) NSMutableDictionary *displayVC;
+
 // 用于记录销毁的viewController的位置 (如果它是某一种scrollView的Controller的话)
 @property (nonatomic, strong) NSMutableDictionary *posRecords;
+
 // 用于缓存加载过的控制器
 @property (nonatomic, strong) NSCache *memCache;
+
 // 收到内存警告的次数
 @property (nonatomic, assign) int memoryWarningCount;
 @end
@@ -40,6 +44,7 @@
     }
     return _posRecords;
 }
+
 - (NSMutableDictionary *)displayVC {
     if (_displayVC == nil) {
         _displayVC = [[NSMutableDictionary alloc] init];
@@ -122,7 +127,7 @@
     self.memCache = [[NSCache alloc] init];
 }
 
-// 包括宽高，子控制器视图frame
+// 包括宽高，子控制器视图 frame
 - (void)calculateSize {
     viewHeight = self.view.frame.size.height - self.menuHeight;
     viewWidth = self.view.frame.size.width;
@@ -173,10 +178,10 @@
     if (currentPage == 0) {
         start = currentPage;
         end = currentPage + 1;
-    }else if (currentPage + 1 == self.viewControllerClasses.count){
+    } else if (currentPage + 1 == self.viewControllerClasses.count){
         start = currentPage - 1;
         end = currentPage;
-    }else{
+    } else {
         start = currentPage - 1;
         end = currentPage + 1;
     }
@@ -190,13 +195,13 @@
                 if (vc) {
                     // cache 中存在，添加到 scrollView 上，并放入display
                     [self addCachedViewController:vc atIndex:i];
-                }else{
+                } else {
                     // cache 中也不存在，创建并添加到display
                     [self addViewControllerAtIndex:i];
                 }
                 [self postAddToSuperViewNotificationWithIndex:i];
             }
-        }else{
+        } else {
             if (vc) {
                 // vc不在视野中且存在，移除他
                 [self removeViewController:vc atIndex:i];
@@ -274,7 +279,7 @@
     if ([controller.view isKindOfClass:[UIScrollView class]]) {
         // Controller的view是scrollView的子类(UITableViewController/UIViewController替换view为scrollView)
         scrollView = (UIScrollView *)controller.view;
-    }else if (controller.view.subviews.count >= 1) {
+    } else if (controller.view.subviews.count >= 1) {
         // Controller的view的subViews[0]存在且是scrollView的子类，并且frame等与view得frame(UICollectionViewController/UIViewController添加UIScrollView)
         UIView *view = controller.view.subviews[0];
         if ([view isKindOfClass:[UIScrollView class]]) {
@@ -291,7 +296,7 @@
     CGFloat contentOffsetX = self.scrollView.contentOffset.x;
     if (CGRectGetMaxX(frame) > contentOffsetX && x-contentOffsetX < ScreenWidth) {
         return YES;
-    }else{
+    } else {
         return NO;
     }
 }
@@ -423,4 +428,5 @@
     }
     return self.menuItemWidth;
 }
+
 @end

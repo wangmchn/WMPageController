@@ -22,7 +22,7 @@
 #define WMMenuHeight  30
 //  导航菜单栏每个item的宽度
 #define WMMenuItemWidth 65
-//
+
 //  如需要利用观察者来订阅通知，请将 pageController 的 postNotification 设置为 YES
 //
 //  当一个控制器的视图 被添加到父控制器的时候会发布一个通知
@@ -31,6 +31,7 @@
 //
 //  NOTE:由于缓存机制，不会在 controller 移出屏幕时销毁控制器，若想要控制器视图移除屏幕后不再收到通知，可在 -viewWillDisappear: 或 -viewDidDisappear: 中 removeObserver.
 //  视图复用版本详见：https://github.com/wangmchn/YKPageView
+
 static NSString *const WMControllerDidAddToSuperViewNotification = @"WMControllerDidAddToSuperViewNotification";
 
 //  当一个控制器完全被展示在用户面前时发送的通知
@@ -39,16 +40,20 @@ static NSString *const WMControllerDidAddToSuperViewNotification = @"WMControlle
 //
 //  NOTE:由于缓存机制，不会在 controller 移出屏幕时销毁控制器，若想要控制器视图移除屏幕后不再收到通知，可在 -viewWillDisappear: 或 -viewDidDisappear: 中removeObserver.并且相应的，在 -viewWillAppear: 中添加 observer
 static NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFullyDisplayedNotification";
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //  如果你遇到任何问题，或者有什么更好地建议，都可以联系我.
 //  有什么能改进的都可以PR哦~ github有你更美好!~
 //  好用的话还希望能够小小star一下~ :)

@@ -10,5 +10,4 @@
 
 @interface WMFooldView : WMProgressView
 @property (nonatomic, assign) BOOL hollow;
-@property (nonatomic, assign) BOOL spring;
 @end

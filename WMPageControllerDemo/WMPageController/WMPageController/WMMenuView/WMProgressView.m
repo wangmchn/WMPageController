@@ -13,11 +13,13 @@
     CGFloat step;
     CADisplayLink *link;
 }
+
 - (void)setProgressWithOutAnimate:(CGFloat)progress {
     if (self.progress == progress) return;
     _progress = progress;
     [self setNeedsDisplay];
 }
+
 - (void)setProgress:(CGFloat)progress {
     if (self.progress == progress) return;
     if (fabs(progress - _progress) >= 0.94 && fabs(progress - _progress) < 1.2) {
@@ -31,16 +33,18 @@
     _progress = progress;
     [self setNeedsDisplay];
 }
+
 - (void)progressChanged {
     if (gap >= 0.0) {
         self.progress += sign * step;
         gap -= step;
-    }else{
+    } else {
         self.progress = (int)(self.progress+0.5);
         [link invalidate];
         link = nil;
     }
 }
+
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     [super drawRect:rect];
@@ -63,4 +67,5 @@
     CGContextSetStrokeColorWithColor(ctx, self.color);
     CGContextStrokePath(ctx);
 }
+
 @end
