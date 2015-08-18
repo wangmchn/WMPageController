@@ -41,7 +41,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         if (self.selected == YES) {
             self.rate = 0.0;
-        }else{
+        } else {
             self.rate = 1.0;
         }
     } completion:^(BOOL finished) {
@@ -92,7 +92,7 @@
         rgbaGAP[2] = selComponents[2]-rgba[2];
         rgba[3] = norComponents[3];
         rgbaGAP[3] =  selComponents[3]-rgba[3];
-    }else if (numNormal == 2 || numSelected == 2) {
+    } else if (numNormal == 2 || numSelected == 2) {
         // 将灰度空间 (grayColor blackColor ect.) 转为 RGBA 色彩空间
         if (numNormal == 2) {
             const CGFloat *norComponents = CGColorGetComponents(self.normalColor.CGColor);
@@ -104,7 +104,7 @@
         }
         [self setRBGA];
         return;
-    }else{
+    } else {
         NSAssert(NO, @"Error with item's color (`titleColorSelected`), may use `colorWithRed:green:blue:alpha:` can solve the problem.");
     }
     hasRGBA = YES;
@@ -116,4 +116,5 @@
         [self.delegate didPressedMenuItem:self];
     }
 }
+
 @end

@@ -55,7 +55,7 @@ static CGFloat const WMProgressHeight = 2.0;
         self.items = items;
         if (bgColor) {
             self.bgColor = bgColor;
-        }else{
+        } else {
             self.bgColor = kBGColor;
         }
         _norSize = norSize;
@@ -136,7 +136,7 @@ static CGFloat const WMProgressHeight = 2.0;
         CGFloat targetX;
         if ((contentSize.width-itemX) <= width/2) {
             targetX = contentSize.width - width;
-        }else{
+        } else {
             targetX = frame.origin.x - width/2 + frame.size.width/2;
         }
         // 应该有更好的解决方法
@@ -144,7 +144,7 @@ static CGFloat const WMProgressHeight = 2.0;
             targetX = contentSize.width - width;
         }
         [self.scrollView setContentOffset:CGPointMake(targetX, 0) animated:YES];
-    }else{
+    } else {
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
 }
@@ -175,7 +175,7 @@ static CGFloat const WMProgressHeight = 2.0;
         item.userInteractionEnabled = YES;
         if (self.fontName) {
             item.font = [UIFont fontWithName:self.fontName size:_selSize];
-        }else{
+        } else {
             item.font = [UIFont systemFontOfSize:_selSize];
         }
         item.backgroundColor = [UIColor clearColor];
@@ -186,7 +186,7 @@ static CGFloat const WMProgressHeight = 2.0;
         if (i == 0) {
             [item selectedItemWithoutAnimation];
             self.selItem = item;
-        }else {
+        } else {
             [item deselectedItemWithoutAnimation];
         }
         [self.scrollView addSubview:item];
