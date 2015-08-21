@@ -11,7 +11,7 @@
 
 /*
  *  WMPageController 的缓存设置，默认缓存为无限制，当收到 memoryWarning 时，会自动切换到低缓存模式 (WMPageControllerCachePolicyLowMemory)，并在一段时间后切换到 High .
- 收到多次警告后，会停留在到 WMPageControllerCachePolicyLowMemory 不再增长
+    收到多次警告后，会停留在到 WMPageControllerCachePolicyLowMemory 不再增长
  *
  *  The Default cache policy is No Limit, when recieved memory warning, page controller will switch mode to 'LowMemory'
     and continue to grow back after a while.
@@ -30,13 +30,13 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  各个控制器的 class, 例如:[UITableViewController class]
  *  Each controller's class, example:[UITableViewController class]
  */
-@property (nonatomic, strong) NSArray *viewControllerClasses;
+@property (nonatomic, copy) NSArray *viewControllerClasses;
 
 /**
  *  各个控制器标题, NSString
  *  Titles of view controllers in page controller. Use `NSString`.
  */
-@property (nonatomic, strong) NSArray *titles;
+@property (nonatomic, copy) NSArray *titles;
 @property (nonatomic, strong, readonly) UIViewController *currentViewController;
 
 /**
@@ -98,7 +98,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  各个 MenuItem 的宽度，可不等，数组内为 NSNumber.
  *  Each item's width, when they are not all the same, use this property, Put `NSNumber` in this array.
  */
-@property (nonatomic, strong) NSArray *itemsWidths;
+@property (nonatomic, copy) NSArray *itemsWidths;
 
 /**
  *  导航栏背景色
