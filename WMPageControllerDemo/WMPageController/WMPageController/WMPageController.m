@@ -15,8 +15,11 @@
     CGFloat targetX;
     BOOL    animate;
 }
+
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
+
 @property (nonatomic, weak) WMMenuView *menuView;
+
 @property (nonatomic, weak) UIScrollView *scrollView;
 
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
@@ -33,6 +36,7 @@
 
 // 收到内存警告的次数
 @property (nonatomic, assign) int memoryWarningCount;
+
 @end
 
 @implementation WMPageController
@@ -114,7 +118,6 @@
 
 // 初始化一些参数，在init中调用
 - (void)setup {
-    
     _titleSizeSelected  = WMTitleSizeSelected;
     _titleColorSelected = WMTitleColorSelected;
     _titleSizeNormal    = WMTitleSizeNormal;
