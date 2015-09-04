@@ -19,10 +19,10 @@
 @implementation WMLoopView
 - (id)initWithFrame:(CGRect)frame images:(NSArray *)images autoPlay:(BOOL)isAuto delay:(NSTimeInterval)timeInterval{
     if (self = [super initWithFrame:frame]) {
-        self.autoPlay = isAuto;
-        self.timeInterval = timeInterval;
-        self.images = images;
-        self.currentPage = 0;
+        _autoPlay = isAuto;
+        _timeInterval = timeInterval;
+        _images = images;
+        _currentPage = 0;
         
         [self addScrollView];
         [self addPageControl];

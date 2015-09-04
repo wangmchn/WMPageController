@@ -13,7 +13,7 @@
     CGFloat WMFooldRadius;
     CGFloat WMFooldLength;
     CGFloat WMFooldHeight;
-    int sign;
+    int     sign;
     CGFloat gap;
     CGFloat step;
     CADisplayLink *link;

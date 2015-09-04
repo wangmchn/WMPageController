@@ -49,17 +49,16 @@ static CGFloat const WMProgressHeight = 2.0;
 }
 
 #pragma mark - Public Methods
-- (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor
-{
+- (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor {
     if (self = [super initWithFrame:frame]) {
-        self.items = items;
+        _items = items;
         if (bgColor) {
-            self.bgColor = bgColor;
+            _bgColor = bgColor;
         } else {
-            self.bgColor = kBGColor;
+            _bgColor = kBGColor;
         }
-        _norSize = norSize;
-        _selSize = selSize;
+        _norSize  = norSize;
+        _selSize  = selSize;
         _norColor = norColor;
         _selColor = selColor;
     }

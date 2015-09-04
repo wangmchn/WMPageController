@@ -25,10 +25,10 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         hasRGBA = NO;
-        self.normalColor = kNormalColor;
-        self.selectedColor = kSelectedColor;
-        self.normalSize = kNormalSize;
-        self.selectedSize = kSelectedSize;
+        _normalColor   = kNormalColor;
+        _selectedColor = kSelectedColor;
+        _normalSize    = kNormalSize;
+        _selectedSize  = kSelectedSize;
     }
     return self;
 }

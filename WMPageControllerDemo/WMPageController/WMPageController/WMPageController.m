@@ -56,8 +56,8 @@
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles {
     if (self = [super init]) {
         NSAssert(classes.count == titles.count, @"classes.count != titles.count");
-        self.viewControllerClasses = [NSArray arrayWithArray:classes];
-        self.titles = [NSArray arrayWithArray:titles];
+        _viewControllerClasses = [NSArray arrayWithArray:classes];
+        _titles = [NSArray arrayWithArray:titles];
 
         [self setup];
     }
@@ -114,17 +114,17 @@
 
 // 初始化一些参数，在init中调用
 - (void)setup {
-    // title
-    self.titleSizeSelected = WMTitleSizeSelected;
-    self.titleColorSelected = WMTitleColorSelected;
-    self.titleSizeNormal = WMTitleSizeNormal;
-    self.titleColorNormal = WMTitleColorNormal;
-    // menu
-    self.menuBGColor = WMMenuBGColor;
-    self.menuHeight = WMMenuHeight;
-    self.menuItemWidth = WMMenuItemWidth;
-    // cache
-    self.memCache = [[NSCache alloc] init];
+    
+    _titleSizeSelected  = WMTitleSizeSelected;
+    _titleColorSelected = WMTitleColorSelected;
+    _titleSizeNormal    = WMTitleSizeNormal;
+    _titleColorNormal   = WMTitleColorNormal;
+    
+    _menuBGColor   = WMMenuBGColor;
+    _menuHeight    = WMMenuHeight;
+    _menuItemWidth = WMMenuItemWidth;
+    
+    _memCache = [[NSCache alloc] init];
 }
 
 // 包括宽高，子控制器视图 frame

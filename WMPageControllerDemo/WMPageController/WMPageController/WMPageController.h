@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 @property (nonatomic, assign) int selectIndex;
 
 /**
- *  点击相邻的 MenuItem 是否触发翻页动画(当当前选中与点击Item相差大于1是不触发)
+ *  点击相邻的 MenuItem 是否触发翻页动画 (当当前选中与点击Item相差大于1是不触发)
  *  Whether to animate when press the MenuItem, if distant between the selected and the pressed is larger than 1,never animate.
  */
 @property (nonatomic, assign) BOOL pageAnimatable;
@@ -56,6 +56,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  The title size when selected (animatable)
  */
 @property (nonatomic, assign) CGFloat titleSizeSelected;
+
 /**
  *  非选中时的标题尺寸
  *  The normal title size (animatable)
@@ -67,6 +68,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  The title color when selected, the color is animatable.
  */
 @property (nonatomic, strong) UIColor *titleColorSelected;
+
 /**
  *  标题非选择时的颜色, 颜色是可动画的.
  *  The title's normal color, the color is animatable.
