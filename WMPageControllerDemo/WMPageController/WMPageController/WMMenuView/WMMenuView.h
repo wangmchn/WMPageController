@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 @class WMMenuView;
 @class WMMenuItem;
-typedef enum{
+typedef enum {
     WMMenuViewStyleDefault,     // 默认
     WMMenuViewStyleLine,        // 带下划线 (若要选中字体大小不变，设置选中和非选中大小一样即可)
     WMMenuViewStyleFoold,       // 涌入效果 (填充)
     WMMenuViewStyleFooldHollow, // 涌入效果 (空心的)
-    
 } WMMenuViewStyle;
 
 @protocol WMMenuViewDelegate <NSObject>

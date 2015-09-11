@@ -63,4 +63,5 @@ static NSString * const reuseIdentifier = @"WMCollectionCell";
     cell.imageView.image = [UIImage imageNamed:imageName];
     return cell;
 }
+
 @end

@@ -15,20 +15,28 @@
     CGFloat targetX;
     BOOL    animate;
 }
+
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
+
 @property (nonatomic, weak) WMMenuView *menuView;
+
 @property (nonatomic, weak) UIScrollView *scrollView;
 
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
 @property (nonatomic, strong) NSMutableArray *childViewFrames;
+
 // 当前展示在屏幕上的控制器，方便在滚动的时候读取 (避免不必要计算)
 @property (nonatomic, strong) NSMutableDictionary *displayVC;
+
 // 用于记录销毁的viewController的位置 (如果它是某一种scrollView的Controller的话)
 @property (nonatomic, strong) NSMutableDictionary *posRecords;
+
 // 用于缓存加载过的控制器
 @property (nonatomic, strong) NSCache *memCache;
+
 // 收到内存警告的次数
 @property (nonatomic, assign) int memoryWarningCount;
+
 @end
 
 @implementation WMPageController
@@ -40,6 +48,7 @@
     }
     return _posRecords;
 }
+
 - (NSMutableDictionary *)displayVC {
     if (_displayVC == nil) {
         _displayVC = [[NSMutableDictionary alloc] init];
@@ -51,8 +60,8 @@
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles {
     if (self = [super init]) {
         NSAssert(classes.count == titles.count, @"classes.count != titles.count");
-        self.viewControllerClasses = [NSArray arrayWithArray:classes];
-        self.titles = [NSArray arrayWithArray:titles];
+        _viewControllerClasses = [NSArray arrayWithArray:classes];
+        _titles = [NSArray arrayWithArray:titles];
 
         [self setup];
     }
@@ -73,7 +82,7 @@
 
 - (void)setItemsWidths:(NSArray *)itemsWidths {
     NSAssert(itemsWidths.count == self.titles.count, @"itemsWidths.count != self.titles.count");
-    _itemsWidths = itemsWidths;
+    _itemsWidths = [itemsWidths copy];
 }
 
 - (void)setSelectIndex:(int)selectIndex {
@@ -109,20 +118,19 @@
 
 // 初始化一些参数，在init中调用
 - (void)setup {
-    // title
-    self.titleSizeSelected = WMTitleSizeSelected;
-    self.titleColorSelected = WMTitleColorSelected;
-    self.titleSizeNormal = WMTitleSizeNormal;
-    self.titleColorNormal = WMTitleColorNormal;
-    // menu
-    self.menuBGColor = WMMenuBGColor;
-    self.menuHeight = WMMenuHeight;
-    self.menuItemWidth = WMMenuItemWidth;
-    // cache
-    self.memCache = [[NSCache alloc] init];
+    _titleSizeSelected  = WMTitleSizeSelected;
+    _titleColorSelected = WMTitleColorSelected;
+    _titleSizeNormal    = WMTitleSizeNormal;
+    _titleColorNormal   = WMTitleColorNormal;
+    
+    _menuBGColor   = WMMenuBGColor;
+    _menuHeight    = WMMenuHeight;
+    _menuItemWidth = WMMenuItemWidth;
+    
+    _memCache = [[NSCache alloc] init];
 }
 
-// 包括宽高，子控制器视图frame
+// 包括宽高，子控制器视图 frame
 - (void)calculateSize {
     viewHeight = self.view.frame.size.height - self.menuHeight;
     viewWidth = self.view.frame.size.width;
@@ -173,10 +181,10 @@
     if (currentPage == 0) {
         start = currentPage;
         end = currentPage + 1;
-    }else if (currentPage + 1 == self.viewControllerClasses.count){
+    } else if (currentPage + 1 == self.viewControllerClasses.count){
         start = currentPage - 1;
         end = currentPage;
-    }else{
+    } else {
         start = currentPage - 1;
         end = currentPage + 1;
     }
@@ -190,13 +198,13 @@
                 if (vc) {
                     // cache 中存在，添加到 scrollView 上，并放入display
                     [self addCachedViewController:vc atIndex:i];
-                }else{
+                } else {
                     // cache 中也不存在，创建并添加到display
                     [self addViewControllerAtIndex:i];
                 }
                 [self postAddToSuperViewNotificationWithIndex:i];
             }
-        }else{
+        } else {
             if (vc) {
                 // vc不在视野中且存在，移除他
                 [self removeViewController:vc atIndex:i];
@@ -251,7 +259,7 @@
         NSValue *pointValue = self.posRecords[@(index)];
         if (pointValue) {
             CGPoint pos = [pointValue CGPointValue];
-            // 奇怪的现象，我发现collectionView的contentSize是 {0, 0};
+            // 奇怪的现象，我发现 collectionView 的 contentSize 是 {0, 0};
             [scrollView setContentOffset:pos];
         }
     }
@@ -274,7 +282,7 @@
     if ([controller.view isKindOfClass:[UIScrollView class]]) {
         // Controller的view是scrollView的子类(UITableViewController/UIViewController替换view为scrollView)
         scrollView = (UIScrollView *)controller.view;
-    }else if (controller.view.subviews.count >= 1) {
+    } else if (controller.view.subviews.count >= 1) {
         // Controller的view的subViews[0]存在且是scrollView的子类，并且frame等与view得frame(UICollectionViewController/UIViewController添加UIScrollView)
         UIView *view = controller.view.subviews[0];
         if ([view isKindOfClass:[UIScrollView class]]) {
@@ -287,11 +295,10 @@
 - (BOOL)isInScreen:(CGRect)frame {
     CGFloat x = frame.origin.x;
     CGFloat ScreenWidth = self.scrollView.frame.size.width;
-    
     CGFloat contentOffsetX = self.scrollView.contentOffset.x;
     if (CGRectGetMaxX(frame) > contentOffsetX && x-contentOffsetX < ScreenWidth) {
         return YES;
-    }else{
+    } else {
         return NO;
     }
 }
@@ -304,7 +311,7 @@
 
 - (void)growCachePolicyAfterMemoryWarning {
     self.cachePolicy = WMPageControllerCachePolicyBalanced;
-    [self performSelector:@selector(growCachePolicyToHigh) withObject:nil afterDelay:2.0];
+    [self performSelector:@selector(growCachePolicyToHigh) withObject:nil afterDelay:2.0 inModes:@[NSRunLoopCommonModes]];
 }
 
 - (void)growCachePolicyToHigh {
@@ -359,7 +366,7 @@
     
     // 如果收到内存警告次数小于 3，一段时间后切换到模式 Balanced
     if (self.memoryWarningCount < 3) {
-        [self performSelector:@selector(growCachePolicyAfterMemoryWarning) withObject:nil afterDelay:3.0];
+        [self performSelector:@selector(growCachePolicyAfterMemoryWarning) withObject:nil afterDelay:3.0 inModes:@[NSRunLoopCommonModes]];
     }
 }
 
@@ -407,7 +414,7 @@
     [self.scrollView setContentOffset:targetP animated:gap > 1?NO:self.pageAnimatable];
     if (gap > 1 || !self.pageAnimatable) {
         [self postFullyDisplayedNotificationWithCurrentIndex:(int)index];
-        // 由于不触发-scrollViewDidScroll: 手动清除控制器..
+        // 由于不触发 -scrollViewDidScroll: 手动清除控制器..
         UIViewController *vc = [self.displayVC objectForKey:@(currentIndex)];
         if (vc) {
             [self removeViewController:vc atIndex:currentIndex];
@@ -423,4 +430,5 @@
     }
     return self.menuItemWidth;
 }
+
 @end

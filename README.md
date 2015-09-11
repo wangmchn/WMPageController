@@ -4,31 +4,22 @@ An easy solution to page controllers like `NetEase News`
 **Default style** <br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
 <br>
-<br>
-**New styles!**<br>
-**CHEERS!** <br>
-<br>
 `WMMenuViewStyleLine` <br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif" />               <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot3.gif" /> 
 <br>
 `WMMenuViewStyleFlood`<br>
 <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot2.gif" />
-<br> 
 <br>
-And you can easily have this style only by one step;
+And you can easily change styles by setting `menuViewStyle` property:
 ```objective-c
 pageController.menuViewStyle = WMMenuViewStyleLine;
 pageController.menuViewStyle = WMMenuViewStyleFlood;
 ```
-<br>
 ## What's New
 * **Now page controller has a cache policy and scroll much more fluently!**
 * If items width didn't fill the screen width,page controller will calculate width and add gap between each item automatically;
-* Page controller will remember the position, if it's a kind of scrollView controller,(that means: `UITabelViewController` , `UICollectionViewController` ,or a controller you have replaced `controller.view` to `scrollview`,or you have add a scrollview as it's first subview);
 * Adjust views and frames when device's orientation changed;
 * Set the property `itemsWidths` to have **Different Width**! Like `@[@(100),@(80),@(50).....]`;
-* Waiting for new function...
-
 
 ## Basic use
 
@@ -56,12 +47,8 @@ You should override the `- init` to give `UICollectionViewController` a `UIColle
 Here is an example:
 ```objective-c
 - (instancetype)init{
-    UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
-    flow.minimumLineSpacing = 1;
-    flow.minimumInteritemSpacing = .1;
-    CGFloat width = [[UIScreen mainScreen] bounds].size.width / 4 - 3*0.1;
-    flow.itemSize = CGSizeMake(width,width);
-    self = [self initWithCollectionViewLayout:flow];
+    // init layout here...
+    self = [self initWithCollectionViewLayout:layout];
     if (self) {
         // insert code here...
     }
@@ -75,8 +62,3 @@ Here is an example:
 ## License
 This project is under MIT License. See LICENSE file for more information.
 
-## Final
-* If you have problems, please issue me.
-* If you have suggestions, please issue me.
-* If you like me, please issue me, or you can give me a little star :)
-* If you want a new style, please issue me! (I'm waiting for it..)

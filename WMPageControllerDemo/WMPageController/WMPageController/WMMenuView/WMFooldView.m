@@ -13,14 +13,15 @@
     CGFloat WMFooldRadius;
     CGFloat WMFooldLength;
     CGFloat WMFooldHeight;
-    int sign;
+    int     sign;
     CGFloat gap;
     CGFloat step;
     CADisplayLink *link;
-    
     CGFloat kTime;
 }
+
 @synthesize progress = _progress;
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         WMFooldHeight = frame.size.height;
@@ -31,11 +32,13 @@
     }
     return self;
 }
+
 - (void)setProgressWithOutAnimate:(CGFloat)progress {
     if (self.progress == progress) return;
     _progress = progress;
     [self setNeedsDisplay];
 }
+
 - (void)setProgress:(CGFloat)progress {
     if (self.progress == progress) return;
     if (fabs(progress - _progress) >= 0.9 && fabs(progress - _progress) < 1.5) {
@@ -52,6 +55,7 @@
     _progress = progress;
     [self setNeedsDisplay];
 }
+
 - (void)progressChanged {
     if (gap >= 0.0) {
         gap -= step;
@@ -60,13 +64,13 @@
             return;
         }
         self.progress += sign * step;
-//        gap -= step;
-    }else{
+    } else {
         self.progress = (int)(self.progress+0.5);
         [link invalidate];
         link = nil;
     }
 }
+
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     int currentIndex = (int)self.progress;
@@ -91,8 +95,7 @@
     CGContextAddLineToPoint(ctx, endX-WMFooldRadius, WMFooldMargin);
     CGContextAddArc(ctx, endX-WMFooldRadius, WMFooldHeight/2.0, WMFooldRadius, -M_PI_2, M_PI_2, 0);
     CGContextClosePath(ctx);
-    
-    
+
     if (self.hollow) {
         CGContextSetStrokeColorWithColor(ctx, self.color);
         CGContextStrokePath(ctx);
@@ -102,6 +105,5 @@
     CGContextSetFillColorWithColor(ctx, self.color);
     CGContextFillPath(ctx);
 }
-
 
 @end

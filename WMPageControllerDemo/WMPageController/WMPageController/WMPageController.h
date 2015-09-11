@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "WMMenuView.h"
 
-/**************************************************************************************************************
- *  WMPageController 的缓存设置，默认缓存为无限制，当收到 memoryWarning 时，会自动切换到低缓存模式 (WMPageControllerCachePolicyLowMemory)，并在一段时间后切换回默认模式.
- 收到多次警告后，会停留在到 WMPageControllerCachePolicyLowMemory 不再增长
- **************************************************************************************************************
+/*
+ *  WMPageController 的缓存设置，默认缓存为无限制，当收到 memoryWarning 时，会自动切换到低缓存模式 (WMPageControllerCachePolicyLowMemory)，并在一段时间后切换到 High .
+    收到多次警告后，会停留在到 WMPageControllerCachePolicyLowMemory 不再增长
+ *
  *  The Default cache policy is No Limit, when recieved memory warning, page controller will switch mode to 'LowMemory'
     and continue to grow back after a while.
     If recieved too much times, the cache policy will stay at 'LowMemory' and don't grow back any more.
@@ -30,13 +30,14 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  各个控制器的 class, 例如:[UITableViewController class]
  *  Each controller's class, example:[UITableViewController class]
  */
-@property (nonatomic, strong) NSArray *viewControllerClasses;
+@property (nonatomic, copy) NSArray *viewControllerClasses;
 
 /**
  *  各个控制器标题, NSString
  *  Titles of view controllers in page controller. Use `NSString`.
  */
-@property (nonatomic, strong) NSArray *titles;
+@property (nonatomic, copy) NSArray *titles;
+
 @property (nonatomic, strong, readonly) UIViewController *currentViewController;
 
 /**
@@ -46,7 +47,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 @property (nonatomic, assign) int selectIndex;
 
 /**
- *  点击相邻的 MenuItem 是否触发翻页动画(当当前选中与点击Item相差大于1是不触发)
+ *  点击相邻的 MenuItem 是否触发翻页动画 (当当前选中与点击Item相差大于1是不触发)
  *  Whether to animate when press the MenuItem, if distant between the selected and the pressed is larger than 1,never animate.
  */
 @property (nonatomic, assign) BOOL pageAnimatable;
@@ -56,6 +57,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  The title size when selected (animatable)
  */
 @property (nonatomic, assign) CGFloat titleSizeSelected;
+
 /**
  *  非选中时的标题尺寸
  *  The normal title size (animatable)
@@ -67,6 +69,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  The title color when selected, the color is animatable.
  */
 @property (nonatomic, strong) UIColor *titleColorSelected;
+
 /**
  *  标题非选择时的颜色, 颜色是可动画的.
  *  The title's normal color, the color is animatable.
@@ -84,9 +87,11 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  The menu view's height
  */
 @property (nonatomic, assign) CGFloat menuHeight;
+
 // **************************************************************************************
 // 当所有item的宽度加起来小于屏幕宽时，PageController会自动帮助排版，添加每个item之间的间隙以填充整个宽度
 // When the sum of all the item's width is smaller than the screen's width, pageController will add gap to each item automatically, in order to fill the width.
+
 /**
  *  每个 MenuItem 的宽度
  *  The item width,when all are same,use this property
@@ -97,7 +102,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  各个 MenuItem 的宽度，可不等，数组内为 NSNumber.
  *  Each item's width, when they are not all the same, use this property, Put `NSNumber` in this array.
  */
-@property (nonatomic, strong) NSArray *itemsWidths;
+@property (nonatomic, copy) NSArray *itemsWidths;
 
 /**
  *  导航栏背景色
@@ -129,8 +134,9 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  比如 `UITabelViewController`, 当然你也可以在自己的控制器中自行设置, 如果将 Controller.view 替换为 scrollView 或者在Controller.view 上添加了一个和自身 bounds 一样的 scrollView 也是OK的
  */
 @property (nonatomic, assign) BOOL rememberLocation __deprecated_msg("Because of the cache policy,this property can abondon now.");
+
 /**
- *  缓存的机制，默认为无限制(如果收到内存警告)
+ *  缓存的机制，默认为无限制 (如果收到内存警告, 会自动切换)
  */
 @property (nonatomic, assign) WMPageControllerCachePolicy cachePolicy;
 
@@ -144,4 +150,5 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  *  @return instancetype
  */
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles;
+
 @end

@@ -11,12 +11,14 @@
 #import "WMTableViewController.h"
 #import "WMViewController.h"
 #import "WMCollectionViewController.h"
+
 @interface WMMainTableViewController ()
 @property (nonatomic, strong) NSArray *styles;
 @end
 
 @implementation WMMainTableViewController
-- (NSArray *)styles{
+
+- (NSArray *)styles {
     if (_styles == nil) {
         _styles = @[@"WMMenuViewStyleDefault",
                     @"WMMenuViewStyleLine",
@@ -25,15 +27,19 @@
     }
     return _styles;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.styles.count;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *const cellIdentifier = @"WMMainCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -44,38 +50,37 @@
     cell.textLabel.text = self.styles[indexPath.row];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    WMPageController *pageController = [self getDefaultController];
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMPageController *pageController = [self p_defaultController];
     if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleDefault"]) {
         // 默认
         pageController.title = @"Default";
-    }else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleLine"]){
+    } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleLine"]) {
         // 下划线
         pageController.title = @"Line";
         pageController.menuViewStyle = WMMenuViewStyleLine;
         pageController.titleSizeSelected = 15;
-    }else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFlood"]){
+    } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFlood"]) {
         // 涌入
         pageController = [self pageControllerStyleFlood];
         pageController.title = @"Flood";
-    }else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFloodHollow"]){
+    } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFloodHollow"]) {
         // 涌入/空心
         pageController.title = @"Hollow";
         pageController.menuViewStyle = WMMenuViewStyleFooldHollow;
         pageController.titleSizeSelected = 15;
     }
-    // 等待新样式
-    // ...
     [self.navigationController pushViewController:pageController animated:YES];
 }
 
-- (WMPageController *)getDefaultController{
+- (WMPageController *)p_defaultController {
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     NSMutableArray *titles = [[NSMutableArray alloc] init];
     for (int i = 0; i < 10; i++) {
         Class vcClass;
         NSString *title;
-        switch (i%3) {
+        switch (i % 3) {
             case 0:
                 vcClass = [WMTableViewController class];
                 title = @"Greetings";
@@ -98,43 +103,25 @@
     pageVC.postNotification = YES;
     return pageVC;
 }
-- (WMPageController *)pageControllerStyleFlood{
-    NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
-    NSMutableArray *titles = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 3; i++) {
-        Class vcClass;
-        NSString *title;
-        switch (i%3) {
-            case 0:
-                vcClass = [WMTableViewController class];
-                title = @"通知";
-                break;
-            case 1:
-                vcClass = [WMViewController class];
-                title = @"赞与感谢";
-                break;
-            default:
-                vcClass = [WMCollectionViewController class];
-                title = @"私信";
-                break;
-        }
-        [viewControllers addObject:vcClass];
-        [titles addObject:title];
-    }
+
+- (WMPageController *)pageControllerStyleFlood {
+    NSArray *viewControllers = @[[WMTableViewController class], [WMViewController class], [WMCollectionViewController class]];
+    NSArray *titles = @[@"通知", @"赞与感谢", @"私信"];
+    
     WMPageController *pageVC = [[WMPageController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
     pageVC.titleSizeSelected = 15;
     pageVC.pageAnimatable = YES;
     pageVC.menuViewStyle = WMMenuViewStyleFoold;
-    pageVC.titleColorSelected = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
+    pageVC.titleColorSelected = [UIColor whiteColor];
     pageVC.titleColorNormal = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
     pageVC.progressColor = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
     pageVC.itemsWidths = @[@(70),@(100),@(70)]; // 这里可以设置不同的宽度
     return pageVC;
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 @end
