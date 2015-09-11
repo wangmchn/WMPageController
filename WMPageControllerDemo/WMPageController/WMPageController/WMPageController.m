@@ -312,7 +312,7 @@
 
 - (void)growCachePolicyAfterMemoryWarning {
     self.cachePolicy = WMPageControllerCachePolicyBalanced;
-    [self performSelector:@selector(growCachePolicyToHigh) withObject:nil afterDelay:2.0];
+    [self performSelector:@selector(growCachePolicyToHigh) withObject:nil afterDelay:2.0 inModes:@[NSRunLoopCommonModes]];
 }
 
 - (void)growCachePolicyToHigh {
@@ -367,7 +367,7 @@
     
     // 如果收到内存警告次数小于 3，一段时间后切换到模式 Balanced
     if (self.memoryWarningCount < 3) {
-        [self performSelector:@selector(growCachePolicyAfterMemoryWarning) withObject:nil afterDelay:3.0];
+        [self performSelector:@selector(growCachePolicyAfterMemoryWarning) withObject:nil afterDelay:3.0 inModes:@[NSRunLoopCommonModes]];
     }
 }
 

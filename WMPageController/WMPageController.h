@@ -134,7 +134,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 @property (nonatomic, assign) BOOL rememberLocation __deprecated_msg("Because of the cache policy,this property can abondon now.");
 
 /**
- *  缓存的机制，默认为无限制(如果收到内存警告)
+ *  缓存的机制，默认为无限制 (如果收到内存警告, 会自动切换)
  */
 @property (nonatomic, assign) WMPageControllerCachePolicy cachePolicy;
 
