@@ -178,9 +178,9 @@ static CGFloat const WMProgressHeight = 2.0;
             item.font = [UIFont systemFontOfSize:_selSize];
         }
         item.backgroundColor = [UIColor clearColor];
-        item.normalSize = _norSize;
-        item.selectedSize = _selSize;
-        item.normalColor = _norColor;
+        item.normalSize    = _norSize;
+        item.selectedSize  = _selSize;
+        item.normalColor   = _norColor;
         item.selectedColor = _selColor;
         if (i == 0) {
             [item selectedItemWithoutAnimation];
@@ -214,7 +214,7 @@ static CGFloat const WMProgressHeight = 2.0;
         CGFloat gap = distance / (self.items.count + 1);
         for (int i = 0; i < self.frames.count; i++) {
             CGRect frame = [self.frames[i] CGRectValue];
-            frame.origin.x += gap*(i+1);
+            frame.origin.x += gap * (i+1);
             self.frames[i] = [NSValue valueWithCGRect:frame];
         }
         contentWidth = self.frame.size.width;
@@ -224,7 +224,7 @@ static CGFloat const WMProgressHeight = 2.0;
 
 // MARK:Progress View
 - (void)addProgressView {
-    WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-WMProgressHeight, self.scrollView.contentSize.width, WMProgressHeight)];
+    WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - WMProgressHeight, self.scrollView.contentSize.width, WMProgressHeight)];
     pView.itemFrames = self.frames;
     pView.color = self.lineColor.CGColor;
     pView.backgroundColor = [UIColor clearColor];
