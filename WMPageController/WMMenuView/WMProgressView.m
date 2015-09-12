@@ -11,7 +11,7 @@
     int sign;
     CGFloat gap;
     CGFloat step;
-    CADisplayLink *link;
+    __weak CADisplayLink *_link;
 }
 
 - (void)setProgressWithOutAnimate:(CGFloat)progress {
@@ -24,10 +24,11 @@
     if (self.progress == progress) return;
     if (fabs(progress - _progress) >= 0.94 && fabs(progress - _progress) < 1.2) {
         gap  = fabs(self.progress - progress);
-        sign = self.progress>progress?-1:1;
+        sign = self.progress > progress ? -1 : 1;
         step = gap / 20.0;
-        link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
+        CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
         [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        _link = link;
         return;
     }
     _progress = progress;
@@ -39,9 +40,9 @@
         self.progress += sign * step;
         gap -= step;
     } else {
-        self.progress = (int)(self.progress+0.5);
-        [link invalidate];
-        link = nil;
+        self.progress = (int)(self.progress + 0.5);
+        [_link invalidate];
+        _link = nil;
     }
 }
 
@@ -53,10 +54,10 @@
     CGFloat rate = self.progress - index;
     CGRect currentFrame = [self.itemFrames[index] CGRectValue];
     CGFloat currentWidth = currentFrame.size.width;
-    int nextIndex = index+1<self.itemFrames.count ? index+1:index;
+    int nextIndex = index + 1 < self.itemFrames.count ? index + 1 : index;
     CGFloat nextWidth = [self.itemFrames[nextIndex] CGRectValue].size.width;
     CGFloat height = self.frame.size.height;
-    CGFloat constY = height/2;
+    CGFloat constY = height / 2;
     CGFloat currentX = currentFrame.origin.x;
     CGFloat nextX = [self.itemFrames[nextIndex] CGRectValue].origin.x;
     CGFloat startX = currentX + (nextX - currentX) * rate;

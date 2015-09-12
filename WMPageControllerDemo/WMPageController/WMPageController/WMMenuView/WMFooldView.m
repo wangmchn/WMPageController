@@ -13,11 +13,12 @@
     CGFloat WMFooldRadius;
     CGFloat WMFooldLength;
     CGFloat WMFooldHeight;
-    int     sign;
     CGFloat gap;
     CGFloat step;
-    CADisplayLink *link;
     CGFloat kTime;
+    int     sign;
+    
+    __weak CADisplayLink *_link;
 }
 
 @synthesize progress = _progress;
@@ -26,8 +27,8 @@
     if (self = [super initWithFrame:frame]) {
         WMFooldHeight = frame.size.height;
         WMFooldMargin = WMFooldHeight * 0.15;
-        WMFooldRadius = (WMFooldHeight - 2*WMFooldMargin)/2;
-        WMFooldLength = frame.size.width  - 2*WMFooldRadius;
+        WMFooldRadius = (WMFooldHeight - WMFooldMargin * 2) / 2;
+        WMFooldLength = frame.size.width  - WMFooldRadius * 2;
         kTime = 20.0;
     }
     return self;
@@ -43,13 +44,14 @@
     if (self.progress == progress) return;
     if (fabs(progress - _progress) >= 0.9 && fabs(progress - _progress) < 1.5) {
         gap  = fabs(self.progress - progress);
-        sign = self.progress>progress?-1:1;
+        sign = self.progress > progress ? - 1 : 1;
         if (self.itemFrames.count <= 3) {
             kTime = 15.0;
         }
         step = gap / kTime;
-        link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
+        CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
         [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        _link = link;
         return;
     }
     _progress = progress;
@@ -60,14 +62,14 @@
     if (gap >= 0.0) {
         gap -= step;
         if (gap < 0.0) {
-            self.progress = (int)(self.progress+0.5);
+            self.progress = (int)(self.progress + 0.5);
             return;
         }
         self.progress += sign * step;
     } else {
-        self.progress = (int)(self.progress+0.5);
-        [link invalidate];
-        link = nil;
+        self.progress = (int)(self.progress + 0.5);
+        [_link invalidate];
+        _link = nil;
     }
 }
 
@@ -75,7 +77,7 @@
     // Drawing code
     int currentIndex = (int)self.progress;
     CGFloat rate = self.progress - currentIndex;
-    int nextIndex = currentIndex+1 >= self.itemFrames.count ?: currentIndex+1;
+    int nextIndex = currentIndex + 1 >= self.itemFrames.count ?: currentIndex + 1;
 
     // 当前item的各数值
     CGRect  currentFrame = [self.itemFrames[currentIndex] CGRectValue];
@@ -91,9 +93,9 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextTranslateCTM(ctx, 0.0f, WMFooldHeight);
     CGContextScaleCTM(ctx, 1.0f, -1.0f);
-    CGContextAddArc(ctx, startX+WMFooldRadius, WMFooldHeight/2.0, WMFooldRadius, M_PI_2, M_PI_2*3, 0);
+    CGContextAddArc(ctx, startX+WMFooldRadius, WMFooldHeight / 2.0, WMFooldRadius, M_PI_2, M_PI_2 * 3, 0);
     CGContextAddLineToPoint(ctx, endX-WMFooldRadius, WMFooldMargin);
-    CGContextAddArc(ctx, endX-WMFooldRadius, WMFooldHeight/2.0, WMFooldRadius, -M_PI_2, M_PI_2, 0);
+    CGContextAddArc(ctx, endX-WMFooldRadius, WMFooldHeight / 2.0, WMFooldRadius, -M_PI_2, M_PI_2, 0);
     CGContextClosePath(ctx);
     
     if (self.hollow) {
