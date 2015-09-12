@@ -8,7 +8,7 @@
 
 #import "WMProgressView.h"
 @implementation WMProgressView {
-    int sign;
+    int     sign;
     CGFloat gap;
     CGFloat step;
     __weak CADisplayLink *_link;

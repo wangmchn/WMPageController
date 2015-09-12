@@ -15,6 +15,7 @@
 //  导航菜单栏的背景颜色
 #define WMMenuBGColor        [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1.0]
 
+
 //  标题的尺寸(选中/非选中)
 static CGFloat const WMTitleSizeSelected = 18.0f;
 static CGFloat const WMTitleSizeNormal   = 15.0f;
