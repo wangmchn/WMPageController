@@ -1,4 +1,10 @@
 # WMPageController
+[![Platform](http://img.shields.io/badge/platform-iOS-blue.svg?style=flat
+)](https://developer.apple.com/iphone/index.action)
+[![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
+)](http://mit-license.org)
+![CocoaPods Version](https://img.shields.io/badge/pod-v0.36.4-brightgreen.svg)
+
 An easy solution to page controllers like `NetEase News`
 ## Overview
 **Default style** <br>
