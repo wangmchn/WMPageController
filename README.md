@@ -24,7 +24,7 @@ pageController.menuViewStyle = WMMenuViewStyleLine;
 ## Basic use
 
 First Drag files in red frame to your project.<br>
-![Guide](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/guide.png)
+<img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/guide.png" />
 
 Then,create an controller that extends from `WMPageController`.I recommend to use<br>
 ```objective-c
