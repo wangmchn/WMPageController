@@ -7,8 +7,9 @@
 
 An easy solution to page controllers like `NetEase News`
 ## Overview
-**Default style** <br>
-<img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
+<br>
+<img height="400" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
+<br>
 <br>
 And you can easily change styles by setting `menuViewStyle` property:
 ```objective-c
