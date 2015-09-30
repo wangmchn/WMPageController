@@ -1,14 +1,15 @@
 # WMPageController
+[![Platform](http://img.shields.io/badge/platform-iOS-blue.svg?style=flat
+)](https://developer.apple.com/iphone/index.action)
+[![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
+)](http://mit-license.org)
+![CocoaPods Version](https://img.shields.io/badge/pod-v0.36.4-brightgreen.svg)
+
 An easy solution to page controllers like `NetEase News`
 ## Overview
-**Default style** <br>
-<img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
 <br>
-`WMMenuViewStyleLine` <br>
-<img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot4.gif" />               <img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot3.gif" /> 
+<img height="400" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
 <br>
-`WMMenuViewStyleFlood`<br>
-<img height="350" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot2.gif" />
 <br>
 And you can easily change styles by setting `menuViewStyle` property:
 ```objective-c
@@ -24,7 +25,7 @@ pageController.menuViewStyle = WMMenuViewStyleFlood;
 ## Basic use
 
 First Drag files in red frame to your project.<br>
-![Guide](https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/guide1.png)
+<img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/guide.png" />
 
 Then,create an controller that extends from `WMPageController`.I recommend to use<br>
 ```objective-c
