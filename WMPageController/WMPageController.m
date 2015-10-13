@@ -230,7 +230,6 @@
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
-    
     [self backToPositionIfNeeded:viewController atIndex:index];
 }
 
