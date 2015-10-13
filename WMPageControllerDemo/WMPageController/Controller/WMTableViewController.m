@@ -71,7 +71,7 @@
     return cell;
 }
 
-- (void)dealloc{
+- (void)dealloc {
     NSLog(@"%@ destroyed",[self class]);
 }
 

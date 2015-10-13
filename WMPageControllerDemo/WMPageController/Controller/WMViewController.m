@@ -33,7 +33,7 @@
     [self.view addSubview:label];
 }
 
-- (void)viewDidLayoutSubviews{
+- (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.label.frame = CGRectMake(0, 180, self.view.frame.size.width, 120);
     self.imageView.frame = CGRectMake((self.view.frame.size.width-200)/2.0, 10, 200, 180);
@@ -44,7 +44,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc{
+- (void)dealloc {
     NSLog(@"%@ destroyed",[self class]);
 }
 

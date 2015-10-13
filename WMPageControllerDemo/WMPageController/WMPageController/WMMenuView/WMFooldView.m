@@ -42,7 +42,7 @@
 
 - (void)setProgress:(CGFloat)progress {
     if (self.progress == progress) return;
-    if (fabs(progress - _progress) >= 0.9 && fabs(progress - _progress) < 1.5) {
+    if (fabs(progress - _progress) >= 0.9 /*&& fabs(progress - _progress) < 1.5*/) {
         gap  = fabs(self.progress - progress);
         sign = self.progress > progress ? - 1 : 1;
         if (self.itemFrames.count <= 3) {

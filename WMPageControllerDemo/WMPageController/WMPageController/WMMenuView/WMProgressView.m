@@ -8,7 +8,7 @@
 
 #import "WMProgressView.h"
 @implementation WMProgressView {
-    int sign;
+    int     sign;
     CGFloat gap;
     CGFloat step;
     __weak CADisplayLink *_link;
@@ -22,7 +22,7 @@
 
 - (void)setProgress:(CGFloat)progress {
     if (self.progress == progress) return;
-    if (fabs(progress - _progress) >= 0.94 && fabs(progress - _progress) < 1.2) {
+    if (fabs(progress - _progress) >= 0.9 /*&& fabs(progress - _progress) < 1.2*/) {
         gap  = fabs(self.progress - progress);
         sign = self.progress > progress ? -1 : 1;
         step = gap / 20.0;

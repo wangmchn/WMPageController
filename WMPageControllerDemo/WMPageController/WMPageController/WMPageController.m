@@ -329,6 +329,7 @@
     [self addMenuView];
     
     [self addViewControllerAtIndex:self.selectIndex];
+    self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
 
 - (void)viewDidLayoutSubviews {
