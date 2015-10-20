@@ -9,9 +9,11 @@
 #import "WMTableViewController.h"
 #import "WMLoopView.h"
 #import "WMPageConst.h"
+
 @interface WMTableViewController () <WMLoopViewDelegate>
 
 @end
+
 @implementation WMTableViewController
 
 - (void)viewDidLoad {

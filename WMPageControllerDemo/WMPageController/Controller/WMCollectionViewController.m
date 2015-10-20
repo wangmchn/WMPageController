@@ -8,10 +8,9 @@
 
 #import "WMCollectionViewController.h"
 #import "WMImageViewCell.h"
+
 @interface WMCollectionViewController ()
-
 @property (nonatomic, strong) NSArray *imageNames;
-
 @end
 
 @implementation WMCollectionViewController

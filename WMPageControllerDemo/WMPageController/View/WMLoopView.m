@@ -17,7 +17,7 @@
 @end
 
 @implementation WMLoopView
-- (id)initWithFrame:(CGRect)frame images:(NSArray *)images autoPlay:(BOOL)isAuto delay:(NSTimeInterval)timeInterval{
+- (instancetype)initWithFrame:(CGRect)frame images:(NSArray *)images autoPlay:(BOOL)isAuto delay:(NSTimeInterval)timeInterval {
     if (self = [super initWithFrame:frame]) {
         _autoPlay = isAuto;
         _timeInterval = timeInterval;
@@ -32,8 +32,9 @@
     }
     return self;
 }
+
 #pragma mark - Public Methods
-- (void)addPageControl{
+- (void)addPageControl {
     CGFloat height = self.frame.size.height;
     CGFloat width = self.frame.size.width;
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, height-kPageH, width, kPageH)];
@@ -46,16 +47,19 @@
     [bgView addSubview:self.pageControl];
     [self addSubview:bgView];
 }
+
 #pragma mark - Private Methods
-- (void)toPlay{
+- (void)toPlay {
     [self performSelector:@selector(autoPlayToNextPage) withObject:nil afterDelay:_timeInterval];
 }
-- (void)autoPlayToNextPage{
+
+- (void)autoPlayToNextPage {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoPlayToNextPage) object:nil];
     [self.scrollView setContentOffset:CGPointMake(self.frame.size.width * 2, 0) animated:YES];
     [self performSelector:@selector(autoPlayToNextPage) withObject:nil afterDelay:_timeInterval];
 }
-- (NSMutableArray *)currentImages{
+
+- (NSMutableArray *)currentImages {
     if (_currentImages == nil) {
         _currentImages = [[NSMutableArray alloc] init];
     }
@@ -68,7 +72,8 @@
     [_currentImages addObject:self.images[i]];
     return _currentImages;
 }
-- (void)addScrollView{
+
+- (void)addScrollView {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height;
@@ -89,7 +94,8 @@
     [self addSubview:scrollView];
     _scrollView = scrollView;
 }
-- (void)refreshImages{
+
+- (void)refreshImages {
     NSArray *subViews = self.scrollView.subviews;
     for (int i = 0; i < subViews.count; i++) {
         UIImageView *imageView = (UIImageView *)subViews[i];
@@ -98,13 +104,15 @@
     
     [self.scrollView setContentOffset:CGPointMake(self.frame.size.width, 0)];
 }
+
 #pragma mark - delegate
-- (void)singleTapped:(UITapGestureRecognizer *)recognizer{
+- (void)singleTapped:(UITapGestureRecognizer *)recognizer {
     if ([self.delegate respondsToSelector:@selector(loopViewDidSelectedImage:index:)]) {
         [self.delegate loopViewDidSelectedImage:self index:_currentPage];
     }
 }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat x = scrollView.contentOffset.x;
     CGFloat width = self.frame.size.width;
     if (x >= 2 * width) {
@@ -119,7 +127,9 @@
     }
     
 }
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [scrollView setContentOffset:CGPointMake(self.frame.size.width, 0) animated:YES];
 }
+
 @end

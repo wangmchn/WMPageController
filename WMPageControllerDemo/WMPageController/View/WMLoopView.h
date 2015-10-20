@@ -19,5 +19,5 @@
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 @property (nonatomic, strong) NSArray *images;
 
-- (id)initWithFrame:(CGRect)frame images:(NSArray *)images autoPlay:(BOOL)isAuto delay:(NSTimeInterval)timeInterval;
+- (instancetype)initWithFrame:(CGRect)frame images:(NSArray *)images autoPlay:(BOOL)isAuto delay:(NSTimeInterval)timeInterval;
 @end

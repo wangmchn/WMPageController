@@ -9,11 +9,12 @@
 #import "WMImageViewCell.h"
 
 @interface WMImageViewCell ()
+
 @end
 
 @implementation WMImageViewCell
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         UIImageView *imageView = [[UIImageView alloc] init];
         [self addSubview:imageView];
@@ -22,7 +23,7 @@
     return self;
 }
 
-- (void)layoutSubviews{
+- (void)layoutSubviews {
     [super layoutSubviews];
     self.imageView.frame = self.bounds;
 }
