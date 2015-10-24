@@ -15,19 +15,28 @@
     CGFloat targetX;
     BOOL    animate;
 }
+
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
+
 @property (nonatomic, weak) WMMenuView *menuView;
+
 @property (nonatomic, weak) UIScrollView *scrollView;
+
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
 @property (nonatomic, strong) NSMutableArray *childViewFrames;
+
 // 当前展示在屏幕上的控制器，方便在滚动的时候读取 (避免不必要计算)
 @property (nonatomic, strong) NSMutableDictionary *displayVC;
+
 // 用于记录销毁的viewController的位置 (如果它是某一种scrollView的Controller的话)
 @property (nonatomic, strong) NSMutableDictionary *posRecords;
+
 // 用于缓存加载过的控制器
 @property (nonatomic, strong) NSCache *memCache;
+
 // 收到内存警告的次数
 @property (nonatomic, assign) int memoryWarningCount;
+
 @end
 
 @implementation WMPageController
@@ -216,6 +225,9 @@
 - (void)addViewControllerAtIndex:(int)index {
     Class vcClass = self.viewControllerClasses[index];
     UIViewController *viewController = [[vcClass alloc] init];
+    if (self.values && self.keys) {
+        [viewController setValue:self.values[index] forKey:self.keys[index]];
+    }
     [self addChildViewController:viewController];
     viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
@@ -286,6 +298,7 @@
 - (BOOL)isInScreen:(CGRect)frame {
     CGFloat x = frame.origin.x;
     CGFloat ScreenWidth = self.scrollView.frame.size.width;
+    
     CGFloat contentOffsetX = self.scrollView.contentOffset.x;
     if (CGRectGetMaxX(frame) > contentOffsetX && x-contentOffsetX < ScreenWidth) {
         return YES;
@@ -319,6 +332,7 @@
     [self addMenuView];
     
     [self addViewControllerAtIndex:self.selectIndex];
+    self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
 
 - (void)viewDidLayoutSubviews {

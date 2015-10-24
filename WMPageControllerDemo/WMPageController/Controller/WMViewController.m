@@ -31,6 +31,17 @@
     self.label = label;
     label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label];
+    
+    NSLog(@"%@",self.parentViewController);
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSLog(@"%@",self.parentViewController);
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSLog(@"%@",self.parentViewController);
 }
 
 - (void)viewDidLayoutSubviews{
@@ -44,7 +55,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc{
+- (void)dealloc {
     NSLog(@"%@ destroyed",[self class]);
 }
 

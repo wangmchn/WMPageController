@@ -27,6 +27,14 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 @interface WMPageController : UIViewController
 
 /**
+ *  values and keys can set properties when initialize child controlelr (it's KVC coding)
+    see issue #11:https://github.com/wangmchn/WMPageController/issues/11
+ *  values keys 属性可以用于初始化控制器的时候为控制器传值(利用 KVC 来设置)
+    使用时请确保 key 与控制器的属性名字一致！！(例如：控制器有需要设置的属性 type，那么 keys 所放的就是字符串 @"type")
+ */
+@property (nonatomic, copy) NSArray *values;
+@property (nonatomic, copy) NSArray *keys;
+/**
  *  各个控制器的 class, 例如:[UITableViewController class]
  *  Each controller's class, example:[UITableViewController class]
  */
@@ -87,7 +95,6 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  */
 @property (nonatomic, assign) CGFloat menuHeight;
 
-// **************************************************************************************
 // 当所有item的宽度加起来小于屏幕宽时，PageController会自动帮助排版，添加每个item之间的间隙以填充整个宽度
 // When the sum of all the item's width is smaller than the screen's width, pageController will add gap to each item automatically, in order to fill the width.
 
