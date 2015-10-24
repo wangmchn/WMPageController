@@ -225,6 +225,9 @@
 - (void)addViewControllerAtIndex:(int)index {
     Class vcClass = self.viewControllerClasses[index];
     UIViewController *viewController = [[vcClass alloc] init];
+    if (self.values && self.keys) {
+        [viewController setValue:self.values[index] forKey:self.keys[index]];
+    }
     [self addChildViewController:viewController];
     viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];

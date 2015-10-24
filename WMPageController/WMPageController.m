@@ -225,11 +225,15 @@
 - (void)addViewControllerAtIndex:(int)index {
     Class vcClass = self.viewControllerClasses[index];
     UIViewController *viewController = [[vcClass alloc] init];
+    if (self.values && self.keys) {
+        [viewController setValue:self.values[index] forKey:self.keys[index]];
+    }
     [self addChildViewController:viewController];
     viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
     [self.displayVC setObject:viewController forKey:@(index)];
+    
     [self backToPositionIfNeeded:viewController atIndex:index];
 }
 
