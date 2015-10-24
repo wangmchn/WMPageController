@@ -44,9 +44,8 @@
         } else {
             self.rate = 1.0;
         }
-    } completion:^(BOOL finished) {
         _selected = selected;
-    }];
+    } completion:nil];
 }
 
 // 设置rate,并刷新标题状态
