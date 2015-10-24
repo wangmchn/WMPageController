@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class WMMenuItem;
+
 @protocol WMMenuItemDelegate <NSObject>
 @optional
 - (void)didPressedMenuItem:(WMMenuItem *)menuItem;
