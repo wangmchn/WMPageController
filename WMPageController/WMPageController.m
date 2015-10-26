@@ -150,7 +150,7 @@
     scrollView.delegate = self;
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
-    scrollView.bounces = NO;
+    scrollView.bounces = self.bounces;
     
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
@@ -380,6 +380,9 @@
     [self layoutChildViewControllers];
     if (animate) {
         CGFloat contentOffsetX = scrollView.contentOffset.x;
+        if (contentOffsetX < 0 || contentOffsetX > scrollView.contentSize.width - viewWidth) {
+            return;
+        }
         CGFloat rate = contentOffsetX / viewWidth;
         [self.menuView slideMenuAtProgress:rate];
     }
