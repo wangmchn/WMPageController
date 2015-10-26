@@ -147,6 +147,10 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 @property (nonatomic, assign) WMPageControllerCachePolicy cachePolicy;
 
 /**
+ *  Whether ContentView bounces
+ */
+@property (nonatomic, assign) BOOL bounces;
+/**
  *  构造方法，请使用该方法创建控制器.
  *  Init method，recommend to use this instead of `-init`.
  *

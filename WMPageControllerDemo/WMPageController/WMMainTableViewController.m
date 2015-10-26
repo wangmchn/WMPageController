@@ -100,6 +100,7 @@
     pageVC.pageAnimatable = YES;
     pageVC.menuItemWidth = 85;
     pageVC.postNotification = YES;
+    pageVC.bounces = YES;
     return pageVC;
 }
 
