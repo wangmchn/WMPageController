@@ -49,6 +49,9 @@
             kTime = 15.0;
         }
         step = gap / kTime;
+        if (_link) {
+            [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        }
         CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
         [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
         _link = link;
@@ -97,6 +100,7 @@
     CGContextAddLineToPoint(ctx, endX-WMFooldRadius, WMFooldMargin);
     CGContextAddArc(ctx, endX-WMFooldRadius, WMFooldHeight / 2.0, WMFooldRadius, -M_PI_2, M_PI_2, 0);
     CGContextClosePath(ctx);
+    
     if (self.hollow) {
         CGContextSetStrokeColorWithColor(ctx, self.color);
         CGContextStrokePath(ctx);
