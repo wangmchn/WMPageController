@@ -49,6 +49,9 @@
             kTime = 15.0;
         }
         step = gap / kTime;
+        if (_link) {
+            [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        }
         CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
         [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
         _link = link;

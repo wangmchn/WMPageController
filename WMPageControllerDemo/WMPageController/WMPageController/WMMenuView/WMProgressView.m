@@ -26,6 +26,9 @@
         gap  = fabs(self.progress - progress);
         sign = self.progress > progress ? -1 : 1;
         step = gap / 20.0;
+        if (_link) {
+            [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        }
         CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
         [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
         _link = link;
@@ -36,6 +39,7 @@
 }
 
 - (void)progressChanged {
+    NSLog(@"---------");
     if (gap >= 0.0) {
         self.progress += sign * step;
         gap -= step;
