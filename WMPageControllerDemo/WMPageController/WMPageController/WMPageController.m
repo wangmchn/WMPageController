@@ -407,20 +407,20 @@
 #pragma mark - WMMenuView Delegate
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex {
     NSInteger gap = (NSInteger)labs(index - currentIndex);
+    _selectIndex = (int)index;
     animate = NO;
     CGPoint targetP = CGPointMake(viewWidth*index, 0);
     
     [self.scrollView setContentOffset:targetP animated:gap > 1 ? NO : self.pageAnimatable];
     if (gap > 1 || !self.pageAnimatable) {
         [self postFullyDisplayedNotificationWithCurrentIndex:(int)index];
+        self.currentViewController = self.displayVC[@(self.selectIndex)];
         // 由于不触发 -scrollViewDidScroll: 手动清除控制器..
         UIViewController *vc = [self.displayVC objectForKey:@(currentIndex)];
         if (vc) {
             [self removeViewController:vc atIndex:currentIndex];
         }
     }
-    _selectIndex = (int)index;
-    self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
 
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
