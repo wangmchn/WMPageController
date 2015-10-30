@@ -150,7 +150,7 @@
     scrollView.delegate = self;
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
-    scrollView.bounces = NO;
+    scrollView.bounces = self.bounces;
     
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
@@ -161,6 +161,7 @@
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonItems:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
     menuView.delegate = self;
     menuView.style = self.menuViewStyle;
+    menuView.progressHeight = self.progressHeight;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }
@@ -177,17 +178,8 @@
 
 - (void)layoutChildViewControllers {
     int currentPage = (int)self.scrollView.contentOffset.x / viewWidth;
-    int start,end;
-    if (currentPage == 0) {
-        start = currentPage;
-        end = currentPage + 1;
-    } else if (currentPage + 1 == self.viewControllerClasses.count){
-        start = currentPage - 1;
-        end = currentPage;
-    } else {
-        start = currentPage - 1;
-        end = currentPage + 1;
-    }
+    int start = currentPage == 0 ? currentPage : (currentPage - 1);
+    int end = (currentPage == self.viewControllerClasses.count - 1) ? currentPage : (currentPage + 1);
     for (int i = start; i <= end; i++) {
         CGRect frame = [self.childViewFrames[i] CGRectValue];
         UIViewController *vc = [self.displayVC objectForKey:@(i)];
@@ -380,6 +372,9 @@
     [self layoutChildViewControllers];
     if (animate) {
         CGFloat contentOffsetX = scrollView.contentOffset.x;
+        if (contentOffsetX < 0 || contentOffsetX > scrollView.contentSize.width - viewWidth) {
+            return;
+        }
         CGFloat rate = contentOffsetX / viewWidth;
         [self.menuView slideMenuAtProgress:rate];
     }
@@ -413,20 +408,20 @@
 #pragma mark - WMMenuView Delegate
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex {
     NSInteger gap = (NSInteger)labs(index - currentIndex);
+    _selectIndex = (int)index;
     animate = NO;
     CGPoint targetP = CGPointMake(viewWidth*index, 0);
     
-    [self.scrollView setContentOffset:targetP animated:gap > 1?NO:self.pageAnimatable];
+    [self.scrollView setContentOffset:targetP animated:gap > 1 ? NO : self.pageAnimatable];
     if (gap > 1 || !self.pageAnimatable) {
         [self postFullyDisplayedNotificationWithCurrentIndex:(int)index];
+        self.currentViewController = self.displayVC[@(self.selectIndex)];
         // 由于不触发 -scrollViewDidScroll: 手动清除控制器..
         UIViewController *vc = [self.displayVC objectForKey:@(currentIndex)];
         if (vc) {
             [self removeViewController:vc atIndex:currentIndex];
         }
     }
-    _selectIndex = (int)index;
-    self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
 
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {

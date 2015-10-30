@@ -23,7 +23,7 @@ typedef enum {
 @end
 
 @interface WMMenuView : UIView
-
+@property (nonatomic, assign) CGFloat progressHeight;
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, assign) WMMenuViewStyle style;
 @property (nonatomic, strong) UIColor *lineColor;

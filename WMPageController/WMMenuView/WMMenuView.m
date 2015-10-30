@@ -34,6 +34,13 @@ static CGFloat const WMProgressHeight = 2.0;
 @implementation WMMenuView
 
 #pragma mark - Lazy
+- (CGFloat)progressHeight {
+    if (_progressHeight == 0.0) {
+        _progressHeight = WMProgressHeight;
+    }
+    return _progressHeight;
+}
+
 - (UIColor *)lineColor {
     if (!_lineColor) {
         _lineColor = _selColor;
@@ -224,7 +231,7 @@ static CGFloat const WMProgressHeight = 2.0;
 
 // MARK:Progress View
 - (void)addProgressView {
-    WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - WMProgressHeight, self.scrollView.contentSize.width, WMProgressHeight)];
+    WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - self.progressHeight, self.scrollView.contentSize.width, self.progressHeight)];
     pView.itemFrames = self.frames;
     pView.color = self.lineColor.CGColor;
     pView.backgroundColor = [UIColor clearColor];
@@ -247,7 +254,7 @@ static CGFloat const WMProgressHeight = 2.0;
     if (self.selItem == menuItem) return;
     
     CGFloat progress = menuItem.tag - kTagGap;
-    self.progressView.progress = progress;
+    [self.progressView moveToPostion:progress];
     
     NSInteger currentIndex = self.selItem.tag - kTagGap;
     if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
