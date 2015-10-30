@@ -161,6 +161,7 @@
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonItems:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
     menuView.delegate = self;
     menuView.style = self.menuViewStyle;
+    menuView.progressHeight = self.progressHeight;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }

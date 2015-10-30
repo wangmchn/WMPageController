@@ -21,8 +21,6 @@
     __weak CADisplayLink *_link;
 }
 
-@synthesize progress = _progress;
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         WMFooldHeight = frame.size.height;
@@ -32,48 +30,6 @@
         kTime = 20.0;
     }
     return self;
-}
-
-- (void)setProgressWithOutAnimate:(CGFloat)progress {
-    if (self.progress == progress) return;
-    _progress = progress;
-    [self setNeedsDisplay];
-}
-
-- (void)setProgress:(CGFloat)progress {
-    if (self.progress == progress) return;
-    if (fabs(progress - _progress) >= 0.9 /*&& fabs(progress - _progress) < 1.5*/) {
-        gap  = fabs(self.progress - progress);
-        sign = self.progress > progress ? - 1 : 1;
-        if (self.itemFrames.count <= 3) {
-            kTime = 15.0;
-        }
-        step = gap / kTime;
-        if (_link) {
-            [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-        }
-        CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
-        [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-        _link = link;
-        return;
-    }
-    _progress = progress;
-    [self setNeedsDisplay];
-}
-
-- (void)progressChanged {
-    if (gap >= 0.0) {
-        gap -= step;
-        if (gap < 0.0) {
-            self.progress = (int)(self.progress + 0.5);
-            return;
-        }
-        self.progress += sign * step;
-    } else {
-        self.progress = (int)(self.progress + 0.5);
-        [_link invalidate];
-        _link = nil;
-    }
 }
 
 - (void)drawRect:(CGRect)rect {

@@ -14,4 +14,5 @@
 @property (nonatomic, assign) CGFloat progress;
 
 - (void)setProgressWithOutAnimate:(CGFloat)progress;
+- (void)moveToPostion:(NSInteger)pos;
 @end
