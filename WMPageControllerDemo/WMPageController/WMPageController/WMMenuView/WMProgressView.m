@@ -11,7 +11,6 @@
     int     sign;
     CGFloat gap;
     CGFloat step;
-    NSInteger position;
     __weak CADisplayLink *_link;
 }
 
@@ -22,7 +21,6 @@
 }
 
 - (void)moveToPostion:(NSInteger)pos {
-    position = pos;
     gap = fabs(self.progress - pos);
     sign = self.progress > pos ? -1 : 1;
     step = gap / 15.0;
