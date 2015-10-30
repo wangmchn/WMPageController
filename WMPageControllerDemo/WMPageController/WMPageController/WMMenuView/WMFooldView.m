@@ -13,12 +13,6 @@
     CGFloat WMFooldRadius;
     CGFloat WMFooldLength;
     CGFloat WMFooldHeight;
-    CGFloat gap;
-    CGFloat step;
-    CGFloat kTime;
-    int     sign;
-    
-    __weak CADisplayLink *_link;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -27,7 +21,6 @@
         WMFooldMargin = WMFooldHeight * 0.15;
         WMFooldRadius = (WMFooldHeight - WMFooldMargin * 2) / 2;
         WMFooldLength = frame.size.width  - WMFooldRadius * 2;
-        kTime = 20.0;
     }
     return self;
 }
