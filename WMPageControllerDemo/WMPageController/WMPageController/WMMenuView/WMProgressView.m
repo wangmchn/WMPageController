@@ -11,6 +11,7 @@
     int     sign;
     CGFloat gap;
     CGFloat step;
+    NSInteger position;
     __weak CADisplayLink *_link;
 }
 
@@ -20,29 +21,33 @@
     [self setNeedsDisplay];
 }
 
+- (void)moveToPostion:(NSInteger)pos {
+    position = pos;
+    gap = fabs(self.progress - pos);
+    sign = self.progress > pos ? -1 : 1;
+    step = gap / 15.0;
+    if (_link) {
+        [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    }
+    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
+    [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    _link = link;
+}
+
 - (void)setProgress:(CGFloat)progress {
     if (self.progress == progress) return;
-    if (fabs(progress - _progress) >= 0.9 /*&& fabs(progress - _progress) < 1.2*/) {
-        gap  = fabs(self.progress - progress);
-        sign = self.progress > progress ? -1 : 1;
-        step = gap / 20.0;
-        if (_link) {
-            [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-        }
-        CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
-        [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-        _link = link;
-        return;
-    }
     _progress = progress;
     [self setNeedsDisplay];
 }
 
 - (void)progressChanged {
-    NSLog(@"---------");
     if (gap >= 0.0) {
-        self.progress += sign * step;
         gap -= step;
+        if (gap < 0.0) {
+            self.progress = (int)(self.progress + 0.5);
+            return;
+        }
+        self.progress += sign * step;
     } else {
         self.progress = (int)(self.progress + 0.5);
         [_link invalidate];
