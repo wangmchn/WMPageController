@@ -128,6 +128,10 @@
     _menuItemWidth = WMMenuItemWidth;
     
     _memCache = [[NSCache alloc] init];
+#warning set view origin
+    if (CGPointEqualToPoint(_viewOrigin, CGPointZero)   ) {
+        _viewOrigin = CGPointMake(0, 0);
+    }
 }
 
 // 包括宽高，子控制器视图 frame
@@ -137,7 +141,9 @@
     // 重新计算各个控制器视图的宽高
     _childViewFrames = [NSMutableArray array];
     for (int i = 0; i < self.viewControllerClasses.count; i++) {
-        CGRect frame = CGRectMake(i*viewWidth, 0, viewWidth, viewHeight);
+//        CGRect frame = CGRectMake(i*viewWidth, 0, viewWidth, viewHeight);
+#warning set subViewController'view origin
+        CGRect frame = CGRectMake(i*viewWidth + _viewOrigin.x, _viewOrigin.y, viewWidth - _viewOrigin.x, viewHeight-_viewOrigin.y);
         [_childViewFrames addObject:[NSValue valueWithCGRect:frame]];
     }
 }
@@ -157,7 +163,9 @@
 }
 
 - (void)addMenuView {
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.menuHeight);
+//    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.menuHeight);
+#warning custom menuView'origin
+    CGRect frame = CGRectMake(_viewOrigin.x, _viewOrigin.y, self.view.frame.size.width - _viewOrigin.x, self.menuHeight);
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonItems:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
     menuView.delegate = self;
     menuView.style = self.menuViewStyle;
