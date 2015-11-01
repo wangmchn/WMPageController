@@ -10,33 +10,26 @@
 #import "WMPageConst.h"
 
 @interface WMPageController () <WMMenuViewDelegate,UIScrollViewDelegate> {
-    CGFloat viewHeight;
-    CGFloat viewWidth;
-    CGFloat targetX;
-    BOOL    animate;
+    CGFloat _viewHeight;
+    CGFloat _viewWidth;
+    CGFloat _viewX;
+    CGFloat _viewY;
+    CGFloat _targetX;
+    BOOL    _animate;
 }
-
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
-
 @property (nonatomic, weak) WMMenuView *menuView;
-
 @property (nonatomic, weak) UIScrollView *scrollView;
-
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
 @property (nonatomic, strong) NSMutableArray *childViewFrames;
-
 // 当前展示在屏幕上的控制器，方便在滚动的时候读取 (避免不必要计算)
 @property (nonatomic, strong) NSMutableDictionary *displayVC;
-
 // 用于记录销毁的viewController的位置 (如果它是某一种scrollView的Controller的话)
 @property (nonatomic, strong) NSMutableDictionary *posRecords;
-
 // 用于缓存加载过的控制器
 @property (nonatomic, strong) NSCache *memCache;
-
 // 收到内存警告的次数
 @property (nonatomic, assign) int memoryWarningCount;
-
 @end
 
 @implementation WMPageController
@@ -92,6 +85,13 @@
     }
 }
 
+- (void)setViewFrame:(CGRect)viewFrame {
+    _viewFrame = viewFrame;
+    if (self.menuView) {
+        [self viewDidLayoutSubviews];
+    }
+}
+
 #pragma mark - Private Methods
 
 // 当子控制器init完成时发送通知
@@ -132,12 +132,19 @@
 
 // 包括宽高，子控制器视图 frame
 - (void)calculateSize {
-    viewHeight = self.view.frame.size.height - self.menuHeight;
-    viewWidth = self.view.frame.size.width;
+    if (CGRectEqualToRect(self.viewFrame, CGRectZero)) {
+        _viewWidth = self.view.frame.size.width;
+        _viewHeight = self.view.frame.size.height - self.menuHeight;
+    } else {
+        _viewWidth = self.viewFrame.size.width;
+        _viewHeight = self.viewFrame.size.height - self.menuHeight;
+    }
+    _viewX = self.viewFrame.origin.x;
+    _viewY = self.viewFrame.origin.y;
     // 重新计算各个控制器视图的宽高
     _childViewFrames = [NSMutableArray array];
     for (int i = 0; i < self.viewControllerClasses.count; i++) {
-        CGRect frame = CGRectMake(i*viewWidth, 0, viewWidth, viewHeight);
+        CGRect frame = CGRectMake(i*_viewWidth, 0, _viewWidth, _viewHeight);
         [_childViewFrames addObject:[NSValue valueWithCGRect:frame]];
     }
 }
@@ -157,7 +164,7 @@
 }
 
 - (void)addMenuView {
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.menuHeight);
+    CGRect frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonItems:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
     menuView.delegate = self;
     menuView.style = self.menuViewStyle;
@@ -177,7 +184,7 @@
 }
 
 - (void)layoutChildViewControllers {
-    int currentPage = (int)self.scrollView.contentOffset.x / viewWidth;
+    int currentPage = (int)self.scrollView.contentOffset.x / _viewWidth;
     int start = currentPage == 0 ? currentPage : (currentPage - 1);
     int end = (currentPage == self.viewControllerClasses.count - 1) ? currentPage : (currentPage + 1);
     for (int i = start; i <= end; i++) {
@@ -319,9 +326,9 @@
     [super viewDidLoad];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     [self addScrollView];
-    [self addMenuView];
+//    [self addMenuView];
     
     [self addViewControllerAtIndex:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
@@ -331,10 +338,10 @@
     [super viewDidLayoutSubviews];
     // 计算宽高及子控制器的视图frame
     [self calculateSize];
-    CGRect scrollFrame = CGRectMake(0, self.menuHeight, viewWidth, viewHeight);
+    CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight, _viewWidth, _viewHeight);
     self.scrollView.frame = scrollFrame;
-    self.scrollView.contentSize = CGSizeMake(self.titles.count*viewWidth, viewHeight);
-    [self.scrollView setContentOffset:CGPointMake(self.selectIndex*viewWidth, 0)];
+    self.scrollView.contentSize = CGSizeMake(self.titles.count*_viewWidth, _viewHeight-self.menuHeight);
+    [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
 
     self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
     
@@ -370,22 +377,22 @@
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self layoutChildViewControllers];
-    if (animate) {
+    if (_animate) {
         CGFloat contentOffsetX = scrollView.contentOffset.x;
-        if (contentOffsetX < 0 || contentOffsetX > scrollView.contentSize.width - viewWidth) {
+        if (contentOffsetX < 0 || contentOffsetX > scrollView.contentSize.width - _viewWidth) {
             return;
         }
-        CGFloat rate = contentOffsetX / viewWidth;
+        CGFloat rate = contentOffsetX / _viewWidth;
         [self.menuView slideMenuAtProgress:rate];
     }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    animate = YES;
+    _animate = YES;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    _selectIndex = (int)scrollView.contentOffset.x / viewWidth;
+    _selectIndex = (int)scrollView.contentOffset.x / _viewWidth;
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
 }
@@ -396,21 +403,21 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
-        CGFloat rate = targetX / viewWidth;
+        CGFloat rate = _targetX / _viewWidth;
         [self.menuView slideMenuAtProgress:rate];
     }
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    targetX = targetContentOffset->x;
+    _targetX = targetContentOffset->x;
 }
 
 #pragma mark - WMMenuView Delegate
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex {
     NSInteger gap = (NSInteger)labs(index - currentIndex);
     _selectIndex = (int)index;
-    animate = NO;
-    CGPoint targetP = CGPointMake(viewWidth*index, 0);
+    _animate = NO;
+    CGPoint targetP = CGPointMake(_viewWidth*index, 0);
     
     [self.scrollView setContentOffset:targetP animated:gap > 1 ? NO : self.pageAnimatable];
     if (gap > 1 || !self.pageAnimatable) {
