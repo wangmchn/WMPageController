@@ -157,9 +157,9 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 @property (nonatomic, assign) CGFloat progressHeight;
 
 /** 
- * WMPageController View' origin
+ * WMPageController View' frame
  */
-@property (nonatomic, assign) CGPoint viewOrigin;
+@property (nonatomic, assign) CGRect viewFrame;
 
 /**
  *  构造方法，请使用该方法创建控制器.
