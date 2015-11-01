@@ -206,7 +206,6 @@
         } else {
             if (vc) {
                 // vc不在视野中且存在，移除他
-                NSLog(@"-----------------:%d", i);
                 [self removeViewController:vc atIndex:i];
             }
         }

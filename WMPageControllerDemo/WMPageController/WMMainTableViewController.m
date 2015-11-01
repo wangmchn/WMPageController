@@ -64,6 +64,7 @@
         // 涌入
         pageController = [self pageControllerStyleFlood];
         pageController.title = @"Flood";
+//        pageController.viewFrame = CGRectMake(0, 100, 320, 400);
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFloodHollow"]) {
         // 涌入/空心
         pageController.title = @"Hollow";
