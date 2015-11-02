@@ -209,9 +209,8 @@ static CGFloat const WMProgressHeight = 2.0;
         CGRect frame = CGRectMake(contentWidth, 0, itemW, self.frame.size.height);
         // 记录frame
         [self.frames addObject:[NSValue valueWithCGRect:frame]];
-        contentWidth += itemW + [self itemMarginAtIndex:i];
+        contentWidth += itemW + [self itemMarginAtIndex:i+1];
     }
-    contentWidth += [self itemMarginAtIndex:self.items.count];
     // 如果总宽度小于屏幕宽,重新计算frame,为item间添加间距
     if (contentWidth < self.frame.size.width) {
         // 计算间距
