@@ -10,9 +10,7 @@
 #import "WMMenuItem.h"
 #import "WMProgressView.h"
 #import "WMFooldView.h"
-// 导航菜单栏距边界的间距
-#define WMMenuMargin 0
-#define kMaskWidth   0
+
 #define kItemWidth   60
 #define kTagGap      6250
 #define kBGColor     [UIColor colorWithRed:172.0/255.0 green:165.0/255.0 blue:162.0/255.0 alpha:1.0]
@@ -202,7 +200,7 @@ static CGFloat const WMProgressHeight = 2.0;
 // 计算所有item的frame值，主要是为了适配所有item的宽度之和小于屏幕宽的情况
 // 这里与后面的 `-addItems` 做了重复的操作，并不是很合理
 - (void)calculateItemFrames {
-    CGFloat contentWidth = WMMenuMargin;
+    CGFloat contentWidth = [self itemMarginAtIndex:0];
     for (int i = 0; i < self.items.count; i++) {
         CGFloat itemW = kItemWidth;
         if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
@@ -211,22 +209,30 @@ static CGFloat const WMProgressHeight = 2.0;
         CGRect frame = CGRectMake(contentWidth, 0, itemW, self.frame.size.height);
         // 记录frame
         [self.frames addObject:[NSValue valueWithCGRect:frame]];
-        contentWidth += itemW;
+        contentWidth += itemW + [self itemMarginAtIndex:i+1];
     }
-    contentWidth += WMMenuMargin;
     // 如果总宽度小于屏幕宽,重新计算frame,为item间添加间距
     if (contentWidth < self.frame.size.width) {
         // 计算间距
         CGFloat distance = self.frame.size.width - contentWidth;
         CGFloat gap = distance / (self.items.count + 1);
+        NSLog(@"%lf",gap);
         for (int i = 0; i < self.frames.count; i++) {
             CGRect frame = [self.frames[i] CGRectValue];
+//            NSLog(@"%lf",gap * (i+1));
             frame.origin.x += gap * (i+1);
             self.frames[i] = [NSValue valueWithCGRect:frame];
         }
         contentWidth = self.frame.size.width;
     }
     self.scrollView.contentSize = CGSizeMake(contentWidth, self.frame.size.height);
+}
+
+- (CGFloat)itemMarginAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(menuView:itemMarginAtIndex:)]) {
+        return [self.delegate menuView:self itemMarginAtIndex:index];
+    }
+    return 0.0;
 }
 
 // MARK:Progress View

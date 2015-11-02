@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 @interface WMPageController : UIViewController
 
 /**
- *  values and keys can set properties when initialize child controlelr (it's KVC coding)
+ *  values and keys can set properties when initialize child controlelr (it's KVC)
     see issue #11:https://github.com/wangmchn/WMPageController/issues/11
  *  values keys 属性可以用于初始化控制器的时候为控制器传值(利用 KVC 来设置)
     使用时请确保 key 与控制器的属性名字一致！！(例如：控制器有需要设置的属性 type，那么 keys 所放的就是字符串 @"type")
@@ -160,6 +160,18 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
  * WMPageController View' frame
  */
 @property (nonatomic, assign) CGRect viewFrame;
+
+/**
+ *  Menu view items' margin / make sure it's count is equal to (controllers' count + 1),default is 0
+    顶部菜单栏各个 item 的间隙，因为包括头尾两端，所以确保它的数量等于控制器数量 + 1, 默认间隙为 0
+ */
+@property (nonatomic, copy) NSArray *itemsMargins;
+
+/**
+ *  set itemMargin if all margins are the same, default is 0
+    如果各个间隙都想同，设置该属性，默认为 0
+ */
+@property (nonatomic, assign) CGFloat itemMargin;
 
 /**
  *  构造方法，请使用该方法创建控制器.
