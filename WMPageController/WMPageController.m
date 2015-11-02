@@ -384,8 +384,11 @@
     [self layoutChildViewControllers];
     if (_animate) {
         CGFloat contentOffsetX = scrollView.contentOffset.x;
-        if (contentOffsetX < 0 || contentOffsetX > scrollView.contentSize.width - _viewWidth) {
-            return;
+        if (contentOffsetX < 0 ) {
+            contentOffsetX = 0;
+        }
+        if (contentOffsetX > scrollView.contentSize.width - _viewWidth) {
+            contentOffsetX = scrollView.contentSize.width - _viewWidth;
         }
         CGFloat rate = contentOffsetX / _viewWidth;
         [self.menuView slideMenuAtProgress:rate];
