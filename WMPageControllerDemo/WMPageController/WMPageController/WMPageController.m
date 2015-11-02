@@ -73,6 +73,11 @@
     self.memCache.countLimit = _cachePolicy;
 }
 
+- (void)setItemsMargins:(NSArray *)itemsMargins {
+    NSAssert(itemsMargins.count == self.viewControllerClasses.count + 1, @"item's margin's number must equal to viewControllers's count + 1");
+    _itemsMargins = itemsMargins;
+}
+
 - (void)setItemsWidths:(NSArray *)itemsWidths {
     NSAssert(itemsWidths.count == self.titles.count, @"itemsWidths.count != self.titles.count");
     _itemsWidths = [itemsWidths copy];
@@ -436,6 +441,13 @@
         return [self.itemsWidths[index] floatValue];
     }
     return self.menuItemWidth;
+}
+
+- (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index {
+    if (self.itemsMargins) {
+        return [self.itemsMargins[index] floatValue];
+    }
+    return self.itemMargin;
 }
 
 @end

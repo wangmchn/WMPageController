@@ -20,6 +20,7 @@ typedef enum {
 @optional
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex;
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index;
+- (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index;
 @end
 
 @interface WMMenuView : UIView
