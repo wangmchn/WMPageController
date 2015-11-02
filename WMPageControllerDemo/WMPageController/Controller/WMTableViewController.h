@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WMTableViewController : UITableViewController
-
+@property (nonatomic, copy) NSNumber *age;
 @end

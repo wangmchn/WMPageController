@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WMCollectionViewController : UICollectionViewController
-
+@property (nonatomic, copy) NSString *name;
 @end

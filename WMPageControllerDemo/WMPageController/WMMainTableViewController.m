@@ -64,6 +64,9 @@
         // 涌入
         pageController = [self pageControllerStyleFlood];
         pageController.title = @"Flood";
+        // 传值 / KVC 第一个控制器是 Table / view / Collection
+        pageController.values = @[@22, @{@"name":@"Mark", @"age": @22}, @"Mark"];
+        pageController.keys = @[@"age", @"model",@"name"];
 //        pageController.viewFrame = CGRectMake(0, 100, 320, 400);
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFloodHollow"]) {
         // 涌入/空心

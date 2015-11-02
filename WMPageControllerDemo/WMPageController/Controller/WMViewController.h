@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WMViewController : UIViewController
-
+@property (nonatomic, strong) NSDictionary *model;
 @end
