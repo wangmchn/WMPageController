@@ -216,10 +216,8 @@ static CGFloat const WMProgressHeight = 2.0;
         // 计算间距
         CGFloat distance = self.frame.size.width - contentWidth;
         CGFloat gap = distance / (self.items.count + 1);
-        NSLog(@"%lf",gap);
         for (int i = 0; i < self.frames.count; i++) {
             CGRect frame = [self.frames[i] CGRectValue];
-//            NSLog(@"%lf",gap * (i+1));
             frame.origin.x += gap * (i+1);
             self.frames[i] = [NSValue valueWithCGRect:frame];
         }
