@@ -429,13 +429,11 @@
     
     [self.scrollView setContentOffset:targetP animated:gap > 1 ? NO : self.pageAnimatable];
     if (gap > 1 || !self.pageAnimatable) {
-        [self postFullyDisplayedNotificationWithCurrentIndex:(int)index];
+        // 由于不触发 -scrollViewDidScroll: 手动处理控制器
+        [self layoutChildViewControllers];
         self.currentViewController = self.displayVC[@(self.selectIndex)];
-        // 由于不触发 -scrollViewDidScroll: 手动清除控制器..
-        UIViewController *vc = [self.displayVC objectForKey:@(currentIndex)];
-        if (vc) {
-            [self removeViewController:vc atIndex:currentIndex];
-        }
+        
+        [self postFullyDisplayedNotificationWithCurrentIndex:(int)index];
     }
 }
 
