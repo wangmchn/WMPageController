@@ -57,9 +57,8 @@ Here is an example:
     return self;
 }
 ```
-## To do
-    New styles!
-    And support Swift.
+## Swift Version
+Click here: https://github.com/wangmchn/WMPageController-Swift
 
 ## License
 This project is under MIT License. See LICENSE file for more information.
