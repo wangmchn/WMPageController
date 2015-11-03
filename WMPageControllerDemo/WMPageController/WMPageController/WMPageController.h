@@ -174,6 +174,16 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 @property (nonatomic, assign) CGFloat itemMargin;
 
 /**
+ *  顶部导航栏
+ */
+@property (nonatomic, weak) WMMenuView *menuView;
+
+/**
+ *  内部容器
+ */
+@property (nonatomic, weak) UIScrollView *scrollView;
+
+/**
  *  构造方法，请使用该方法创建控制器.
  *  Init method，recommend to use this instead of `-init`.
  *
