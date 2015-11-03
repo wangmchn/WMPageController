@@ -18,8 +18,6 @@
     BOOL    _animate;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
-@property (nonatomic, weak) WMMenuView *menuView;
-@property (nonatomic, weak) UIScrollView *scrollView;
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
 @property (nonatomic, strong) NSMutableArray *childViewFrames;
 // 当前展示在屏幕上的控制器，方便在滚动的时候读取 (避免不必要计算)
@@ -349,7 +347,6 @@
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
 
     self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
-    
     [self resetMenuView];
 
     [self.view layoutIfNeeded];
@@ -384,7 +381,7 @@
     [self layoutChildViewControllers];
     if (_animate) {
         CGFloat contentOffsetX = scrollView.contentOffset.x;
-        if (contentOffsetX < 0 ) {
+        if (contentOffsetX < 0) {
             contentOffsetX = 0;
         }
         if (contentOffsetX > scrollView.contentSize.width - _viewWidth) {
@@ -406,6 +403,7 @@
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
 }
 
