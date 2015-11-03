@@ -15,6 +15,9 @@ And you can easily change styles by setting `menuViewStyle` property:
 ```objective-c
 pageController.menuViewStyle = WMMenuViewStyleLine;
 ```
+## Swift Version
+Click here: https://github.com/wangmchn/WMPageController-Swift
+
 ## What's New
 * **Now page controller has a cache policy and scroll much more fluently!**
 * Add `itemMargin` and `itemsMargins` to custom margin between each item, `viewFrame` to custom controller.view's frame. 
@@ -57,8 +60,6 @@ Here is an example:
     return self;
 }
 ```
-## Swift Version
-Click here: https://github.com/wangmchn/WMPageController-Swift
 
 ## License
 This project is under MIT License. See LICENSE file for more information.
