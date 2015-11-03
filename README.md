@@ -17,6 +17,7 @@ pageController.menuViewStyle = WMMenuViewStyleLine;
 ```
 ## What's New
 * **Now page controller has a cache policy and scroll much more fluently!**
+* Add `itemMargin` and `itemsMargins` to custom margin between each item, `viewFrame` to custom controller.view's frame. 
 * Add `values` and `keys` properties which can help pass values to childControllers through `KVC`.
 * If items width didn't fill the screen width, `WMPageController` will calculate width and add gap between each item automatically;
 * Adjust views and frames when device's orientation changed;
