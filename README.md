@@ -91,7 +91,7 @@ This project is under MIT License. See LICENSE file for more information.
 ```
 其中，`Classes`是要传人显示的控制器的类型，比如`[UITableViewController class]`, `titles`是要显示的控制对应的标题。
 如要定制`WMPageController`的外观，可通过设置如下属性：
- `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,~~`rememberLocation`~~,and also `itemsWidths`.<br>
+ `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,~~`rememberLocation`~~,以及 `itemsWidths`.<br>
 
 ## 使用Pod管理
     pod 'WMPageController'
