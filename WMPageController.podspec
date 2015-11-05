@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
    s.homepage     = "https://github.com/wangmchn/WMPageController"
    s.license      = 'MIT (LICENSE)'
    s.author       = { "wangmchn" => "wangmchn@163.com" }
-   s.source       = { :git => "https://github.com/wangmchn/WMPageController.git", :tag => "1.1.0" }
+   s.source       = { :git => "https://github.com/wangmchn/WMPageController.git", :tag => "1.2.0" }
    s.platform     = :ios, '5.0'
 
    s.source_files = 'WMPageController', 'WMPageController/**/*.{h,m}'
