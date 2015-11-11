@@ -9,7 +9,7 @@
 #import "WMPageController.h"
 #import "WMPageConst.h"
 
-@interface WMPageController () <WMMenuViewDelegate,UIScrollViewDelegate> {
+@interface WMPageController () <WMMenuViewDelegate, UIScrollViewDelegate> {
     CGFloat _viewHeight;
     CGFloat _viewWidth;
     CGFloat _viewX;
@@ -137,10 +137,10 @@
 - (void)calculateSize {
     if (CGRectEqualToRect(self.viewFrame, CGRectZero)) {
         _viewWidth = self.view.frame.size.width;
-        _viewHeight = self.view.frame.size.height - self.menuHeight;
+        _viewHeight = self.view.frame.size.height - self.menuHeight - self.menuViewBottom;
     } else {
         _viewWidth = self.viewFrame.size.width;
-        _viewHeight = self.viewFrame.size.height - self.menuHeight;
+        _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottom;
     }
     _viewX = self.viewFrame.origin.x;
     _viewY = self.viewFrame.origin.y;
@@ -341,7 +341,7 @@
     [super viewDidLayoutSubviews];
     // 计算宽高及子控制器的视图frame
     [self calculateSize];
-    CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight, _viewWidth, _viewHeight);
+    CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottom, _viewWidth, _viewHeight);
     self.scrollView.frame = scrollFrame;
     self.scrollView.contentSize = CGSizeMake(self.titles.count*_viewWidth, _viewHeight-self.menuHeight);
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
