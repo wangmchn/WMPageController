@@ -174,6 +174,11 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
 @property (nonatomic, assign) CGFloat itemMargin;
 
 /**
+ *  顶部 menuView 和 scrollView 之间的间隙
+ */
+@property (nonatomic, assign) CGFloat menuViewBottom;
+
+/**
  *  顶部导航栏
  */
 @property (nonatomic, weak) WMMenuView *menuView;
