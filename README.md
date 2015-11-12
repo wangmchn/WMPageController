@@ -60,6 +60,8 @@ Here is an example:
     return self;
 }
 ```
+## Todo
+Add reload function.
 
 ## License
 This project is under MIT License. See LICENSE file for more information.
@@ -109,6 +111,8 @@ This project is under MIT License. See LICENSE file for more information.
     return self;
 }
 ```
+## 待完成
+增加reload(刷新)功能
 
 ## 许可
 该项目使用 `MIT` 许可证，详情见 `LICENSE` 文件。
