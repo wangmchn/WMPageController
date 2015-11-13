@@ -343,7 +343,8 @@
     [self calculateSize];
     CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottom, _viewWidth, _viewHeight);
     self.scrollView.frame = scrollFrame;
-    self.scrollView.contentSize = CGSizeMake(self.titles.count*_viewWidth, _viewHeight-self.menuHeight);
+//    self.scrollView.contentSize = CGSizeMake(self.titles.count*_viewWidth, _viewHeight-self.menuHeight);
+    self.scrollView.contentSize = CGSizeMake(self.titles.count*_viewWidth, 0);
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
 
     self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
