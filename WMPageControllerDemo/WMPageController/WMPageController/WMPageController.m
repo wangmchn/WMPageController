@@ -97,15 +97,15 @@
 }
 
 - (void)reloadData {
-    [self resetScrollView];
     [self clearDatas];
+    [self resetScrollView];
+    [self.memCache removeAllObjects];
     [self viewDidLayoutSubviews];
 }
 
 #pragma mark - Private Methods
 - (void)resetScrollView {
     if (self.scrollView) {
-        [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [self.scrollView removeFromSuperview];
     }
     [self addScrollView];
@@ -114,13 +114,18 @@
 }
 
 - (void)clearDatas {
+    NSArray *displayingViewControllers = self.displayVC.allValues;
+    for (UIViewController *vc in displayingViewControllers) {
+        [vc.view removeFromSuperview];
+        [vc willMoveToParentViewController:nil];
+        [vc removeFromParentViewController];
+    }
     self.memoryWarningCount = 0;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyAfterMemoryWarning) object:nil];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyToHigh) object:nil];
-    
+    self.currentViewController = nil;
     [self.posRecords removeAllObjects];
     [self.displayVC removeAllObjects];
-    [self.memCache removeAllObjects];
 }
 
 // 当子控制器init完成时发送通知
