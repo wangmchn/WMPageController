@@ -48,9 +48,10 @@
 }
 
 #pragma mark - Public Methods
+
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles {
     if (self = [super init]) {
-        NSAssert(classes.count == titles.count, @"classes.count != titles.count");
+        NSParameterAssert(classes.count == titles.count);
         _viewControllerClasses = [NSArray arrayWithArray:classes];
         _titles = [NSArray arrayWithArray:titles];
 
@@ -72,12 +73,12 @@
 }
 
 - (void)setItemsMargins:(NSArray *)itemsMargins {
-    NSAssert(itemsMargins.count == self.viewControllerClasses.count + 1, @"item's margin's number must equal to viewControllers's count + 1");
+    NSParameterAssert(itemsMargins.count == self.viewControllerClasses.count + 1);
     _itemsMargins = itemsMargins;
 }
 
 - (void)setItemsWidths:(NSArray *)itemsWidths {
-    NSAssert(itemsWidths.count == self.titles.count, @"itemsWidths.count != self.titles.count");
+    NSParameterAssert(itemsWidths.count == self.titles.count);
     _itemsWidths = [itemsWidths copy];
 }
 
@@ -95,7 +96,32 @@
     }
 }
 
+- (void)reloadData {
+    [self resetScrollView];
+    [self clearDatas];
+    [self viewDidLayoutSubviews];
+}
+
 #pragma mark - Private Methods
+- (void)resetScrollView {
+    if (self.scrollView) {
+        [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.scrollView removeFromSuperview];
+    }
+    [self addScrollView];
+    [self addViewControllerAtIndex:self.selectIndex];
+    self.currentViewController = self.displayVC[@(self.selectIndex)];
+}
+
+- (void)clearDatas {
+    self.memoryWarningCount = 0;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyAfterMemoryWarning) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyToHigh) object:nil];
+    
+    [self.posRecords removeAllObjects];
+    [self.displayVC removeAllObjects];
+    [self.memCache removeAllObjects];
+}
 
 // 当子控制器init完成时发送通知
 - (void)postAddToSuperViewNotificationWithIndex:(int)index {
@@ -227,7 +253,7 @@
 - (void)addViewControllerAtIndex:(int)index {
     Class vcClass = self.viewControllerClasses[index];
     UIViewController *viewController = [[vcClass alloc] init];
-    if (self.values && self.keys) {
+    if (self.values.count == self.viewControllerClasses.count && self.keys.count == self.viewControllerClasses.count) {
         [viewController setValue:self.values[index] forKey:self.keys[index]];
     }
     [self addChildViewController:viewController];
@@ -437,14 +463,14 @@
 }
 
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
-    if (self.itemsWidths) {
+    if (self.itemsWidths.count == self.viewControllerClasses.count) {
         return [self.itemsWidths[index] floatValue];
     }
     return self.menuItemWidth;
 }
 
 - (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index {
-    if (self.itemsMargins) {
+    if (self.itemsMargins.count == self.viewControllerClasses.count + 1) {
         return [self.itemsMargins[index] floatValue];
     }
     return self.itemMargin;
