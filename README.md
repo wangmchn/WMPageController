@@ -25,6 +25,7 @@ Click here: https://github.com/wangmchn/WMPageController-Swift
 * If items width didn't fill the screen width, `WMPageController` will calculate width and add gap between each item automatically;
 * Adjust views and frames when device's orientation changed;
 * Set the property `itemsWidths` to have **Different Width**! Like `@[@(100),@(80),@(50).....]`;
+* Can reload data like `NetEase News`.
 
 ## Basic use
 
@@ -60,8 +61,6 @@ Here is an example:
     return self;
 }
 ```
-## Todo
-Add reload function.
 
 ## License
 This project is under MIT License. See LICENSE file for more information.
@@ -80,6 +79,7 @@ This project is under MIT License. See LICENSE file for more information.
 * 当标题宽度之和不足宽度时，自动计算并为顶部`item`添加间隙。
 * 适配横屏，当设备旋转时自动调整`frame`。
 * 可通过设置`itemsWidths`属性来设置不同的标题宽度，例如 `@[@(100),@(80),@(50).....]`;
+* 增加了`reload`功能，可以像网易新闻那样重新更新标题和控制器。
 
 ## 使用
 
@@ -111,8 +111,6 @@ This project is under MIT License. See LICENSE file for more information.
     return self;
 }
 ```
-## 待完成
-增加reload(刷新)功能
 
 ## 许可
 该项目使用 `MIT` 许可证，详情见 `LICENSE` 文件。
