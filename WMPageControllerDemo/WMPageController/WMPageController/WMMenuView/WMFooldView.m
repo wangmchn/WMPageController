@@ -28,8 +28,9 @@
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     int currentIndex = (int)self.progress;
+    currentIndex = (currentIndex <= self.itemFrames.count - 1) ? currentIndex : (int)self.itemFrames.count - 1;
     CGFloat rate = self.progress - currentIndex;
-    int nextIndex = currentIndex + 1 >= self.itemFrames.count ?: currentIndex + 1;
+    int nextIndex = currentIndex + 1 < self.itemFrames.count ? currentIndex + 1 : currentIndex;
 
     // 当前item的各数值
     CGRect  currentFrame = [self.itemFrames[currentIndex] CGRectValue];

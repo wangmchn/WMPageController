@@ -422,6 +422,12 @@
         CGFloat rate = contentOffsetX / _viewWidth;
         [self.menuView slideMenuAtProgress:rate];
     }
+    
+    // fix scrollView.contentOffset.y -> (-20) unexpectedly.
+    if (scrollView.contentOffset.y == 0) { return; }
+    CGPoint contentOffset = scrollView.contentOffset;
+    contentOffset.y = 0.0;
+    scrollView.contentOffset = contentOffset;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
