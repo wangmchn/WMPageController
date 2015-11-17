@@ -82,6 +82,7 @@
         imageView.image = [UIImage imageNamed:self.currentImages[i]];
         [scrollView addSubview:imageView];
     }
+    scrollView.scrollsToTop = NO;
     scrollView.contentSize = CGSizeMake(3*width, height);
     scrollView.contentOffset = CGPointMake(width, 0);
     scrollView.pagingEnabled = YES;

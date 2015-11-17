@@ -161,6 +161,7 @@ static CGFloat const WMProgressHeight = 2.0;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator   = NO;
     scrollView.backgroundColor = self.bgColor;
+    scrollView.scrollsToTop = NO;
     [self addSubview:scrollView];
     self.scrollView = scrollView;
 }

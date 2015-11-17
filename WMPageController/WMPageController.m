@@ -185,7 +185,7 @@
 
 - (void)addScrollView {
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    
+    scrollView.scrollsToTop = NO;
     scrollView.pagingEnabled = YES;
     scrollView.backgroundColor = [UIColor whiteColor];
     scrollView.delegate = self;
