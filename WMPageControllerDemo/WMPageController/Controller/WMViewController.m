@@ -34,6 +34,11 @@
     NSLog(@"%@",self.model);
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    NSLog(@"------------------------------%@ viewWillAppear",[self class]);
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.label.frame = CGRectMake(0, 180, self.view.frame.size.width, 120);

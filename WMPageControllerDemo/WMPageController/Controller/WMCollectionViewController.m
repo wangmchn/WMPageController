@@ -38,6 +38,11 @@ static NSString * const reuseIdentifier = @"WMCollectionCell";
     NSLog(@"%@",self.name);
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    NSLog(@"------------------------------%@ viewWillAppear",[self class]);
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
