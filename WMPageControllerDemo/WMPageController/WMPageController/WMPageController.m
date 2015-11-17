@@ -9,7 +9,7 @@
 #import "WMPageController.h"
 #import "WMPageConst.h"
 
-@interface WMPageController () <WMMenuViewDelegate, UIScrollViewDelegate> {
+@interface WMPageController () {
     CGFloat _viewHeight;
     CGFloat _viewWidth;
     CGFloat _viewX;

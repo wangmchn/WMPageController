@@ -17,14 +17,14 @@
     and continue to grow back after a while.
     If recieved too much times, the cache policy will stay at 'LowMemory' and don't grow back any more.
  */
-typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy){
+typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
     WMPageControllerCachePolicyNoLimit   = 0,  // No limit
     WMPageControllerCachePolicyLowMemory = 1,  // Low Memory but may block when scroll
     WMPageControllerCachePolicyBalanced  = 3,  // Balanced ↑ and ↓
     WMPageControllerCachePolicyHigh      = 5   // High
 };
 
-@interface WMPageController : UIViewController
+@interface WMPageController : UIViewController <WMMenuViewDelegate, UIScrollViewDelegate>
 
 /**
  *  values and keys can set properties when initialize child controlelr (it's KVC)
