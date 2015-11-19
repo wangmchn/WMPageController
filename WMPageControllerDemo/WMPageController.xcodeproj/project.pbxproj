@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4225A9EAC245EC9AC1A22F47 /* libPods-WMPageController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 709E9747D97EBFFF7FB33C31 /* libPods-WMPageController.a */; };
 		4D38F7591B29CA4600203BC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D38F7581B29CA4600203BC9 /* main.m */; };
 		4D38F75C1B29CA4600203BC9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D38F75B1B29CA4600203BC9 /* AppDelegate.m */; };
 		4D38F7621B29CA4600203BC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D38F7601B29CA4600203BC9 /* Main.storyboard */; };
 		4D38F7641B29CA4600203BC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D38F7631B29CA4600203BC9 /* Images.xcassets */; };
 		4D38F7671B29CA4600203BC9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D38F7651B29CA4600203BC9 /* LaunchScreen.xib */; };
 		4D38F7731B29CA4600203BC9 /* WMPageControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D38F7721B29CA4600203BC9 /* WMPageControllerTests.m */; };
-		4D60B5F71B537F8A00BDD962 /* WMFooldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D60B5F61B537F8A00BDD962 /* WMFooldView.m */; };
 		4D60B5FA1B53A1E600BDD962 /* WMMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D60B5F91B53A1E600BDD962 /* WMMainTableViewController.m */; };
 		4D6BDF6F1B2DA66B008282D1 /* Dragon Spirit.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF671B2DA66B008282D1 /* Dragon Spirit.jpg */; };
 		4D6BDF701B2DA66B008282D1 /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D6BDF681B2DA66B008282D1 /* github.png */; };
@@ -28,10 +28,6 @@
 		4D6BDF801B2DB3CE008282D1 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6BDF7D1B2DB3CE008282D1 /* WMViewController.m */; };
 		4D6BDF861B2DB3EE008282D1 /* WMImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6BDF831B2DB3EE008282D1 /* WMImageViewCell.m */; };
 		4D6BDF871B2DB3EE008282D1 /* WMLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6BDF851B2DB3EE008282D1 /* WMLoopView.m */; };
-		4D71C6F51B29CDB800BF9B12 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D71C6F41B29CDB800BF9B12 /* WMPageController.m */; };
-		4DC1EC3B1B368AA60042DA2B /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC1EC361B368AA60042DA2B /* WMMenuItem.m */; };
-		4DC1EC3C1B368AA60042DA2B /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC1EC381B368AA60042DA2B /* WMMenuView.m */; };
-		4DC1EC3D1B368AA60042DA2B /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC1EC3A1B368AA60042DA2B /* WMProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3DF1F17E854F965E82AAD7DE /* Pods-WMPageController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMPageController.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-WMPageController/Pods-WMPageController.debug.xcconfig"; sourceTree = "<group>"; };
 		4D38F7531B29CA4600203BC9 /* WMPageController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WMPageController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D38F7571B29CA4600203BC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D38F7581B29CA4600203BC9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -56,9 +53,6 @@
 		4D38F76C1B29CA4600203BC9 /* WMPageControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WMPageControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D38F7711B29CA4600203BC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D38F7721B29CA4600203BC9 /* WMPageControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMPageControllerTests.m; sourceTree = "<group>"; };
-		4D4D3E651B2B413900854961 /* WMPageConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMPageConst.h; sourceTree = "<group>"; };
-		4D60B5F51B537F8A00BDD962 /* WMFooldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFooldView.h; sourceTree = "<group>"; };
-		4D60B5F61B537F8A00BDD962 /* WMFooldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFooldView.m; sourceTree = "<group>"; };
 		4D60B5F81B53A1E600BDD962 /* WMMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMainTableViewController.h; sourceTree = "<group>"; };
 		4D60B5F91B53A1E600BDD962 /* WMMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMainTableViewController.m; sourceTree = "<group>"; };
 		4D6BDF671B2DA66B008282D1 /* Dragon Spirit.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Dragon Spirit.jpg"; sourceTree = "<group>"; };
@@ -79,14 +73,8 @@
 		4D6BDF831B2DB3EE008282D1 /* WMImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMImageViewCell.m; sourceTree = "<group>"; };
 		4D6BDF841B2DB3EE008282D1 /* WMLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLoopView.h; sourceTree = "<group>"; };
 		4D6BDF851B2DB3EE008282D1 /* WMLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLoopView.m; sourceTree = "<group>"; };
-		4D71C6F31B29CDB800BF9B12 /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
-		4D71C6F41B29CDB800BF9B12 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
-		4DC1EC351B368AA60042DA2B /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
-		4DC1EC361B368AA60042DA2B /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
-		4DC1EC371B368AA60042DA2B /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
-		4DC1EC381B368AA60042DA2B /* WMMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuView.m; sourceTree = "<group>"; };
-		4DC1EC391B368AA60042DA2B /* WMProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProgressView.h; sourceTree = "<group>"; };
-		4DC1EC3A1B368AA60042DA2B /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
+		709E9747D97EBFFF7FB33C31 /* libPods-WMPageController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WMPageController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BBCADCB6E79D916BE3DB333 /* Pods-WMPageController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMPageController.release.xcconfig"; path = "../Pods/Target Support Files/Pods-WMPageController/Pods-WMPageController.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4225A9EAC245EC9AC1A22F47 /* libPods-WMPageController.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,12 +96,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		044C3C2240DBB65E218A3280 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3DF1F17E854F965E82AAD7DE /* Pods-WMPageController.debug.xcconfig */,
+				9BBCADCB6E79D916BE3DB333 /* Pods-WMPageController.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		47FD272DCBE575940737A200 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				709E9747D97EBFFF7FB33C31 /* libPods-WMPageController.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4D38F74A1B29CA4600203BC9 = {
 			isa = PBXGroup;
 			children = (
 				4D38F7551B29CA4600203BC9 /* WMPageController */,
 				4D38F76F1B29CA4600203BC9 /* WMPageControllerTests */,
 				4D38F7541B29CA4600203BC9 /* Products */,
+				044C3C2240DBB65E218A3280 /* Pods */,
+				47FD272DCBE575940737A200 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,7 +136,6 @@
 		4D38F7551B29CA4600203BC9 /* WMPageController */ = {
 			isa = PBXGroup;
 			children = (
-				4D71C6D51B29CC3A00BF9B12 /* WMPageController */,
 				4D6BDF811B2DB3EE008282D1 /* View */,
 				4D6BDF771B2DB3CE008282D1 /* Controller */,
 				4D38F75A1B29CA4600203BC9 /* AppDelegate.h */,
@@ -209,32 +216,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4D71C6D51B29CC3A00BF9B12 /* WMPageController */ = {
-			isa = PBXGroup;
-			children = (
-				4D4D3E651B2B413900854961 /* WMPageConst.h */,
-				4D71C6F31B29CDB800BF9B12 /* WMPageController.h */,
-				4D71C6F41B29CDB800BF9B12 /* WMPageController.m */,
-				4DC1EC341B368AA60042DA2B /* WMMenuView */,
-			);
-			path = WMPageController;
-			sourceTree = "<group>";
-		};
-		4DC1EC341B368AA60042DA2B /* WMMenuView */ = {
-			isa = PBXGroup;
-			children = (
-				4DC1EC351B368AA60042DA2B /* WMMenuItem.h */,
-				4DC1EC361B368AA60042DA2B /* WMMenuItem.m */,
-				4DC1EC371B368AA60042DA2B /* WMMenuView.h */,
-				4DC1EC381B368AA60042DA2B /* WMMenuView.m */,
-				4DC1EC391B368AA60042DA2B /* WMProgressView.h */,
-				4DC1EC3A1B368AA60042DA2B /* WMProgressView.m */,
-				4D60B5F51B537F8A00BDD962 /* WMFooldView.h */,
-				4D60B5F61B537F8A00BDD962 /* WMFooldView.m */,
-			);
-			path = WMMenuView;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -242,9 +223,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D38F7761B29CA4600203BC9 /* Build configuration list for PBXNativeTarget "WMPageController" */;
 			buildPhases = (
+				D01F8807800CE41F1AE1A611 /* Check Pods Manifest.lock */,
 				4D38F74F1B29CA4600203BC9 /* Sources */,
 				4D38F7501B29CA4600203BC9 /* Frameworks */,
 				4D38F7511B29CA4600203BC9 /* Resources */,
+				FF8C56D51EC51AFC2CF6E822 /* Embed Pods Frameworks */,
+				A96A2198CB8C57A1C6A0C339 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -339,20 +323,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A96A2198CB8C57A1C6A0C339 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-WMPageController/Pods-WMPageController-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D01F8807800CE41F1AE1A611 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FF8C56D51EC51AFC2CF6E822 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-WMPageController/Pods-WMPageController-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4D38F74F1B29CA4600203BC9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D71C6F51B29CDB800BF9B12 /* WMPageController.m in Sources */,
-				4DC1EC3C1B368AA60042DA2B /* WMMenuView.m in Sources */,
 				4D38F75C1B29CA4600203BC9 /* AppDelegate.m in Sources */,
-				4D60B5F71B537F8A00BDD962 /* WMFooldView.m in Sources */,
 				4D6BDF7E1B2DB3CE008282D1 /* WMCollectionViewController.m in Sources */,
 				4D6BDF7F1B2DB3CE008282D1 /* WMTableViewController.m in Sources */,
 				4D6BDF801B2DB3CE008282D1 /* WMViewController.m in Sources */,
-				4DC1EC3B1B368AA60042DA2B /* WMMenuItem.m in Sources */,
-				4DC1EC3D1B368AA60042DA2B /* WMProgressView.m in Sources */,
 				4D6BDF871B2DB3EE008282D1 /* WMLoopView.m in Sources */,
 				4D6BDF861B2DB3EE008282D1 /* WMImageViewCell.m in Sources */,
 				4D60B5FA1B53A1E600BDD962 /* WMMainTableViewController.m in Sources */,
@@ -480,6 +507,7 @@
 		};
 		4D38F7771B29CA4600203BC9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3DF1F17E854F965E82AAD7DE /* Pods-WMPageController.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -494,6 +522,7 @@
 		};
 		4D38F7781B29CA4600203BC9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BBCADCB6E79D916BE3DB333 /* Pods-WMPageController.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

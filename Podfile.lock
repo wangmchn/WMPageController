@@ -1,0 +1,14 @@
+PODS:
+  - WMPageController (1.2.6)
+
+DEPENDENCIES:
+  - WMPageController (from `./`)
+
+EXTERNAL SOURCES:
+  WMPageController:
+    :path: "./"
+
+SPEC CHECKSUMS:
+  WMPageController: 0d567c0a2f278fbe8113d8f3f785abc29e3b00db
+
+COCOAPODS: 0.39.0
