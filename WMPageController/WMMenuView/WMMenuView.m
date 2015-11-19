@@ -13,7 +13,6 @@
 
 #define kItemWidth   60
 #define kTagGap      6250
-#define kBGColor     [UIColor colorWithRed:172.0/255.0 green:165.0/255.0 blue:162.0/255.0 alpha:1.0]
 @interface WMMenuView () <WMMenuItemDelegate> {
     CGFloat _norSize;
     CGFloat _selSize;
@@ -60,7 +59,7 @@ static CGFloat const WMProgressHeight = 2.0;
         if (bgColor) {
             _bgColor = bgColor;
         } else {
-            _bgColor = kBGColor;
+            _bgColor = [UIColor colorWithRed:172.0/255.0 green:165.0/255.0 blue:162.0/255.0 alpha:1.0];
         }
         _norSize  = norSize;
         _selSize  = selSize;
@@ -106,11 +105,34 @@ static CGFloat const WMProgressHeight = 2.0;
     [self refreshContenOffset];
 }
 
+- (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
+    if (index >= self.items.count || index < 0) return;
+    WMMenuItem *item = [self viewWithTag:(kTagGap + index)];
+    item.text = title;
+    if (!update) return;
+    [self resetFramesFromIndex:index];
+}
+
 #pragma mark - Private Methods
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [self addScrollView];
     [self addItems];
     [self makeStyle];
+}
+
+- (void)resetFrames {
+    [self resetFramesFromIndex:0];
+}
+
+- (void)resetFramesFromIndex:(NSInteger)index {
+    [self.frames removeAllObjects];
+    [self calculateItemFrames];
+    for (NSInteger i = index; i < self.items.count; i++) {
+        WMMenuItem *item = [self viewWithTag:(kTagGap + i)];
+        CGRect frame = [self.frames[i] CGRectValue];
+        item.frame = frame;
+    }
+    [self.progressView setNeedsDisplay];
 }
 
 // 有没更好地命名

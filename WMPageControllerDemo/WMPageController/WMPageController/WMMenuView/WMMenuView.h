@@ -34,4 +34,7 @@ typedef enum {
 - (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor;
 - (void)slideMenuAtProgress:(CGFloat)progress;
 - (void)selectItemAtIndex:(NSInteger)index;
+- (void)resetFrames;
+// 后续可增加动画效果，如果同时更新宽度会重新调用代理方法获取 width
+- (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
 @end

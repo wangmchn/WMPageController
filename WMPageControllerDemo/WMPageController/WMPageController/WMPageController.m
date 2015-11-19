@@ -103,6 +103,26 @@
     [self viewDidLayoutSubviews];
 }
 
+- (void)updateTitle:(NSString *)title atIndex:(NSInteger)index {
+    [self.menuView updateTitle:title atIndex:index andWidth:NO];
+}
+
+- (void)updateTitle:(NSString *)title andWidth:(CGFloat)width atIndex:(NSInteger)index {
+    if (self.itemsWidths && index < self.itemsWidths.count) {
+        NSMutableArray *mutableWidths = [NSMutableArray arrayWithArray:self.itemsWidths];
+        mutableWidths[index] = @(width);
+        self.itemsWidths = [mutableWidths copy];
+    } else {
+        NSMutableArray *mutableWidths = [NSMutableArray array];
+        for (int i = 0; i < self.titles.count; i++) {
+            CGFloat itemWidth = (i == index) ? width : self.menuItemWidth;
+            [mutableWidths addObject:@(itemWidth)];
+        }
+        self.itemsWidths = [mutableWidths copy];
+    }
+    [self.menuView updateTitle:title atIndex:index andWidth:YES];
+}
+
 #pragma mark - Private Methods
 - (void)resetScrollView {
     if (self.scrollView) {
@@ -361,20 +381,20 @@
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
+    if (!self.viewControllerClasses.count) return;
     [self addScrollView];
 //    [self addMenuView];
-    
     [self addViewControllerAtIndex:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    if (!self.viewControllerClasses.count) return;
     // 计算宽高及子控制器的视图frame
     [self calculateSize];
     CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottom, _viewWidth, _viewHeight);
     self.scrollView.frame = scrollFrame;
-//    self.scrollView.contentSize = CGSizeMake(self.titles.count*_viewWidth, _viewHeight-self.menuHeight);
     self.scrollView.contentSize = CGSizeMake(self.titles.count*_viewWidth, 0);
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
 

@@ -205,4 +205,23 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  */
 - (void)reloadData;
 
+/**
+ *  Update designated item's title
+    更新指定序号的控制器的标题
+ *
+ *  @param title 新的标题
+ *  @param index 目标序号
+ */
+- (void)updateTitle:(NSString *)title atIndex:(NSInteger)index;
+
+/**
+ *  Update designated item's title and width
+    更新指定序号的控制器的标题以及他的宽度
+ *
+ *  @param title 新的标题
+ *  @param index 目标序号
+ *  @param width 对应item的新宽度
+ */
+- (void)updateTitle:(NSString *)title andWidth:(CGFloat)width atIndex:(NSInteger)index;
+
 @end
