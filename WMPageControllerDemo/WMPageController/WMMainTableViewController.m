@@ -67,6 +67,7 @@
         //MARK:控制器传值 / KVC 第一个控制器是 Table / view / Collection
         pageController.values = @[@22, @{@"name":@"Mark", @"age": @22}, @"Mark"];
         pageController.keys = @[@"age", @"model",@"name"];
+        pageController.selectIndex = 1;
 //        pageController.viewFrame = CGRectMake(0, 100, 320, 400);
         
         //MARK:Example of reload data. / 刷新WMPageController

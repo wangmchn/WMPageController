@@ -12,9 +12,9 @@
 
 #pragma mark - Init
 
-- (id)init {
+- (instancetype)init {
     if (self = [super init]) {
-        self.otherGestureRecognizerSimultaneously = YES;
+        _otherGestureRecognizerSimultaneously = YES;
     }
     return self;
 }
@@ -32,17 +32,8 @@
     if (self.otherGestureRecognizerSimultaneously && otherGestureRecognizer.state == UIGestureRecognizerStateBegan && self.contentOffset.x == 0) {
         return YES;
     }
-    //    }
-    
+    // }
     return NO;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

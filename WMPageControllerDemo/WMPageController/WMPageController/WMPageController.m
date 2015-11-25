@@ -182,6 +182,8 @@
     _menuItemWidth = WMMenuItemWidth;
     
     _memCache = [[NSCache alloc] init];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 // 包括宽高，子控制器视图 frame
@@ -490,10 +492,10 @@
         // 最好判断一下，因为在做某个项目时，currentViewController = nil
         if (currentViewController) {
             [self removeViewController:currentViewController atIndex:currentIndex];
-            [self layoutChildViewControllers];
-            self.currentViewController = self.displayVC[@(self.selectIndex)];
-            [self postFullyDisplayedNotificationWithCurrentIndex:(int)index];
         }
+        [self layoutChildViewControllers];
+        self.currentViewController = self.displayVC[@(self.selectIndex)];
+        [self postFullyDisplayedNotificationWithCurrentIndex:(int)index];
     }
 }
 
