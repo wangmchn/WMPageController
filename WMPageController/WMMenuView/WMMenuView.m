@@ -107,7 +107,7 @@ static CGFloat const WMProgressHeight = 2.0;
 
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
     if (index >= self.items.count || index < 0) return;
-    WMMenuItem *item = [self viewWithTag:(kTagGap + index)];
+    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(kTagGap + index)];
     item.text = title;
     if (!update) return;
     [self resetFramesFromIndex:index];
@@ -128,7 +128,7 @@ static CGFloat const WMProgressHeight = 2.0;
     [self.frames removeAllObjects];
     [self calculateItemFrames];
     for (NSInteger i = index; i < self.items.count; i++) {
-        WMMenuItem *item = [self viewWithTag:(kTagGap + i)];
+        WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(kTagGap + i)];
         CGRect frame = [self.frames[i] CGRectValue];
         item.frame = frame;
     }

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMMenuView.h"
+#import "WMScrollView.h"
 
 /*
  *  WMPageController 的缓存设置，默认缓存为无限制，当收到 memoryWarning 时，会自动切换到低缓存模式 (WMPageControllerCachePolicyLowMemory)，并在一段时间后切换到 High .
@@ -186,7 +187,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
 /**
  *  内部容器
  */
-@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, weak) WMScrollView *scrollView;
 
 /**
  *  构造方法，请使用该方法创建控制器.
