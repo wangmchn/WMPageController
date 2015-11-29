@@ -59,7 +59,7 @@ static CGFloat const WMProgressHeight = 2.0;
         if (bgColor) {
             _bgColor = bgColor;
         } else {
-            _bgColor = [UIColor colorWithRed:172.0/255.0 green:165.0/255.0 blue:162.0/255.0 alpha:1.0];
+            _bgColor = [UIColor whiteColor];
         }
         _norSize  = norSize;
         _selSize  = selSize;
@@ -121,6 +121,8 @@ static CGFloat const WMProgressHeight = 2.0;
 }
 
 - (void)resetFrames {
+    self.scrollView.frame = self.bounds;
+    [self refreshContenOffset];
     [self resetFramesFromIndex:0];
 }
 
@@ -135,7 +137,6 @@ static CGFloat const WMProgressHeight = 2.0;
     CGRect frame = self.progressView.frame;
     frame.size.width = self.scrollView.contentSize.width;
     self.progressView.frame = frame;
-    self.scrollView.frame = self.bounds;
     [self.progressView setNeedsDisplay];
 }
 

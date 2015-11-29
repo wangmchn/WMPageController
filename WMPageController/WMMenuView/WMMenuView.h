@@ -30,7 +30,6 @@ typedef enum {
 @property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
 @property (nonatomic, copy) NSString *fontName;
-
 - (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor;
 - (void)slideMenuAtProgress:(CGFloat)progress;
 - (void)selectItemAtIndex:(NSInteger)index;
