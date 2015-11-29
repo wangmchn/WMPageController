@@ -385,7 +385,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     if (!self.viewControllerClasses.count) return;
     [self addScrollView];
-//    [self addMenuView];
+    [self addMenuView];
     [self addViewControllerAtIndex:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
@@ -401,7 +401,9 @@
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
 
     self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
-    [self resetMenuView];
+//    [self resetMenuView];
+    self.menuView.frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
+    [self.menuView resetFrames];
 
     [self.view layoutIfNeeded];
 }
