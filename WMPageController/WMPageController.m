@@ -10,12 +10,8 @@
 #import "WMPageConst.h"
 
 @interface WMPageController () {
-    CGFloat _viewHeight;
-    CGFloat _viewWidth;
-    CGFloat _viewX;
-    CGFloat _viewY;
-    CGFloat _targetX;
-    BOOL    _animate;
+    CGFloat _viewHeight, _viewWidth, _viewX, _viewY, _targetX, _superviewHeight;
+    BOOL    _animate, _hasInited;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
@@ -392,7 +388,13 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    if (!self.viewControllerClasses.count) return;
+    
+    if (!self.viewControllerClasses) return;
+    
+    CGFloat oldSuperviewHeight = _superviewHeight;
+    _superviewHeight = self.view.frame.size.height;
+    if (_hasInited && _superviewHeight == oldSuperviewHeight) return;
+
     // 计算宽高及子控制器的视图frame
     [self calculateSize];
     CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottom, _viewWidth, _viewHeight);
@@ -404,8 +406,8 @@
 //    [self resetMenuView];
     self.menuView.frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
     [self.menuView resetFrames];
-
     [self.view layoutIfNeeded];
+    _hasInited = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
