@@ -110,7 +110,7 @@ static CGFloat const WMProgressHeight = 2.0;
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(kTagGap + index)];
     item.text = title;
     if (!update) return;
-    [self resetFramesFromIndex:index];
+    [self resetFrames];
 }
 
 #pragma mark - Private Methods
