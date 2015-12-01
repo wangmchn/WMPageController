@@ -122,8 +122,8 @@ static CGFloat const WMProgressHeight = 2.0;
 
 - (void)resetFrames {
     self.scrollView.frame = self.bounds;
-    [self refreshContenOffset];
     [self resetFramesFromIndex:0];
+    [self refreshContenOffset];
 }
 
 - (void)resetFramesFromIndex:(NSInteger)index {

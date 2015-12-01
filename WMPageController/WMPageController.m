@@ -97,6 +97,7 @@
     [self resetScrollView];
     [self.memCache removeAllObjects];
     [self viewDidLayoutSubviews];
+    [self resetMenuView];
 }
 
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -130,6 +131,7 @@
 }
 
 - (void)clearDatas {
+    _hasInited = NO;
     NSArray *displayingViewControllers = self.displayVC.allValues;
     for (UIViewController *vc in displayingViewControllers) {
         [vc.view removeFromSuperview];
@@ -381,9 +383,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     if (!self.viewControllerClasses.count) return;
     [self addScrollView];
-    [self addMenuView];
     [self addViewControllerAtIndex:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
+    [self addMenuView];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -393,6 +395,7 @@
     
     CGFloat oldSuperviewHeight = _superviewHeight;
     _superviewHeight = self.view.frame.size.height;
+
     if (_hasInited && _superviewHeight == oldSuperviewHeight) return;
 
     // 计算宽高及子控制器的视图frame
@@ -403,11 +406,10 @@
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
 
     self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
-//    [self resetMenuView];
     self.menuView.frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
     [self.menuView resetFrames];
-    [self.view layoutIfNeeded];
     _hasInited = YES;
+    [self.view layoutIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
