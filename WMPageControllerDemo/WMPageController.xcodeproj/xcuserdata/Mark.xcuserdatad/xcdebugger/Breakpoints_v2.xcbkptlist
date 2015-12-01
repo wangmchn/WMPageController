@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../WMPageController/WMPageController.m"
-            timestampString = "470643866.344066"
+            filePath = "../WMPageController/WMMenuView/WMMenuView.m"
+            timestampString = "470646039.776283"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
-            landmarkName = "-menuView:didSelesctedIndex:currentIndex:"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "-updateTitle:atIndex:andWidth:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../WMPageController/WMPageController.m"
-            timestampString = "470643866.344066"
+            filePath = "../WMPageController/WMMenuView/WMMenuView.m"
+            timestampString = "470646056.277731"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
-            landmarkName = "-menuView:didSelesctedIndex:currentIndex:"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "-updateTitle:atIndex:andWidth:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../WMPageController/WMMenuView/WMMenuView.m"
+            timestampString = "470646056.536289"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-updateTitle:atIndex:andWidth:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../WMPageController/WMMenuView/WMMenuView.m"
+            timestampString = "470646056.832713"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-updateTitle:atIndex:andWidth:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

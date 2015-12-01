@@ -137,6 +137,7 @@ static CGFloat const WMProgressHeight = 2.0;
     CGRect frame = self.progressView.frame;
     frame.size.width = self.scrollView.contentSize.width;
     self.progressView.frame = frame;
+    self.progressView.itemFrames = self.frames;
     [self.progressView setNeedsDisplay];
 }
 
