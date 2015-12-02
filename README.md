@@ -44,7 +44,7 @@ to init the controller.Here are two important porperties<br>
 
 To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,~~`rememberLocation`~~,and also `itemsWidths`.<br>
 
-## Storyboard / xib
+## Use Storyboard / xib
 Override `-init` method in `childViewController`, For example:
 ```objective-c
 - (instancetype)init {
