@@ -44,6 +44,14 @@ to init the controller.Here are two important porperties<br>
 
 To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,~~`rememberLocation`~~,and also `itemsWidths`.<br>
 
+## Storyboard / xib
+Override `-init` method in `childViewController`, For example:
+```objective-c
+- (instancetype)init {
+    return [self initWithNibName:@"xxxViewController" bundle:nil];
+}
+```
+
 ## Pod
     pod 'WMPageController'
 
@@ -94,6 +102,14 @@ This project is under MIT License. See LICENSE file for more information.
 其中，`Classes`是要传人显示的控制器的类型，比如`[UITableViewController class]`, `titles`是要显示的控制对应的标题。
 如要定制`WMPageController`的外观，可通过设置如下属性：
  `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,~~`rememberLocation`~~,以及 `itemsWidths`.<br>
+
+## 使用 Storyboard / xib
+重写子控制器的 `-init` 方法，例如：
+```objective-c
+- (instancetype)init {
+    return [self initWithNibName:@"xxxViewController" bundle:nil];
+}
+```
 
 ## 使用Pod管理
     pod 'WMPageController'
