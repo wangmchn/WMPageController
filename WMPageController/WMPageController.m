@@ -212,7 +212,7 @@
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.bounces = self.bounces;
-    
+    scrollView.otherGestureRecognizerSimultaneously = self.otherGestureRecognizerSimultaneously;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
 }
