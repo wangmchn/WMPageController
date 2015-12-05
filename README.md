@@ -8,7 +8,7 @@
 An easy solution to page controllers like `NetEase News`
 ## Overview
 <br>
-<img height="400" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/ScreenShot.gif" />
+<img height="400" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/ScreenShot.gif" />
 <br>
 <br>
 And you can easily change styles by setting `menuViewStyle` property:
@@ -30,7 +30,7 @@ Click here: https://github.com/wangmchn/WMPageController-Swift
 ## Basic use
 
 First Drag files in red frame to your project.<br>
-<img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/guide.png" />
+<img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/guide.png" />
 
 Then,create an controller that extends from `WMPageController`.I recommend to use<br>
 ```objective-c
@@ -92,7 +92,7 @@ This project is under MIT License. See LICENSE file for more information.
 ## 使用
 
 首先，把下面红框里的内容拖入项目。<br>
-<img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/WMPageController/ScreenShot/guide.png" />
+<img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/guide.png" />
 
 然后，创建一个控制器继承自`WMPageController`，并使用以下方法初始化该控制器<br>
 ```objective-c
