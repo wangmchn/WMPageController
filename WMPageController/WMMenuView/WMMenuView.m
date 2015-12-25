@@ -53,9 +53,15 @@ static CGFloat const WMProgressHeight = 2.0;
 }
 
 #pragma mark - Public Methods
-- (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor {
+- (instancetype)initWithFrame:(CGRect)frame andTitles:(NSArray<NSString *> *)titles {
     if (self = [super initWithFrame:frame]) {
-        _items = items;
+        _titles = titles;
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame buttonTitles:(NSArray<NSString *> *)titles backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor {
+    if (self = [self initWithFrame:frame andTitles:titles]) {
         if (bgColor) {
             _bgColor = bgColor;
         } else {
@@ -106,7 +112,7 @@ static CGFloat const WMProgressHeight = 2.0;
 }
 
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
-    if (index >= self.items.count || index < 0) return;
+    if (index >= self.titles.count || index < 0) return;
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(kTagGap + index)];
     item.text = title;
     if (!update) return;
@@ -115,6 +121,8 @@ static CGFloat const WMProgressHeight = 2.0;
 
 #pragma mark - Private Methods
 - (void)willMoveToSuperview:(UIView *)newSuperview {
+    if (self.scrollView) { return; }
+    
     [self addScrollView];
     [self addItems];
     [self makeStyle];
@@ -129,7 +137,7 @@ static CGFloat const WMProgressHeight = 2.0;
 - (void)resetFramesFromIndex:(NSInteger)index {
     [self.frames removeAllObjects];
     [self calculateItemFrames];
-    for (NSInteger i = index; i < self.items.count; i++) {
+    for (NSInteger i = index; i < self.titles.count; i++) {
         WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(kTagGap + i)];
         CGRect frame = [self.frames[i] CGRectValue];
         item.frame = frame;
@@ -141,7 +149,6 @@ static CGFloat const WMProgressHeight = 2.0;
     [self.progressView setNeedsDisplay];
 }
 
-// 有没更好地命名
 - (void)makeStyle {
     switch (self.style) {
         case WMMenuViewStyleLine:
@@ -197,12 +204,12 @@ static CGFloat const WMProgressHeight = 2.0;
 - (void)addItems {
     [self calculateItemFrames];
     
-    for (int i = 0; i < self.items.count; i++) {
+    for (int i = 0; i < self.titles.count; i++) {
         CGRect frame = [self.frames[i] CGRectValue];
         WMMenuItem *item = [[WMMenuItem alloc] initWithFrame:frame];
         item.tag = (i+kTagGap);
         item.delegate = self;
-        item.text = self.items[i];
+        item.text = self.titles[i];
         item.textAlignment = NSTextAlignmentCenter;
         item.textColor = _norColor;
         item.userInteractionEnabled = YES;
@@ -230,7 +237,7 @@ static CGFloat const WMProgressHeight = 2.0;
 // 这里与后面的 `-addItems` 做了重复的操作，并不是很合理
 - (void)calculateItemFrames {
     CGFloat contentWidth = [self itemMarginAtIndex:0];
-    for (int i = 0; i < self.items.count; i++) {
+    for (int i = 0; i < self.titles.count; i++) {
         CGFloat itemW = kItemWidth;
         if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
             itemW = [self.delegate menuView:self widthForItemAtIndex:i];
@@ -244,7 +251,7 @@ static CGFloat const WMProgressHeight = 2.0;
     if (contentWidth < self.frame.size.width) {
         // 计算间距
         CGFloat distance = self.frame.size.width - contentWidth;
-        CGFloat gap = distance / (self.items.count + 1);
+        CGFloat gap = distance / (self.titles.count + 1);
         for (int i = 0; i < self.frames.count; i++) {
             CGRect frame = [self.frames[i] CGRectValue];
             frame.origin.x += gap * (i+1);

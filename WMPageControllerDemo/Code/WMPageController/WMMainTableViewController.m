@@ -65,11 +65,11 @@
         pageController = [self pageControllerStyleFlood];
         pageController.title = @"Flood";
         //MARK:控制器传值 / KVC 第一个控制器是 Table / view / Collection
-        pageController.values = @[@22, @{@"name":@"Mark", @"age": @22}, @"Mark"];
-        pageController.keys = @[@"age", @"model",@"name"];
+        pageController.values = @[@22, @{@"name":@"Mark", @"age": @22}, @"Mark"].mutableCopy;
+        pageController.keys = @[@"age", @"model",@"name"].mutableCopy;
         pageController.selectIndex = 1;
 //        pageController.viewFrame = CGRectMake(0, 100, 320, 400);
-        
+
         //MARK:Example of reload data. / 刷新WMPageController
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            pageController.viewControllerClasses = @[[WMTableViewController class], [WMViewController class], [WMCollectionViewController class], [WMTableViewController class], [WMViewController class], [WMCollectionViewController class]];
@@ -81,6 +81,7 @@
 //        });
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [pageController updateTitle:@"哈哈哈" andWidth:150 atIndex:1];
+            pageController.selectIndex = 0;
         });
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFloodHollow"]) {
         // 涌入/空心

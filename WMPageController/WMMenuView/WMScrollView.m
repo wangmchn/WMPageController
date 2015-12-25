@@ -25,8 +25,7 @@
     // ReSideMenu 及其他一些手势的开启，需要在这自行此有些。目前还没完全兼容好，会引起一个小问题
     if (self.otherGestureRecognizerSimultaneously) {
         // 再判断系统手势的state是began还是fail，同时判断scrollView的位置是不是正好在最左边
-        BOOL contentOffsetEnable = (self.contentOffset.x == 0 || self.contentOffset.x == self.contentSize.width - self.bounds.size.width);
-        if (otherGestureRecognizer.state == UIGestureRecognizerStateBegan && contentOffsetEnable) {
+        if (otherGestureRecognizer.state == UIGestureRecognizerStateBegan && self.contentOffset.x == 0) {
             return YES;
         }
     }

@@ -45,7 +45,7 @@
 
 #pragma mark - Public Methods
 
-- (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles {
+- (instancetype)initWithViewControllerClasses:(NSArray<Class> *)classes andTheirTitles:(NSArray<NSString *> *)titles {
     if (self = [super init]) {
         NSParameterAssert(classes.count == titles.count);
         _viewControllerClasses = [NSArray arrayWithArray:classes];
@@ -75,12 +75,12 @@
     self.memCache.countLimit = _cachePolicy;
 }
 
-- (void)setItemsMargins:(NSArray *)itemsMargins {
+- (void)setItemsMargins:(NSArray<NSNumber *> *)itemsMargins {
     NSParameterAssert(itemsMargins.count == self.viewControllerClasses.count + 1);
     _itemsMargins = itemsMargins;
 }
 
-- (void)setItemsWidths:(NSArray *)itemsWidths {
+- (void)setItemsWidths:(NSArray<NSNumber *> *)itemsWidths {
     NSParameterAssert(itemsWidths.count == self.titles.count);
     _itemsWidths = [itemsWidths copy];
 }
@@ -226,7 +226,7 @@
 
 - (void)addMenuView {
     CGRect frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
-    WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonItems:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
+    WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonTitles:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
     menuView.delegate = self;
     menuView.style = self.menuViewStyle;
     menuView.progressHeight = self.progressHeight;
@@ -271,6 +271,16 @@
             }
         }
     }
+}
+
+- (void)removeSuperfluousViewControllersIfNeeded {
+    [self.displayVC enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, UIViewController * _Nonnull vc, BOOL * _Nonnull stop) {
+        NSInteger index = key.integerValue;
+        CGRect frame = [self.childViewFrames[index] CGRectValue];
+        if (![self isInScreen:frame]) {
+            [self removeViewController:vc atIndex:index];
+        }
+    }];
 }
 
 - (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
@@ -471,18 +481,21 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _selectIndex = (int)scrollView.contentOffset.x / _viewWidth;
+    [self removeSuperfluousViewControllersIfNeeded];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     self.currentViewController = self.displayVC[@(self.selectIndex)];
+    [self removeSuperfluousViewControllersIfNeeded];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
         CGFloat rate = _targetX / _viewWidth;
+        [self removeSuperfluousViewControllersIfNeeded];
         [self.menuView slideMenuAtProgress:rate];
     }
 }

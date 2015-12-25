@@ -33,19 +33,19 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  *  values keys 属性可以用于初始化控制器的时候为控制器传值(利用 KVC 来设置)
     使用时请确保 key 与控制器的属性名字一致！！(例如：控制器有需要设置的属性 type，那么 keys 所放的就是字符串 @"type")
  */
-@property (nonatomic, copy) NSArray *values;
-@property (nonatomic, copy) NSArray *keys;
+@property (nonatomic, strong) NSMutableArray<id> *values;
+@property (nonatomic, strong) NSMutableArray<NSString *> *keys;
 /**
  *  各个控制器的 class, 例如:[UITableViewController class]
  *  Each controller's class, example:[UITableViewController class]
  */
-@property (nonatomic, copy) NSArray *viewControllerClasses;
+@property (nonatomic, copy) NSArray<Class> *viewControllerClasses;
 
 /**
  *  各个控制器标题, NSString
  *  Titles of view controllers in page controller. Use `NSString`.
  */
-@property (nonatomic, copy) NSArray *titles;
+@property (nonatomic, copy) NSArray<NSString *> *titles;
 @property (nonatomic, strong, readonly) UIViewController *currentViewController;
 
 /**
@@ -109,7 +109,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  *  各个 MenuItem 的宽度，可不等，数组内为 NSNumber.
  *  Each item's width, when they are not all the same, use this property, Put `NSNumber` in this array.
  */
-@property (nonatomic, copy) NSArray *itemsWidths;
+@property (nonatomic, copy) NSArray<NSNumber *> *itemsWidths;
 
 /**
  *  导航栏背景色
@@ -142,31 +142,23 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  */
 @property (nonatomic, assign) BOOL rememberLocation __deprecated_msg("Because of the cache policy,this property can abondon now.");
 
-/**
- *  缓存的机制，默认为无限制 (如果收到内存警告, 会自动切换)
- */
+/** 缓存的机制，默认为无限制 (如果收到内存警告, 会自动切换) */
 @property (nonatomic, assign) WMPageControllerCachePolicy cachePolicy;
 
-/**
- *  Whether ContentView bounces
- */
+/** Whether ContentView bounces */
 @property (nonatomic, assign) BOOL bounces;
 
-/**
- *  下划线进度条的高度
- */
+/** 下划线进度条的高度 */
 @property (nonatomic, assign) CGFloat progressHeight;
 
-/** 
- * WMPageController View' frame
- */
+/** WMPageController View' frame */
 @property (nonatomic, assign) CGRect viewFrame;
 
 /**
  *  Menu view items' margin / make sure it's count is equal to (controllers' count + 1),default is 0
     顶部菜单栏各个 item 的间隙，因为包括头尾两端，所以确保它的数量等于控制器数量 + 1, 默认间隙为 0
  */
-@property (nonatomic, copy) NSArray *itemsMargins;
+@property (nonatomic, copy) NSArray<NSNumber *> *itemsMargins;
 
 /**
  *  set itemMargin if all margins are the same, default is 0
@@ -174,14 +166,10 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  */
 @property (nonatomic, assign) CGFloat itemMargin;
 
-/**
- *  顶部 menuView 和 scrollView 之间的间隙
- */
+/** 顶部 menuView 和 scrollView 之间的间隙 */
 @property (nonatomic, assign) CGFloat menuViewBottom;
 
-/**
- *  顶部导航栏
- */
+/** 顶部导航栏 */
 @property (nonatomic, weak) WMMenuView *menuView;
 
 /** 内部容器 */
@@ -201,7 +189,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  *
  *  @return instancetype
  */
-- (instancetype)initWithViewControllerClasses:(NSArray *)classes andTheirTitles:(NSArray *)titles;
+- (instancetype)initWithViewControllerClasses:(NSArray<Class> *)classes andTheirTitles:(NSArray<NSString *> *)titles;
 
 /**
  *  A method in order to reload MenuView and child view controllers. If you had set `itemsMargins` or `itemsWidths` `values` and `keys` before, make sure you have update them also before you call this method. And most important, PAY ATTENTION TO THE COUNT OF THOSE ARRAY.

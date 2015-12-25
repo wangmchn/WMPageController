@@ -25,12 +25,15 @@ typedef enum {
 
 @interface WMMenuView : UIView
 @property (nonatomic, assign) CGFloat progressHeight;
-@property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) NSArray<NSString *> *titles;
 @property (nonatomic, assign) WMMenuViewStyle style;
 @property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
 @property (nonatomic, copy) NSString *fontName;
-- (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor;
+
+- (instancetype)initWithFrame:(CGRect)frame buttonTitles:(NSArray<NSString *> *)titles backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor;
+- (instancetype)initWithFrame:(CGRect)frame andTitles:(NSArray<NSString *> *)titles;
+
 - (void)slideMenuAtProgress:(CGFloat)progress;
 - (void)selectItemAtIndex:(NSInteger)index;
 - (void)resetFrames;
