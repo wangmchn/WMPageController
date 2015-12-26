@@ -412,7 +412,6 @@
     
     CGFloat oldSuperviewHeight = _superviewHeight;
     _superviewHeight = self.view.frame.size.height;
-
     if (_hasInited && _superviewHeight == oldSuperviewHeight) return;
 
     // 计算宽高及子控制器的视图frame
