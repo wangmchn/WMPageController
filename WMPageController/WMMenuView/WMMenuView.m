@@ -95,6 +95,7 @@ static CGFloat const WMProgressHeight = 2.0;
     }
     currentItem.rate = 1-rate;
     nextItem.rate = rate;
+    self.selItem = rate < 0.5 ? currentItem : nextItem;
 }
 
 - (void)selectItemAtIndex:(NSInteger)index {
