@@ -95,7 +95,7 @@
 - (WMPageController *)p_defaultController {
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     NSMutableArray *titles = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 5; i++) {
         Class vcClass;
         NSString *title;
         switch (i % 3) {

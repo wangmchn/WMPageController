@@ -421,8 +421,12 @@
     self.scrollView.frame = scrollFrame;
     self.scrollView.contentSize = CGSizeMake(self.titles.count*_viewWidth, 0);
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
-
-    self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
+    
+    [self removeSuperfluousViewControllersIfNeeded];
+    [self.displayVC enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull index, UIViewController * _Nonnull vc, BOOL * _Nonnull stop) {
+        CGRect frame = [self.childViewFrames[index.integerValue] CGRectValue];
+        vc.view.frame = frame;
+    }];
     self.menuView.frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
     [self.menuView resetFrames];
     _hasInited = YES;
