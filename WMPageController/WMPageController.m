@@ -200,7 +200,7 @@
         _viewWidth = self.viewFrame.size.width;
         _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottom;
     }
-    if (self.isShowOnNavigationBar && self.navigationController.navigationBar) {
+    if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         _viewHeight += self.menuHeight;
     }
     _viewX = self.viewFrame.origin.x;
@@ -242,7 +242,7 @@
     if (self.progressColor) {
         menuView.lineColor = self.progressColor;
     }
-    if (self.isShowOnNavigationBar && self.navigationController.navigationBar) {
+    if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         self.navigationItem.titleView = menuView;
     } else {
         [self.view addSubview:menuView];
@@ -436,7 +436,7 @@
     _hasInited = YES;
     
     // 根据是否在导航栏上展示调整frame
-    if (self.isShowOnNavigationBar && self.navigationController.navigationBar) {
+    if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         scrollFrame.origin.y -= self.menuHeight;
         self.scrollView.frame = scrollFrame;
     } else {

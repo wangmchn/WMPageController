@@ -158,7 +158,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  *  是否作为NavigationBar的titleView展示 默认 NO
  *  (建议开启时设置menuWidth属性)
  */
-@property (assign, nonatomic) BOOL isShowOnNavigationBar;
+@property (assign, nonatomic) BOOL showOnNavigationBar;
 
 /** 下划线进度条的高度 */
 @property (nonatomic, assign) CGFloat progressHeight;
