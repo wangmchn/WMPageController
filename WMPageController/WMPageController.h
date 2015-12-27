@@ -96,6 +96,12 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  */
 @property (nonatomic, assign) CGFloat menuHeight;
 
+/**
+ *  导航栏宽度(默认与viewFrame的width相等)
+ *  The menu view's width
+ */
+@property (nonatomic, assign) CGFloat menuWidth;
+
 // 当所有item的宽度加起来小于屏幕宽时，PageController会自动帮助排版，添加每个item之间的间隙以填充整个宽度
 // When the sum of all the item's width is smaller than the screen's width, pageController will add gap to each item automatically, in order to fill the width.
 
@@ -147,6 +153,12 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
 
 /** Whether ContentView bounces */
 @property (nonatomic, assign) BOOL bounces;
+
+/**
+ *  是否作为NavigationBar的titleView展示 默认 NO
+ *  (建议开启时设置menuWidth属性)
+ */
+@property (assign, nonatomic) BOOL isShowOnNavigationBar;
 
 /** 下划线进度条的高度 */
 @property (nonatomic, assign) CGFloat progressHeight;

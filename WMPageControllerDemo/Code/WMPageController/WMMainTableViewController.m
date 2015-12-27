@@ -22,7 +22,8 @@
         _styles = @[@"WMMenuViewStyleDefault",
                     @"WMMenuViewStyleLine",
                     @"WMMenuViewStyleFlood",
-                    @"WMMenuViewStyleFloodHollow"];
+                    @"WMMenuViewStyleFloodHollow",
+                    @"WMMenuViewShowOnNav"];
     }
     return _styles;
 }
@@ -88,6 +89,13 @@
         pageController.title = @"Hollow";
         pageController.menuViewStyle = WMMenuViewStyleFooldHollow;
         pageController.titleSizeSelected = 15;
+    } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewShowOnNav"]) {
+        //在导航栏上展示
+        pageController.title = @"ShowOnNav";
+        pageController.menuViewStyle = WMMenuViewStyleLine;
+        pageController.titleSizeSelected = 15;
+        pageController.isShowOnNavigationBar = YES;
+        pageController.menuWidth = 200;
     }
     [self.navigationController pushViewController:pageController animated:YES];
 }

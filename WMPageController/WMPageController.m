@@ -200,6 +200,9 @@
         _viewWidth = self.viewFrame.size.width;
         _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottom;
     }
+    if (self.isShowOnNavigationBar && self.navigationController.navigationBar) {
+        _viewHeight += self.menuHeight;
+    }
     _viewX = self.viewFrame.origin.x;
     _viewY = self.viewFrame.origin.y;
     // 重新计算各个控制器视图的宽高
@@ -225,7 +228,10 @@
 }
 
 - (void)addMenuView {
-    CGRect frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
+    if (!_menuWidth) {
+        _menuWidth = _viewWidth == 0 ? self.view.frame.size.width : _viewWidth;
+    }
+    CGRect frame = CGRectMake(_viewX, _viewY, _menuWidth, self.menuHeight);
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonTitles:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
     menuView.delegate = self;
     menuView.style = self.menuViewStyle;
@@ -236,7 +242,11 @@
     if (self.progressColor) {
         menuView.lineColor = self.progressColor;
     }
-    [self.view addSubview:menuView];
+    if (self.isShowOnNavigationBar && self.navigationController.navigationBar) {
+        self.navigationItem.titleView = menuView;
+    } else {
+        [self.view addSubview:menuView];
+    }
     self.menuView = menuView;
     // 如果设置了初始选择的序号，那么选中该item
     if (self.selectIndex != 0) {
@@ -423,9 +433,16 @@
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
     [self removeSuperfluousViewControllersIfNeeded];
     self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
-    self.menuView.frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
-    [self.menuView resetFrames];
     _hasInited = YES;
+    
+    // 根据是否在导航栏上展示调整frame
+    if (self.isShowOnNavigationBar && self.navigationController.navigationBar) {
+        scrollFrame.origin.y -= self.menuHeight;
+        self.scrollView.frame = scrollFrame;
+    } else {
+        self.menuView.center = CGPointMake(_viewWidth/2, self.menuView.center.y);
+        [self.menuView resetFrames];
+    }
     [self.view layoutIfNeeded];
 }
 
