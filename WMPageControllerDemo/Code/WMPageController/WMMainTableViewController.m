@@ -96,6 +96,7 @@
         pageController.titleSizeSelected = 15;
         pageController.showOnNavigationBar = YES;
         pageController.menuBGColor = [UIColor clearColor];
+        pageController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
     }
     [self.navigationController pushViewController:pageController animated:YES];
 }

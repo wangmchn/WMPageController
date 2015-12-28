@@ -403,13 +403,17 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
+    
     if (!self.viewControllerClasses.count) return;
+    
     [self addScrollView];
+    
     [self addViewControllerAtIndex:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
+    
     [self addMenuView];
 }
 
@@ -432,13 +436,13 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     __block CGFloat rightWidth = 0;
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:NSClassFromString(@"UINavigationItemView")]) {
+            if ([obj isKindOfClass:NSClassFromString(@"UINavigationItemView")] || [obj isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
                 CGFloat x = CGRectGetMinX(obj.frame);
                 if (x < _viewWidth / 2) {
                     CGFloat leftWidth = CGRectGetMaxX(obj.frame) + kWMMarginToNavigationItem;
                     menuX = menuX > leftWidth ? menuX : leftWidth;
                 } else {
-                    rightWidth = CGRectGetMaxX(obj.frame) + kWMMarginToNavigationItem;
+                    rightWidth = (_viewWidth - CGRectGetMinX(obj.frame)) + kWMMarginToNavigationItem;
                 }
             }
         }];
