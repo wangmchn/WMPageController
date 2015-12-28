@@ -82,7 +82,6 @@
 //        });
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [pageController updateTitle:@"哈哈哈" andWidth:150 atIndex:1];
-            pageController.selectIndex = 0;
         });
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFloodHollow"]) {
         // 涌入/空心

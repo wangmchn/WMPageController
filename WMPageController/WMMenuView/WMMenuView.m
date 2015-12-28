@@ -7,18 +7,10 @@
 //
 
 #import "WMMenuView.h"
-#import "WMMenuItem.h"
 #import "WMProgressView.h"
 #import "WMFooldView.h"
 
-#define kItemWidth   60
-#define kTagGap      6250
-@interface WMMenuView () <WMMenuItemDelegate> {
-    CGFloat _norSize;
-    CGFloat _selSize;
-    UIColor *_norColor;
-    UIColor *_selColor;
-}
+@interface WMMenuView () <WMMenuItemDelegate>
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) WMProgressView *progressView;
 @property (nonatomic, weak) WMMenuItem *selItem;
@@ -26,11 +18,12 @@
 @property (nonatomic, strong) NSMutableArray *frames;
 @end
 // 下划线的高度
-static CGFloat const WMProgressHeight = 2.0;
-
+static CGFloat   const WMProgressHeight = 2.0;
+static CGFloat   const WMMenuItemWidth  = 60.0;
+static NSInteger const WMMenuItemTagOffset = 6250;
 @implementation WMMenuView
 
-#pragma mark - Lazy
+#pragma mark - Getter
 - (CGFloat)progressHeight {
     if (_progressHeight == 0.0) {
         _progressHeight = WMProgressHeight;
@@ -40,7 +33,7 @@ static CGFloat const WMProgressHeight = 2.0;
 
 - (UIColor *)lineColor {
     if (!_lineColor) {
-        _lineColor = _selColor;
+        _lineColor = self.selectedColor;
     }
     return _lineColor;
 }
@@ -52,43 +45,47 @@ static CGFloat const WMProgressHeight = 2.0;
     return _frames;
 }
 
+- (UIColor *)selectedColor {
+    if ([self.delegate respondsToSelector:@selector(menuView:titleColorForState:)]) {
+        return [self.delegate menuView:self titleColorForState:WMMenuItemStateSelected];
+    }
+    return [UIColor blackColor];
+}
+
+- (UIColor *)normalColor {
+    if ([self.delegate respondsToSelector:@selector(menuView:titleColorForState:)]) {
+        return [self.delegate menuView:self titleColorForState:WMMenuItemStateNormal];
+    }
+    return [UIColor blackColor];
+}
+
+- (CGFloat)selectedSize {
+    if ([self.delegate respondsToSelector:@selector(menuView:titleSizeForState:)]) {
+        return [self.delegate menuView:self titleSizeForState:WMMenuItemStateSelected];
+    }
+    return 15.0;
+}
+
+- (CGFloat)normalSize {
+    if ([self.delegate respondsToSelector:@selector(menuView:titleSizeForState:)]) {
+        return [self.delegate menuView:self titleSizeForState:WMMenuItemStateNormal];
+    }
+    return 15.0;
+}
+
 #pragma mark - Public Methods
-- (instancetype)initWithFrame:(CGRect)frame andTitles:(NSArray<NSString *> *)titles {
-    if (self = [super initWithFrame:frame]) {
-        _titles = titles;
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame buttonTitles:(NSArray<NSString *> *)titles backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor {
-    if (self = [self initWithFrame:frame andTitles:titles]) {
-        if (bgColor) {
-            _bgColor = bgColor;
-        } else {
-            _bgColor = [UIColor whiteColor];
-        }
-        _norSize  = norSize;
-        _selSize  = selSize;
-        _norColor = norColor;
-        _selColor = selColor;
-    }
-    return self;
-}
-
 - (void)slideMenuAtProgress:(CGFloat)progress {
     if (self.progressView) {
         self.progressView.progress = progress;
     }
-    NSInteger tag = (NSInteger)progress + kTagGap;
-    CGFloat rate = progress - tag + kTagGap;
+    NSInteger tag = (NSInteger)progress + WMMenuItemTagOffset;
+    CGFloat rate = progress - tag + WMMenuItemTagOffset;
     WMMenuItem *currentItem = (WMMenuItem *)[self viewWithTag:tag];
     WMMenuItem *nextItem = (WMMenuItem *)[self viewWithTag:tag+1];
     if (rate == 0.0) {
         rate = 1.0;
-        self.selItem.rate = 0;
         [self.selItem deselectedItemWithoutAnimation];
         self.selItem = currentItem;
-        self.selItem.rate = 1;
         [self.selItem selectedItemWithoutAnimation];
         [self refreshContenOffset];
         return;
@@ -99,8 +96,8 @@ static CGFloat const WMProgressHeight = 2.0;
 }
 
 - (void)selectItemAtIndex:(NSInteger)index {
-    NSInteger tag = index + kTagGap;
-    NSInteger currentIndex = self.selItem.tag - kTagGap;
+    NSInteger tag = index + WMMenuItemTagOffset;
+    NSInteger currentIndex = self.selItem.tag - WMMenuItemTagOffset;
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
     [self.selItem deselectedItemWithoutAnimation];
     self.selItem = item;
@@ -113,10 +110,11 @@ static CGFloat const WMProgressHeight = 2.0;
 }
 
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
-    if (index >= self.titles.count || index < 0) return;
-    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(kTagGap + index)];
+    if (index >= self.titles.count || index < 0) { return; }
+    
+    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + index)];
     item.text = title;
-    if (!update) return;
+    if (!update) { return; }
     [self resetFrames];
 }
 
@@ -139,7 +137,7 @@ static CGFloat const WMProgressHeight = 2.0;
     [self.frames removeAllObjects];
     [self calculateItemFrames];
     for (NSInteger i = index; i < self.titles.count; i++) {
-        WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(kTagGap + i)];
+        WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + i)];
         CGRect frame = [self.frames[i] CGRectValue];
         item.frame = frame;
     }
@@ -214,22 +212,22 @@ static CGFloat const WMProgressHeight = 2.0;
     for (int i = 0; i < self.titles.count; i++) {
         CGRect frame = [self.frames[i] CGRectValue];
         WMMenuItem *item = [[WMMenuItem alloc] initWithFrame:frame];
-        item.tag = (i+kTagGap);
+        item.tag = (i+WMMenuItemTagOffset);
         item.delegate = self;
         item.text = self.titles[i];
         item.textAlignment = NSTextAlignmentCenter;
-        item.textColor = _norColor;
+        item.textColor = self.normalColor;
         item.userInteractionEnabled = YES;
         if (self.fontName) {
-            item.font = [UIFont fontWithName:self.fontName size:_selSize];
+            item.font = [UIFont fontWithName:self.fontName size:self.selectedSize];
         } else {
-            item.font = [UIFont systemFontOfSize:_selSize];
+            item.font = [UIFont systemFontOfSize:self.selectedSize];
         }
         item.backgroundColor = [UIColor clearColor];
-        item.normalSize    = _norSize;
-        item.selectedSize  = _selSize;
-        item.normalColor   = _norColor;
-        item.selectedColor = _selColor;
+        item.normalSize    = self.normalSize;
+        item.selectedSize  = self.selectedSize;
+        item.normalColor   = self.normalColor;
+        item.selectedColor = self.selectedColor;
         if (i == 0) {
             [item selectedItemWithoutAnimation];
             self.selItem = item;
@@ -245,7 +243,7 @@ static CGFloat const WMProgressHeight = 2.0;
 - (void)calculateItemFrames {
     CGFloat contentWidth = [self itemMarginAtIndex:0];
     for (int i = 0; i < self.titles.count; i++) {
-        CGFloat itemW = kItemWidth;
+        CGFloat itemW = WMMenuItemWidth;
         if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
             itemW = [self.delegate menuView:self widthForItemAtIndex:i];
         }
@@ -300,12 +298,12 @@ static CGFloat const WMProgressHeight = 2.0;
 - (void)didPressedMenuItem:(WMMenuItem *)menuItem {
     if (self.selItem == menuItem) return;
     
-    CGFloat progress = menuItem.tag - kTagGap;
+    CGFloat progress = menuItem.tag - WMMenuItemTagOffset;
     [self.progressView moveToPostion:progress];
     
-    NSInteger currentIndex = self.selItem.tag - kTagGap;
+    NSInteger currentIndex = self.selItem.tag - WMMenuItemTagOffset;
     if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
-        [self.delegate menuView:self didSelesctedIndex:menuItem.tag-kTagGap currentIndex:currentIndex];
+        [self.delegate menuView:self didSelesctedIndex:menuItem.tag-WMMenuItemTagOffset currentIndex:currentIndex];
     }
     
     menuItem.selected = YES;

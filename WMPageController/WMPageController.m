@@ -156,7 +156,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 
 // 当子控制器init完成时发送通知
 - (void)postAddToSuperViewNotificationWithIndex:(int)index {
-    if (!self.postNotification) return;
+    if (!self.postNotification) { return; }
     NSDictionary *info = @{
                            @"index":@(index),
                            @"title":self.titles[index]
@@ -167,7 +167,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 
 // 当子控制器完全展示在user面前时发送通知
 - (void)postFullyDisplayedNotificationWithCurrentIndex:(int)index {
-    if (!self.postNotification) return;
+    if (!self.postNotification) { return; }
     NSDictionary *info = @{
                            @"index":@(index),
                            @"title":self.titles[index]
@@ -229,8 +229,9 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 }
 
 - (void)addMenuView {
-    CGRect frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
-    WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame buttonTitles:self.titles backgroundColor:self.menuBGColor norSize:self.titleSizeNormal selSize:self.titleSizeSelected norColor:self.titleColorNormal selColor:self.titleColorSelected];
+    WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:CGRectZero];
+    menuView.titles = self.titles;
+    menuView.backgroundColor = self.menuBGColor;
     menuView.delegate = self;
     menuView.style = self.menuViewStyle;
     menuView.progressHeight = self.progressHeight;
@@ -582,6 +583,32 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
         return [self.itemsMargins[index] floatValue];
     }
     return self.itemMargin;
+}
+
+- (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state {
+    switch (state) {
+        case WMMenuItemStateSelected: {
+            return self.titleSizeSelected;
+            break;
+        }
+        case WMMenuItemStateNormal: {
+            return self.titleSizeNormal;
+            break;
+        }
+    }
+}
+
+- (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state {
+    switch (state) {
+        case WMMenuItemStateSelected: {
+            return self.titleColorSelected;
+            break;
+        }
+        case WMMenuItemStateNormal: {
+            return self.titleColorNormal;
+            break;
+        }
+    }
 }
 
 @end
