@@ -400,6 +400,40 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     self.cachePolicy = WMPageControllerCachePolicyHigh;
 }
 
+#pragma mark - Adjust Frame
+- (void)adjustScrollViewFrame {
+    CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottom, _viewWidth, _viewHeight);
+    scrollFrame.origin.y -= self.showOnNavigationBar && self.navigationController.navigationBar ? self.menuHeight : 0;
+    self.scrollView.frame = scrollFrame;
+    self.scrollView.contentSize = CGSizeMake(self.titles.count * _viewWidth, 0);
+    [self.scrollView setContentOffset:CGPointMake(self.selectIndex * _viewWidth, 0)];
+}
+
+- (void)adjustMenuViewFrame {
+    // 根据是否在导航栏上展示调整frame
+    CGFloat menuHeight = self.menuHeight;
+    __block CGFloat menuX = _viewX;
+    __block CGFloat rightWidth = 0;
+    if (self.showOnNavigationBar && self.navigationController.navigationBar) {
+        [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:NSClassFromString(@"UINavigationItemView")] || [obj isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
+                CGFloat x = CGRectGetMinX(obj.frame);
+                if (x < _viewWidth / 2) {
+                    CGFloat leftWidth = CGRectGetMaxX(obj.frame) + kWMMarginToNavigationItem;
+                    menuX = menuX > leftWidth ? menuX : leftWidth;
+                } else {
+                    rightWidth = (_viewWidth - CGRectGetMinX(obj.frame)) + kWMMarginToNavigationItem;
+                }
+            }
+        }];
+        CGFloat navHeight = self.navigationController.navigationBar.frame.size.height;
+        menuHeight = self.menuHeight > navHeight ? navHeight : self.menuHeight;
+    }
+    CGFloat menuWidth = _viewWidth - menuX - rightWidth;
+    self.menuView.frame = CGRectMake(menuX, _viewY, menuWidth, menuHeight);
+    [self.menuView resetFrames];
+}
+
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -429,35 +463,10 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 
     // 计算宽高及子控制器的视图frame
     [self calculateSize];
-    CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottom, _viewWidth, _viewHeight);
-    // 根据是否在导航栏上展示调整frame
-    CGFloat menuHeight = self.menuHeight;
-    __block CGFloat menuX = _viewX;
-    __block CGFloat rightWidth = 0;
-    if (self.showOnNavigationBar && self.navigationController.navigationBar) {
-        [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:NSClassFromString(@"UINavigationItemView")] || [obj isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
-                CGFloat x = CGRectGetMinX(obj.frame);
-                if (x < _viewWidth / 2) {
-                    CGFloat leftWidth = CGRectGetMaxX(obj.frame) + kWMMarginToNavigationItem;
-                    menuX = menuX > leftWidth ? menuX : leftWidth;
-                } else {
-                    rightWidth = (_viewWidth - CGRectGetMinX(obj.frame)) + kWMMarginToNavigationItem;
-                }
-            }
-        }];
-        scrollFrame.origin.y -= self.menuHeight;
-        CGFloat navHeight = self.navigationController.navigationBar.frame.size.height;
-        menuHeight = self.menuHeight > navHeight ? navHeight : self.menuHeight;
-    }
     
-    CGFloat menuWidth = _viewWidth - menuX - rightWidth;
-    self.scrollView.frame = scrollFrame;
-    self.scrollView.contentSize = CGSizeMake(self.titles.count*_viewWidth, 0);
-    [self.scrollView setContentOffset:CGPointMake(self.selectIndex*_viewWidth, 0)];
+    [self adjustScrollViewFrame];
     
-    self.menuView.frame = CGRectMake(menuX, _viewY, menuWidth, menuHeight);
-    [self.menuView resetFrames];
+    [self adjustMenuViewFrame];
     
     [self removeSuperfluousViewControllersIfNeeded];
     self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];

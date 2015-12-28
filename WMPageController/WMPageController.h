@@ -149,8 +149,8 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
 @property (nonatomic, assign) BOOL bounces;
 
 /**
- *  是否作为NavigationBar的titleView展示 默认 NO
- *  (建议开启时设置menuWidth属性)
+ *  是否作为 NavigationBar 的 titleView 展示，默认 NO
+ *  Whether to show on navigation bar, the default value is `NO`
  */
 @property (assign, nonatomic) BOOL showOnNavigationBar;
 
