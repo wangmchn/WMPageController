@@ -143,8 +143,14 @@ static CGFloat const WMProgressHeight = 2.0;
         CGRect frame = [self.frames[i] CGRectValue];
         item.frame = frame;
     }
+    if (!self.progressView.superview) { return; }
     CGRect frame = self.progressView.frame;
     frame.size.width = self.scrollView.contentSize.width;
+    if ([self.progressView isKindOfClass:[WMFooldView class]]) {
+        frame.origin.y = 0;
+    } else {
+        frame.origin.y = self.frame.size.height - self.progressHeight;
+    }
     self.progressView.frame = frame;
     self.progressView.itemFrames = self.frames;
     [self.progressView setNeedsDisplay];

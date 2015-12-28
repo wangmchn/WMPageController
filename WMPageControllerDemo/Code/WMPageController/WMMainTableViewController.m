@@ -91,12 +91,10 @@
         pageController.titleSizeSelected = 15;
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewShowOnNav"]) {
         //在导航栏上展示
-        pageController.title = @"ShowOnNav";
         pageController.menuHeight = 44;
         pageController.menuViewStyle = WMMenuViewStyleLine;
         pageController.titleSizeSelected = 15;
         pageController.showOnNavigationBar = YES;
-        pageController.menuWidth = 300;
         pageController.menuBGColor = [UIColor clearColor];
     }
     [self.navigationController pushViewController:pageController animated:YES];
