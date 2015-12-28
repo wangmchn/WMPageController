@@ -15,6 +15,8 @@ And you can easily change styles by setting `menuViewStyle` property:
 ```objective-c
 pageController.menuViewStyle = WMMenuViewStyleLine;
 ```
+If you want `menuView` to show on the navigation bar, set `showOnNavigationBar = YES`;
+
 ## Swift Version
 Click here: https://github.com/wangmchn/WMPageController-Swift
 
