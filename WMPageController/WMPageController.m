@@ -12,7 +12,7 @@
 static CGFloat kWMMarginToNavigationItem = 6.0;
 @interface WMPageController () {
     CGFloat _viewHeight, _viewWidth, _viewX, _viewY, _targetX, _superviewHeight;
-    BOOL    _animate, _hasInited;
+    BOOL    _animate, _hasInited, _shouldNotScroll;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
@@ -404,11 +404,16 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 
 #pragma mark - Adjust Frame
 - (void)adjustScrollViewFrame {
+    // While rotate at last page, set scroll frame will call `-scrollViewDidScroll:` delegate
+    // It's not my expectation, so I use `_shouldNotScroll` to lock it.
+    // Wait for a better solution.
+    _shouldNotScroll = YES;
     CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottom, _viewWidth, _viewHeight);
     scrollFrame.origin.y -= self.showOnNavigationBar && self.navigationController.navigationBar ? self.menuHeight : 0;
     self.scrollView.frame = scrollFrame;
     self.scrollView.contentSize = CGSizeMake(self.titles.count * _viewWidth, 0);
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex * _viewWidth, 0)];
+    _shouldNotScroll = NO;
 }
 
 - (void)adjustMenuViewFrame {
@@ -502,6 +507,8 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_shouldNotScroll) { return; }
+    
     [self layoutChildViewControllers];
     if (_animate) {
         CGFloat contentOffsetX = scrollView.contentOffset.x;
