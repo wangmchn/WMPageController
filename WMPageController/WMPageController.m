@@ -229,7 +229,8 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 }
 
 - (void)addMenuView {
-    WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:CGRectZero];
+    CGRect frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
+    WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame];
     menuView.titles = self.titles;
     menuView.backgroundColor = self.menuBGColor;
     menuView.delegate = self;
