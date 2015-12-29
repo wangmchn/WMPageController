@@ -92,7 +92,8 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     }
     currentItem.rate = 1-rate;
     nextItem.rate = rate;
-    self.selItem = rate < 0.5 ? currentItem : nextItem;
+//    self.selItem = rate < 0.5 ? currentItem : nextItem;
+//    NSLog(@"%ld",self.selItem.tag);
 }
 
 - (void)selectItemAtIndex:(NSInteger)index {
