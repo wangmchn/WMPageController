@@ -14,10 +14,4 @@
 
 @implementation WMViewController
 
-- (instancetype)init {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self = [sb instantiateViewControllerWithIdentifier:@"WMViewController"];
-    return self;
-}
-
 @end

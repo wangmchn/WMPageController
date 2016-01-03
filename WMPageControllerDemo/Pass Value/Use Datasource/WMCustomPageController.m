@@ -12,7 +12,7 @@
 #import "WMBlankViewController.h"
 
 @interface WMCustomPageController ()
-@property (nonatomic, readonly) NSArray *titles;
+
 @end
 
 @implementation WMCustomPageController
