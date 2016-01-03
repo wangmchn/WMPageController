@@ -55,6 +55,10 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.navigationController pushViewController:[WMTableViewController new] animated:YES];
+}
+
 - (void)dealloc {
     NSLog(@"%@ destroyed",[self class]);
 }

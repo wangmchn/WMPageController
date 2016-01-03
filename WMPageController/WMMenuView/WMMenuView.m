@@ -16,6 +16,7 @@
 @property (nonatomic, weak) WMMenuItem *selItem;
 @property (nonatomic, strong) UIColor *bgColor;
 @property (nonatomic, strong) NSMutableArray *frames;
+@property (nonatomic, readonly) NSInteger titlesCount;
 @end
 // 下划线的高度
 static CGFloat   const WMProgressHeight = 2.0;
@@ -92,8 +93,6 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     }
     currentItem.rate = 1-rate;
     nextItem.rate = rate;
-//    self.selItem = rate < 0.5 ? currentItem : nextItem;
-//    NSLog(@"%@",self.selItem);
 }
 
 - (void)selectItemAtIndex:(NSInteger)index {
@@ -111,12 +110,17 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 }
 
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
-    if (index >= self.titles.count || index < 0) { return; }
+    if (index >= self.titlesCount || index < 0) { return; }
     
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + index)];
     item.text = title;
     if (!update) { return; }
     [self resetFrames];
+}
+
+#pragma mark - Data source
+- (NSInteger)titlesCount {
+    return [self.dataSource numbersOfTitlesInMenuView:self];
 }
 
 #pragma mark - Private Methods
@@ -137,7 +141,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 - (void)resetFramesFromIndex:(NSInteger)index {
     [self.frames removeAllObjects];
     [self calculateItemFrames];
-    for (NSInteger i = index; i < self.titles.count; i++) {
+    for (NSInteger i = index; i < self.titlesCount; i++) {
         WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + i)];
         CGRect frame = [self.frames[i] CGRectValue];
         item.frame = frame;
@@ -210,12 +214,12 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 - (void)addItems {
     [self calculateItemFrames];
     
-    for (int i = 0; i < self.titles.count; i++) {
+    for (int i = 0; i < self.titlesCount; i++) {
         CGRect frame = [self.frames[i] CGRectValue];
         WMMenuItem *item = [[WMMenuItem alloc] initWithFrame:frame];
         item.tag = (i+WMMenuItemTagOffset);
         item.delegate = self;
-        item.text = self.titles[i];
+        item.text = [self.dataSource menuView:self titleAtIndex:i];
         item.textAlignment = NSTextAlignmentCenter;
         item.textColor = self.normalColor;
         item.userInteractionEnabled = YES;
@@ -243,7 +247,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 // 这里与后面的 `-addItems` 做了重复的操作，并不是很合理
 - (void)calculateItemFrames {
     CGFloat contentWidth = [self itemMarginAtIndex:0];
-    for (int i = 0; i < self.titles.count; i++) {
+    for (int i = 0; i < self.titlesCount; i++) {
         CGFloat itemW = WMMenuItemWidth;
         if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
             itemW = [self.delegate menuView:self widthForItemAtIndex:i];
@@ -257,7 +261,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     if (contentWidth < self.frame.size.width) {
         // 计算间距
         CGFloat distance = self.frame.size.width - contentWidth;
-        CGFloat gap = distance / (self.titles.count + 1);
+        CGFloat gap = distance / (self.titlesCount + 1);
         for (int i = 0; i < self.frames.count; i++) {
             CGRect frame = [self.frames[i] CGRectValue];
             frame.origin.x += gap * (i+1);

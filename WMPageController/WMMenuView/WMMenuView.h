@@ -26,12 +26,18 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 - (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state;
 @end
 
+@protocol WMMenuViewDataSource <NSObject>
+@required
+- (NSInteger)numbersOfTitlesInMenuView:(WMMenuView *)menu;
+- (NSString *)menuView:(WMMenuView *)menu titleAtIndex:(NSInteger)index;
+@end
+
 @interface WMMenuView : UIView
 @property (nonatomic, assign) CGFloat progressHeight;
-@property (nonatomic, strong) NSArray<NSString *> *titles;
 @property (nonatomic, assign) WMMenuViewStyle style;
 @property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
+@property (nonatomic, weak) id<WMMenuViewDataSource> dataSource;
 @property (nonatomic, copy) NSString *fontName;
 
 @property (nonatomic, readonly) CGFloat selectedSize;
