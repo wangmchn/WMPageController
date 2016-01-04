@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    NSLog(@"%@ viewDidLoad",[self class]);
+    
     self.tableView.showsVerticalScrollIndicator = NO;
     
     NSArray *images = @[@"zoro.jpg",@"three.jpg",@"onepiece.jpg"];

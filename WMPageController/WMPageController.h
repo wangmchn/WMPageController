@@ -57,16 +57,39 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  *  @return A `NSString` value to show at the top of `WMPageController`.
  */
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index;
+
 @end
 
-/**
- *  Delegate not implement yet. Support soon.
- */
 @protocol WMPageControllerDelegate <NSObject>
 @optional
-- (void)pageController:(WMPageController *)pageController cachedViewController:(__kindof UIViewController *)viewController atIndex:(NSInteger)index withTitle:(NSString *)title;
-- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController;
-- (void)pageController:(WMPageController *)pageController didEnterViewController:(__kindof UIViewController *)viewController;
+
+/**
+ *  Called when a viewController will be cached. You can clear some data if it's not reusable.
+ *
+ *  @param pageController The parent controller `WMPageController`
+ *  @param viewController The viewController will be cached.
+ *  @param info           A dictionary that includes some infos, such as: `index` / `title`
+ */
+- (void)pageController:(WMPageController *)pageController willCachedViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
+
+/**
+ *  Called when a viewController will be appear to user's sight. Do some preparatory methods if needed.
+ *
+ *  @param pageController The parent controller
+ *  @param viewController The viewController will appear.
+ *  @param info           A dictionary that includes some infos, such as: `index` / `title`
+ */
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
+
+/**
+ *  Called when a viewController will fully displayed, that means, 
+ *
+ *  @param pageController <#pageController description#>
+ *  @param viewController <#viewController description#>
+ *  @param info           <#info description#>
+ */
+- (void)pageController:(WMPageController *)pageController didEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
+
 @end
 
 @interface WMPageController : UIViewController <WMMenuViewDelegate, WMMenuViewDataSource, UIScrollViewDelegate, WMPageControllerDataSource, WMPageControllerDelegate>

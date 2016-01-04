@@ -78,16 +78,6 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     self.memCache.countLimit = _cachePolicy;
 }
 
-- (void)setItemsMargins:(NSArray<NSNumber *> *)itemsMargins {
-    NSParameterAssert(itemsMargins.count == self.childControllersCount + 1);
-    _itemsMargins = itemsMargins;
-}
-
-- (void)setItemsWidths:(NSArray<NSNumber *> *)itemsWidths {
-    NSParameterAssert(itemsWidths.count == self.titles.count);
-    _itemsWidths = [itemsWidths copy];
-}
-
 - (void)setSelectIndex:(int)selectIndex {
     _selectIndex = selectIndex;
     if (self.menuView) {
@@ -184,7 +174,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     if (!self.postNotification) { return; }
     NSDictionary *info = @{
                            @"index":@(index),
-                           @"title":self.titles[index]
+                           @"title":[self titleAtIndex:index]
                            };
     [[NSNotificationCenter defaultCenter] postNotificationName:WMControllerDidAddToSuperViewNotification
                                                         object:info];
@@ -195,7 +185,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     if (!self.postNotification) { return; }
     NSDictionary *info = @{
                            @"index":@(index),
-                           @"title":self.titles[index]
+                           @"title":[self titleAtIndex:index]
                            };
     [[NSNotificationCenter defaultCenter] postNotificationName:WMControllerDidFullyDisplayedNotification
                                                         object:info];
@@ -370,7 +360,6 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
         NSValue *pointValue = self.posRecords[@(index)];
         if (pointValue) {
             CGPoint pos = [pointValue CGPointValue];
-            // 奇怪的现象，我发现 collectionView 的 contentSize 是 {0, 0};
             [scrollView setContentOffset:pos];
         }
     }
@@ -439,7 +428,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottom, _viewWidth, _viewHeight);
     scrollFrame.origin.y -= self.showOnNavigationBar && self.navigationController.navigationBar ? self.menuHeight : 0;
     self.scrollView.frame = scrollFrame;
-    self.scrollView.contentSize = CGSizeMake(self.titles.count * _viewWidth, 0);
+    self.scrollView.contentSize = CGSizeMake(self.childControllersCount * _viewWidth, 0);
     [self.scrollView setContentOffset:CGPointMake(self.selectIndex * _viewWidth, 0)];
     _shouldNotScroll = NO;
 }
