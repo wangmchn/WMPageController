@@ -120,6 +120,33 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     [self.menuView updateTitle:title atIndex:index andWidth:YES];
 }
 
+#pragma mark - Delegate
+- (NSDictionary *)infoWithIndex:(NSInteger)index {
+    NSString *title = [self titleAtIndex:index];
+    return @{@"title": title, @"index": @(index)};
+}
+
+- (void)willCachedController:(UIViewController *)vc atIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(pageController:willCachedViewController:withInfo:)]) {
+        NSDictionary *info = [self infoWithIndex:index];
+        [self.delegate pageController:self willCachedViewController:vc withInfo:info];
+    }
+}
+
+- (void)willEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(pageController:willEnterViewController:withInfo:)]) {
+        NSDictionary *info = [self infoWithIndex:index];
+        [self.delegate pageController:self willEnterViewController:vc withInfo:info];
+    }
+}
+
+- (void)didEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
+        NSDictionary *info = [self infoWithIndex:index];
+        [self.delegate pageController:self didEnterViewController:vc withInfo:info];
+    }
+}
+
 #pragma mark - Data source
 - (NSInteger)childControllersCount {
     if ([self.dataSource respondsToSelector:@selector(numbersOfChildControllersInPageController:)]) {
@@ -316,6 +343,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
+    [self willEnterController:viewController atIndex:index];
     [self.displayVC setObject:viewController forKey:@(index)];
 }
 
@@ -330,6 +358,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     viewController.view.frame = frame;
     [viewController didMoveToParentViewController:self];
     [self.scrollView addSubview:viewController.view];
+    [self willEnterController:viewController atIndex:index];
     [self.displayVC setObject:viewController forKey:@(index)];
     
     [self backToPositionIfNeeded:viewController atIndex:index];
@@ -345,6 +374,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     
     // 放入缓存
     if (![self.memCache objectForKey:@(index)]) {
+        [self willCachedController:viewController atIndex:index];
         [self.memCache setObject:viewController forKey:@(index)];
     }
 }
@@ -501,6 +531,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
+    [self didEnterController:self.currentViewController atIndex:self.selectIndex];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -555,12 +586,14 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     [self removeSuperfluousViewControllersIfNeeded];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
+    [self didEnterController:self.currentViewController atIndex:self.selectIndex];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self removeSuperfluousViewControllersIfNeeded];
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
+    [self didEnterController:self.currentViewController atIndex:self.selectIndex];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -593,6 +626,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
         [self layoutChildViewControllers];
         self.currentViewController = self.displayVC[@(self.selectIndex)];
         [self postFullyDisplayedNotificationWithCurrentIndex:(int)index];
+        [self didEnterController:self.currentViewController atIndex:currentIndex];
     }
 }
 

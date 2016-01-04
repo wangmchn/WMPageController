@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
 /**
  *  Called when a viewController will be cached. You can clear some data if it's not reusable.
  *
- *  @param pageController The parent controller `WMPageController`
+ *  @param pageController The parent controller (WMPageController)
  *  @param viewController The viewController will be cached.
  *  @param info           A dictionary that includes some infos, such as: `index` / `title`
  */
@@ -75,18 +75,18 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
 /**
  *  Called when a viewController will be appear to user's sight. Do some preparatory methods if needed.
  *
- *  @param pageController The parent controller
+ *  @param pageController The parent controller (WMPageController)
  *  @param viewController The viewController will appear.
  *  @param info           A dictionary that includes some infos, such as: `index` / `title`
  */
 - (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
 
 /**
- *  Called when a viewController will fully displayed, that means, 
+ *  Called when a viewController will fully displayed, that means, scrollView have stopped scrolling and the controller's view have entirely displayed.
  *
- *  @param pageController <#pageController description#>
- *  @param viewController <#viewController description#>
- *  @param info           <#info description#>
+ *  @param pageController The parent controller (WMPageController)
+ *  @param viewController The viewController entirely displayed.
+ *  @param info           A dictionary that includes some infos, such as: `index` / `title`
  */
 - (void)pageController:(WMPageController *)pageController didEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
 
