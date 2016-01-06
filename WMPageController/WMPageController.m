@@ -469,14 +469,17 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     __block CGFloat menuX = _viewX;
     __block CGFloat rightWidth = 0;
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
-        [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:NSClassFromString(@"UINavigationItemView")] || [obj isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
-                CGFloat x = CGRectGetMinX(obj.frame);
-                if (x < _viewWidth / 2) {
-                    CGFloat leftWidth = CGRectGetMaxX(obj.frame) + kWMMarginToNavigationItem;
+        [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
+            if (![obj isKindOfClass:[WMMenuView class]] && ![obj isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")]) {
+                CGFloat maxX = CGRectGetMaxX(obj.frame);
+                if (maxX < _viewWidth / 2) {
+                    CGFloat leftWidth = maxX + kWMMarginToNavigationItem;
                     menuX = menuX > leftWidth ? menuX : leftWidth;
-                } else {
-                    rightWidth = (_viewWidth - CGRectGetMinX(obj.frame)) + kWMMarginToNavigationItem;
+                }
+                CGFloat minX = CGRectGetMinX(obj.frame);
+                if (minX > _viewWidth / 2) {
+                    CGFloat width = (_viewWidth - minX) + kWMMarginToNavigationItem;
+                    rightWidth = rightWidth > width ? rightWidth : width;
                 }
             }
         }];
