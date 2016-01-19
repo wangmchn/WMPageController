@@ -96,8 +96,8 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     [self clearDatas];
     [self resetScrollView];
     [self.memCache removeAllObjects];
-    [self viewDidLayoutSubviews];
     [self resetMenuView];
+    [self viewDidLayoutSubviews];
 }
 
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -127,21 +127,21 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 }
 
 - (void)willCachedController:(UIViewController *)vc atIndex:(NSInteger)index {
-    if ([self.delegate respondsToSelector:@selector(pageController:willCachedViewController:withInfo:)]) {
+    if (self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:willCachedViewController:withInfo:)]) {
         NSDictionary *info = [self infoWithIndex:index];
         [self.delegate pageController:self willCachedViewController:vc withInfo:info];
     }
 }
 
 - (void)willEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
-    if ([self.delegate respondsToSelector:@selector(pageController:willEnterViewController:withInfo:)]) {
+    if (self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:willEnterViewController:withInfo:)]) {
         NSDictionary *info = [self infoWithIndex:index];
         [self.delegate pageController:self willEnterViewController:vc withInfo:info];
     }
 }
 
 - (void)didEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
-    if ([self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
+    if (self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
         NSDictionary *info = [self infoWithIndex:index];
         [self.delegate pageController:self didEnterViewController:vc withInfo:info];
     }
