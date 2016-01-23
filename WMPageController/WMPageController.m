@@ -497,6 +497,10 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
+    id delegate = [UIApplication sharedApplication].delegate;
+    if ([delegate respondsToSelector:@selector(window)]) {
+        [delegate window].backgroundColor = [UIColor whiteColor];
+    }
     
     if (!self.childControllersCount) return;
     

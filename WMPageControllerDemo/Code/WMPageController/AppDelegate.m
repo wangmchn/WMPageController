@@ -22,7 +22,6 @@
     tableViewController.title = @"Test";
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tableViewController];
     self.window.rootViewController = nav;
-    self.window.backgroundColor = [UIColor whiteColor];
     return YES;
 }
 

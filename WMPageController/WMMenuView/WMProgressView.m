@@ -11,7 +11,7 @@
     int     sign;
     CGFloat gap;
     CGFloat step;
-    __weak CADisplayLink *_link;
+    __weak  CADisplayLink *_link;
 }
 
 - (void)setProgressWithOutAnimate:(CGFloat)progress {

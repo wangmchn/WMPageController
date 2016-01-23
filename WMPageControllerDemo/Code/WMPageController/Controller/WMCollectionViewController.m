@@ -17,7 +17,7 @@
 
 static NSString * const reuseIdentifier = @"WMCollectionCell";
 
-- (instancetype)init{
+- (instancetype)init {
     UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
     flow.minimumLineSpacing = 1;
     flow.minimumInteritemSpacing = .1;
