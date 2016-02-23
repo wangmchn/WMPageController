@@ -70,4 +70,8 @@
     return self.titles[index];
 }
 
+- (void)pageController:(WMPageController *)pageController lazyLoadViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
+    NSLog(@"%@", info);
+}
+
 @end

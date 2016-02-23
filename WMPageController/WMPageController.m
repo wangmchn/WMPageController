@@ -13,6 +13,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
 @interface WMPageController () {
     CGFloat _viewHeight, _viewWidth, _viewX, _viewY, _targetX, _superviewHeight;
     BOOL    _animate, _hasInited, _shouldNotScroll;
+    NSInteger _initializedIndex;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
@@ -140,10 +141,34 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     }
 }
 
+// 完全进入控制器 (即停止滑动后调用)
 - (void)didEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
+    NSDictionary *info = [self infoWithIndex:index];
     if (self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
-        NSDictionary *info = [self infoWithIndex:index];
         [self.delegate pageController:self didEnterViewController:vc withInfo:info];
+    }
+    
+    // 当控制器创建时，调用延迟加载的代理方法
+    if (_initializedIndex == index && self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:lazyLoadViewController:withInfo:)]) {
+        [self.delegate pageController:self lazyLoadViewController:vc withInfo:info];
+    }
+    
+    // 根据 preloadPolicy 预加载控制器
+    if (self.preloadPolicy == WMPageControllerPreloadPolicyNever) { return; }
+    int start = 0;
+    int end = (int)self.childControllersCount - 1;
+    if (index > self.preloadPolicy) {
+        start = (int)index - self.preloadPolicy;
+    }
+    if (self.childControllersCount - 1 > self.preloadPolicy + index) {
+        end = (int)index + self.preloadPolicy;
+    }
+    for (int i = start; i <= end; i++) {
+        // 如果已存在，不需要预加载
+        if (![self.memCache objectForKey:@(i)] && !self.displayVC[@(i)]) {
+            [self addViewControllerAtIndex:i];
+            [self postAddToSuperViewNotificationWithIndex:i];
+        }
     }
 }
 
@@ -232,7 +257,8 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     _memCache = [[NSCache alloc] init];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    self.preloadPolicy = WMPageControllerPreloadPolicyNever;
+    self.cachePolicy = WMPageControllerCachePolicyNoLimit;
     self.delegate = self;
     self.dataSource = self;
 }
@@ -308,16 +334,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
         UIViewController *vc = [self.displayVC objectForKey:@(i)];
         if ([self isInScreen:frame]) {
             if (vc == nil) {
-                // 先从 cache 中取
-                vc = [self.memCache objectForKey:@(i)];
-                if (vc) {
-                    // cache 中存在，添加到 scrollView 上，并放入display
-                    [self addCachedViewController:vc atIndex:i];
-                } else {
-                    // cache 中也不存在，创建并添加到display
-                    [self addViewControllerAtIndex:i];
-                }
-                [self postAddToSuperViewNotificationWithIndex:i];
+                [self initializedControllerWithIndexIfNeeded:i];
             }
         } else {
             if (vc) {
@@ -326,6 +343,20 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
             }
         }
     }
+}
+
+// 创建或从缓存中获取控制器并添加到视图上
+- (void)initializedControllerWithIndexIfNeeded:(NSInteger)index {
+    // 先从 cache 中取
+    UIViewController *vc = [self.memCache objectForKey:@(index)];
+    if (vc) {
+        // cache 中存在，添加到 scrollView 上，并放入display
+        [self addCachedViewController:vc atIndex:index];
+    } else {
+        // cache 中也不存在，创建并添加到display
+        [self addViewControllerAtIndex:(int)index];
+    }
+    [self postAddToSuperViewNotificationWithIndex:(int)index];
 }
 
 - (void)removeSuperfluousViewControllersIfNeeded {
@@ -347,8 +378,9 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     [self.displayVC setObject:viewController forKey:@(index)];
 }
 
-// 添加子控制器
+// 创建并添加子控制器
 - (void)addViewControllerAtIndex:(int)index {
+    _initializedIndex = index;
     UIViewController *viewController = [self initializeViewControllerAtIndex:index];
     if (self.values.count == self.childControllersCount && self.keys.count == self.childControllersCount) {
         [viewController setValue:self.values[index] forKey:self.keys[index]];
