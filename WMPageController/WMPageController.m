@@ -9,7 +9,8 @@
 #import "WMPageController.h"
 #import "WMPageConst.h"
 
-static CGFloat kWMMarginToNavigationItem = 6.0;
+static CGFloat   const kWMMarginToNavigationItem = 6.0;
+static NSInteger const kWMUndefinedIndex = -1;
 @interface WMPageController () {
     CGFloat _viewHeight, _viewWidth, _viewX, _viewY, _targetX, _superviewHeight;
     BOOL    _animate, _hasInited, _shouldNotScroll;
@@ -151,6 +152,7 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     // 当控制器创建时，调用延迟加载的代理方法
     if (_initializedIndex == index && self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:lazyLoadViewController:withInfo:)]) {
         [self.delegate pageController:self lazyLoadViewController:vc withInfo:info];
+        _initializedIndex = kWMUndefinedIndex;
     }
     
     // 根据 preloadPolicy 预加载控制器
@@ -255,10 +257,12 @@ static CGFloat kWMMarginToNavigationItem = 6.0;
     _menuItemWidth = WMMenuItemWidth;
     
     _memCache = [[NSCache alloc] init];
+    _initializedIndex = kWMUndefinedIndex;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.preloadPolicy = WMPageControllerPreloadPolicyNever;
     self.cachePolicy = WMPageControllerCachePolicyNoLimit;
+    
     self.delegate = self;
     self.dataSource = self;
 }
