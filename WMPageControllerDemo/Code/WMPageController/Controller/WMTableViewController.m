@@ -7,6 +7,7 @@
 //
 
 #import "WMTableViewController.h"
+#import "WMSecondViewController.h"
 #import "WMLoopView.h"
 #import "WMPageConst.h"
 
@@ -56,7 +57,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.navigationController pushViewController:[WMTableViewController new] animated:YES];
+    WMSecondViewController *vc = [[WMSecondViewController alloc] init];
+    vc.pageController = (WMPageController *)self.parentViewController;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)dealloc {

@@ -209,6 +209,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 - (void)clearDatas {
     _hasInited = NO;
+    _selectIndex = self.selectIndex < self.childControllersCount ? self.selectIndex : self.childControllersCount - 1;
     NSArray *displayingViewControllers = self.displayVC.allValues;
     for (UIViewController *vc in displayingViewControllers) {
         [vc.view removeFromSuperview];
