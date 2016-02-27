@@ -599,7 +599,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (_shouldNotScroll || !_hasInited) { return; }
+    if (_shouldNotScroll) { return; }
     
     [self layoutChildViewControllers];
     if (_animate) {
@@ -653,6 +653,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 #pragma mark - WMMenuView Delegate
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex {
+    if (!_hasInited) { return; }
     NSInteger gap = (NSInteger)labs(index - currentIndex);
     _selectIndex = (int)index;
     _animate = NO;
@@ -660,7 +661,6 @@ static NSInteger const kWMUndefinedIndex = -1;
     BOOL animate = (gap > 1 || !_hasInited) ? NO : self.pageAnimatable;
     [self.scrollView setContentOffset:targetP animated:animate];
     if (gap > 1 || !self.pageAnimatable) {
-        if (!_hasInited) { return; }
         // 由于不触发 -scrollViewDidScroll: 手动处理控制器
         [self removeSuperfluousViewControllersIfNeeded];
         UIViewController *currentViewController = self.displayVC[@(currentIndex)];
