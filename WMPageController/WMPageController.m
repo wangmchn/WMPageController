@@ -209,7 +209,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 - (void)clearDatas {
     _hasInited = NO;
-    _selectIndex = self.selectIndex < self.childControllersCount ? self.selectIndex : self.childControllersCount - 1;
+    _selectIndex = self.selectIndex < self.childControllersCount ? self.selectIndex : (int)self.childControllersCount - 1;
     NSArray *displayingViewControllers = self.displayVC.allValues;
     for (UIViewController *vc in displayingViewControllers) {
         [vc.view removeFromSuperview];
@@ -599,7 +599,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (_shouldNotScroll) { return; }
+    if (_shouldNotScroll || !_hasInited) { return; }
     
     [self layoutChildViewControllers];
     if (_animate) {
@@ -643,7 +643,6 @@ static NSInteger const kWMUndefinedIndex = -1;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
         CGFloat rate = _targetX / _viewWidth;
-        [self removeSuperfluousViewControllersIfNeeded];
         [self.menuView slideMenuAtProgress:rate];
     }
 }
@@ -658,10 +657,12 @@ static NSInteger const kWMUndefinedIndex = -1;
     _selectIndex = (int)index;
     _animate = NO;
     CGPoint targetP = CGPointMake(_viewWidth*index, 0);
-    
-    [self.scrollView setContentOffset:targetP animated:gap > 1 ? NO : self.pageAnimatable];
+    BOOL animate = (gap > 1 || !_hasInited) ? NO : self.pageAnimatable;
+    [self.scrollView setContentOffset:targetP animated:animate];
     if (gap > 1 || !self.pageAnimatable) {
+        if (!_hasInited) { return; }
         // 由于不触发 -scrollViewDidScroll: 手动处理控制器
+        [self removeSuperfluousViewControllersIfNeeded];
         UIViewController *currentViewController = self.displayVC[@(currentIndex)];
         if (currentViewController) {
             [self removeViewController:currentViewController atIndex:currentIndex];

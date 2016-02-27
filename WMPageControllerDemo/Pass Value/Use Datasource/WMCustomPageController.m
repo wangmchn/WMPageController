@@ -22,6 +22,7 @@
         self.menuHeight = 40.0;
         self.menuViewStyle = WMMenuViewStyleLine;
         self.menuItemWidth = 60;
+        self.selectIndex = 1;
     }
     return self;
 }
@@ -33,6 +34,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
 }
 
 - (void)didReceiveMemoryWarning {

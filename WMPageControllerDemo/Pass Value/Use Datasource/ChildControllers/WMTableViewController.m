@@ -7,6 +7,7 @@
 //
 
 #import "WMTableViewController.h"
+#import "WMSecondViewController.h"
 
 @interface WMTableViewController ()
 
@@ -19,6 +20,11 @@ static NSString *const WMTabelViewIdentifier = @"WMTableViewIdentifier";
     [super viewDidLoad];
     
     self.tableView.rowHeight = 60;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSLog(@"------------");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,6 +53,12 @@ static NSString *const WMTabelViewIdentifier = @"WMTableViewIdentifier";
     cell.detailTextLabel.textColor = [UIColor grayColor];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMSecondViewController *vc = [[WMSecondViewController alloc] init];
+    vc.pageController = (WMCustomPageController *)self.parentViewController;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

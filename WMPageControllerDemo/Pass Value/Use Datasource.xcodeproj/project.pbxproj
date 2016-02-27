@@ -24,6 +24,7 @@
 		4DEBF6941C390A9C00FFAE10 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEBF6931C390A9C00FFAE10 /* WMViewController.m */; };
 		4DEBF6971C390AAD00FFAE10 /* WMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEBF6961C390AAD00FFAE10 /* WMTableViewController.m */; };
 		4DEBF69D1C390C0900FFAE10 /* WMBlankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEBF69C1C390C0900FFAE10 /* WMBlankViewController.m */; };
+		4DF161611C81DBC6003553A6 /* WMSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF161601C81DBC6003553A6 /* WMSecondViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		4DEBF6961C390AAD00FFAE10 /* WMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMTableViewController.m; path = ChildControllers/WMTableViewController.m; sourceTree = "<group>"; };
 		4DEBF69B1C390C0900FFAE10 /* WMBlankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMBlankViewController.h; sourceTree = "<group>"; };
 		4DEBF69C1C390C0900FFAE10 /* WMBlankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMBlankViewController.m; sourceTree = "<group>"; };
+		4DF1615F1C81DBC6003553A6 /* WMSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMSecondViewController.h; sourceTree = "<group>"; };
+		4DF161601C81DBC6003553A6 /* WMSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMSecondViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +221,8 @@
 		4DEBF6911C390A8000FFAE10 /* ChildControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4DF1615F1C81DBC6003553A6 /* WMSecondViewController.h */,
+				4DF161601C81DBC6003553A6 /* WMSecondViewController.m */,
 				4DEBF6921C390A9C00FFAE10 /* WMViewController.h */,
 				4DEBF6931C390A9C00FFAE10 /* WMViewController.m */,
 				4DEBF6951C390AAD00FFAE10 /* WMTableViewController.h */,
@@ -369,6 +374,7 @@
 				4DEBF6971C390AAD00FFAE10 /* WMTableViewController.m in Sources */,
 				4DEBF6851C39070700FFAE10 /* WMProgressView.m in Sources */,
 				4DEBF6821C39070700FFAE10 /* WMFooldView.m in Sources */,
+				4DF161611C81DBC6003553A6 /* WMSecondViewController.m in Sources */,
 				4DEBF6861C39070700FFAE10 /* WMScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,6 +599,7 @@
 				4DEBF66C1C3906E200FFAE10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DEBF66D1C3906E200FFAE10 /* Build configuration list for PBXNativeTarget "Use DatasourceTests" */ = {
 			isa = XCConfigurationList;
@@ -601,6 +608,7 @@
 				4DEBF66F1C3906E200FFAE10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DEBF6701C3906E200FFAE10 /* Build configuration list for PBXNativeTarget "Use DatasourceUITests" */ = {
 			isa = XCConfigurationList;
@@ -609,6 +617,7 @@
 				4DEBF6721C3906E200FFAE10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
