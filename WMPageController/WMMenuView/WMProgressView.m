@@ -39,10 +39,10 @@
 }
 
 - (void)progressChanged {
-    if (gap >= 0.0) {
+    if (gap > 0.0) {
         gap -= step;
         if (gap < 0.0) {
-            self.progress = (int)(self.progress + 0.5);
+            self.progress = (int)(self.progress + sign * step + 0.5);
             return;
         }
         self.progress += sign * step;

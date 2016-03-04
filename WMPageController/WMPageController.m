@@ -623,9 +623,11 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     _animate = YES;
+    self.menuView.userInteractionEnabled = NO;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    self.menuView.userInteractionEnabled = YES;
     _selectIndex = (int)scrollView.contentOffset.x / _viewWidth;
     [self removeSuperfluousViewControllersIfNeeded];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
@@ -642,6 +644,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
+        self.menuView.userInteractionEnabled = YES;
         CGFloat rate = _targetX / _viewWidth;
         [self.menuView slideMenuAtProgress:rate];
     }
