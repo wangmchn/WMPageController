@@ -144,17 +144,19 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 // 完全进入控制器 (即停止滑动后调用)
 - (void)didEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
-    NSDictionary *info = [self infoWithIndex:index];
-    if (self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
-        [self.delegate pageController:self didEnterViewController:vc withInfo:info];
+    if (self.childControllersCount) {
+        NSDictionary *info = [self infoWithIndex:index];
+        if ([self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
+            [self.delegate pageController:self didEnterViewController:vc withInfo:info];
+        }
+        
+        // 当控制器创建时，调用延迟加载的代理方法
+        if (_initializedIndex == index && [self.delegate respondsToSelector:@selector(pageController:lazyLoadViewController:withInfo:)]) {
+            [self.delegate pageController:self lazyLoadViewController:vc withInfo:info];
+            _initializedIndex = kWMUndefinedIndex;
+        }
     }
-    
-    // 当控制器创建时，调用延迟加载的代理方法
-    if (_initializedIndex == index && self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:lazyLoadViewController:withInfo:)]) {
-        [self.delegate pageController:self lazyLoadViewController:vc withInfo:info];
-        _initializedIndex = kWMUndefinedIndex;
-    }
-    
+
     // 根据 preloadPolicy 预加载控制器
     if (self.preloadPolicy == WMPageControllerPreloadPolicyNever) { return; }
     int start = 0;
@@ -375,6 +377,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 }
 
 - (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
+    _selectIndex = (int)index;
     [self addChildViewController:viewController];
     viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
@@ -385,6 +388,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 // 创建并添加子控制器
 - (void)addViewControllerAtIndex:(int)index {
+    _selectIndex = (int)index; 
     _initializedIndex = index;
     UIViewController *viewController = [self initializeViewControllerAtIndex:index];
     if (self.values.count == self.childControllersCount && self.keys.count == self.childControllersCount) {

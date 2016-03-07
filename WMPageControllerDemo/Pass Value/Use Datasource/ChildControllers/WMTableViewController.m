@@ -24,7 +24,6 @@ static NSString *const WMTabelViewIdentifier = @"WMTableViewIdentifier";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSLog(@"------------");
 }
 
 - (void)didReceiveMemoryWarning {

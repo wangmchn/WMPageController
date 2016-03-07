@@ -22,7 +22,6 @@
         self.menuHeight = 40.0;
         self.menuViewStyle = WMMenuViewStyleLine;
         self.menuItemWidth = 60;
-        self.selectIndex = 1;
     }
     return self;
 }
@@ -76,7 +75,11 @@
     return self.titles[index];
 }
 
-- (void)pageController:(WMPageController *)pageController lazyLoadViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
+//- (void)pageController:(WMPageController *)pageController lazyLoadViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
+//    NSLog(@"%@", info);
+//}
+
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
     NSLog(@"%@", info);
 }
 
