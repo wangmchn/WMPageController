@@ -377,7 +377,6 @@ static NSInteger const kWMUndefinedIndex = -1;
 }
 
 - (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
-    _selectIndex = (int)index;
     [self addChildViewController:viewController];
     viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
@@ -388,7 +387,6 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 // 创建并添加子控制器
 - (void)addViewControllerAtIndex:(int)index {
-    _selectIndex = (int)index; 
     _initializedIndex = index;
     UIViewController *viewController = [self initializeViewControllerAtIndex:index];
     if (self.values.count == self.childControllersCount && self.keys.count == self.childControllersCount) {
@@ -504,6 +502,14 @@ static NSInteger const kWMUndefinedIndex = -1;
     _shouldNotScroll = NO;
 }
 
+- (void)adjustDisplayingViewControllersFrame {
+    [self.displayVC enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, UIViewController * _Nonnull vc, BOOL * _Nonnull stop) {
+        NSInteger index = key.integerValue;
+        CGRect frame = [self.childViewFrames[index] CGRectValue];
+        vc.view.frame = frame;
+    }];
+}
+
 - (void)adjustMenuViewFrame {
     // 根据是否在导航栏上展示调整frame
     CGFloat menuHeight = self.menuHeight;
@@ -570,8 +576,11 @@ static NSInteger const kWMUndefinedIndex = -1;
     
     [self adjustMenuViewFrame];
     
+    [self adjustDisplayingViewControllersFrame];
+    
     [self removeSuperfluousViewControllersIfNeeded];
-    self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
+
+//    self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
     _hasInited = YES;
     [self.view layoutIfNeeded];
 }

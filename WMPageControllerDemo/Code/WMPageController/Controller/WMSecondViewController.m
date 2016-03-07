@@ -38,7 +38,7 @@
     self.pageController.titles = @[@"新闻", @"资讯", @"娱乐"];
     self.pageController.values = nil;
     self.pageController.keys = nil;
-    self.pageController.selectIndex = 0;
+    self.pageController.selectIndex = 1;
     [self.pageController reloadData];
     [self.navigationController popViewControllerAnimated:YES];
 }
