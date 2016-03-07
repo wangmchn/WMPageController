@@ -144,17 +144,17 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 // 完全进入控制器 (即停止滑动后调用)
 - (void)didEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
-    if (self.childControllersCount) {
-        NSDictionary *info = [self infoWithIndex:index];
-        if ([self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
-            [self.delegate pageController:self didEnterViewController:vc withInfo:info];
-        }
-        
-        // 当控制器创建时，调用延迟加载的代理方法
-        if (_initializedIndex == index && [self.delegate respondsToSelector:@selector(pageController:lazyLoadViewController:withInfo:)]) {
-            [self.delegate pageController:self lazyLoadViewController:vc withInfo:info];
-            _initializedIndex = kWMUndefinedIndex;
-        }
+    if (!self.childControllersCount) { return; }
+    
+    NSDictionary *info = [self infoWithIndex:index];
+    if ([self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
+        [self.delegate pageController:self didEnterViewController:vc withInfo:info];
+    }
+    
+    // 当控制器创建时，调用延迟加载的代理方法
+    if (_initializedIndex == index && [self.delegate respondsToSelector:@selector(pageController:lazyLoadViewController:withInfo:)]) {
+        [self.delegate pageController:self lazyLoadViewController:vc withInfo:info];
+        _initializedIndex = kWMUndefinedIndex;
     }
 
     // 根据 preloadPolicy 预加载控制器
