@@ -125,7 +125,6 @@
         [titles addObject:title];
     }
     WMPageController *pageVC = [[WMPageController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
-    pageVC.pageAnimatable = YES;
     pageVC.menuItemWidth = 85;
     pageVC.postNotification = YES;
     pageVC.bounces = YES;
