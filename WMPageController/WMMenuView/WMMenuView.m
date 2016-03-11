@@ -64,7 +64,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     if ([self.delegate respondsToSelector:@selector(menuView:titleSizeForState:)]) {
         return [self.delegate menuView:self titleSizeForState:WMMenuItemStateSelected];
     }
-    return 15.0;
+    return 18.0;
 }
 
 - (CGFloat)normalSize {
