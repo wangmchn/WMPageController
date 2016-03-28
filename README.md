@@ -7,19 +7,17 @@
 
 An easy solution to page controllers like `NetEase News`
 ## Overview
-<br>
 <img height="400" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/ScreenShot.gif" />
-<br>
 <br>
 
 ## Swift Version
 Click here: https://github.com/wangmchn/WMPageController-Swift
 
 ## Basic use
-1.Drag files in red frame to your project.<br>
+* Drag files in red frame to your project.<br>
 <img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/guide.png" />
 
-2.Create an controller extends from `WMPageController`.There are two ways to init the `WMPageController`:
+* Create an controller extends from `WMPageController`.There are two ways to init the `WMPageController`:
 
 ### Init with Classes
 Use the following constructor to init the controller:
@@ -33,15 +31,12 @@ Here are two important porperties<br>
     titles  :Each View controller's title to show in the menu view at the top of the view;
 
 ### Use datasource
-The usage is very familiar to `UITableView`, these are the following methods:
+The usage is very familiar to `UITableView`, these are the methods need to implement:
 ```objective-c 
-/* Inform the number of child controllers.  */
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController;
 
-/* Return an instance of a controller for each index.*/
 - (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index;
 
-/* Each child controller's title  */
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index;
 ```
 Just implement these three datasource methods in YOUR WMPageController after initialize it.
