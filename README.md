@@ -11,11 +11,6 @@ An easy solution to page controllers like `NetEase News`
 <img height="400" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/ScreenShot.gif" />
 <br>
 <br>
-And you can easily change styles by setting `menuViewStyle` property:
-```objective-c
-pageController.menuViewStyle = WMMenuViewStyleLine;
-```
-If you want `menuView` to show on the navigation bar, set `showOnNavigationBar = YES`;
 
 ## Swift Version
 Click here: https://github.com/wangmchn/WMPageController-Swift
@@ -45,6 +40,12 @@ to init the controller.Here are two important porperties<br>
     titles  :Each View controller's title to show in the menu view at the top of the view;
 
 To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,~~`rememberLocation`~~,and also `itemsWidths`.<br>
+
+You can easily change styles by setting `menuViewStyle` property:
+```objective-c
+pageController.menuViewStyle = WMMenuViewStyleLine;
+```
+If you want `menuView` to show on the navigation bar, set `showOnNavigationBar = YES`;
 
 ## Use Storyboard / xib
 Override `-init` method in `childViewController`, For example:
