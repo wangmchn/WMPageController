@@ -14,23 +14,23 @@ An easy solution to page controllers like `NetEase News`
 Click here: https://github.com/wangmchn/WMPageController-Swift
 
 ## Basic use
-* Drag files in red frame to your project.<br>
+1. Drag files in red frame to your project.<br>
 <img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/guide.png" />
 
-* Create an controller extends from `WMPageController`.There are two ways to init the `WMPageController`:
+2. Create an controller extends from `WMPageController`.There are two ways to init the `WMPageController`:
 
-### Init with Classes
+#### Init with Classes
 Use the following constructor to init the controller:
 ```objective-c
 - (instancetype)initWithViewControllerClasses:(NSArray *)classes 
                                andTheirTitles:(NSArray *)titles;
 ```
-Here are two important porperties<br>
+Here are two important porperties:
 
     classes :contains the classes of child view controllers, just like [UITableViewController class];
     titles  :Each View controller's title to show in the menu view at the top of the view;
 
-### Use datasource
+#### Use datasource
 The usage is very familiar to `UITableView`, these are the methods need to implement:
 ```objective-c 
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController;
@@ -41,13 +41,8 @@ The usage is very familiar to `UITableView`, these are the methods need to imple
 ```
 Just implement these three datasource methods in YOUR WMPageController after initialize it.
 
-To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,~~`rememberLocation`~~,and also `itemsWidths`.<br>
-
-You can easily change styles by setting `menuViewStyle` property:
-```objective-c
-pageController.menuViewStyle = WMMenuViewStyleLine;
-```
-If you want `menuView` to show on the navigation bar, set `showOnNavigationBar = YES`;
+## More
+To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,and also `itemsWidths`.<br>
 
 ## Use Storyboard / xib
 1.If you init the `WMPageController` with child controller's class,override the `-init` method in `WMPageController's childViewController`, For example:
@@ -68,7 +63,7 @@ If you want `menuView` to show on the navigation bar, set `showOnNavigationBar =
 ## Styles
 There are 4 styles to choose, They are `WMMenuViewStyleDefault`, `WMMenuViewStyleLine`, `WMMenuViewStyleFoold`, `WMMenuViewStyleFooldHollow`;
 You can easily change style by setting `xxxPageController.style = WMMenuViewStyleLine`.
-
+If you want `menuView` to show on the navigation bar, set `.showOnNavigationBar = YES`;
 
 ## Using CocoaPods
     pod 'WMPageController'
