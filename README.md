@@ -61,7 +61,8 @@ To have a custom page controller,please set the properties in `WMPageController`
 ```
 
 ## Styles
-There are 4 styles to choose, They are `WMMenuViewStyleDefault`, `WMMenuViewStyleLine`, `WMMenuViewStyleFoold`, `WMMenuViewStyleFooldHollow`;
+There are 4 styles to choose,  They are `WMMenuViewStyleDefault`, `WMMenuViewStyleLine`, `WMMenuViewStyleFoold`, `WMMenuViewStyleFooldHollow`;<br>
+
 You can easily change style by setting `xxxPageController.style = WMMenuViewStyleLine`.
 If you want `menuView` to show on the navigation bar, set `.showOnNavigationBar = YES`;
 
