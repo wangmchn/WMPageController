@@ -33,6 +33,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self addViews];
+}
+
+- (void)addViews {
+    UIButton *leftView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, self.menuHeight)];
+    [leftView setTitle:@"Left" forState:UIControlStateNormal];
+    [leftView setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [leftView addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.menuView.leftView = leftView;
+    
+    UIButton *rightView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, self.menuHeight)];
+    [rightView setTitle:@"Right" forState:UIControlStateNormal];
+    [rightView setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [rightView addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.menuView.rightView = rightView;
+}
+
+- (void)buttonPressed:(UIButton *)sender {
+    NSLog(@"%@", sender);
 }
 
 - (void)viewWillAppear:(BOOL)animated {

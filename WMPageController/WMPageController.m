@@ -146,7 +146,6 @@ static NSInteger const kWMUndefinedIndex = -1;
 // 完全进入控制器 (即停止滑动后调用)
 - (void)didEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
     if (!self.childControllersCount) { return; }
-    
     NSDictionary *info = [self infoWithIndex:index];
     if ([self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
         [self.delegate pageController:self didEnterViewController:vc withInfo:info];
@@ -175,6 +174,7 @@ static NSInteger const kWMUndefinedIndex = -1;
             [self postAddToSuperViewNotificationWithIndex:i];
         }
     }
+    _selectIndex = (int)index;
 }
 
 #pragma mark - Data source
@@ -475,9 +475,10 @@ static NSInteger const kWMUndefinedIndex = -1;
 }
 
 - (void)resetMenuView {
-    WMMenuView *oldMenuView = self.menuView;
-    [self addMenuView];
-    [oldMenuView removeFromSuperview];
+    [self.menuView reload];
+    if (self.selectIndex != 0) {
+        [self.menuView selectItemAtIndex:self.selectIndex];
+    }
 }
 
 - (void)growCachePolicyAfterMemoryWarning {

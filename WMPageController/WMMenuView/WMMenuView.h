@@ -38,6 +38,8 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
 @property (nonatomic, weak) id<WMMenuViewDataSource> dataSource;
+@property (nonatomic, weak) UIView *leftView;
+@property (nonatomic, weak) UIView *rightView;
 @property (nonatomic, copy) NSString *fontName;
 
 @property (nonatomic, readonly) CGFloat selectedSize;
@@ -48,7 +50,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 - (void)slideMenuAtProgress:(CGFloat)progress;
 - (void)selectItemAtIndex:(NSInteger)index;
 - (void)resetFrames;
-
+- (void)reload;
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
 
 @end
