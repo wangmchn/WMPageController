@@ -13,7 +13,7 @@ static CGFloat   const kWMMarginToNavigationItem = 6.0;
 static NSInteger const kWMUndefinedIndex = -1;
 @interface WMPageController () {
     CGFloat _viewHeight, _viewWidth, _viewX, _viewY, _targetX, _superviewHeight;
-    BOOL    _animate, _hasInited, _shouldNotScroll;
+    BOOL    _hasInited, _shouldNotScroll;
     NSInteger _initializedIndex;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
@@ -616,7 +616,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     if (_shouldNotScroll) { return; }
     
     [self layoutChildViewControllers];
-    if (_animate) {
+    if (_startDragging) {
         CGFloat contentOffsetX = scrollView.contentOffset.x;
         if (contentOffsetX < 0) {
             contentOffsetX = 0;
@@ -636,7 +636,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    _animate = YES;
+    _startDragging = YES;
     self.menuView.userInteractionEnabled = NO;
 }
 
@@ -672,10 +672,10 @@ static NSInteger const kWMUndefinedIndex = -1;
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex {
     if (!_hasInited) { return; }
     _selectIndex = (int)index;
-    _animate = NO;
+    _startDragging = NO;
     CGPoint targetP = CGPointMake(_viewWidth*index, 0);
     [self.scrollView setContentOffset:targetP animated:self.pageAnimatable];
-    if (!self.pageAnimatable) {
+    if (self.pageAnimatable) {
         // 由于不触发 -scrollViewDidScroll: 手动处理控制器
         [self removeSuperfluousViewControllersIfNeeded];
         UIViewController *currentViewController = self.displayVC[@(currentIndex)];

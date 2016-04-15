@@ -243,6 +243,12 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  */
 @property (assign, nonatomic) BOOL showOnNavigationBar;
 
+/**
+ *  用代码设置 contentView 的 contentOffset 之前，请设置 startDragging = YES
+ *  Set startDragging = YES before set contentView.contentOffset = xxx;
+ */
+@property (nonatomic, assign) BOOL startDragging;
+
 /** 下划线进度条的高度 */
 @property (nonatomic, assign) CGFloat progressHeight;
 
