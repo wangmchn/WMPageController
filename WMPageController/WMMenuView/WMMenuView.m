@@ -25,6 +25,10 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 @implementation WMMenuView
 #pragma mark - Setter
 - (void)setLeftView:(UIView *)leftView {
+    if (self.leftView) {
+        [self.leftView removeFromSuperview];
+        self.leftView = nil;
+    }
     [self addSubview:leftView];
     _leftView = leftView;
     
@@ -32,6 +36,10 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 }
 
 - (void)setRightView:(UIView *)rightView {
+    if (self.rightView) {
+        [self.rightView removeFromSuperview];
+        self.rightView = nil;
+    }
     [self addSubview:rightView];
     _rightView = rightView;
     
