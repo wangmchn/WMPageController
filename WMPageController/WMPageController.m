@@ -90,6 +90,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 - (void)setViewFrame:(CGRect)viewFrame {
     _viewFrame = viewFrame;
     if (self.menuView) {
+        _hasInited = NO;
         [self viewDidLayoutSubviews];
     }
 }
