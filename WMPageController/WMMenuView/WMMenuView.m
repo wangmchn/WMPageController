@@ -18,12 +18,28 @@
 @property (nonatomic, strong) NSMutableArray *frames;
 @property (nonatomic, readonly) NSInteger titlesCount;
 @end
+
 // 下划线的高度
 static CGFloat   const WMProgressHeight = 2.0;
 static CGFloat   const WMMenuItemWidth  = 60.0;
 static NSInteger const WMMenuItemTagOffset = 6250;
+
 @implementation WMMenuView
+
 #pragma mark - Setter
+- (void)setFrame:(CGRect)frame {
+    
+    [super setFrame:frame];
+    
+    // Make the contentView center, because system will change menuView's frame if it's a titleView.
+    if (self.scrollView && (self.scrollView.frame.origin.x + self.scrollView.frame.size.width / 2) != (self.bounds.origin.x + self.bounds.size.width / 2)) {
+        CGRect contentFrame = self.scrollView.frame;
+        contentFrame.origin.x = self.bounds.origin.x - (contentFrame.size.width - self.bounds.size.width) / 2;
+        self.scrollView.frame = contentFrame;
+    }
+    
+}
+
 - (void)setLeftView:(UIView *)leftView {
     if (self.leftView) {
         [self.leftView removeFromSuperview];
@@ -254,7 +270,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator   = NO;
-    scrollView.backgroundColor = self.bgColor;
+    scrollView.backgroundColor = self.backgroundColor;
     scrollView.scrollsToTop = NO;
     [self addSubview:scrollView];
     self.scrollView = scrollView;
