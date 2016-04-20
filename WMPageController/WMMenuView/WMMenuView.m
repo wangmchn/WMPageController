@@ -28,7 +28,6 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 
 #pragma mark - Setter
 - (void)setFrame:(CGRect)frame {
-    
     [super setFrame:frame];
     
     // Make the contentView center, because system will change menuView's frame if it's a titleView.

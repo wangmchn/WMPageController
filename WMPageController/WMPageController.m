@@ -75,6 +75,14 @@ static NSInteger const kWMUndefinedIndex = -1;
     return self;
 }
 
+- (void)setEdgesForExtendedLayout:(UIRectEdge)edgesForExtendedLayout {
+    [super setEdgesForExtendedLayout:edgesForExtendedLayout];
+    if (_hasInited) {
+        _hasInited = NO;
+        [self viewDidLayoutSubviews];
+    }
+}
+
 - (void)setCachePolicy:(WMPageControllerCachePolicy)cachePolicy {
     _cachePolicy = cachePolicy;
     self.memCache.countLimit = _cachePolicy;
@@ -274,18 +282,22 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 // 包括宽高，子控制器视图 frame
 - (void)calculateSize {
+    CGFloat navigationHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    if (self.edgesForExtendedLayout == UIRectEdgeNone) {
+        navigationHeight = 0;
+    }
     if (CGRectEqualToRect(self.viewFrame, CGRectZero)) {
         _viewWidth = self.view.frame.size.width;
-        _viewHeight = self.view.frame.size.height - self.menuHeight - self.menuViewBottom;
+        _viewHeight = self.view.frame.size.height - self.menuHeight - self.menuViewBottom - navigationHeight;
     } else {
         _viewWidth = self.viewFrame.size.width;
-        _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottom;
+        _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottom - navigationHeight;
     }
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         _viewHeight += self.menuHeight;
     }
     _viewX = self.viewFrame.origin.x;
-    _viewY = self.viewFrame.origin.y;
+    _viewY = self.viewFrame.origin.y + navigationHeight;
     // 重新计算各个控制器视图的宽高
     _childViewFrames = [NSMutableArray array];
     for (int i = 0; i < self.childControllersCount; i++) {
@@ -545,12 +557,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
-    id appDelegate = [UIApplication sharedApplication].delegate;
-    if ([appDelegate respondsToSelector:@selector(window)]) {
-        [appDelegate window].backgroundColor = [UIColor whiteColor];
-    }
     
     if (!self.childControllersCount) return;
     
@@ -583,7 +590,6 @@ static NSInteger const kWMUndefinedIndex = -1;
     
     [self removeSuperfluousViewControllersIfNeeded];
 
-//    self.currentViewController.view.frame = [self.childViewFrames[self.selectIndex] CGRectValue];
     _hasInited = YES;
     [self.view layoutIfNeeded];
 }
