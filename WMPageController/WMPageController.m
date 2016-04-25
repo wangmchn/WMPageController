@@ -683,7 +683,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     _startDragging = NO;
     CGPoint targetP = CGPointMake(_viewWidth*index, 0);
     [self.scrollView setContentOffset:targetP animated:self.pageAnimatable];
-    if (self.pageAnimatable) {
+    if (!self.pageAnimatable) {
         // 由于不触发 -scrollViewDidScroll: 手动处理控制器
         [self removeSuperfluousViewControllersIfNeeded];
         UIViewController *currentViewController = self.displayVC[@(currentIndex)];
