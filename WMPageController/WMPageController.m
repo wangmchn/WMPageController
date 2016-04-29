@@ -284,7 +284,8 @@ static NSInteger const kWMUndefinedIndex = -1;
 - (void)calculateSize {
     CGFloat navigationHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     UIView *tabBar = self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
-    CGFloat tarBarHeight = self.hidesBottomBarWhenPushed == YES ? 0 : CGRectGetHeight(tabBar.frame);
+    CGFloat height = tabBar && !tabBar.hidden ? CGRectGetHeight(tabBar.frame) : 0;
+    CGFloat tarBarHeight = self.hidesBottomBarWhenPushed == YES ? 0 : height;
     
     if (self.edgesForExtendedLayout == UIRectEdgeNone) {
         navigationHeight = 0;
