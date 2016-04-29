@@ -283,15 +283,19 @@ static NSInteger const kWMUndefinedIndex = -1;
 // 包括宽高，子控制器视图 frame
 - (void)calculateSize {
     CGFloat navigationHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    UIView *tabBar = self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
+    CGFloat tarBarHeight = self.hidesBottomBarWhenPushed == YES ? 0 : CGRectGetHeight(tabBar.frame);
+    
     if (self.edgesForExtendedLayout == UIRectEdgeNone) {
         navigationHeight = 0;
+        tarBarHeight = 0;
     }
     if (CGRectEqualToRect(self.viewFrame, CGRectZero)) {
         _viewWidth = self.view.frame.size.width;
-        _viewHeight = self.view.frame.size.height - self.menuHeight - self.menuViewBottom - navigationHeight;
+        _viewHeight = self.view.frame.size.height - self.menuHeight - self.menuViewBottom - navigationHeight - tarBarHeight;
     } else {
         _viewWidth = self.viewFrame.size.width;
-        _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottom - navigationHeight;
+        _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottom;
     }
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         _viewHeight += self.menuHeight;
@@ -321,7 +325,8 @@ static NSInteger const kWMUndefinedIndex = -1;
 }
 
 - (void)addMenuView {
-    CGRect frame = CGRectMake(_viewX, _viewY, _viewWidth, self.menuHeight);
+    CGFloat menuY = self.showOnNavigationBar ? 0 : _viewY;
+    CGRect frame = CGRectMake(_viewX, menuY, _viewWidth, self.menuHeight);
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame];
     menuView.backgroundColor = self.menuBGColor;
     menuView.delegate = self;
@@ -529,6 +534,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     // 根据是否在导航栏上展示调整frame
     CGFloat menuHeight = self.menuHeight;
     __block CGFloat menuX = _viewX;
+    __block CGFloat menuY = _viewY;
     __block CGFloat rightWidth = 0;
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
@@ -547,9 +553,10 @@ static NSInteger const kWMUndefinedIndex = -1;
         }];
         CGFloat navHeight = self.navigationController.navigationBar.frame.size.height;
         menuHeight = self.menuHeight > navHeight ? navHeight : self.menuHeight;
+        menuY = 0;
     }
     CGFloat menuWidth = _viewWidth - menuX - rightWidth;
-    self.menuView.frame = CGRectMake(menuX, _viewY, menuWidth, menuHeight);
+    self.menuView.frame = CGRectMake(menuX, menuY, menuWidth, menuHeight);
     [self.menuView resetFrames];
 }
 

@@ -22,6 +22,9 @@
     tableViewController.title = @"Test";
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tableViewController];
     self.window.rootViewController = nav;
+//    UITabBarController *tab = [[UITabBarController alloc] init];
+//    tab.viewControllers = @[nav];
+//    self.window.rootViewController = tab;
     return YES;
 }
 
