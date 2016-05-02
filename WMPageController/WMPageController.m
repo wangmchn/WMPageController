@@ -494,9 +494,13 @@ static NSInteger const kWMUndefinedIndex = -1;
 }
 
 - (void)resetMenuView {
-    [self.menuView reload];
-    if (self.selectIndex != 0) {
-        [self.menuView selectItemAtIndex:self.selectIndex];
+    if (!self.menuView) {
+        [self addMenuView];
+    } else {
+        [self.menuView reload];
+        if (self.selectIndex != 0) {
+            [self.menuView selectItemAtIndex:self.selectIndex];
+        }
     }
 }
 
