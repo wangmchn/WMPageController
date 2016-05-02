@@ -1,12 +1,13 @@
 //
 //  AppDelegate.m
-//  Storyboard
+//  Use Datasource
 //
-//  Created by Mark on 15/12/5.
-//  Copyright © 2015年 Wecan Studio. All rights reserved.
+//  Created by Mark on 16/1/3.
+//  Copyright © 2016年 Wecan Studio. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "WMCustomPageController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    WMCustomPageController *pageController = [[WMCustomPageController alloc] init];
+    pageController.title = @"dataSource";
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pageController];
+    self.window.rootViewController = nav;
     return YES;
 }
 

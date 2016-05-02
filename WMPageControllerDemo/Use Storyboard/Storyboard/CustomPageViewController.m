@@ -14,14 +14,13 @@
 @end
 
 @implementation CustomPageViewController
+- (NSArray<NSString *> *)titles {
+    return @[@"你好", @"支持我", @"点赞"];
+}
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        NSArray *viewControllerClasses = @[[WMViewController class], [WMViewController class], [WMViewController class]];
-        NSArray *titles = @[@"你好", @"支持我", @"点赞"];
-        self.viewControllerClasses = viewControllerClasses;
-        self.titles = titles;
         self.menuItemWidth = 60;
         self.menuViewStyle = WMMenuViewStyleLine;
         self.titleSizeSelected = 15.0;
@@ -39,14 +38,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - WMPageController DataSource
+- (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
+    return self.titles.count;
 }
-*/
+
+- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
+    return self.titles[index];
+}
+
+- (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"WMViewController"];
+    return vc;
+}
 
 @end

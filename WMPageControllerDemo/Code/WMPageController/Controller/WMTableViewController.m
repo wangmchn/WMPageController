@@ -7,6 +7,7 @@
 //
 
 #import "WMTableViewController.h"
+#import "WMSecondViewController.h"
 #import "WMLoopView.h"
 #import "WMPageConst.h"
 
@@ -18,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    NSLog(@"%@ viewDidLoad",[self class]);
+    
     self.tableView.showsVerticalScrollIndicator = NO;
     
     NSArray *images = @[@"zoro.jpg",@"three.jpg",@"onepiece.jpg"];
@@ -53,6 +54,23 @@
     cell.detailTextLabel.textColor = [UIColor grayColor];
     cell.imageView.image = [UIImage imageNamed:@"github.png"];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMSecondViewController *vc = [[WMSecondViewController alloc] init];
+    vc.pageController = (WMPageController *)self.parentViewController;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row % 2 == 0) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+
 }
 
 - (void)dealloc {

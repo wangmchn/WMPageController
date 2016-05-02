@@ -1,13 +1,13 @@
 //
 //  AppDelegate.m
-//  WMPageController
+//  Storyboard
 //
-//  Created by Mark on 15/6/11.
-//  Copyright (c) 2015年 yq. All rights reserved.
+//  Created by Mark on 15/12/5.
+//  Copyright © 2015年 Wecan Studio. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "WMMainTableViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -17,14 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    // .....
-    WMMainTableViewController *tableViewController = [[WMMainTableViewController alloc] init];
-    tableViewController.title = @"Test";
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tableViewController];
-    self.window.rootViewController = nav;
-//    UITabBarController *tab = [[UITabBarController alloc] init];
-//    tab.viewControllers = @[nav];
-//    self.window.rootViewController = tab;
+    self.window.backgroundColor = [UIColor whiteColor];
     return YES;
 }
 

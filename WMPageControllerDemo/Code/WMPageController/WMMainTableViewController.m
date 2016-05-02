@@ -56,6 +56,7 @@
     if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleDefault"]) {
         // 默认
         pageController.title = @"Default";
+        pageController.preloadPolicy = WMPageControllerPreloadPolicyNeighbour;
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleLine"]) {
         // 下划线
         pageController.title = @"Line";
@@ -82,7 +83,6 @@
 //        });
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [pageController updateTitle:@"哈哈哈" andWidth:150 atIndex:1];
-            pageController.selectIndex = 0;
         });
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFloodHollow"]) {
         // 涌入/空心
@@ -91,19 +91,21 @@
         pageController.titleSizeSelected = 15;
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewShowOnNav"]) {
         //在导航栏上展示
-        pageController.title = @"ShowOnNav";
+        pageController.menuHeight = 44;
         pageController.menuViewStyle = WMMenuViewStyleLine;
         pageController.titleSizeSelected = 15;
-        pageController.isShowOnNavigationBar = YES;
-        pageController.menuWidth = 200;
+        pageController.showOnNavigationBar = YES;
+        pageController.menuBGColor = [UIColor clearColor];
+        pageController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
     }
+//    pageController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:pageController animated:YES];
 }
 
 - (WMPageController *)p_defaultController {
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     NSMutableArray *titles = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 24; i++) {
         Class vcClass;
         NSString *title;
         switch (i % 3) {
@@ -124,7 +126,6 @@
         [titles addObject:title];
     }
     WMPageController *pageVC = [[WMPageController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
-    pageVC.pageAnimatable = YES;
     pageVC.menuItemWidth = 85;
     pageVC.postNotification = YES;
     pageVC.bounces = YES;

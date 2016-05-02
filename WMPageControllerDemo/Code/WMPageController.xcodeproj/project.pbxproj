@@ -33,6 +33,7 @@
 		4DAB33EE1C12C6D0004EA0A4 /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB33E51C12C6D0004EA0A4 /* WMProgressView.m */; };
 		4DAB33EF1C12C6D0004EA0A4 /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB33E71C12C6D0004EA0A4 /* WMScrollView.m */; };
 		4DAB33F01C12C6D0004EA0A4 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB33EA1C12C6D0004EA0A4 /* WMPageController.m */; };
+		4DF1615B1C816E9F003553A6 /* WMSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF1615A1C816E9F003553A6 /* WMSecondViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,8 @@
 		4DAB33E81C12C6D0004EA0A4 /* WMPageConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageConst.h; sourceTree = "<group>"; };
 		4DAB33E91C12C6D0004EA0A4 /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
 		4DAB33EA1C12C6D0004EA0A4 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
+		4DF161591C816E9F003553A6 /* WMSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMSecondViewController.h; sourceTree = "<group>"; };
+		4DF1615A1C816E9F003553A6 /* WMSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMSecondViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +200,8 @@
 				4D6BDF7B1B2DB3CE008282D1 /* WMTableViewController.m */,
 				4D6BDF7C1B2DB3CE008282D1 /* WMViewController.h */,
 				4D6BDF7D1B2DB3CE008282D1 /* WMViewController.m */,
+				4DF161591C816E9F003553A6 /* WMSecondViewController.h */,
+				4DF1615A1C816E9F003553A6 /* WMSecondViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DAB33EB1C12C6D0004EA0A4 /* WMFooldView.m in Sources */,
+				4DF1615B1C816E9F003553A6 /* WMSecondViewController.m in Sources */,
 				4DAB33EC1C12C6D0004EA0A4 /* WMMenuItem.m in Sources */,
 				4DAB33F01C12C6D0004EA0A4 /* WMPageController.m in Sources */,
 				4D38F75C1B29CA4600203BC9 /* AppDelegate.m in Sources */,

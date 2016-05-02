@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WMMenuView.h"
 #import "WMScrollView.h"
+@class WMPageController;
 
 /*
  *  WMPageController 的缓存设置，默认缓存为无限制，当收到 memoryWarning 时，会自动切换到低缓存模式 (WMPageControllerCachePolicyLowMemory)，并在一段时间后切换到 High .
@@ -25,16 +26,100 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
     WMPageControllerCachePolicyHigh      = 5   // High
 };
 
-@interface WMPageController : UIViewController <WMMenuViewDelegate, UIScrollViewDelegate>
+typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
+    WMPageControllerPreloadPolicyNever     = 0, // Never pre-load controller.
+    WMPageControllerPreloadPolicyNeighbour = 1, // Pre-load the controller next to the current.
+    WMPageControllerPreloadPolicyNear      = 2  // Pre-load 2 controllers near the current.
+};
+
+@protocol WMPageControllerDataSource <NSObject>
+@optional
 
 /**
- *  values and keys can set properties when initialize child controlelr (it's KVC)
-    see issue #11:https://github.com/wangmchn/WMPageController/issues/11
+ *  To inform how many child controllers will in `WMPageController`.
+ *
+ *  @param pageController The parent controller.
+ *
+ *  @return The value of child controllers's count.
+ */
+- (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController;
+
+/**
+ *  Return a controller that you wanna to display at index. You can set properties easily if you implement this methods.
+ *
+ *  @param pageController The parent controller.
+ *  @param index          The index of child controller.
+ *
+ *  @return The instance of a `UIViewController`.
+ */
+- (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index;
+
+/**
+ *  Each title you wanna show in the `WMMenuView`
+ *
+ *  @param pageController The parent controller.
+ *  @param index          The index of title.
+ *
+ *  @return A `NSString` value to show at the top of `WMPageController`.
+ */
+- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index;
+
+@end
+
+@protocol WMPageControllerDelegate <NSObject>
+@optional
+
+/**
+ *  If the child controller is heavy, put some work in this method. This method will only be called when the controller is initialized and stop scrolling. (That means if the controller is cached and hasn't released will never call this method.)
+ *
+ *  @param pageController The parent controller (WMPageController)
+ *  @param viewController The viewController first show up when scroll stop.
+ *  @param info           A dictionary that includes some infos, such as: `index` / `title`
+ */
+- (void)pageController:(WMPageController *)pageController lazyLoadViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
+
+/**
+ *  Called when a viewController will be cached. You can clear some data if it's not reusable.
+ *
+ *  @param pageController The parent controller (WMPageController)
+ *  @param viewController The viewController will be cached.
+ *  @param info           A dictionary that includes some infos, such as: `index` / `title`
+ */
+- (void)pageController:(WMPageController *)pageController willCachedViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
+
+/**
+ *  Called when a viewController will be appear to user's sight. Do some preparatory methods if needed.
+ *
+ *  @param pageController The parent controller (WMPageController)
+ *  @param viewController The viewController will appear.
+ *  @param info           A dictionary that includes some infos, such as: `index` / `title`
+ */
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
+
+/**
+ *  Called when a viewController will fully displayed, that means, scrollView have stopped scrolling and the controller's view have entirely displayed.
+ *
+ *  @param pageController The parent controller (WMPageController)
+ *  @param viewController The viewController entirely displayed.
+ *  @param info           A dictionary that includes some infos, such as: `index` / `title`
+ */
+- (void)pageController:(WMPageController *)pageController didEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
+
+@end
+
+@interface WMPageController : UIViewController <WMMenuViewDelegate, WMMenuViewDataSource, UIScrollViewDelegate, WMPageControllerDataSource, WMPageControllerDelegate>
+
+@property (nonatomic, weak) id<WMPageControllerDelegate> delegate;
+@property (nonatomic, weak) id<WMPageControllerDataSource> dataSource;
+
+/**
+ *  Values and keys can set properties when initialize child controlelr (it's KVC)
  *  values keys 属性可以用于初始化控制器的时候为控制器传值(利用 KVC 来设置)
     使用时请确保 key 与控制器的属性名字一致！！(例如：控制器有需要设置的属性 type，那么 keys 所放的就是字符串 @"type")
  */
 @property (nonatomic, strong) NSMutableArray<id> *values;
 @property (nonatomic, strong) NSMutableArray<NSString *> *keys;
+
 /**
  *  各个控制器的 class, 例如:[UITableViewController class]
  *  Each controller's class, example:[UITableViewController class]
@@ -42,8 +127,8 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
 @property (nonatomic, copy) NSArray<Class> *viewControllerClasses;
 
 /**
- *  各个控制器标题, NSString
- *  Titles of view controllers in page controller. Use `NSString`.
+ *  各个控制器标题
+ *  Titles of view controllers in page controller.
  */
 @property (nonatomic, copy) NSArray<NSString *> *titles;
 @property (nonatomic, strong, readonly) UIViewController *currentViewController;
@@ -96,12 +181,6 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  */
 @property (nonatomic, assign) CGFloat menuHeight;
 
-/**
- *  导航栏宽度(默认与viewFrame的width相等)
- *  The menu view's width
- */
-@property (nonatomic, assign) CGFloat menuWidth;
-
 // 当所有item的宽度加起来小于屏幕宽时，PageController会自动帮助排版，添加每个item之间的间隙以填充整个宽度
 // When the sum of all the item's width is smaller than the screen's width, pageController will add gap to each item automatically, in order to fill the width.
 
@@ -138,6 +217,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
 /**
  *  是否发送在创建控制器或者视图完全展现在用户眼前时通知观察者，默认为不开启，如需利用通知请开启
  *  Whether notify observer when finish init or fully displayed to user, the default is NO.
+ *  See `WMPageConst.h` for more information.
  */
 @property (nonatomic, assign) BOOL postNotification;
 
@@ -151,14 +231,23 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
 /** 缓存的机制，默认为无限制 (如果收到内存警告, 会自动切换) */
 @property (nonatomic, assign) WMPageControllerCachePolicy cachePolicy;
 
+/** 预加载机制，在停止滑动的时候预加载 n 页 */
+@property (nonatomic, assign) WMPageControllerPreloadPolicy preloadPolicy;
+
 /** Whether ContentView bounces */
 @property (nonatomic, assign) BOOL bounces;
 
 /**
- *  是否作为NavigationBar的titleView展示 默认 NO
- *  (建议开启时设置menuWidth属性)
+ *  是否作为 NavigationBar 的 titleView 展示，默认 NO
+ *  Whether to show on navigation bar, the default value is `NO`
  */
-@property (assign, nonatomic) BOOL isShowOnNavigationBar;
+@property (assign, nonatomic) BOOL showOnNavigationBar;
+
+/**
+ *  用代码设置 contentView 的 contentOffset 之前，请设置 startDragging = YES
+ *  Set startDragging = YES before set contentView.contentOffset = xxx;
+ */
+@property (nonatomic, assign) BOOL startDragging;
 
 /** 下划线进度条的高度 */
 @property (nonatomic, assign) CGFloat progressHeight;
@@ -193,8 +282,8 @@ typedef NS_ENUM(NSUInteger, WMPageControllerCachePolicy) {
  */
 @property (assign, nonatomic) BOOL otherGestureRecognizerSimultaneously;
 /**
- *  构造方法，请使用该方法创建控制器.
- *  Init method，recommend to use this instead of `-init`.
+ *  构造方法，请使用该方法创建控制器. 或者实现数据源方法. /
+ *  Init method，recommend to use this instead of `-init`. Or you can implement datasource by yourself.
  *
  *  @param classes 子控制器的 class，确保数量与 titles 的数量相等
  *  @param titles  各个子控制器的标题，用 NSString 描述
