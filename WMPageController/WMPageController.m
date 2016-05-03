@@ -286,11 +286,11 @@ static NSInteger const kWMUndefinedIndex = -1;
     UIView *tabBar = self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
     CGFloat height = tabBar && !tabBar.hidden ? CGRectGetHeight(tabBar.frame) : 0;
     CGFloat tarBarHeight = self.hidesBottomBarWhenPushed == YES ? 0 : height;
+    // 计算相对 window 的绝对 frame
+    CGRect absoluteRect = [self.view.superview convertRect:self.view.frame toView:self.view.window];
+    navigationHeight -= absoluteRect.origin.y;
+    tarBarHeight -= self.view.window.frame.size.height - CGRectGetMaxY(absoluteRect);
     
-    if (self.edgesForExtendedLayout == UIRectEdgeNone) {
-        navigationHeight = 0;
-        tarBarHeight = 0;
-    }
     if (CGRectEqualToRect(self.viewFrame, CGRectZero)) {
         _viewWidth = self.view.frame.size.width;
         _viewHeight = self.view.frame.size.height - self.menuHeight - self.menuViewBottom - navigationHeight - tarBarHeight;
@@ -570,7 +570,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor whiteColor];
-    
+
     if (!self.childControllersCount) return;
     
     [self addScrollView];
@@ -633,7 +633,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (_shouldNotScroll) { return; }
+    if (_shouldNotScroll || !_hasInited) { return; }
     
     [self layoutChildViewControllers];
     if (_startDragging) {
