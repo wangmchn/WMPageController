@@ -42,7 +42,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 - (void)setLeftView:(UIView *)leftView {
     if (self.leftView) {
         [self.leftView removeFromSuperview];
-        self.leftView = nil;
+        _leftView = nil;
     }
     [self addSubview:leftView];
     _leftView = leftView;
@@ -53,7 +53,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 - (void)setRightView:(UIView *)rightView {
     if (self.rightView) {
         [self.rightView removeFromSuperview];
-        self.rightView = nil;
+        _rightView = nil;
     }
     [self addSubview:rightView];
     _rightView = rightView;
@@ -260,6 +260,19 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     } else {
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
+    // MARK: 暂时解决多选中问题 (需要复现并找到根本原因 see#67)
+    [self deselectedItemsIfNeeded];
+}
+
+- (void)deselectedItemsIfNeeded {
+    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[WMMenuItem class]]) {
+            WMMenuItem *item = (WMMenuItem *)obj;
+            if (item != self.selItem) {
+                [item deselectedItemWithoutAnimation];
+            }
+        }
+    }];
 }
 
 - (void)addScrollView {
