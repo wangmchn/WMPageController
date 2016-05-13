@@ -61,6 +61,13 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     [self resetFrames];
 }
 
+- (void)setContentMargin:(CGFloat)contentMargin {
+    _contentMargin = contentMargin;
+    if (self.scrollView) {
+        [self resetFrames];
+    }
+}
+
 #pragma mark - Getter
 - (CGFloat)progressHeight {
     if (_progressHeight == 0.0) {
@@ -197,6 +204,8 @@ static NSInteger const WMMenuItemTagOffset = 6250;
         frame.size.width -= leftFrame.size.width;
     }
     
+    frame.origin.x += self.contentMargin;
+    frame.size.width -= self.contentMargin * 2;
     self.scrollView.frame = frame;
     [self resetFramesFromIndex:0];
     [self refreshContenOffset];
@@ -276,9 +285,9 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 }
 
 - (void)addScrollView {
-    CGFloat width = self.frame.size.width;
+    CGFloat width = self.frame.size.width - self.contentMargin * 2;
     CGFloat height = self.frame.size.height;
-    CGRect frame = CGRectMake(0, 0, width, height);
+    CGRect frame = CGRectMake(self.contentMargin, 0, width, height);
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator   = NO;

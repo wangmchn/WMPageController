@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    [self addViews];
+    [self addViews];
 }
 
 - (void)addViews {
@@ -48,6 +48,8 @@
     [rightView setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [rightView addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.menuView.rightView = rightView;
+    
+    self.menuView.contentMargin = 30;
 }
 
 - (void)buttonPressed:(UIButton *)sender {

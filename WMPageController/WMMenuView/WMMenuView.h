@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @interface WMMenuView : UIView
 @property (nonatomic, assign) CGFloat progressHeight;
 @property (nonatomic, assign) WMMenuViewStyle style;
+@property (nonatomic, assign) CGFloat contentMargin;
 @property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
 @property (nonatomic, weak) id<WMMenuViewDataSource> dataSource;

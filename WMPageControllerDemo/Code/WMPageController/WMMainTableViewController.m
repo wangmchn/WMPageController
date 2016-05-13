@@ -97,8 +97,8 @@
         pageController.showOnNavigationBar = YES;
         pageController.menuBGColor = [UIColor clearColor];
         pageController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
+        pageController.menuViewContentMargin = 10;
     }
-//    pageController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:pageController animated:YES];
 }
 

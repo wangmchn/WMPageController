@@ -9,7 +9,6 @@
 #import "WMPageController.h"
 #import "WMPageConst.h"
 
-static CGFloat   const kWMMarginToNavigationItem = 6.0;
 static NSInteger const kWMUndefinedIndex = -1;
 @interface WMPageController () {
     CGFloat _viewHeight, _viewWidth, _viewX, _viewY, _targetX, _superviewHeight;
@@ -92,6 +91,13 @@ static NSInteger const kWMUndefinedIndex = -1;
     _selectIndex = selectIndex;
     if (self.menuView) {
         [self.menuView selectItemAtIndex:selectIndex];
+    }
+}
+
+- (void)setMenuViewContentMargin:(CGFloat)menuViewContentMargin {
+    _menuViewContentMargin = menuViewContentMargin;
+    if (self.menuView) {
+        self.menuView.contentMargin = menuViewContentMargin;
     }
 }
 
@@ -340,6 +346,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     menuView.dataSource = self;
     menuView.style = self.menuViewStyle;
     menuView.progressHeight = self.progressHeight;
+    menuView.contentMargin = self.menuViewContentMargin;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }
@@ -552,12 +559,12 @@ static NSInteger const kWMUndefinedIndex = -1;
             if (![obj isKindOfClass:[WMMenuView class]] && ![obj isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")] && obj.alpha != 0 && obj.hidden == NO) {
                 CGFloat maxX = CGRectGetMaxX(obj.frame);
                 if (maxX < _viewWidth / 2) {
-                    CGFloat leftWidth = maxX + kWMMarginToNavigationItem;
+                    CGFloat leftWidth = maxX;
                     menuX = menuX > leftWidth ? menuX : leftWidth;
                 }
                 CGFloat minX = CGRectGetMinX(obj.frame);
                 if (minX > _viewWidth / 2) {
-                    CGFloat width = (_viewWidth - minX) + kWMMarginToNavigationItem;
+                    CGFloat width = (_viewWidth - minX);
                     rightWidth = rightWidth > width ? rightWidth : width;
                 }
             }
