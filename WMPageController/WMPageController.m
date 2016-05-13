@@ -326,7 +326,13 @@ static NSInteger const kWMUndefinedIndex = -1;
 }
 
 - (void)addMenuView {
-    CGFloat menuY = self.showOnNavigationBar ? 0 : _viewY;
+    CGFloat menuY = _viewY;
+    if (self.showOnNavigationBar && self.navigationController.navigationBar) {
+        CGFloat navHeight = self.navigationController.navigationBar.frame.size.height;
+        CGFloat menuHeight = self.menuHeight > navHeight ? navHeight : self.menuHeight;
+        menuY = (navHeight - menuHeight) / 2;
+    }
+    
     CGRect frame = CGRectMake(_viewX, menuY, _viewWidth, self.menuHeight);
     WMMenuView *menuView = [[WMMenuView alloc] initWithFrame:frame];
     menuView.backgroundColor = self.menuBGColor;
