@@ -11,10 +11,8 @@
 #import "WMFooldView.h"
 
 @interface WMMenuView () <WMMenuItemDelegate>
-@property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) WMProgressView *progressView;
 @property (nonatomic, weak) WMMenuItem *selItem;
-@property (nonatomic, strong) UIColor *bgColor;
 @property (nonatomic, strong) NSMutableArray *frames;
 @property (nonatomic, readonly) NSInteger titlesCount;
 @end
@@ -291,7 +289,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator   = NO;
-    scrollView.backgroundColor = self.backgroundColor;
+    scrollView.backgroundColor = [UIColor clearColor];
     scrollView.scrollsToTop = NO;
     [self addSubview:scrollView];
     self.scrollView = scrollView;

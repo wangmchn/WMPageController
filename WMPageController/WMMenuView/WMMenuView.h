@@ -48,6 +48,8 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @property (nonatomic, readonly) UIColor *selectedColor;
 @property (nonatomic, readonly) UIColor *normalColor;
 
+@property (nonatomic, weak) UIScrollView *scrollView;
+
 - (void)slideMenuAtProgress:(CGFloat)progress;
 - (void)selectItemAtIndex:(NSInteger)index;
 - (void)resetFrames;

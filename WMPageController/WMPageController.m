@@ -292,10 +292,11 @@ static NSInteger const kWMUndefinedIndex = -1;
     UIView *tabBar = self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
     CGFloat height = tabBar && !tabBar.hidden ? CGRectGetHeight(tabBar.frame) : 0;
     CGFloat tarBarHeight = self.hidesBottomBarWhenPushed == YES ? 0 : height;
-    // 计算相对 window 的绝对 frame
-    CGRect absoluteRect = [self.view.superview convertRect:self.view.frame toView:self.view.window];
+    // 计算相对 window 的绝对 frame (self.view.window 可能为 nil)
+    UIWindow *mainWindow = [[UIApplication sharedApplication].delegate window];
+    CGRect absoluteRect = [self.view.superview convertRect:self.view.frame toView:mainWindow];
     navigationHeight -= absoluteRect.origin.y;
-    tarBarHeight -= self.view.window.frame.size.height - CGRectGetMaxY(absoluteRect);
+    tarBarHeight -= mainWindow.frame.size.height - CGRectGetMaxY(absoluteRect);
     
     if (CGRectEqualToRect(self.viewFrame, CGRectZero)) {
         _viewWidth = self.view.frame.size.width;
@@ -602,7 +603,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     CGFloat oldSuperviewHeight = _superviewHeight;
     _superviewHeight = self.view.frame.size.height;
 
-    if (_hasInited && _superviewHeight == oldSuperviewHeight) return;
+    if ((_hasInited && _superviewHeight == oldSuperviewHeight) || !self.view.superview) return;
 
     // 计算宽高及子控制器的视图frame
     [self calculateSize];
