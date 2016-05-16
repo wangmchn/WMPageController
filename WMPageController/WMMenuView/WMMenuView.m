@@ -151,6 +151,8 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 - (void)selectItemAtIndex:(NSInteger)index {
     NSInteger tag = index + WMMenuItemTagOffset;
     NSInteger currentIndex = self.selItem.tag - WMMenuItemTagOffset;
+    if (index == currentIndex || !self.selItem) { return; }
+    
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
     [self.selItem deselectedItemWithoutAnimation];
     self.selItem = item;

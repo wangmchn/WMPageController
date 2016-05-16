@@ -360,10 +360,6 @@ static NSInteger const kWMUndefinedIndex = -1;
         [self.view addSubview:menuView];
     }
     self.menuView = menuView;
-    // 如果设置了初始选择的序号，那么选中该item
-    if (self.selectIndex != 0) {
-        [self.menuView selectItemAtIndex:self.selectIndex];
-    }
 }
 
 - (void)layoutChildViewControllers {
@@ -577,6 +573,11 @@ static NSInteger const kWMUndefinedIndex = -1;
     CGFloat menuWidth = _viewWidth - menuX - rightWidth;
     self.menuView.frame = CGRectMake(menuX, menuY, menuWidth, menuHeight);
     [self.menuView resetFrames];
+    // 如果设置了初始选择的序号，那么选中该item，因为 titleView 的周期问题更改放到这里
+    if (self.selectIndex != 0) {
+        // 不会重复选中
+        [self.menuView selectItemAtIndex:self.selectIndex];
+    }
 }
 
 #pragma mark - Life Cycle

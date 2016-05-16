@@ -98,6 +98,7 @@
         pageController.menuBGColor = [UIColor clearColor];
         pageController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
         pageController.menuViewContentMargin = 10;
+        pageController.selectIndex = 2;
     }
     [self.navigationController pushViewController:pageController animated:YES];
 }
