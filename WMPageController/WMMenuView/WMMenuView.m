@@ -7,11 +7,8 @@
 //
 
 #import "WMMenuView.h"
-#import "WMProgressView.h"
-#import "WMFooldView.h"
 
 @interface WMMenuView () <WMMenuItemDelegate>
-@property (nonatomic, weak) WMProgressView *progressView;
 @property (nonatomic, weak) WMMenuItem *selItem;
 @property (nonatomic, strong) NSMutableArray *frames;
 @property (nonatomic, readonly) NSInteger titlesCount;
@@ -28,13 +25,37 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    // Make the contentView center, because system will change menuView's frame if it's a titleView.
-    if (self.scrollView && (self.scrollView.frame.origin.x + self.scrollView.frame.size.width / 2) != (self.bounds.origin.x + self.bounds.size.width / 2)) {
-        CGRect contentFrame = self.scrollView.frame;
-        contentFrame.origin.x = self.bounds.origin.x - (contentFrame.size.width - self.bounds.size.width) / 2;
-        self.scrollView.frame = contentFrame;
-    }
+    if (!self.scrollView) { return; }
     
+    CGFloat leftMargin = self.contentMargin + self.leftView.frame.size.width;
+    CGFloat rightMargin = self.contentMargin + self.rightView.frame.size.width;
+    CGFloat contentWidth = self.scrollView.frame.size.width + leftMargin + rightMargin;
+    CGFloat startX = self.leftView.frame.origin.x + self.scrollView.frame.origin.x - self.contentMargin;
+    
+    // Make the contentView center, because system will change menuView's frame if it's a titleView.
+    if (startX + contentWidth / 2 != self.bounds.size.width / 2) {
+        
+        CGFloat xOffset = (contentWidth - self.bounds.size.width) / 2;
+        self.scrollView.frame = ({
+            CGRect frame = self.scrollView.frame;
+            frame.origin.x -= xOffset;
+            frame;
+        });
+        
+        self.leftView.frame = ({
+            CGRect frame = self.leftView.frame;
+            frame.origin.x -= xOffset;
+            frame;
+        });
+        
+        self.rightView.frame = ({
+            CGRect frame = self.rightView.frame;
+            frame.origin.x -= xOffset;
+            frame;
+        });
+        
+    }
+
 }
 
 - (void)setLeftView:(UIView *)leftView {
@@ -42,9 +63,10 @@ static NSInteger const WMMenuItemTagOffset = 6250;
         [self.leftView removeFromSuperview];
         _leftView = nil;
     }
-    [self addSubview:leftView];
-    _leftView = leftView;
-    
+    if (leftView) {
+        [self addSubview:leftView];
+        _leftView = leftView;
+    }
     [self resetFrames];
 }
 
@@ -53,9 +75,10 @@ static NSInteger const WMMenuItemTagOffset = 6250;
         [self.rightView removeFromSuperview];
         _rightView = nil;
     }
-    [self addSubview:rightView];
-    _rightView = rightView;
-    
+    if (rightView) {
+        [self addSubview:rightView];
+        _rightView = rightView;
+    }
     [self resetFrames];
 }
 
@@ -67,12 +90,6 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 }
 
 #pragma mark - Getter
-- (CGFloat)progressHeight {
-    if (_progressHeight == 0.0) {
-        _progressHeight = WMProgressHeight;
-    }
-    return _progressHeight;
-}
 
 - (UIColor *)lineColor {
     if (!_lineColor) {
@@ -225,7 +242,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     if ([self.progressView isKindOfClass:[WMFooldView class]]) {
         frame.origin.y = 0;
     } else {
-        frame.origin.y = self.frame.size.height - self.progressHeight;
+        frame.origin.y = self.frame.size.height - self.progressHeight - self.progressViewBottomSpace;
     }
     self.progressView.frame = frame;
     self.progressView.itemFrames = self.frames;
@@ -367,6 +384,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 
 // MARK:Progress View
 - (void)addProgressView {
+    self.progressHeight = self.progressHeight > 0 ? self.progressHeight : WMProgressHeight;
     WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - self.progressHeight, self.scrollView.contentSize.width, self.progressHeight)];
     pView.itemFrames = self.frames;
     pView.color = self.lineColor.CGColor;
@@ -376,7 +394,9 @@ static NSInteger const WMMenuItemTagOffset = 6250;
 }
 
 - (void)addFooldViewHollow:(BOOL)isHollow {
-    WMFooldView *fooldView = [[WMFooldView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.contentSize.width, self.frame.size.height)];
+    CGFloat fooldHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height;
+    CGFloat fooldY = self.frame.size.height - fooldHeight - self.progressViewBottomSpace;
+    WMFooldView *fooldView = [[WMFooldView alloc] initWithFrame:CGRectMake(0, fooldY, self.scrollView.contentSize.width, fooldHeight)];
     fooldView.itemFrames = self.frames;
     fooldView.color = self.lineColor.CGColor;
     fooldView.hollow = isHollow;

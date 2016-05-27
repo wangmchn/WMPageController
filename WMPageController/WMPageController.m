@@ -300,10 +300,10 @@ static NSInteger const kWMUndefinedIndex = -1;
     
     if (CGRectEqualToRect(self.viewFrame, CGRectZero)) {
         _viewWidth = self.view.frame.size.width;
-        _viewHeight = self.view.frame.size.height - self.menuHeight - self.menuViewBottom - navigationHeight - tarBarHeight;
+        _viewHeight = self.view.frame.size.height - self.menuHeight - self.menuViewBottomSpace - navigationHeight - tarBarHeight;
     } else {
         _viewWidth = self.viewFrame.size.width;
-        _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottom;
+        _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottomSpace;
     }
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         _viewHeight += self.menuHeight;
@@ -348,6 +348,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     menuView.style = self.menuViewStyle;
     menuView.progressHeight = self.progressHeight;
     menuView.contentMargin = self.menuViewContentMargin;
+    menuView.progressViewBottomSpace = self.progressViewBottomSpace;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }
@@ -529,7 +530,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     // It's not my expectation, so I use `_shouldNotScroll` to lock it.
     // Wait for a better solution.
     _shouldNotScroll = YES;
-    CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottom, _viewWidth, _viewHeight);
+    CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottomSpace, _viewWidth, _viewHeight);
     scrollFrame.origin.y -= self.showOnNavigationBar && self.navigationController.navigationBar ? self.menuHeight : 0;
     self.scrollView.frame = scrollFrame;
     self.scrollView.contentSize = CGSizeMake(self.childControllersCount * _viewWidth, 0);

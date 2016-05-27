@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMMenuItem.h"
+#import "WMFooldView.h"
 @class WMMenuView;
 
 typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
@@ -33,10 +34,12 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @end
 
 @interface WMMenuView : UIView
+@property (nonatomic, weak) WMProgressView *progressView;
 @property (nonatomic, assign) CGFloat progressHeight;
 @property (nonatomic, assign) WMMenuViewStyle style;
 @property (nonatomic, assign) CGFloat contentMargin;
 @property (nonatomic, strong) UIColor *lineColor;
+@property (nonatomic, assign) CGFloat progressViewBottomSpace;
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
 @property (nonatomic, weak) id<WMMenuViewDataSource> dataSource;
 @property (nonatomic, weak) UIView *leftView;

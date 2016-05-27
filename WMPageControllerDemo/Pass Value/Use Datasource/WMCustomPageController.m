@@ -49,16 +49,11 @@
     [rightView addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.menuView.rightView = rightView;
     
-    self.menuView.contentMargin = 30;
+    self.menuView.contentMargin = 10;
 }
 
 - (void)buttonPressed:(UIButton *)sender {
     NSLog(@"%@", sender);
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
 }
 
 - (void)didReceiveMemoryWarning {
