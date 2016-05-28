@@ -624,6 +624,9 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    if (!self.childControllersCount) { return; }
+    
     [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
 }
