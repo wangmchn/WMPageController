@@ -420,8 +420,12 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     menuItem.selected = YES;
     self.selItem.selected = NO;
     self.selItem = menuItem;
-    // 让选中的item位于中间
-    [self refreshContenOffset];
+    
+    NSTimeInterval delay = self.style == WMMenuViewStyleDefault ? 0 : 0.3f;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 让选中的item位于中间
+        [self refreshContenOffset];
+    });
 }
 
 @end
