@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMMenuItem.h"
-#import "WMFooldView.h"
+#import "WMFloodView.h"
 @class WMMenuView;
 
 typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
