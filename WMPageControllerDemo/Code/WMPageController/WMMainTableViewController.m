@@ -81,9 +81,9 @@
 //            pageController.itemsWidths = @[@(70),@(100),@(70),@(70),@(100),@(70)];
 //            [pageController reloadData];
 //        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [pageController updateTitle:@"哈哈哈" andWidth:150 atIndex:1];
-        });
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [pageController updateTitle:@"哈哈哈" andWidth:150 atIndex:1];
+//        });
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFloodHollow"]) {
         // 涌入/空心
         pageController.title = @"Hollow";

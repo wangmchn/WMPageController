@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @protocol WMMenuViewDelegate <NSObject>
 @optional
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex;
+
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state;
@@ -31,6 +32,16 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @required
 - (NSInteger)numbersOfTitlesInMenuView:(WMMenuView *)menu;
 - (NSString *)menuView:(WMMenuView *)menu titleAtIndex:(NSInteger)index;
+@optional
+/**
+ *  角标 (例如消息提醒的小红点) 的数据源方法，在 WMPageController 中实现这个方法来为 menuView 提供一个 badgeView
+    需要在返回的时候同时设置角标的 frame 属性，该 frame 为相对于 menuItem 的位置
+ *
+ *  @param index 角标的序号
+ *
+ *  @return 返回一个设置好 frame 的角标视图
+ */
+- (UIView *)menuView:(WMMenuView *)menu badgeViewAtIndex:(NSInteger)index;
 @end
 
 @interface WMMenuView : UIView
@@ -58,5 +69,10 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 - (void)resetFrames;
 - (void)reload;
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
+
+/**
+ *  更新角标视图，如要移除，在 -menuView:badgeViewAtIndex: 中返回 nil 即可
+ */
+- (void)updateBadgeViewAtIndex:(NSInteger)index;
 
 @end

@@ -11,8 +11,9 @@
 #import "WMTableViewController.h"
 #import "WMBlankViewController.h"
 
-@interface WMCustomPageController ()
-
+@interface WMCustomPageController () {
+    BOOL _update;
+}
 @end
 
 @implementation WMCustomPageController
@@ -97,6 +98,23 @@
 
 - (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
     NSLog(@"%@", info);
+}
+
+- (UIView *)menuView:(WMMenuView *)menu badgeViewAtIndex:(NSInteger)index {
+    if (_update) {
+        return nil;
+    }
+    UIView *badgeView = [[UIView alloc] initWithFrame:CGRectMake(60 - 5, 2, 5, 5)];
+    badgeView.layer.cornerRadius = 2.5;
+    badgeView.layer.masksToBounds = YES;
+    badgeView.backgroundColor = [UIColor purpleColor];
+    return badgeView;
+}
+
+- (void)pageController:(WMPageController *)pageController didEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
+    NSInteger index = [info[@"index"] integerValue];
+    _update = YES;
+    [self.menuView updateBadgeViewAtIndex:index];
 }
 
 @end

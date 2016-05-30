@@ -17,8 +17,8 @@
 // 下划线的高度
 static CGFloat   const WMProgressHeight = 2.0;
 static CGFloat   const WMMenuItemWidth  = 60.0;
-static NSInteger const WMMenuItemTagOffset = 6250;
-
+static NSInteger const WMMenuItemTagOffset  = 6250;
+static NSInteger const WMBadgeViewTagOffset = 1212;
 @implementation WMMenuView
 
 #pragma mark - Setter
@@ -133,6 +133,19 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     return 15.0;
 }
 
+- (UIView *)badgeViewAtIndex:(NSInteger)index {
+    if (![self.dataSource respondsToSelector:@selector(menuView:badgeViewAtIndex:)]) {
+        return nil;
+    }
+    UIView *badgeView = [self.dataSource menuView:self badgeViewAtIndex:index];
+    if (!badgeView) {
+        return nil;
+    }
+    badgeView.tag = index + WMBadgeViewTagOffset;
+
+    return badgeView;
+}
+
 #pragma mark - Public Methods
 - (void)reload {
     [self.frames removeAllObjects];
@@ -190,6 +203,15 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     [self resetFrames];
 }
 
+- (void)updateBadgeViewAtIndex:(NSInteger)index {
+    UIView *oldBadgeView = [self.scrollView viewWithTag:WMBadgeViewTagOffset + index];
+    if (oldBadgeView) {
+        [oldBadgeView removeFromSuperview];
+    }
+    
+    [self addBadgeViewAtIndex:index];
+}
+
 #pragma mark - Data source
 - (NSInteger)titlesCount {
     return [self.dataSource numbersOfTitlesInMenuView:self];
@@ -202,6 +224,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     [self addScrollView];
     [self addItems];
     [self makeStyle];
+    [self addBadgeViews];
 }
 
 - (void)resetFrames {
@@ -235,6 +258,13 @@ static NSInteger const WMMenuItemTagOffset = 6250;
         WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + i)];
         CGRect frame = [self.frames[i] CGRectValue];
         item.frame = frame;
+        
+        UIView *badgeView = [self.scrollView viewWithTag:(WMBadgeViewTagOffset + i)];
+        if (badgeView) {
+            CGRect badgeFrame = [self badgeViewAtIndex:i].frame;
+            badgeFrame.origin.x += frame.origin.x;
+            badgeView.frame = badgeFrame;
+        }
     }
     if (!self.progressView.superview) { return; }
     CGRect frame = self.progressView.frame;
@@ -247,6 +277,19 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     self.progressView.frame = frame;
     self.progressView.itemFrames = self.frames;
     [self.progressView setNeedsDisplay];
+}
+
+- (void)addBadgeViews {
+    for (int i = 0; i < self.titlesCount; i++) {
+        [self addBadgeViewAtIndex:i];
+    }
+}
+
+- (void)addBadgeViewAtIndex:(NSInteger)index {
+    UIView *badgeView = [self badgeViewAtIndex:index];
+    if (badgeView) {
+        [self.scrollView addSubview:badgeView];
+    }
 }
 
 - (void)makeStyle {
