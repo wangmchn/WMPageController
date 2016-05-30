@@ -14,8 +14,8 @@
 typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
     WMMenuViewStyleDefault,     // 默认
     WMMenuViewStyleLine,        // 带下划线 (若要选中字体大小不变，设置选中和非选中大小一样即可)
-    WMMenuViewStyleFoold,       // 涌入效果 (填充)
-    WMMenuViewStyleFooldHollow, // 涌入效果 (空心的)
+    WMMenuViewStyleFlood,       // 涌入效果 (填充)
+    WMMenuViewStyleFloodHollow, // 涌入效果 (空心的)
 };
 
 @protocol WMMenuViewDelegate <NSObject>

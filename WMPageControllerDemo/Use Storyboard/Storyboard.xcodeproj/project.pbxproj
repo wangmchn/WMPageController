@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D5E65711CFC38010060EE50 /* WMFloodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5E65701CFC38010060EE50 /* WMFloodView.m */; };
 		4DAB33FF1C12C762004EA0A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB33FE1C12C762004EA0A4 /* main.m */; };
 		4DAB34021C12C762004EA0A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB34011C12C762004EA0A4 /* AppDelegate.m */; };
 		4DAB34081C12C762004EA0A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DAB34061C12C762004EA0A4 /* Main.storyboard */; };
@@ -14,7 +15,6 @@
 		4DAB340D1C12C762004EA0A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DAB340B1C12C762004EA0A4 /* LaunchScreen.storyboard */; };
 		4DAB34181C12C762004EA0A4 /* StoryboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB34171C12C762004EA0A4 /* StoryboardTests.m */; };
 		4DAB34231C12C762004EA0A4 /* StoryboardUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB34221C12C762004EA0A4 /* StoryboardUITests.m */; };
-		4DAB343F1C12C7F8004EA0A4 /* WMFooldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB34331C12C7F8004EA0A4 /* WMFooldView.m */; };
 		4DAB34401C12C7F8004EA0A4 /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB34351C12C7F8004EA0A4 /* WMMenuItem.m */; };
 		4DAB34411C12C7F8004EA0A4 /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB34371C12C7F8004EA0A4 /* WMMenuView.m */; };
 		4DAB34421C12C7F8004EA0A4 /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB34391C12C7F8004EA0A4 /* WMProgressView.m */; };
@@ -42,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D5E656F1CFC38010060EE50 /* WMFloodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFloodView.h; sourceTree = "<group>"; };
+		4D5E65701CFC38010060EE50 /* WMFloodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFloodView.m; sourceTree = "<group>"; };
 		4DAB33FA1C12C762004EA0A4 /* Storyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DAB33FE1C12C762004EA0A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4DAB34001C12C762004EA0A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,8 +58,6 @@
 		4DAB341E1C12C762004EA0A4 /* StoryboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoryboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DAB34221C12C762004EA0A4 /* StoryboardUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoryboardUITests.m; sourceTree = "<group>"; };
 		4DAB34241C12C762004EA0A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4DAB34321C12C7F8004EA0A4 /* WMFooldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFooldView.h; sourceTree = "<group>"; };
-		4DAB34331C12C7F8004EA0A4 /* WMFooldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFooldView.m; sourceTree = "<group>"; };
 		4DAB34341C12C7F8004EA0A4 /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
 		4DAB34351C12C7F8004EA0A4 /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
 		4DAB34361C12C7F8004EA0A4 /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
@@ -179,8 +179,8 @@
 		4DAB34311C12C7F8004EA0A4 /* WMMenuView */ = {
 			isa = PBXGroup;
 			children = (
-				4DAB34321C12C7F8004EA0A4 /* WMFooldView.h */,
-				4DAB34331C12C7F8004EA0A4 /* WMFooldView.m */,
+				4D5E656F1CFC38010060EE50 /* WMFloodView.h */,
+				4D5E65701CFC38010060EE50 /* WMFloodView.m */,
 				4DAB34341C12C7F8004EA0A4 /* WMMenuItem.h */,
 				4DAB34351C12C7F8004EA0A4 /* WMMenuItem.m */,
 				4DAB34361C12C7F8004EA0A4 /* WMMenuView.h */,
@@ -338,8 +338,8 @@
 				4DAB34021C12C762004EA0A4 /* AppDelegate.m in Sources */,
 				4DAB33FF1C12C762004EA0A4 /* main.m in Sources */,
 				4DAB34421C12C7F8004EA0A4 /* WMProgressView.m in Sources */,
-				4DAB343F1C12C7F8004EA0A4 /* WMFooldView.m in Sources */,
 				4DAB34821C12CA96004EA0A4 /* CustomPageViewController.m in Sources */,
+				4D5E65711CFC38010060EE50 /* WMFloodView.m in Sources */,
 				4DAB34741C12C90C004EA0A4 /* WMViewController.m in Sources */,
 				4DAB34431C12C7F8004EA0A4 /* WMScrollView.m in Sources */,
 			);
@@ -565,6 +565,7 @@
 				4DAB34291C12C762004EA0A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DAB342A1C12C762004EA0A4 /* Build configuration list for PBXNativeTarget "StoryboardTests" */ = {
 			isa = XCConfigurationList;
@@ -573,6 +574,7 @@
 				4DAB342C1C12C762004EA0A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DAB342D1C12C762004EA0A4 /* Build configuration list for PBXNativeTarget "StoryboardUITests" */ = {
 			isa = XCConfigurationList;
@@ -581,6 +583,7 @@
 				4DAB342F1C12C762004EA0A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

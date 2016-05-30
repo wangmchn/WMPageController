@@ -87,7 +87,7 @@
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFloodHollow"]) {
         // 涌入/空心
         pageController.title = @"Hollow";
-        pageController.menuViewStyle = WMMenuViewStyleFooldHollow;
+        pageController.menuViewStyle = WMMenuViewStyleFloodHollow;
         pageController.titleSizeSelected = 15;
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewShowOnNav"]) {
         //在导航栏上展示
@@ -140,7 +140,7 @@
     WMPageController *pageVC = [[WMPageController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
     pageVC.titleSizeSelected = 15;
     pageVC.pageAnimatable = YES;
-    pageVC.menuViewStyle = WMMenuViewStyleFoold;
+    pageVC.menuViewStyle = WMMenuViewStyleFlood;
     pageVC.titleColorSelected = [UIColor whiteColor];
     pageVC.titleColorNormal = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
     pageVC.progressColor = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];

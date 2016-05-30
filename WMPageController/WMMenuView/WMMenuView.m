@@ -297,11 +297,11 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         case WMMenuViewStyleLine:
             [self addProgressView];
             break;
-        case WMMenuViewStyleFoold:
-            [self addFooldViewHollow:NO];
+        case WMMenuViewStyleFlood:
+            [self addFloodViewHollow:NO];
             break;
-        case WMMenuViewStyleFooldHollow:
-            [self addFooldViewHollow:YES];
+        case WMMenuViewStyleFloodHollow:
+            [self addFloodViewHollow:YES];
             break;
         default:
             break;
@@ -436,16 +436,16 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self.scrollView addSubview:pView];
 }
 
-- (void)addFooldViewHollow:(BOOL)isHollow {
-    CGFloat fooldHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height;
-    CGFloat fooldY = self.frame.size.height - fooldHeight - self.progressViewBottomSpace;
-    WMFloodView *fooldView = [[WMFloodView alloc] initWithFrame:CGRectMake(0, fooldY, self.scrollView.contentSize.width, fooldHeight)];
-    fooldView.itemFrames = self.frames;
-    fooldView.color = self.lineColor.CGColor;
-    fooldView.hollow = isHollow;
-    fooldView.backgroundColor = [UIColor clearColor];
-    self.progressView = fooldView;
-    [self.scrollView insertSubview:fooldView atIndex:0];
+- (void)addFloodViewHollow:(BOOL)isHollow {
+    CGFloat floodHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height;
+    CGFloat floodY = self.frame.size.height - floodHeight - self.progressViewBottomSpace;
+    WMFloodView *floodView = [[WMFloodView alloc] initWithFrame:CGRectMake(0, floodY, self.scrollView.contentSize.width, floodHeight)];
+    floodView.itemFrames = self.frames;
+    floodView.color = self.lineColor.CGColor;
+    floodView.hollow = isHollow;
+    floodView.backgroundColor = [UIColor clearColor];
+    self.progressView = floodView;
+    [self.scrollView insertSubview:floodView atIndex:0];
 }
 
 #pragma mark - Menu item delegate
