@@ -1,26 +1,26 @@
 //
-//  WMFooldView.m
+//  WMFloodView.m
 //  WMPageController
 //
 //  Created by Mark on 15/7/13.
 //  Copyright (c) 2015年 yq. All rights reserved.
 //
 
-#import "WMFooldView.h"
+#import "WMFloodView.h"
 
-@implementation WMFooldView {
-    CGFloat WMFooldMargin;
-    CGFloat WMFooldRadius;
-    CGFloat WMFooldLength;
-    CGFloat WMFooldHeight;
+@implementation WMFloodView {
+    CGFloat WMFloodMargin;
+    CGFloat WMFloodRadius;
+    CGFloat WMFloodLength;
+    CGFloat WMFloodHeight;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        WMFooldHeight = frame.size.height;
-        WMFooldMargin = WMFooldHeight * 0.15;
-        WMFooldRadius = (WMFooldHeight - WMFooldMargin * 2) / 2;
-        WMFooldLength = frame.size.width  - WMFooldRadius * 2;
+        WMFloodHeight = frame.size.height;
+        WMFloodMargin = WMFloodHeight * 0.15;
+        WMFloodRadius = (WMFloodHeight - WMFloodMargin * 2) / 2;
+        WMFloodLength = frame.size.width  - WMFloodRadius * 2;
     }
     return self;
 }
@@ -44,11 +44,11 @@
     CGFloat endX = startX + currentWidth + (nextWidth - currentWidth)*rate;
     // 绘制
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(ctx, 0.0f, WMFooldHeight);
+    CGContextTranslateCTM(ctx, 0.0f, WMFloodHeight);
     CGContextScaleCTM(ctx, 1.0f, -1.0f);
-    CGContextAddArc(ctx, startX+WMFooldRadius, WMFooldHeight / 2.0, WMFooldRadius, M_PI_2, M_PI_2 * 3, 0);
-    CGContextAddLineToPoint(ctx, endX-WMFooldRadius, WMFooldMargin);
-    CGContextAddArc(ctx, endX-WMFooldRadius, WMFooldHeight / 2.0, WMFooldRadius, -M_PI_2, M_PI_2, 0);
+    CGContextAddArc(ctx, startX+WMFloodRadius, WMFloodHeight / 2.0, WMFloodRadius, M_PI_2, M_PI_2 * 3, 0);
+    CGContextAddLineToPoint(ctx, endX-WMFloodRadius, WMFloodMargin);
+    CGContextAddArc(ctx, endX-WMFloodRadius, WMFloodHeight / 2.0, WMFloodRadius, -M_PI_2, M_PI_2, 0);
     CGContextClosePath(ctx);
     
     if (self.hollow) {

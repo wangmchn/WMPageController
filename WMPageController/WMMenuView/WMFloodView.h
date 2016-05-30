@@ -1,5 +1,5 @@
 //
-//  WMFooldView.h
+//  WMFloodView.h
 //  WMPageController
 //
 //  Created by Mark on 15/7/13.
@@ -8,6 +8,6 @@
 
 #import "WMProgressView.h"
 
-@interface WMFooldView : WMProgressView
+@interface WMFloodView : WMProgressView
 @property (nonatomic, assign) BOOL hollow;
 @end
