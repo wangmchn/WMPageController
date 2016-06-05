@@ -215,6 +215,10 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
 @property (nonatomic, strong) UIColor *progressColor;
 
 /**
+ *  定制进度条在各个 item 下的宽度
+ */
+@property (nonatomic, strong) NSArray *progressViewWidths;
+/**
  *  是否发送在创建控制器或者视图完全展现在用户眼前时通知观察者，默认为不开启，如需利用通知请开启
  *  Whether notify observer when finish init or fully displayed to user, the default is NO.
  *  See `WMPageConst.h` for more information.

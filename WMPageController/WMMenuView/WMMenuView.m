@@ -58,6 +58,14 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 
 }
 
+- (void)setProgressWidths:(NSArray *)progressWidths {
+    _progressWidths = progressWidths;
+    
+    if (!self.progressView.superview) { return; }
+    
+    [self resetFramesFromIndex:0];
+}
+
 - (void)setLeftView:(UIView *)leftView {
     if (self.leftView) {
         [self.leftView removeFromSuperview];
@@ -275,8 +283,26 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         frame.origin.y = self.frame.size.height - self.progressHeight - self.progressViewBottomSpace;
     }
     self.progressView.frame = frame;
-    self.progressView.itemFrames = self.frames;
+    self.progressView.itemFrames = [self convertProgressWidthsToFrames];
     [self.progressView setNeedsDisplay];
+}
+
+- (NSArray *)convertProgressWidthsToFrames {
+    if (!self.frames.count) { NSAssert(NO, @"BUUUUUUUG...SHOULDN'T COME HERE!!"); }
+    
+    if (self.progressWidths.count) {
+        NSMutableArray *progressFrames = [NSMutableArray array];
+        for (int i = 0; i < self.frames.count; i++) {
+            CGRect itemFrame = [self.frames[i] CGRectValue];
+            CGFloat progressWidth = [self.progressWidths[i] floatValue];
+            CGFloat x = itemFrame.origin.x + (itemFrame.size.width - progressWidth) / 2;
+            CGRect progressFrame = CGRectMake(x, itemFrame.origin.y, progressWidth, 0);
+            [progressFrames addObject:[NSValue valueWithCGRect:progressFrame]];
+        }
+        return progressFrames.copy;
+    }
+    
+    return self.frames;
 }
 
 - (void)addBadgeViews {
@@ -429,7 +455,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 - (void)addProgressView {
     self.progressHeight = self.progressHeight > 0 ? self.progressHeight : WMProgressHeight;
     WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - self.progressHeight, self.scrollView.contentSize.width, self.progressHeight)];
-    pView.itemFrames = self.frames;
+    pView.itemFrames = [self convertProgressWidthsToFrames];
     pView.color = self.lineColor.CGColor;
     pView.backgroundColor = [UIColor clearColor];
     self.progressView = pView;
@@ -440,7 +466,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     CGFloat floodHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height;
     CGFloat floodY = self.frame.size.height - floodHeight - self.progressViewBottomSpace;
     WMFloodView *floodView = [[WMFloodView alloc] initWithFrame:CGRectMake(0, floodY, self.scrollView.contentSize.width, floodHeight)];
-    floodView.itemFrames = self.frames;
+    floodView.itemFrames = [self convertProgressWidthsToFrames];
     floodView.color = self.lineColor.CGColor;
     floodView.hollow = isHollow;
     floodView.backgroundColor = [UIColor clearColor];

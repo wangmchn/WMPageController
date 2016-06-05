@@ -21,7 +21,6 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @protocol WMMenuViewDelegate <NSObject>
 @optional
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex;
-
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state;
@@ -45,6 +44,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @end
 
 @interface WMMenuView : UIView
+@property (nonatomic, strong) NSArray *progressWidths;
 @property (nonatomic, weak) WMProgressView *progressView;
 @property (nonatomic, assign) CGFloat progressHeight;
 @property (nonatomic, assign) WMMenuViewStyle style;

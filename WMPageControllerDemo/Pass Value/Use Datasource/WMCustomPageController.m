@@ -35,6 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addViews];
+    self.menuView.progressWidths = @[@30, @40, @20];
 }
 
 - (void)addViews {

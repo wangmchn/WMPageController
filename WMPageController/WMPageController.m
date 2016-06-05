@@ -94,6 +94,13 @@ static NSInteger const kWMUndefinedIndex = -1;
     }
 }
 
+- (void)setProgressViewWidths:(NSArray *)progressViewWidths {
+    _progressViewWidths = progressViewWidths;
+    if (self.menuView) {
+        self.menuView.progressWidths = progressViewWidths;
+    }
+}
+
 - (void)setMenuViewContentMargin:(CGFloat)menuViewContentMargin {
     _menuViewContentMargin = menuViewContentMargin;
     if (self.menuView) {
@@ -349,6 +356,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     menuView.progressHeight = self.progressHeight;
     menuView.contentMargin = self.menuViewContentMargin;
     menuView.progressViewBottomSpace = self.progressViewBottomSpace;
+    menuView.progressWidths = self.progressViewWidths;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }
