@@ -24,6 +24,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 @property (nonatomic, strong) NSMutableDictionary *posRecords;
 // 用于缓存加载过的控制器
 @property (nonatomic, strong) NSCache *memCache;
+@property (nonatomic, strong) NSMutableDictionary *backgroundCache;
 // 收到内存警告的次数
 @property (nonatomic, assign) int memoryWarningCount;
 
@@ -45,6 +46,13 @@ static NSInteger const kWMUndefinedIndex = -1;
         _displayVC = [[NSMutableDictionary alloc] init];
     }
     return _displayVC;
+}
+
+- (NSMutableDictionary *)backgroundCache {
+    if (_backgroundCache == nil) {
+        _backgroundCache = [[NSMutableDictionary alloc] init];
+    }
+    return _backgroundCache;
 }
 
 #pragma mark - Public Methods
@@ -291,6 +299,27 @@ static NSInteger const kWMUndefinedIndex = -1;
     
     self.delegate = self;
     self.dataSource = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void)willResignActive:(NSNotification *)notification {
+    for (int i = 0; i < self.childControllersCount; i++) {
+        id obj = [self.memCache objectForKey:@(i)];
+        if (obj) {
+            [self.backgroundCache setObject:obj forKey:@(i)];
+        }
+    }
+}
+
+- (void)willEnterForeground:(NSNotification *)notification {
+    for (NSNumber *key in self.backgroundCache.allKeys) {
+        if (![self.memCache objectForKey:key]) {
+            [self.memCache setObject:self.backgroundCache[key] forKey:key];
+        }
+    }
+    [self.backgroundCache removeAllObjects];
 }
 
 // 包括宽高，子控制器视图 frame
