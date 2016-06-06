@@ -327,4 +327,9 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  */
 - (void)updateTitle:(NSString *)title andWidth:(CGFloat)width atIndex:(NSInteger)index;
 
+/** 当 app 即将进入后台接收到的通知 */
+- (void)willResignActive:(NSNotification *)notification;
+/** 当 app 即将回到前台接收到的通知 */
+- (void)willEnterForeground:(NSNotification *)notification;
+
 @end

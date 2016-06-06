@@ -281,6 +281,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 // 初始化一些参数，在init中调用
 - (void)setup {
+    
     _titleSizeSelected  = WMTitleSizeSelected;
     _titleColorSelected = WMTitleColorSelected;
     _titleSizeNormal    = WMTitleSizeNormal;
@@ -324,6 +325,7 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 // 包括宽高，子控制器视图 frame
 - (void)calculateSize {
+    
     CGFloat navigationHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     UIView *tabBar = self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
     CGFloat height = tabBar && !tabBar.hidden ? CGRectGetHeight(tabBar.frame) : 0;
@@ -352,9 +354,11 @@ static NSInteger const kWMUndefinedIndex = -1;
         CGRect frame = CGRectMake(i*_viewWidth, 0, _viewWidth, _viewHeight);
         [_childViewFrames addObject:[NSValue valueWithCGRect:frame]];
     }
+    
 }
 
 - (void)addScrollView {
+    
     WMScrollView *scrollView = [[WMScrollView alloc] init];
     scrollView.scrollsToTop = NO;
     scrollView.pagingEnabled = YES;
@@ -366,6 +370,12 @@ static NSInteger const kWMUndefinedIndex = -1;
     scrollView.otherGestureRecognizerSimultaneously = self.otherGestureRecognizerSimultaneously;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
+    
+    if (!self.navigationController) { return; }
+    for (UIGestureRecognizer *gestureRecognizer in scrollView.gestureRecognizers) {
+        [gestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
+    }
+    
 }
 
 - (void)addMenuView {

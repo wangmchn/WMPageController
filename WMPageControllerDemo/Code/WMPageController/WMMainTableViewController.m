@@ -71,7 +71,6 @@
         pageController.keys = @[@"age", @"model",@"name"].mutableCopy;
         pageController.selectIndex = 1;
 //        pageController.viewFrame = CGRectMake(0, 100, 320, 400);
-
         //MARK:Example of reload data. / 刷新WMPageController
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            pageController.viewControllerClasses = @[[WMTableViewController class], [WMViewController class], [WMCollectionViewController class], [WMTableViewController class], [WMViewController class], [WMCollectionViewController class]];
