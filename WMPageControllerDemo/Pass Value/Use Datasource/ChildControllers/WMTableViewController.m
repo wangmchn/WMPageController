@@ -57,6 +57,7 @@ static NSString *const WMTabelViewIdentifier = @"WMTableViewIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     WMSecondViewController *vc = [[WMSecondViewController alloc] init];
     vc.pageController = (WMCustomPageController *)self.parentViewController;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

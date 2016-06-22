@@ -328,7 +328,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     
     CGFloat navigationHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     UIView *tabBar = self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
-    CGFloat height = tabBar && !tabBar.hidden ? CGRectGetHeight(tabBar.frame) : 0;
+    CGFloat height = (tabBar && !tabBar.hidden) ? CGRectGetHeight(tabBar.frame) : 0;
     CGFloat tarBarHeight = self.hidesBottomBarWhenPushed == YES ? 0 : height;
     // 计算相对 window 的绝对 frame (self.view.window 可能为 nil)
     UIWindow *mainWindow = [[UIApplication sharedApplication].delegate window];
@@ -336,19 +336,19 @@ static NSInteger const kWMUndefinedIndex = -1;
     navigationHeight -= absoluteRect.origin.y;
     tarBarHeight -= mainWindow.frame.size.height - CGRectGetMaxY(absoluteRect);
     
+    _viewX = self.viewFrame.origin.x;
+    _viewY = self.viewFrame.origin.y;
     if (CGRectEqualToRect(self.viewFrame, CGRectZero)) {
         _viewWidth = self.view.frame.size.width;
         _viewHeight = self.view.frame.size.height - self.menuHeight - self.menuViewBottomSpace - navigationHeight - tarBarHeight;
+        _viewY += navigationHeight;
     } else {
         _viewWidth = self.viewFrame.size.width;
         _viewHeight = self.viewFrame.size.height - self.menuHeight - self.menuViewBottomSpace;
     }
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         _viewHeight += self.menuHeight;
-    }
-    _viewX = self.viewFrame.origin.x;
-    _viewY = self.viewFrame.origin.y + navigationHeight;
-    // 重新计算各个控制器视图的宽高
+    }    // 重新计算各个控制器视图的宽高
     _childViewFrames = [NSMutableArray array];
     for (int i = 0; i < self.childControllersCount; i++) {
         CGRect frame = CGRectMake(i*_viewWidth, 0, _viewWidth, _viewHeight);
@@ -559,6 +559,7 @@ static NSInteger const kWMUndefinedIndex = -1;
         if (self.selectIndex != 0) {
             [self.menuView selectItemAtIndex:self.selectIndex];
         }
+        [self.view bringSubviewToFront:self.menuView];
     }
 }
 
@@ -652,7 +653,7 @@ static NSInteger const kWMUndefinedIndex = -1;
     CGFloat oldSuperviewHeight = _superviewHeight;
     _superviewHeight = self.view.frame.size.height;
 
-    if ((_hasInited && _superviewHeight == oldSuperviewHeight) || !self.view.superview) return;
+    if ((_hasInited && _superviewHeight == oldSuperviewHeight) || !self.view.window) return;
 
     // 计算宽高及子控制器的视图frame
     [self calculateSize];

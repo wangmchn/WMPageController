@@ -19,20 +19,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    if ([self.pageController isKindOfClass:[WMPageController class]]) {
+//    if ([self.pageController isKindOfClass:[WMPageController class]]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"刷新" style:UIBarButtonItemStyleDone target:self action:@selector(reloadPageController)];
         self.title = @"刷新";
-    } else {
-        UIView *redView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 100) / 2, 100, 100, 100)];
-        redView.backgroundColor = [UIColor redColor];
-        [self.view addSubview:redView];
-    }
+//    } else {
+//        UIView *redView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 100) / 2, 100, 100, 100)];
+//        redView.backgroundColor = [UIColor redColor];
+//        [self.view addSubview:redView];
+//    }
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    WMSecondViewController *svc = [[WMSecondViewController alloc] init];
+    svc.pageController = self.pageController;
+    svc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:svc animated:YES];
 }
 
 - (void)reloadPageController {
     self.pageController.selectIndex = 1;
     [self.pageController reloadData];
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "WMCustomPageController.h"
+#import "WMSecondViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +23,16 @@
     WMCustomPageController *pageController = [[WMCustomPageController alloc] init];
     pageController.title = @"dataSource";
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pageController];
-    self.window.rootViewController = nav;
+//    self.window.rootViewController = nav;
+    
+    WMSecondViewController *svc = [[WMSecondViewController alloc] init];
+    svc.pageController = pageController;
+    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:svc];
+    
+    UITabBarController *tab = [[UITabBarController alloc] init];
+    tab.viewControllers = @[nav, nav2];
+    self.window.rootViewController = tab;
+    
     return YES;
 }
 

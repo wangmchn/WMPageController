@@ -8,6 +8,7 @@
 
 #import "WMSecondViewController.h"
 #import "WMPageController.h"
+#import "WMTableViewController.h"
 
 @interface WMSecondViewController ()
 
@@ -34,7 +35,7 @@
 }
 
 - (void)reloadPageController {
-    self.pageController.viewControllerClasses = @[[WMSecondViewController class], [WMSecondViewController class], [WMSecondViewController class]];
+    self.pageController.viewControllerClasses = @[[WMTableViewController class], [WMTableViewController class], [WMTableViewController class]];
     self.pageController.titles = @[@"新闻", @"资讯", @"娱乐"];
     self.pageController.values = nil;
     self.pageController.keys = nil;
