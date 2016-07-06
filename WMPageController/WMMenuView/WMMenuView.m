@@ -30,7 +30,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     CGFloat leftMargin = self.contentMargin + self.leftView.frame.size.width;
     CGFloat rightMargin = self.contentMargin + self.rightView.frame.size.width;
     CGFloat contentWidth = self.scrollView.frame.size.width + leftMargin + rightMargin;
-    CGFloat startX = self.leftView.frame.origin.x + self.scrollView.frame.origin.x - self.contentMargin;
+    CGFloat startX = self.leftView ? self.leftView.frame.origin.x : self.scrollView.frame.origin.x - self.contentMargin;
     
     // Make the contentView center, because system will change menuView's frame if it's a titleView.
     if (startX + contentWidth / 2 != self.bounds.size.width / 2) {
@@ -175,7 +175,6 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     WMMenuItem *currentItem = (WMMenuItem *)[self viewWithTag:tag];
     WMMenuItem *nextItem = (WMMenuItem *)[self viewWithTag:tag+1];
     if (rate == 0.0) {
-        rate = 1.0;
         [self.selItem deselectedItemWithoutAnimation];
         self.selItem = currentItem;
         [self.selItem selectedItemWithoutAnimation];
