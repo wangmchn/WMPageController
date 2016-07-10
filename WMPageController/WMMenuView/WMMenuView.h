@@ -12,10 +12,20 @@
 @class WMMenuView;
 
 typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
-    WMMenuViewStyleDefault,     // 默认
-    WMMenuViewStyleLine,        // 带下划线 (若要选中字体大小不变，设置选中和非选中大小一样即可)
-    WMMenuViewStyleFlood,       // 涌入效果 (填充)
-    WMMenuViewStyleFloodHollow, // 涌入效果 (空心的)
+    WMMenuViewStyleDefault,      // 默认
+    WMMenuViewStyleLine,         // 带下划线 (若要选中字体大小不变，设置选中和非选中大小一样即可)
+    WMMenuViewStyleFlood,        // 涌入效果 (填充)
+    WMMenuViewStyleFloodHollow,  // 涌入效果 (空心的)
+    WMMenuViewStylexxx,          // 涌入带边框 (填充, 还未完成)
+};
+
+// 原先基础上添加了几个方便布局的枚举，更多布局格式可以通过设置 `itemsMargins` 属性来自定义
+// 以下布局均只在 item 个数较少的情况下生效，即
+typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
+    WMMenuViewLayoutModeScatter, // 默认的布局模式, item 会均匀分布在屏幕上，呈分散状
+    WMMenuViewLayoutModeLeft,    // Item 紧靠屏幕左侧
+    WMMenuViewLayoutModeRight,   // Item 紧靠屏幕右侧
+    WMMenuViewLayoutModeCenter,  // Item 紧挨且居中分布
 };
 
 @protocol WMMenuViewDelegate <NSObject>
@@ -48,6 +58,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @property (nonatomic, weak) WMProgressView *progressView;
 @property (nonatomic, assign) CGFloat progressHeight;
 @property (nonatomic, assign) WMMenuViewStyle style;
+@property (nonatomic, assign) WMMenuViewLayoutMode layoutMode;
 @property (nonatomic, assign) CGFloat contentMargin;
 @property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic, assign) CGFloat progressViewBottomSpace;

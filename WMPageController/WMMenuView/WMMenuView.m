@@ -430,12 +430,30 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     }
     // 如果总宽度小于屏幕宽,重新计算frame,为item间添加间距
     if (contentWidth < self.scrollView.frame.size.width) {
-        // 计算间距
         CGFloat distance = self.scrollView.frame.size.width - contentWidth;
-        CGFloat gap = distance / (self.titlesCount + 1);
+        CGFloat (^shiftDis)(int);
+        switch (self.layoutMode) {
+            case WMMenuViewLayoutModeScatter: {
+                CGFloat gap = distance / (self.titlesCount + 1);
+                shiftDis = ^CGFloat(int index) { return gap * (index + 1); };
+                break;
+            }
+            case WMMenuViewLayoutModeLeft: {
+                shiftDis = ^CGFloat(int index) { return 0.0; };
+                break;
+            }
+            case WMMenuViewLayoutModeRight: {
+                shiftDis = ^CGFloat(int index) { return distance; };
+                break;
+            }
+            case WMMenuViewLayoutModeCenter: {
+                shiftDis = ^CGFloat(int index) { return distance / 2; };
+                break;
+            }
+        }
         for (int i = 0; i < self.frames.count; i++) {
             CGRect frame = [self.frames[i] CGRectValue];
-            frame.origin.x += gap * (i+1);
+            frame.origin.x += shiftDis(i);
             self.frames[i] = [NSValue valueWithCGRect:frame];
         }
         contentWidth = self.scrollView.frame.size.width;
