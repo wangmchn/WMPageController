@@ -95,6 +95,7 @@
         pageController.titleSizeSelected = 15;
         pageController.showOnNavigationBar = YES;
         pageController.menuBGColor = [UIColor clearColor];
+        pageController.menuViewLayoutMode = WMMenuViewLayoutModeCenter;
 //        pageController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
 //        pageController.menuViewContentMargin = 10;
 //        pageController.selectIndex = 2;
@@ -105,7 +106,7 @@
 - (WMPageController *)p_defaultController {
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     NSMutableArray *titles = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 3; i++) {
         Class vcClass;
         NSString *title;
         switch (i % 3) {

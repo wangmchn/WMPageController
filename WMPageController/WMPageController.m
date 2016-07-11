@@ -91,6 +91,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
+- (void)setMenuViewLayoutMode:(WMMenuViewLayoutMode)menuViewLayoutMode {
+    _menuViewLayoutMode = menuViewLayoutMode;
+    if (self.menuView.superview) {
+        [self resetMenuView];
+    }
+}
+
 - (void)setCachePolicy:(WMPageControllerCachePolicy)cachePolicy {
     _cachePolicy = cachePolicy;
     self.memCache.countLimit = _cachePolicy;

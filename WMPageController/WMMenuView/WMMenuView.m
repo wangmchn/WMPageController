@@ -22,6 +22,12 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 @implementation WMMenuView
 
 #pragma mark - Setter
+- (void)setLayoutMode:(WMMenuViewLayoutMode)layoutMode {
+    _layoutMode = layoutMode;
+    if (!self.superview) { return; }
+    [self reload];
+}
+
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
@@ -217,6 +223,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     }
     
     [self addBadgeViewAtIndex:index];
+    [self resetBadgeFrame:index];
 }
 
 #pragma mark - Data source
@@ -262,16 +269,9 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self.frames removeAllObjects];
     [self calculateItemFrames];
     for (NSInteger i = index; i < self.titlesCount; i++) {
-        WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + i)];
-        CGRect frame = [self.frames[i] CGRectValue];
-        item.frame = frame;
+        [self resetItemFrame:i];
         
-        UIView *badgeView = [self.scrollView viewWithTag:(WMBadgeViewTagOffset + i)];
-        if (badgeView) {
-            CGRect badgeFrame = [self badgeViewAtIndex:i].frame;
-            badgeFrame.origin.x += frame.origin.x;
-            badgeView.frame = badgeFrame;
-        }
+        [self resetBadgeFrame:i];
     }
     if (!self.progressView.superview) { return; }
     CGRect frame = self.progressView.frame;
@@ -284,6 +284,22 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     self.progressView.frame = frame;
     self.progressView.itemFrames = [self convertProgressWidthsToFrames];
     [self.progressView setNeedsDisplay];
+}
+
+- (void)resetItemFrame:(NSInteger)index {
+    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + index)];
+    CGRect frame = [self.frames[index] CGRectValue];
+    item.frame = frame;
+}
+
+- (void)resetBadgeFrame:(NSInteger)index {
+    CGRect frame = [self.frames[index] CGRectValue];
+    UIView *badgeView = [self.scrollView viewWithTag:(WMBadgeViewTagOffset + index)];
+    if (badgeView) {
+        CGRect badgeFrame = [self badgeViewAtIndex:index].frame;
+        badgeFrame.origin.x += frame.origin.x;
+        badgeView.frame = badgeFrame;
+    }
 }
 
 - (NSArray *)convertProgressWidthsToFrames {
