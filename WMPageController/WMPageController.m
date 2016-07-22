@@ -64,21 +64,21 @@ static NSInteger const kWMControllerCountUndefined = -1;
         _viewControllerClasses = [NSArray arrayWithArray:classes];
         _titles = [NSArray arrayWithArray:titles];
 
-        [self setup];
+        [self wm_setup];
     }
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        [self setup];
+        [self wm_setup];
     }
     return self;
 }
 
 - (instancetype)init {
     if (self = [super init]) {
-        [self setup];
+        [self wm_setup];
     }
     return self;
 }
@@ -94,7 +94,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 - (void)setMenuViewLayoutMode:(WMMenuViewLayoutMode)menuViewLayoutMode {
     _menuViewLayoutMode = menuViewLayoutMode;
     if (self.menuView.superview) {
-        [self resetMenuView];
+        [self wm_resetMenuView];
     }
 }
 
@@ -133,10 +133,10 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)reloadData {
-    [self clearDatas];
-    [self resetScrollView];
+    [self wm_clearDatas];
+    [self wm_resetScrollView];
     [self.memCache removeAllObjects];
-    [self resetMenuView];
+    [self wm_resetMenuView];
     [self viewDidLayoutSubviews];
 }
 
@@ -158,6 +158,25 @@ static NSInteger const kWMControllerCountUndefined = -1;
         self.itemsWidths = [mutableWidths copy];
     }
     [self.menuView updateTitle:title atIndex:index andWidth:YES];
+}
+
+#pragma mark - Notification
+- (void)willResignActive:(NSNotification *)notification {
+    for (int i = 0; i < self.childControllersCount; i++) {
+        id obj = [self.memCache objectForKey:@(i)];
+        if (obj) {
+            [self.backgroundCache setObject:obj forKey:@(i)];
+        }
+    }
+}
+
+- (void)willEnterForeground:(NSNotification *)notification {
+    for (NSNumber *key in self.backgroundCache.allKeys) {
+        if (![self.memCache objectForKey:key]) {
+            [self.memCache setObject:self.backgroundCache[key] forKey:key];
+        }
+    }
+    [self.backgroundCache removeAllObjects];
 }
 
 #pragma mark - Delegate
@@ -208,8 +227,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
     for (int i = start; i <= end; i++) {
         // 如果已存在，不需要预加载
         if (![self.memCache objectForKey:@(i)] && !self.displayVC[@(i)]) {
-            [self addViewControllerAtIndex:i];
-            [self postAddToSuperViewNotificationWithIndex:i];
+            [self wm_addViewControllerAtIndex:i];
+            [self wm_postAddToSuperViewNotificationWithIndex:i];
         }
     }
     _selectIndex = (int)index;
@@ -243,16 +262,16 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 #pragma mark - Private Methods
 
-- (void)resetScrollView {
+- (void)wm_resetScrollView {
     if (self.scrollView) {
         [self.scrollView removeFromSuperview];
     }
-    [self addScrollView];
-    [self addViewControllerAtIndex:self.selectIndex];
+    [self wm_addScrollView];
+    [self wm_addViewControllerAtIndex:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
 
-- (void)clearDatas {
+- (void)wm_clearDatas {
     _controllerConut = kWMControllerCountUndefined;
     _hasInited = NO;
     _selectIndex = self.selectIndex < self.childControllersCount ? self.selectIndex : (int)self.childControllersCount - 1;
@@ -263,15 +282,15 @@ static NSInteger const kWMControllerCountUndefined = -1;
         [vc removeFromParentViewController];
     }
     self.memoryWarningCount = 0;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyAfterMemoryWarning) object:nil];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyToHigh) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(wm_growCachePolicyAfterMemoryWarning) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(wm_growCachePolicyToHigh) object:nil];
     self.currentViewController = nil;
     [self.posRecords removeAllObjects];
     [self.displayVC removeAllObjects];
 }
 
 // 当子控制器init完成时发送通知
-- (void)postAddToSuperViewNotificationWithIndex:(int)index {
+- (void)wm_postAddToSuperViewNotificationWithIndex:(int)index {
     if (!self.postNotification) { return; }
     NSDictionary *info = @{
                            @"index":@(index),
@@ -282,7 +301,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 // 当子控制器完全展示在user面前时发送通知
-- (void)postFullyDisplayedNotificationWithCurrentIndex:(int)index {
+- (void)wm_postFullyDisplayedNotificationWithCurrentIndex:(int)index {
     if (!self.postNotification) { return; }
     NSDictionary *info = @{
                            @"index":@(index),
@@ -293,7 +312,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 // 初始化一些参数，在init中调用
-- (void)setup {
+- (void)wm_setup {
     
     _titleSizeSelected  = WMTitleSizeSelected;
     _titleColorSelected = WMTitleColorSelected;
@@ -319,26 +338,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
-- (void)willResignActive:(NSNotification *)notification {
-    for (int i = 0; i < self.childControllersCount; i++) {
-        id obj = [self.memCache objectForKey:@(i)];
-        if (obj) {
-            [self.backgroundCache setObject:obj forKey:@(i)];
-        }
-    }
-}
-
-- (void)willEnterForeground:(NSNotification *)notification {
-    for (NSNumber *key in self.backgroundCache.allKeys) {
-        if (![self.memCache objectForKey:key]) {
-            [self.memCache setObject:self.backgroundCache[key] forKey:key];
-        }
-    }
-    [self.backgroundCache removeAllObjects];
-}
-
 // 包括宽高，子控制器视图 frame
-- (void)calculateSize {
+- (void)wm_calculateSize {
     
     CGFloat navigationHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     UIView *tabBar = self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
@@ -371,7 +372,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     
 }
 
-- (void)addScrollView {
+- (void)wm_addScrollView {
     
     WMScrollView *scrollView = [[WMScrollView alloc] init];
     scrollView.scrollsToTop = NO;
@@ -392,7 +393,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     
 }
 
-- (void)addMenuView {
+- (void)wm_addMenuView {
     CGFloat menuY = _viewY;
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         CGFloat navHeight = self.navigationController.navigationBar.frame.size.height;
@@ -425,51 +426,51 @@ static NSInteger const kWMControllerCountUndefined = -1;
     self.menuView = menuView;
 }
 
-- (void)layoutChildViewControllers {
+- (void)wm_layoutChildViewControllers {
     int currentPage = (int)self.scrollView.contentOffset.x / _viewWidth;
     int start = currentPage == 0 ? currentPage : (currentPage - 1);
     int end = (currentPage == self.childControllersCount - 1) ? currentPage : (currentPage + 1);
     for (int i = start; i <= end; i++) {
         CGRect frame = [self.childViewFrames[i] CGRectValue];
         UIViewController *vc = [self.displayVC objectForKey:@(i)];
-        if ([self isInScreen:frame]) {
+        if ([self wm_isInScreen:frame]) {
             if (vc == nil) {
-                [self initializedControllerWithIndexIfNeeded:i];
+                [self wm_initializedControllerWithIndexIfNeeded:i];
             }
         } else {
             if (vc) {
                 // vc不在视野中且存在，移除他
-                [self removeViewController:vc atIndex:i];
+                [self wm_removeViewController:vc atIndex:i];
             }
         }
     }
 }
 
 // 创建或从缓存中获取控制器并添加到视图上
-- (void)initializedControllerWithIndexIfNeeded:(NSInteger)index {
+- (void)wm_initializedControllerWithIndexIfNeeded:(NSInteger)index {
     // 先从 cache 中取
     UIViewController *vc = [self.memCache objectForKey:@(index)];
     if (vc) {
         // cache 中存在，添加到 scrollView 上，并放入display
-        [self addCachedViewController:vc atIndex:index];
+        [self wm_addCachedViewController:vc atIndex:index];
     } else {
         // cache 中也不存在，创建并添加到display
-        [self addViewControllerAtIndex:(int)index];
+        [self wm_addViewControllerAtIndex:(int)index];
     }
-    [self postAddToSuperViewNotificationWithIndex:(int)index];
+    [self wm_postAddToSuperViewNotificationWithIndex:(int)index];
 }
 
-- (void)removeSuperfluousViewControllersIfNeeded {
+- (void)wm_removeSuperfluousViewControllersIfNeeded {
     [self.displayVC enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, UIViewController * _Nonnull vc, BOOL * _Nonnull stop) {
         NSInteger index = key.integerValue;
         CGRect frame = [self.childViewFrames[index] CGRectValue];
-        if (![self isInScreen:frame]) {
-            [self removeViewController:vc atIndex:index];
+        if (![self wm_isInScreen:frame]) {
+            [self wm_removeViewController:vc atIndex:index];
         }
     }];
 }
 
-- (void)addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
+- (void)wm_addCachedViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
     [self addChildViewController:viewController];
     viewController.view.frame = [self.childViewFrames[index] CGRectValue];
     [viewController didMoveToParentViewController:self];
@@ -479,7 +480,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 // 创建并添加子控制器
-- (void)addViewControllerAtIndex:(int)index {
+- (void)wm_addViewControllerAtIndex:(int)index {
     _initializedIndex = index;
     UIViewController *viewController = [self initializeViewControllerAtIndex:index];
     if (self.values.count == self.childControllersCount && self.keys.count == self.childControllersCount) {
@@ -493,12 +494,12 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self willEnterController:viewController atIndex:index];
     [self.displayVC setObject:viewController forKey:@(index)];
     
-    [self backToPositionIfNeeded:viewController atIndex:index];
+    [self wm_backToPositionIfNeeded:viewController atIndex:index];
 }
 
 // 移除控制器，且从display中移除
-- (void)removeViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
-    [self rememberPositionIfNeeded:viewController atIndex:index];
+- (void)wm_removeViewController:(UIViewController *)viewController atIndex:(NSInteger)index {
+    [self wm_rememberPositionIfNeeded:viewController atIndex:index];
     [viewController.view removeFromSuperview];
     [viewController willMoveToParentViewController:nil];
     [viewController removeFromParentViewController];
@@ -511,13 +512,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
-- (void)backToPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index {
+- (void)wm_backToPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
     if (!self.rememberLocation) return;
 #pragma clang diagnostic pop
     if ([self.memCache objectForKey:@(index)]) return;
-    UIScrollView *scrollView = [self isKindOfScrollViewController:controller];
+    UIScrollView *scrollView = [self wm_isKindOfScrollViewController:controller];
     if (scrollView) {
         NSValue *pointValue = self.posRecords[@(index)];
         if (pointValue) {
@@ -527,19 +528,19 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
-- (void)rememberPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index {
+- (void)wm_rememberPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
     if (!self.rememberLocation) return;
 #pragma clang diagnostic pop
-    UIScrollView *scrollView = [self isKindOfScrollViewController:controller];
+    UIScrollView *scrollView = [self wm_isKindOfScrollViewController:controller];
     if (scrollView) {
         CGPoint pos = scrollView.contentOffset;
         self.posRecords[@(index)] = [NSValue valueWithCGPoint:pos];
     }
 }
 
-- (UIScrollView *)isKindOfScrollViewController:(UIViewController *)controller {
+- (UIScrollView *)wm_isKindOfScrollViewController:(UIViewController *)controller {
     UIScrollView *scrollView = nil;
     if ([controller.view isKindOfClass:[UIScrollView class]]) {
         // Controller的view是scrollView的子类(UITableViewController/UIViewController替换view为scrollView)
@@ -554,7 +555,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return scrollView;
 }
 
-- (BOOL)isInScreen:(CGRect)frame {
+- (BOOL)wm_isInScreen:(CGRect)frame {
     CGFloat x = frame.origin.x;
     CGFloat ScreenWidth = self.scrollView.frame.size.width;
     
@@ -566,9 +567,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
-- (void)resetMenuView {
+- (void)wm_resetMenuView {
     if (!self.menuView) {
-        [self addMenuView];
+        [self wm_addMenuView];
     } else {
         [self.menuView reload];
         if (self.selectIndex != 0) {
@@ -578,17 +579,17 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
-- (void)growCachePolicyAfterMemoryWarning {
+- (void)wm_growCachePolicyAfterMemoryWarning {
     self.cachePolicy = WMPageControllerCachePolicyBalanced;
-    [self performSelector:@selector(growCachePolicyToHigh) withObject:nil afterDelay:2.0 inModes:@[NSRunLoopCommonModes]];
+    [self performSelector:@selector(wm_growCachePolicyToHigh) withObject:nil afterDelay:2.0 inModes:@[NSRunLoopCommonModes]];
 }
 
-- (void)growCachePolicyToHigh {
+- (void)wm_growCachePolicyToHigh {
     self.cachePolicy = WMPageControllerCachePolicyHigh;
 }
 
 #pragma mark - Adjust Frame
-- (void)adjustScrollViewFrame {
+- (void)wm_adjustScrollViewFrame {
     // While rotate at last page, set scroll frame will call `-scrollViewDidScroll:` delegate
     // It's not my expectation, so I use `_shouldNotScroll` to lock it.
     // Wait for a better solution.
@@ -601,7 +602,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     _shouldNotScroll = NO;
 }
 
-- (void)adjustDisplayingViewControllersFrame {
+- (void)wm_adjustDisplayingViewControllersFrame {
     [self.displayVC enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, UIViewController * _Nonnull vc, BOOL * _Nonnull stop) {
         NSInteger index = key.integerValue;
         CGRect frame = [self.childViewFrames[index] CGRectValue];
@@ -609,7 +610,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }];
 }
 
-- (void)adjustMenuViewFrame {
+- (void)wm_adjustMenuViewFrame {
     // 根据是否在导航栏上展示调整frame
     CGFloat menuHeight = self.menuHeight;
     __block CGFloat menuX = _viewX;
@@ -652,12 +653,12 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
     if (!self.childControllersCount) return;
     
-    [self addScrollView];
+    [self wm_addScrollView];
     
-    [self addViewControllerAtIndex:self.selectIndex];
+    [self wm_addViewControllerAtIndex:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     
-    [self addMenuView];
+    [self wm_addMenuView];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -671,15 +672,15 @@ static NSInteger const kWMControllerCountUndefined = -1;
     if ((_hasInited && _superviewHeight == oldSuperviewHeight) || !self.view.window) return;
 
     // 计算宽高及子控制器的视图frame
-    [self calculateSize];
+    [self wm_calculateSize];
     
-    [self adjustScrollViewFrame];
+    [self wm_adjustScrollViewFrame];
     
-    [self adjustMenuViewFrame];
+    [self wm_adjustMenuViewFrame];
     
-    [self adjustDisplayingViewControllersFrame];
+    [self wm_adjustDisplayingViewControllersFrame];
     
-    [self removeSuperfluousViewControllersIfNeeded];
+    [self wm_removeSuperfluousViewControllersIfNeeded];
 
     _hasInited = YES;
     [self.view layoutIfNeeded];
@@ -690,7 +691,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     
     if (!self.childControllersCount) { return; }
     
-    [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
+    [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
 }
 
@@ -700,8 +701,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
     self.memoryWarningCount++;
     self.cachePolicy = WMPageControllerCachePolicyLowMemory;
     // 取消正在增长的 cache 操作
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyAfterMemoryWarning) object:nil];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(growCachePolicyToHigh) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(wm_growCachePolicyAfterMemoryWarning) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(wm_growCachePolicyToHigh) object:nil];
     
     [self.memCache removeAllObjects];
     [self.posRecords removeAllObjects];
@@ -709,7 +710,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     
     // 如果收到内存警告次数小于 3，一段时间后切换到模式 Balanced
     if (self.memoryWarningCount < 3) {
-        [self performSelector:@selector(growCachePolicyAfterMemoryWarning) withObject:nil afterDelay:3.0 inModes:@[NSRunLoopCommonModes]];
+        [self performSelector:@selector(wm_growCachePolicyAfterMemoryWarning) withObject:nil afterDelay:3.0 inModes:@[NSRunLoopCommonModes]];
     }
 }
 
@@ -717,7 +718,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_shouldNotScroll || !_hasInited) { return; }
     
-    [self layoutChildViewControllers];
+    [self wm_layoutChildViewControllers];
     if (_startDragging) {
         CGFloat contentOffsetX = scrollView.contentOffset.x;
         if (contentOffsetX < 0) {
@@ -745,16 +746,16 @@ static NSInteger const kWMControllerCountUndefined = -1;
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     self.menuView.userInteractionEnabled = YES;
     _selectIndex = (int)scrollView.contentOffset.x / _viewWidth;
-    [self removeSuperfluousViewControllersIfNeeded];
+    [self wm_removeSuperfluousViewControllersIfNeeded];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
-    [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
+    [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     self.currentViewController = self.displayVC[@(self.selectIndex)];
-    [self removeSuperfluousViewControllersIfNeeded];
-    [self postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
+    [self wm_removeSuperfluousViewControllersIfNeeded];
+    [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
 }
 
@@ -779,14 +780,14 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self.scrollView setContentOffset:targetP animated:self.pageAnimatable];
     if (!self.pageAnimatable) {
         // 由于不触发 -scrollViewDidScroll: 手动处理控制器
-        [self removeSuperfluousViewControllersIfNeeded];
+        [self wm_removeSuperfluousViewControllersIfNeeded];
         UIViewController *currentViewController = self.displayVC[@(currentIndex)];
         if (currentViewController) {
-            [self removeViewController:currentViewController atIndex:currentIndex];
+            [self wm_removeViewController:currentViewController atIndex:currentIndex];
         }
-        [self layoutChildViewControllers];
+        [self wm_layoutChildViewControllers];
         self.currentViewController = self.displayVC[@(self.selectIndex)];
-        [self postFullyDisplayedNotificationWithCurrentIndex:(int)index];
+        [self wm_postFullyDisplayedNotificationWithCurrentIndex:(int)index];
         [self didEnterController:self.currentViewController atIndex:index];
     }
 }
