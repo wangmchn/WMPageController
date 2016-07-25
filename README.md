@@ -45,9 +45,10 @@ Just implement these three datasource methods in YOUR WMPageController after ini
 To have a custom page controller,please set the properties in `WMPageController` ,They are: `titleSize`, `titleColor`, `menuHeight`, `pageAnimatable`, `menuBGColor`, `menuItemWidth`,and also `itemsWidths`.<br>
 
 ## ViewFrame 
-It's easy for you to customize your controller as following, just set `viewFrame` and done.
+It's easy for you to customize your controller as following, just set `viewFrame` and done.<br>
+See <a href="https://github.com/wangmchn/WMPageController/tree/master/WMPageControllerDemo/ViewFrameDemo">ViewFrameDemo</a> for more information.
 
-  <img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/ViewFrameDemo.gif" />
+<img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/ViewFrameDemo.gif" />
 
 ## Use Storyboard / xib
 1.If you init the `WMPageController` with child controller's class,override the `-init` method in `WMPageController's childViewController`, For example:
