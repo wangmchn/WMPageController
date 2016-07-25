@@ -8,8 +8,9 @@
 
 #import "WMViewController.h"
 
-@interface WMViewController ()
-
+@interface WMViewController () {
+    UILabel *_label;
+}
 @end
 
 @implementation WMViewController
@@ -17,20 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _label = [[UILabel alloc] init];
+    _label.text = [NSString stringWithFormat:@"I'm %@ year old", self.age];
+    [_label sizeToFit];
+    _label.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_label];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    UILabel *label = [[UILabel alloc] init];
-    label.text = [NSString stringWithFormat:@"I'm %@ year old", self.age];
-    [label sizeToFit];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.center = self.view.center;
-    [self.view addSubview:label];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    _label.center = self.view.center;
 }
 
 - (void)didReceiveMemoryWarning {

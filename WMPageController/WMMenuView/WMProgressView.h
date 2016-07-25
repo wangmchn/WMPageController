@@ -12,6 +12,8 @@
 @property (nonatomic, strong) NSArray *itemFrames;
 @property (nonatomic, assign) CGColorRef color;
 @property (nonatomic, assign) CGFloat progress;
+/** 进度条的速度因数，默认为 15，越小越快， 大于 0 */
+@property (nonatomic, assign) CGFloat speedFactor;
 
 - (void)setProgressWithOutAnimate:(CGFloat)progress;
 - (void)moveToPostion:(NSInteger)pos;

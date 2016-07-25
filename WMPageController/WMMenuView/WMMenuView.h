@@ -16,11 +16,11 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
     WMMenuViewStyleLine,         // 带下划线 (若要选中字体大小不变，设置选中和非选中大小一样即可)
     WMMenuViewStyleFlood,        // 涌入效果 (填充)
     WMMenuViewStyleFloodHollow,  // 涌入效果 (空心的)
-    WMMenuViewStylexxx,          // 涌入带边框 (填充, 还未完成)
+    WMMenuViewStyleSegmented,    // 涌入带边框,即网易新闻选项卡
 };
 
 // 原先基础上添加了几个方便布局的枚举，更多布局格式可以通过设置 `itemsMargins` 属性来自定义
-// 以下布局均只在 item 个数较少的情况下生效，即
+// 以下布局均只在 item 个数较少的情况下生效，即无法滚动 MenuView 时.
 typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
     WMMenuViewLayoutModeScatter, // 默认的布局模式, item 会均匀分布在屏幕上，呈分散状
     WMMenuViewLayoutModeLeft,    // Item 紧靠屏幕左侧
@@ -35,12 +35,15 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state;
 - (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state;
+- (void)menuView:(WMMenuView *)menu didLayoutItemFrame:(WMMenuItem *)menuItem atIndex:(NSInteger)index;
 @end
 
 @protocol WMMenuViewDataSource <NSObject>
+
 @required
 - (NSInteger)numbersOfTitlesInMenuView:(WMMenuView *)menu;
 - (NSString *)menuView:(WMMenuView *)menu titleAtIndex:(NSInteger)index;
+
 @optional
 /**
  *  角标 (例如消息提醒的小红点) 的数据源方法，在 WMPageController 中实现这个方法来为 menuView 提供一个 badgeView
@@ -51,6 +54,19 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
  *  @return 返回一个设置好 frame 的角标视图
  */
 - (UIView *)menuView:(WMMenuView *)menu badgeViewAtIndex:(NSInteger)index;
+
+/**
+ *  用于定制 WMMenuItem，可以对传出的 initialMenuItem 进行修改定制，也可以返回自己创建的子类，需要注意的是，此时的 item 的 frame 是不确定的，所以请勿根据此时的 frame 做计算！
+    如需根据 frame 修改，请使用代理
+ *
+ *  @param menu            当前的 menuView，frame 也是不确定的
+ *  @param initialMenuItem 初始化完成的 menuItem
+ *  @param index           Item 所属的位置;
+ *
+ *  @return 定制完成的 MenuItem
+ */
+- (WMMenuItem *)menuView:(WMMenuView *)menu initialMenuItem:(WMMenuItem *)initialMenuItem atIndex:(NSInteger)index;
+
 @end
 
 @interface WMMenuView : UIView

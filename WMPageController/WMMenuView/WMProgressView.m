@@ -14,6 +14,13 @@
     __weak  CADisplayLink *_link;
 }
 
+- (CGFloat)speedFactor {
+    if (_speedFactor <= 0) {
+        _speedFactor = 15.0;
+    }
+    return _speedFactor;
+}
+
 - (void)setProgressWithOutAnimate:(CGFloat)progress {
     if (self.progress == progress) return;
     _progress = progress;
@@ -23,7 +30,7 @@
 - (void)moveToPostion:(NSInteger)pos {
     gap = fabs(self.progress - pos);
     sign = self.progress > pos ? -1 : 1;
-    step = gap / 15.0;
+    step = gap / self.speedFactor;
     if (_link) {
         [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }

@@ -20,22 +20,25 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.menuHeight = 40.0;
+        self.menuItemWidth = [[UIScreen mainScreen] bounds].size.width / self.titles.count;
         self.menuViewStyle = WMMenuViewStyleLine;
-        self.menuItemWidth = 60;
+        self.titleSizeSelected = 14.0f;
+        self.titleSizeNormal = 14.0f;
+        self.menuHeight = 44;
+//        self.titleColorNormal = [UIColor colorWithHexString:@"999999"];
+//        self.titleColorSelected = [UIColor colorWithHexString:@"35B6F9"];
     }
     return self;
 }
 
 - (NSArray *)titles {
-    return @[@"自己", @"实现", @"数据源"];
+    return @[@"自己", @"实现", @"实现", @"实现", @"实现",@"实现", @"实现", @"实现"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addViews];
-    self.menuView.progressWidths = @[@30, @40, @20];
 }
 
 - (void)addViews {
@@ -116,6 +119,15 @@
     NSInteger index = [info[@"index"] integerValue];
     _update = YES;
     [self.menuView updateBadgeViewAtIndex:index];
+}
+
+- (void)menuView:(WMMenuView *)menu didLayoutItemFrame:(WMMenuItem *)menuItem atIndex:(NSInteger)index {
+    NSLog(@"%@", NSStringFromCGRect(menuItem.frame));
+}
+
+- (WMMenuItem *)menuView:(WMMenuView *)menu initialMenuItem:(WMMenuItem *)initialMenuItem atIndex:(NSInteger)index {
+    initialMenuItem.attributedText = [[NSAttributedString alloc] initWithString:@"123"];
+    return initialMenuItem;
 }
 
 @end

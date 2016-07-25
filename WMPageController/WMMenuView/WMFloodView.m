@@ -50,15 +50,30 @@
     CGContextAddLineToPoint(ctx, endX-WMFloodRadius, WMFloodMargin);
     CGContextAddArc(ctx, endX-WMFloodRadius, WMFloodHeight / 2.0, WMFloodRadius, -M_PI_2, M_PI_2, 0);
     CGContextClosePath(ctx);
-    
     if (self.hollow) {
         CGContextSetStrokeColorWithColor(ctx, self.color);
         CGContextStrokePath(ctx);
         return;
     }
-    CGContextClosePath(ctx);
     CGContextSetFillColorWithColor(ctx, self.color);
     CGContextFillPath(ctx);
+
+    if (self.hasBorder) {
+        // 计算点
+        CGFloat startX = CGRectGetMinX([self.itemFrames.firstObject CGRectValue]);
+        CGFloat endX = CGRectGetMaxX([self.itemFrames.lastObject CGRectValue]);
+        // 绘制
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        CGContextTranslateCTM(ctx, 0.0f, WMFloodHeight);
+        CGContextScaleCTM(ctx, 1.0f, -1.0f);
+        CGContextAddArc(ctx, startX+WMFloodRadius, WMFloodHeight / 2.0, WMFloodRadius, M_PI_2, M_PI_2 * 3, 0);
+        CGContextAddLineToPoint(ctx, endX-WMFloodRadius, WMFloodMargin);
+        CGContextAddArc(ctx, endX-WMFloodRadius, WMFloodHeight / 2.0, WMFloodRadius, -M_PI_2, M_PI_2, 0);
+        CGContextClosePath(ctx);
+        CGContextSetStrokeColorWithColor(ctx, self.color);
+        CGContextStrokePath(ctx);
+    }
+    
 }
 
 @end

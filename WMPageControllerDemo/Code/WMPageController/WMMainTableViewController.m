@@ -23,7 +23,8 @@
                     @"WMMenuViewStyleLine",
                     @"WMMenuViewStyleFlood",
                     @"WMMenuViewStyleFloodHollow",
-                    @"WMMenuViewShowOnNav"];
+                    @"WMMenuViewShowOnNav",
+                    @"WMMenuViewStyleSegmented"];
     }
     return _styles;
 }
@@ -99,6 +100,18 @@
 //        pageController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
 //        pageController.menuViewContentMargin = 10;
 //        pageController.selectIndex = 2;
+    } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleSegmented"]) {
+        // 网易新闻
+        pageController = [self pageControllerStyleFlood];
+        pageController.menuHeight = 44;
+        pageController.showOnNavigationBar = YES;
+        pageController.titleSizeSelected = 15;
+        pageController.menuViewStyle = WMMenuViewStyleSegmented;
+        pageController.menuViewLayoutMode = WMMenuViewLayoutModeCenter;
+        pageController.titleColorSelected = [UIColor whiteColor];
+        pageController.titleColorNormal = [UIColor blackColor];
+        pageController.progressColor = [UIColor blackColor];
+        pageController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
     }
     [self.navigationController pushViewController:pageController animated:YES];
 }
@@ -106,7 +119,7 @@
 - (WMPageController *)p_defaultController {
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     NSMutableArray *titles = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
         Class vcClass;
         NSString *title;
         switch (i % 3) {
@@ -145,6 +158,8 @@
     pageVC.titleColorNormal = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
     pageVC.progressColor = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
     pageVC.itemsWidths = @[@(70),@(100),@(70)]; // 这里可以设置不同的宽度
+    pageVC.menuViewLayoutMode = WMMenuViewLayoutModeCenter;
+//    pageVC.menuViewStyle = WMMenuViewStyleSegmented;
     return pageVC;
 }
 

@@ -290,6 +290,9 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + index)];
     CGRect frame = [self.frames[index] CGRectValue];
     item.frame = frame;
+    if ([self.delegate respondsToSelector:@selector(menuView:didLayoutItemFrame:atIndex:)]) {
+        [self.delegate menuView:self didLayoutItemFrame:item atIndex:index];
+    }
 }
 
 - (void)resetBadgeFrame:(NSInteger)index {
@@ -339,10 +342,13 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
             [self addProgressView];
             break;
         case WMMenuViewStyleFlood:
-            [self addFloodViewHollow:NO];
+            [self addFloodViewWithBorder:NO hollow:NO];
             break;
         case WMMenuViewStyleFloodHollow:
-            [self addFloodViewHollow:YES];
+            [self addFloodViewWithBorder:NO hollow:YES];
+            break;
+        case WMMenuViewStyleSegmented:
+            [self addFloodViewWithBorder:YES hollow:NO];
             break;
         default:
             break;
@@ -404,17 +410,19 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     for (int i = 0; i < self.titlesCount; i++) {
         CGRect frame = [self.frames[i] CGRectValue];
         WMMenuItem *item = [[WMMenuItem alloc] initWithFrame:frame];
-        item.tag = (i+WMMenuItemTagOffset);
-        item.delegate = self;
-        item.text = [self.dataSource menuView:self titleAtIndex:i];
-        item.textAlignment = NSTextAlignmentCenter;
-        item.textColor = self.normalColor;
-        item.userInteractionEnabled = YES;
         if (self.fontName) {
             item.font = [UIFont fontWithName:self.fontName size:self.selectedSize];
         } else {
             item.font = [UIFont systemFontOfSize:self.selectedSize];
         }
+        item.tag = (i+WMMenuItemTagOffset);
+        item.delegate = self;
+        item.text = [self.dataSource menuView:self titleAtIndex:i];
+        item.textAlignment = NSTextAlignmentCenter;
+        if ([self.dataSource respondsToSelector:@selector(menuView:initialMenuItem:atIndex:)]) {
+            item = [self.dataSource menuView:self initialMenuItem:item atIndex:i];
+        }
+        item.userInteractionEnabled = YES;
         item.backgroundColor = [UIColor clearColor];
         item.normalSize    = self.normalSize;
         item.selectedSize  = self.selectedSize;
@@ -495,13 +503,14 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self.scrollView addSubview:pView];
 }
 
-- (void)addFloodViewHollow:(BOOL)isHollow {
+- (void)addFloodViewWithBorder:(BOOL)hasBorder hollow:(BOOL)isHollow {
     CGFloat floodHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height;
     CGFloat floodY = self.frame.size.height - floodHeight - self.progressViewBottomSpace;
     WMFloodView *floodView = [[WMFloodView alloc] initWithFrame:CGRectMake(0, floodY, self.scrollView.contentSize.width, floodHeight)];
     floodView.itemFrames = [self convertProgressWidthsToFrames];
     floodView.color = self.lineColor.CGColor;
     floodView.hollow = isHollow;
+    floodView.hasBorder = hasBorder;
     floodView.backgroundColor = [UIColor clearColor];
     self.progressView = floodView;
     [self.scrollView insertSubview:floodView atIndex:0];

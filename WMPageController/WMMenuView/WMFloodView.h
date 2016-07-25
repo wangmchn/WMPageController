@@ -10,4 +10,5 @@
 
 @interface WMFloodView : WMProgressView
 @property (nonatomic, assign) BOOL hollow;
+@property (nonatomic, assign) BOOL hasBorder;
 @end
