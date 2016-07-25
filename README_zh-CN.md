@@ -23,7 +23,7 @@
 * 适配横屏，当设备旋转时自动调整`frame`。
 * 可通过设置`itemsWidths`属性来设置不同的标题宽度，例如 `@[@(100),@(80),@(50).....]`;
 * 增加了`reload`功能，可以像网易新闻那样重新更新标题和控制器。
-* 新类型 WMMenuViewStyleSegmented, 用于实现 <a href="https://github.com/wangmchn/WMPageController/issues/120">#120</a>
+* 新类型 `WMMenuViewStyleSegmented`, 用于实现 <a href="https://github.com/wangmchn/WMPageController/issues/120">#120</a>
 
 ## 使用
 首先，把下面红框里的内容拖入项目。<br>
