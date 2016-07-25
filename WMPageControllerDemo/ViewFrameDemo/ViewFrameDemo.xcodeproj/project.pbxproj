@@ -13,14 +13,14 @@
 		4DD02A191D46648400BCA5F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DD02A181D46648400BCA5F1 /* Assets.xcassets */; };
 		4DD02A1C1D46648400BCA5F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DD02A1A1D46648400BCA5F1 /* LaunchScreen.storyboard */; };
 		4DD02A271D46648400BCA5F1 /* ViewFrameDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A261D46648400BCA5F1 /* ViewFrameDemoUITests.m */; };
-		4DD02A401D46649F00BCA5F1 /* WMFloodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A341D46649F00BCA5F1 /* WMFloodView.m */; };
-		4DD02A411D46649F00BCA5F1 /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A361D46649F00BCA5F1 /* WMMenuItem.m */; };
-		4DD02A421D46649F00BCA5F1 /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A381D46649F00BCA5F1 /* WMMenuView.m */; };
-		4DD02A431D46649F00BCA5F1 /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A3A1D46649F00BCA5F1 /* WMProgressView.m */; };
-		4DD02A441D46649F00BCA5F1 /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A3C1D46649F00BCA5F1 /* WMScrollView.m */; };
-		4DD02A451D46649F00BCA5F1 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A3F1D46649F00BCA5F1 /* WMPageController.m */; };
 		4DD02A4B1D4664CE00BCA5F1 /* WMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A481D4664CE00BCA5F1 /* WMHomeViewController.m */; };
 		4DD02A4C1D4664CE00BCA5F1 /* WMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A4A1D4664CE00BCA5F1 /* WMTableViewController.m */; };
+		4DD02A5C1D46674E00BCA5F1 /* WMFloodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A501D46674E00BCA5F1 /* WMFloodView.m */; };
+		4DD02A5D1D46674E00BCA5F1 /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A521D46674E00BCA5F1 /* WMMenuItem.m */; };
+		4DD02A5E1D46674E00BCA5F1 /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A541D46674E00BCA5F1 /* WMMenuView.m */; };
+		4DD02A5F1D46674E00BCA5F1 /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A561D46674E00BCA5F1 /* WMProgressView.m */; };
+		4DD02A601D46674E00BCA5F1 /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A581D46674E00BCA5F1 /* WMScrollView.m */; };
+		4DD02A611D46674E00BCA5F1 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A5B1D46674E00BCA5F1 /* WMPageController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,23 +45,23 @@
 		4DD02A221D46648400BCA5F1 /* ViewFrameDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewFrameDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DD02A261D46648400BCA5F1 /* ViewFrameDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewFrameDemoUITests.m; sourceTree = "<group>"; };
 		4DD02A281D46648400BCA5F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4DD02A331D46649F00BCA5F1 /* WMFloodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFloodView.h; sourceTree = "<group>"; };
-		4DD02A341D46649F00BCA5F1 /* WMFloodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFloodView.m; sourceTree = "<group>"; };
-		4DD02A351D46649F00BCA5F1 /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
-		4DD02A361D46649F00BCA5F1 /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
-		4DD02A371D46649F00BCA5F1 /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
-		4DD02A381D46649F00BCA5F1 /* WMMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuView.m; sourceTree = "<group>"; };
-		4DD02A391D46649F00BCA5F1 /* WMProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProgressView.h; sourceTree = "<group>"; };
-		4DD02A3A1D46649F00BCA5F1 /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
-		4DD02A3B1D46649F00BCA5F1 /* WMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMScrollView.h; sourceTree = "<group>"; };
-		4DD02A3C1D46649F00BCA5F1 /* WMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMScrollView.m; sourceTree = "<group>"; };
-		4DD02A3D1D46649F00BCA5F1 /* WMPageConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageConst.h; sourceTree = "<group>"; };
-		4DD02A3E1D46649F00BCA5F1 /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
-		4DD02A3F1D46649F00BCA5F1 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
 		4DD02A471D4664CE00BCA5F1 /* WMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHomeViewController.h; sourceTree = "<group>"; };
 		4DD02A481D4664CE00BCA5F1 /* WMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHomeViewController.m; sourceTree = "<group>"; };
 		4DD02A491D4664CE00BCA5F1 /* WMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMTableViewController.h; sourceTree = "<group>"; };
 		4DD02A4A1D4664CE00BCA5F1 /* WMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMTableViewController.m; sourceTree = "<group>"; };
+		4DD02A4F1D46674E00BCA5F1 /* WMFloodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFloodView.h; sourceTree = "<group>"; };
+		4DD02A501D46674E00BCA5F1 /* WMFloodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFloodView.m; sourceTree = "<group>"; };
+		4DD02A511D46674E00BCA5F1 /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
+		4DD02A521D46674E00BCA5F1 /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
+		4DD02A531D46674E00BCA5F1 /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
+		4DD02A541D46674E00BCA5F1 /* WMMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuView.m; sourceTree = "<group>"; };
+		4DD02A551D46674E00BCA5F1 /* WMProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProgressView.h; sourceTree = "<group>"; };
+		4DD02A561D46674E00BCA5F1 /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
+		4DD02A571D46674E00BCA5F1 /* WMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMScrollView.h; sourceTree = "<group>"; };
+		4DD02A581D46674E00BCA5F1 /* WMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMScrollView.m; sourceTree = "<group>"; };
+		4DD02A591D46674E00BCA5F1 /* WMPageConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageConst.h; sourceTree = "<group>"; };
+		4DD02A5A1D46674E00BCA5F1 /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
+		4DD02A5B1D46674E00BCA5F1 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +103,8 @@
 		4DD02A0B1D46648400BCA5F1 /* ViewFrameDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4DD02A4D1D46674E00BCA5F1 /* WMPageController */,
 				4DD02A461D4664CE00BCA5F1 /* Controllers */,
-				4DD02A311D46649F00BCA5F1 /* WMPageController */,
 				4DD02A0F1D46648400BCA5F1 /* AppDelegate.h */,
 				4DD02A101D46648400BCA5F1 /* AppDelegate.m */,
 				4DD02A151D46648400BCA5F1 /* Main.storyboard */,
@@ -133,35 +133,6 @@
 			path = ViewFrameDemoUITests;
 			sourceTree = "<group>";
 		};
-		4DD02A311D46649F00BCA5F1 /* WMPageController */ = {
-			isa = PBXGroup;
-			children = (
-				4DD02A321D46649F00BCA5F1 /* WMMenuView */,
-				4DD02A3D1D46649F00BCA5F1 /* WMPageConst.h */,
-				4DD02A3E1D46649F00BCA5F1 /* WMPageController.h */,
-				4DD02A3F1D46649F00BCA5F1 /* WMPageController.m */,
-			);
-			name = WMPageController;
-			path = ../../../../WMPageController;
-			sourceTree = "<group>";
-		};
-		4DD02A321D46649F00BCA5F1 /* WMMenuView */ = {
-			isa = PBXGroup;
-			children = (
-				4DD02A331D46649F00BCA5F1 /* WMFloodView.h */,
-				4DD02A341D46649F00BCA5F1 /* WMFloodView.m */,
-				4DD02A351D46649F00BCA5F1 /* WMMenuItem.h */,
-				4DD02A361D46649F00BCA5F1 /* WMMenuItem.m */,
-				4DD02A371D46649F00BCA5F1 /* WMMenuView.h */,
-				4DD02A381D46649F00BCA5F1 /* WMMenuView.m */,
-				4DD02A391D46649F00BCA5F1 /* WMProgressView.h */,
-				4DD02A3A1D46649F00BCA5F1 /* WMProgressView.m */,
-				4DD02A3B1D46649F00BCA5F1 /* WMScrollView.h */,
-				4DD02A3C1D46649F00BCA5F1 /* WMScrollView.m */,
-			);
-			path = WMMenuView;
-			sourceTree = "<group>";
-		};
 		4DD02A461D4664CE00BCA5F1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +142,35 @@
 				4DD02A4A1D4664CE00BCA5F1 /* WMTableViewController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4DD02A4D1D46674E00BCA5F1 /* WMPageController */ = {
+			isa = PBXGroup;
+			children = (
+				4DD02A4E1D46674E00BCA5F1 /* WMMenuView */,
+				4DD02A591D46674E00BCA5F1 /* WMPageConst.h */,
+				4DD02A5A1D46674E00BCA5F1 /* WMPageController.h */,
+				4DD02A5B1D46674E00BCA5F1 /* WMPageController.m */,
+			);
+			name = WMPageController;
+			path = ../../../WMPageController;
+			sourceTree = "<group>";
+		};
+		4DD02A4E1D46674E00BCA5F1 /* WMMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				4DD02A4F1D46674E00BCA5F1 /* WMFloodView.h */,
+				4DD02A501D46674E00BCA5F1 /* WMFloodView.m */,
+				4DD02A511D46674E00BCA5F1 /* WMMenuItem.h */,
+				4DD02A521D46674E00BCA5F1 /* WMMenuItem.m */,
+				4DD02A531D46674E00BCA5F1 /* WMMenuView.h */,
+				4DD02A541D46674E00BCA5F1 /* WMMenuView.m */,
+				4DD02A551D46674E00BCA5F1 /* WMProgressView.h */,
+				4DD02A561D46674E00BCA5F1 /* WMProgressView.m */,
+				4DD02A571D46674E00BCA5F1 /* WMScrollView.h */,
+				4DD02A581D46674E00BCA5F1 /* WMScrollView.m */,
+			);
+			path = WMMenuView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +222,7 @@
 				TargetAttributes = {
 					4DD02A081D46648400BCA5F1 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9M5YW84CE4;
 					};
 					4DD02A211D46648400BCA5F1 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -273,16 +274,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DD02A451D46649F00BCA5F1 /* WMPageController.m in Sources */,
-				4DD02A421D46649F00BCA5F1 /* WMMenuView.m in Sources */,
-				4DD02A411D46649F00BCA5F1 /* WMMenuItem.m in Sources */,
 				4DD02A111D46648400BCA5F1 /* AppDelegate.m in Sources */,
 				4DD02A4B1D4664CE00BCA5F1 /* WMHomeViewController.m in Sources */,
+				4DD02A5C1D46674E00BCA5F1 /* WMFloodView.m in Sources */,
 				4DD02A4C1D4664CE00BCA5F1 /* WMTableViewController.m in Sources */,
+				4DD02A5E1D46674E00BCA5F1 /* WMMenuView.m in Sources */,
 				4DD02A0E1D46648400BCA5F1 /* main.m in Sources */,
-				4DD02A431D46649F00BCA5F1 /* WMProgressView.m in Sources */,
-				4DD02A401D46649F00BCA5F1 /* WMFloodView.m in Sources */,
-				4DD02A441D46649F00BCA5F1 /* WMScrollView.m in Sources */,
+				4DD02A611D46674E00BCA5F1 /* WMPageController.m in Sources */,
+				4DD02A5D1D46674E00BCA5F1 /* WMMenuItem.m in Sources */,
+				4DD02A601D46674E00BCA5F1 /* WMScrollView.m in Sources */,
+				4DD02A5F1D46674E00BCA5F1 /* WMProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,10 +411,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ViewFrameDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wecan.ViewFrameDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -421,10 +425,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ViewFrameDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wecan.ViewFrameDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -469,6 +476,7 @@
 				4DD02A2D1D46648400BCA5F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DD02A2E1D46648400BCA5F1 /* Build configuration list for PBXNativeTarget "ViewFrameDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -477,6 +485,7 @@
 				4DD02A301D46648400BCA5F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
