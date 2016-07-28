@@ -9,7 +9,7 @@
 #import "WMHomeViewController.h"
 #import "WMTableViewController.h"
 
-@interface WMHomeViewController ()
+@interface WMHomeViewController () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSArray *musicCategories;
 @end
 
@@ -29,6 +29,7 @@
         self.menuViewStyle = WMMenuViewStyleLine;
         self.menuItemWidth = [UIScreen mainScreen].bounds.size.width / self.musicCategories.count;
         self.menuHeight = 50;
+        self.viewTop = kNavigationBarHeight + kWMHeaderViewHeight;
     }
     return self;
 }
@@ -36,9 +37,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.viewTop = kNavigationBarHeight + kWMHeaderViewHeight;
     self.title = @"专辑";
 }
+
 
 // MARK: ChangeViewFrame (Animatable)
 - (void)setViewTop:(CGFloat)viewTop {
@@ -73,6 +74,14 @@
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     return self.musicCategories[index];
+}
+
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
+    NSLog(@"%@",viewController);
+    WMTableViewController *vc = (WMTableViewController *)viewController;
+    NSLog(@"%@", NSStringFromCGPoint(vc.tableView.contentOffset));
+    
+    vc.tableView.contentOffset = CGPointMake(0, kNavigationBarHeight + kWMHeaderViewHeight - self.viewTop);
 }
 
 @end

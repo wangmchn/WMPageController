@@ -193,7 +193,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)willEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
-    _selectIndex = (int)index;
     if (self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:willEnterViewController:withInfo:)]) {
         NSDictionary *info = [self infoWithIndex:index];
         [self.delegate pageController:self willEnterViewController:vc withInfo:info];
