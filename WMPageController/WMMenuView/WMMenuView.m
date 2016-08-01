@@ -293,13 +293,17 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self calculateItemFrames];
     for (NSInteger i = index; i < self.titlesCount; i++) {
         [self resetItemFrame:i];
-        
         [self resetBadgeFrame:i];
     }
     if (!self.progressView.superview) { return; }
     CGRect frame = self.progressView.frame;
     frame.size.width = self.scrollView.contentSize.width;
-    frame.origin.y = (self.scrollView.frame.size.height - frame.size.height) / 2.0;
+    if (self.style == WMMenuViewStyleLine) {
+        frame.origin.y = self.frame.size.height - self.progressHeight - self.progressViewBottomSpace;
+    } else {
+        frame.origin.y = (self.scrollView.frame.size.height - frame.size.height) / 2.0;
+    }
+    
     self.progressView.frame = frame;
     self.progressView.itemFrames = [self convertProgressWidthsToFrames];
     [self.progressView setNeedsDisplay];
