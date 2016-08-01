@@ -37,6 +37,8 @@ typedef NS_ENUM(NSUInteger, WMMenuItemState) {
 
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
 @property (nonatomic, weak) id<WMMenuItemDelegate> delegate;
+/** 进度条的速度因数，默认为 15，越小越快， 大于 0 */
+@property (nonatomic, assign) CGFloat speedFactor;
 
 - (void)selectedItemWithoutAnimation;
 - (void)deselectedItemWithoutAnimation;

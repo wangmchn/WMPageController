@@ -19,9 +19,11 @@ static CGFloat   const WMProgressHeight = 2.0;
 static CGFloat   const WMMenuItemWidth  = 60.0;
 static NSInteger const WMMenuItemTagOffset  = 6250;
 static NSInteger const WMBadgeViewTagOffset = 1212;
+
 @implementation WMMenuView
 
 #pragma mark - Setter
+
 - (void)setLayoutMode:(WMMenuViewLayoutMode)layoutMode {
     _layoutMode = layoutMode;
     if (!self.superview) { return; }
@@ -61,7 +63,28 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         });
         
     }
+    
+}
 
+- (void)setProgressViewCornerRadius:(CGFloat)progressViewCornerRadius {
+    _progressViewCornerRadius = progressViewCornerRadius;
+    if (self.progressView) {
+        self.progressView.cornerRadius = _progressViewCornerRadius;
+    }
+}
+
+- (void)setSpeedFactor:(CGFloat)speedFactor {
+    _speedFactor = speedFactor;
+    if (self.progressView) {
+        self.progressView.speedFactor = _speedFactor;
+    }
+    
+    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[WMMenuItem class]]) {
+            ((WMMenuItem *)obj).speedFactor = _speedFactor;
+        }
+    }];
+    
 }
 
 - (void)setProgressWidths:(NSArray *)progressWidths {
@@ -156,7 +179,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         return nil;
     }
     badgeView.tag = index + WMBadgeViewTagOffset;
-
+    
     return badgeView;
 }
 
@@ -276,11 +299,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     if (!self.progressView.superview) { return; }
     CGRect frame = self.progressView.frame;
     frame.size.width = self.scrollView.contentSize.width;
-    if ([self.progressView isKindOfClass:[WMFloodView class]]) {
-        frame.origin.y = 0;
-    } else {
-        frame.origin.y = self.frame.size.height - self.progressHeight - self.progressViewBottomSpace;
-    }
+    frame.origin.y = (self.scrollView.frame.size.height - frame.size.height) / 2.0;
     self.progressView.frame = frame;
     self.progressView.itemFrames = [self convertProgressWidthsToFrames];
     [self.progressView setNeedsDisplay];
@@ -337,22 +356,17 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 }
 
 - (void)makeStyle {
-    switch (self.style) {
-        case WMMenuViewStyleLine:
-            [self addProgressView];
-            break;
-        case WMMenuViewStyleFlood:
-            [self addFloodViewWithBorder:NO hollow:NO];
-            break;
-        case WMMenuViewStyleFloodHollow:
-            [self addFloodViewWithBorder:NO hollow:YES];
-            break;
-        case WMMenuViewStyleSegmented:
-            [self addFloodViewWithBorder:YES hollow:NO];
-            break;
-        default:
-            break;
+    CGRect frame = CGRectZero;
+    if (self.style == WMMenuViewStyleDefault) { return; }
+    if (self.style == WMMenuViewStyleLine) {
+        self.progressHeight = self.progressHeight > 0 ? self.progressHeight : WMProgressHeight;
+        frame = CGRectMake(0, self.frame.size.height - self.progressHeight - self.progressViewBottomSpace, self.scrollView.contentSize.width, self.progressHeight);
+    } else {
+        self.progressHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height * 0.8;
+        frame = CGRectMake(0, (self.frame.size.height - self.progressHeight) / 2, self.scrollView.contentSize.width, self.progressHeight);
     }
+    self.progressViewCornerRadius = self.progressViewCornerRadius > 0 ? self.progressViewCornerRadius : self.progressHeight / 2.0;
+    [self wm_addProgressViewWithFrame:frame hasBorder:(self.style == WMMenuViewStyleSegmented) hollow:(self.style == WMMenuViewStyleFloodHollow) cornerRadius:self.progressViewCornerRadius];
 }
 
 // 让选中的item位于中间
@@ -384,7 +398,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[WMMenuItem class]]) {
             WMMenuItem *item = (WMMenuItem *)obj;
-            if (item != self.selItem) {
+            if (item != self.selItem && item.selected == YES) {
                 [item deselectedItemWithoutAnimation];
             }
         }
@@ -428,6 +442,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         item.selectedSize  = self.selectedSize;
         item.normalColor   = self.normalColor;
         item.selectedColor = self.selectedColor;
+        item.speedFactor   = self.speedFactor;
         if (i == 0) {
             [item selectedItemWithoutAnimation];
             self.selItem = item;
@@ -493,27 +508,17 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 }
 
 // MARK:Progress View
-- (void)addProgressView {
-    self.progressHeight = self.progressHeight > 0 ? self.progressHeight : WMProgressHeight;
-    WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - self.progressHeight, self.scrollView.contentSize.width, self.progressHeight)];
+- (void)wm_addProgressViewWithFrame:(CGRect)frame hasBorder:(BOOL)hasBorder hollow:(BOOL)isHollow cornerRadius:(CGFloat)cornerRadius {
+    WMProgressView *pView = [[WMProgressView alloc] initWithFrame:frame];
     pView.itemFrames = [self convertProgressWidthsToFrames];
     pView.color = self.lineColor.CGColor;
+    pView.hasBorder = hasBorder;
+    pView.hollow = isHollow;
+    pView.cornerRadius = cornerRadius;
+    pView.speedFactor = self.speedFactor;
     pView.backgroundColor = [UIColor clearColor];
     self.progressView = pView;
-    [self.scrollView addSubview:pView];
-}
-
-- (void)addFloodViewWithBorder:(BOOL)hasBorder hollow:(BOOL)isHollow {
-    CGFloat floodHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height;
-    CGFloat floodY = self.frame.size.height - floodHeight - self.progressViewBottomSpace;
-    WMFloodView *floodView = [[WMFloodView alloc] initWithFrame:CGRectMake(0, floodY, self.scrollView.contentSize.width, floodHeight)];
-    floodView.itemFrames = [self convertProgressWidthsToFrames];
-    floodView.color = self.lineColor.CGColor;
-    floodView.hollow = isHollow;
-    floodView.hasBorder = hasBorder;
-    floodView.backgroundColor = [UIColor clearColor];
-    self.progressView = floodView;
-    [self.scrollView insertSubview:floodView atIndex:0];
+    [self.scrollView insertSubview:self.progressView atIndex:0];
 }
 
 #pragma mark - Menu item delegate

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D5E656E1CFC37C50060EE50 /* WMFloodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5E656D1CFC37C50060EE50 /* WMFloodView.m */; };
 		4DEBF6421C3906E200FFAE10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEBF6411C3906E200FFAE10 /* main.m */; };
 		4DEBF6451C3906E200FFAE10 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEBF6441C3906E200FFAE10 /* AppDelegate.m */; };
 		4DEBF64B1C3906E200FFAE10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DEBF6491C3906E200FFAE10 /* Main.storyboard */; };
@@ -45,8 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4D5E656C1CFC37C50060EE50 /* WMFloodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFloodView.h; sourceTree = "<group>"; };
-		4D5E656D1CFC37C50060EE50 /* WMFloodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFloodView.m; sourceTree = "<group>"; };
 		4DEBF63D1C3906E200FFAE10 /* Use Datasource.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Use Datasource.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DEBF6411C3906E200FFAE10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4DEBF6431C3906E200FFAE10 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -186,8 +183,6 @@
 		4DEBF6741C39070700FFAE10 /* WMMenuView */ = {
 			isa = PBXGroup;
 			children = (
-				4D5E656C1CFC37C50060EE50 /* WMFloodView.h */,
-				4D5E656D1CFC37C50060EE50 /* WMFloodView.m */,
 				4DEBF6771C39070700FFAE10 /* WMMenuItem.h */,
 				4DEBF6781C39070700FFAE10 /* WMMenuItem.m */,
 				4DEBF6791C39070700FFAE10 /* WMMenuView.h */,
@@ -366,7 +361,6 @@
 				4DEBF6941C390A9C00FFAE10 /* WMViewController.m in Sources */,
 				4DEBF69D1C390C0900FFAE10 /* WMBlankViewController.m in Sources */,
 				4DEBF6871C39070700FFAE10 /* WMPageController.m in Sources */,
-				4D5E656E1CFC37C50060EE50 /* WMFloodView.m in Sources */,
 				4DEBF6841C39070700FFAE10 /* WMMenuView.m in Sources */,
 				4DEBF68B1C39076100FFAE10 /* WMCustomPageController.m in Sources */,
 				4DEBF6831C39070700FFAE10 /* WMMenuItem.m in Sources */,

@@ -14,6 +14,10 @@
 @property (nonatomic, assign) CGFloat progress;
 /** 进度条的速度因数，默认为 15，越小越快， 大于 0 */
 @property (nonatomic, assign) CGFloat speedFactor;
+@property (nonatomic, assign) CGFloat cornerRadius;
+
+@property (nonatomic, assign) BOOL hollow;
+@property (nonatomic, assign) BOOL hasBorder;
 
 - (void)setProgressWithOutAnimate:(CGFloat)progress;
 - (void)moveToPostion:(NSInteger)pos;

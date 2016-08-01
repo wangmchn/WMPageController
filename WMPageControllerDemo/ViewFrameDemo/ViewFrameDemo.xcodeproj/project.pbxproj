@@ -15,7 +15,6 @@
 		4DD02A271D46648400BCA5F1 /* ViewFrameDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A261D46648400BCA5F1 /* ViewFrameDemoUITests.m */; };
 		4DD02A4B1D4664CE00BCA5F1 /* WMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A481D4664CE00BCA5F1 /* WMHomeViewController.m */; };
 		4DD02A4C1D4664CE00BCA5F1 /* WMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A4A1D4664CE00BCA5F1 /* WMTableViewController.m */; };
-		4DD02A5C1D46674E00BCA5F1 /* WMFloodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A501D46674E00BCA5F1 /* WMFloodView.m */; };
 		4DD02A5D1D46674E00BCA5F1 /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A521D46674E00BCA5F1 /* WMMenuItem.m */; };
 		4DD02A5E1D46674E00BCA5F1 /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A541D46674E00BCA5F1 /* WMMenuView.m */; };
 		4DD02A5F1D46674E00BCA5F1 /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A561D46674E00BCA5F1 /* WMProgressView.m */; };
@@ -49,8 +48,6 @@
 		4DD02A481D4664CE00BCA5F1 /* WMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHomeViewController.m; sourceTree = "<group>"; };
 		4DD02A491D4664CE00BCA5F1 /* WMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMTableViewController.h; sourceTree = "<group>"; };
 		4DD02A4A1D4664CE00BCA5F1 /* WMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMTableViewController.m; sourceTree = "<group>"; };
-		4DD02A4F1D46674E00BCA5F1 /* WMFloodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFloodView.h; sourceTree = "<group>"; };
-		4DD02A501D46674E00BCA5F1 /* WMFloodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFloodView.m; sourceTree = "<group>"; };
 		4DD02A511D46674E00BCA5F1 /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
 		4DD02A521D46674E00BCA5F1 /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
 		4DD02A531D46674E00BCA5F1 /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
@@ -159,8 +156,6 @@
 		4DD02A4E1D46674E00BCA5F1 /* WMMenuView */ = {
 			isa = PBXGroup;
 			children = (
-				4DD02A4F1D46674E00BCA5F1 /* WMFloodView.h */,
-				4DD02A501D46674E00BCA5F1 /* WMFloodView.m */,
 				4DD02A511D46674E00BCA5F1 /* WMMenuItem.h */,
 				4DD02A521D46674E00BCA5F1 /* WMMenuItem.m */,
 				4DD02A531D46674E00BCA5F1 /* WMMenuView.h */,
@@ -276,7 +271,6 @@
 			files = (
 				4DD02A111D46648400BCA5F1 /* AppDelegate.m in Sources */,
 				4DD02A4B1D4664CE00BCA5F1 /* WMHomeViewController.m in Sources */,
-				4DD02A5C1D46674E00BCA5F1 /* WMFloodView.m in Sources */,
 				4DD02A4C1D4664CE00BCA5F1 /* WMTableViewController.m in Sources */,
 				4DD02A5E1D46674E00BCA5F1 /* WMMenuView.m in Sources */,
 				4DD02A0E1D46648400BCA5F1 /* main.m in Sources */,

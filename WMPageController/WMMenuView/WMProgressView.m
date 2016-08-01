@@ -8,9 +8,9 @@
 
 #import "WMProgressView.h"
 @implementation WMProgressView {
-    int     sign;
-    CGFloat gap;
-    CGFloat step;
+    int     _sign;
+    CGFloat _gap;
+    CGFloat _step;
     __weak  CADisplayLink *_link;
 }
 
@@ -27,11 +27,17 @@
     [self setNeedsDisplay];
 }
 
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+    _cornerRadius = cornerRadius;
+    [self setNeedsDisplay];
+}
+
 - (void)moveToPostion:(NSInteger)pos {
-    gap = fabs(self.progress - pos);
-    sign = self.progress > pos ? -1 : 1;
-    step = gap / self.speedFactor;
+    _gap = fabs(self.progress - pos);
+    _sign = self.progress > pos ? -1 : 1;
+    _step = _gap / self.speedFactor;
     if (_link) {
+        [_link invalidate];
         [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
     CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(progressChanged)];
@@ -46,13 +52,13 @@
 }
 
 - (void)progressChanged {
-    if (gap > 0.000001) {
-        gap -= step;
-        if (gap < 0.0) {
-            self.progress = (int)(self.progress + sign * step + 0.5);
+    if (_gap > 0.000001) {
+        _gap -= _step;
+        if (_gap < 0.0) {
+            self.progress = (int)(self.progress + _sign * _step + 0.5);
             return;
         }
-        self.progress += sign * step;
+        self.progress += _sign * _step;
     } else {
         self.progress = (int)(self.progress + 0.5);
         [_link invalidate];
@@ -72,16 +78,37 @@
     int nextIndex = index + 1 < self.itemFrames.count ? index + 1 : index;
     CGFloat nextWidth = [self.itemFrames[nextIndex] CGRectValue].size.width;
     CGFloat height = self.frame.size.height;
-    CGFloat constY = height / 2;
     CGFloat currentX = currentFrame.origin.x;
     CGFloat nextX = [self.itemFrames[nextIndex] CGRectValue].origin.x;
     CGFloat startX = currentX + (nextX - currentX) * rate;
-    CGFloat endX = startX + currentWidth + (nextWidth - currentWidth)*rate;
-    CGContextMoveToPoint(ctx, startX, constY);
-    CGContextAddLineToPoint(ctx, endX, constY);
-    CGContextSetLineWidth(ctx, height);
-    CGContextSetStrokeColorWithColor(ctx, self.color);
-    CGContextStrokePath(ctx);
+    CGFloat width = currentWidth + (nextWidth - currentWidth)*rate;
+    
+    CGFloat lineWidth = (self.hollow || self.hasBorder) ? 1.0 : 0.0;
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, width, height - lineWidth) cornerRadius:self.cornerRadius];
+    
+    CGContextAddPath(ctx, path.CGPath);
+    
+    if (self.hollow) {
+        CGContextSetStrokeColorWithColor(ctx, self.color);
+        CGContextStrokePath(ctx);
+        return;
+    }
+    CGContextSetFillColorWithColor(ctx, self.color);
+    CGContextFillPath(ctx);
+    
+    if (self.hasBorder) {
+        // 计算点
+        CGFloat startX = CGRectGetMinX([self.itemFrames.firstObject CGRectValue]);
+        CGFloat endX = CGRectGetMaxX([self.itemFrames.lastObject CGRectValue]);
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, (endX - startX), height - lineWidth) cornerRadius:self.cornerRadius];
+        CGContextSetLineWidth(ctx, lineWidth);
+        CGContextAddPath(ctx, path.CGPath);
+        
+        // 绘制
+        CGContextSetStrokeColorWithColor(ctx, self.color);
+        CGContextStrokePath(ctx);
+    }
+    
 }
 
 @end

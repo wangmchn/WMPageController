@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMMenuItem.h"
-#import "WMFloodView.h"
+#import "WMProgressView.h"
 @class WMMenuView;
 
 typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
@@ -90,6 +90,9 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 @property (nonatomic, readonly) UIColor *normalColor;
 
 @property (nonatomic, weak) UIScrollView *scrollView;
+/** 进度条的速度因数，默认为 15，越小越快， 大于 0 */
+@property (nonatomic, assign) CGFloat speedFactor;
+@property (nonatomic, assign) CGFloat progressViewCornerRadius;
 
 - (void)slideMenuAtProgress:(CGFloat)progress;
 - (void)selectItemAtIndex:(NSInteger)index;

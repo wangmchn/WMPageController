@@ -80,7 +80,9 @@
     NSLog(@"%@",viewController);
     WMTableViewController *vc = (WMTableViewController *)viewController;
     NSLog(@"%@", NSStringFromCGPoint(vc.tableView.contentOffset));
-    
+    if (vc.tableView.contentOffset.y > kWMHeaderViewHeight) {
+        return;
+    }
     vc.tableView.contentOffset = CGPointMake(0, kNavigationBarHeight + kWMHeaderViewHeight - self.viewTop);
 }
 

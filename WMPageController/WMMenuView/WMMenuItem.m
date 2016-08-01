@@ -11,6 +11,10 @@
 @interface WMMenuItem () {
     CGFloat _selectedRed, _selectedGreen, _selectedBlue, _selectedAlpha;
     CGFloat _normalRed, _normalGreen, _normalBlue, _normalAlpha;
+    int     _sign;
+    CGFloat _gap;
+    CGFloat _step;
+    __weak CADisplayLink *_link;
 }
 @end
 
@@ -28,17 +32,42 @@
     return self;
 }
 
+- (CGFloat)speedFactor {
+    if (_speedFactor <= 0) {
+        _speedFactor = 15.0;
+    }
+    return _speedFactor;
+}
+
 // 设置选中，隐式动画所在
 - (void)setSelected:(BOOL)selected {
     if (self.selected == selected) { return; }
-    [UIView animateWithDuration:0.3 animations:^{
-        if (self.selected == YES) {
-            self.rate = 0.0;
-        } else {
-            self.rate = 1.0;
+    _selected = selected;
+    _sign = (selected == YES) ? 1 : -1;
+    _gap = 1.0;
+    _step = _gap / self.speedFactor;
+    if (_link) {
+        [_link invalidate];
+        [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    }
+    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(rateChange)];
+    [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    _link = link;
+}
+
+- (void)rateChange {
+    if (_gap > 0.000001) {
+        _gap -= _step;
+        if (_gap < 0.0) {
+            self.rate = (int)(self.rate + _sign * _step + 0.5);
+            return;
         }
-        _selected = selected;
-    } completion:nil];
+        self.rate += _sign * _step;
+    } else {
+        self.rate = (int)(self.rate + 0.5);
+        [_link invalidate];
+        _link = nil;
+    }
 }
 
 // 设置rate,并刷新标题状态
@@ -75,6 +104,9 @@
 }
 
 #pragma mark - Private Methods
+- (void)dealloc {
+
+}
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if ([self.delegate respondsToSelector:@selector(didPressedMenuItem:)]) {
