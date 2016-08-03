@@ -84,8 +84,18 @@
     CGFloat width = currentWidth + (nextWidth - currentWidth)*rate;
     
     CGFloat lineWidth = (self.hollow || self.hasBorder) ? 1.0 : 0.0;
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, width, height - lineWidth) cornerRadius:self.cornerRadius];
     
+    if (self.isTriangle) {
+        CGContextMoveToPoint(ctx, startX, height);
+        CGContextAddLineToPoint(ctx, startX + width, height);
+        CGContextAddLineToPoint(ctx, (startX*2 + width)/2.0, 0);
+        CGContextClosePath(ctx);
+        CGContextSetFillColorWithColor(ctx, self.color);
+        CGContextFillPath(ctx);
+        return;
+    }
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, width, height - lineWidth) cornerRadius:self.cornerRadius];
     CGContextAddPath(ctx, path.CGPath);
     
     if (self.hollow) {

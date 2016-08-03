@@ -298,7 +298,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     if (!self.progressView.superview) { return; }
     CGRect frame = self.progressView.frame;
     frame.size.width = self.scrollView.contentSize.width;
-    if (self.style == WMMenuViewStyleLine) {
+    if (self.style == WMMenuViewStyleLine || self.style == WMMenuViewStyleTriangle) {
         frame.origin.y = self.frame.size.height - self.progressHeight - self.progressViewBottomSpace;
     } else {
         frame.origin.y = (self.scrollView.frame.size.height - frame.size.height) / 2.0;
@@ -370,7 +370,11 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         frame = CGRectMake(0, (self.frame.size.height - self.progressHeight) / 2, self.scrollView.contentSize.width, self.progressHeight);
     }
     self.progressViewCornerRadius = self.progressViewCornerRadius > 0 ? self.progressViewCornerRadius : self.progressHeight / 2.0;
-    [self wm_addProgressViewWithFrame:frame hasBorder:(self.style == WMMenuViewStyleSegmented) hollow:(self.style == WMMenuViewStyleFloodHollow) cornerRadius:self.progressViewCornerRadius];
+    [self wm_addProgressViewWithFrame:frame
+                           isTriangle:(self.style == WMMenuViewStyleTriangle)
+                            hasBorder:(self.style == WMMenuViewStyleSegmented)
+                               hollow:(self.style == WMMenuViewStyleFloodHollow)
+                         cornerRadius:self.progressViewCornerRadius];
 }
 
 // 让选中的item位于中间
@@ -512,10 +516,11 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 }
 
 // MARK:Progress View
-- (void)wm_addProgressViewWithFrame:(CGRect)frame hasBorder:(BOOL)hasBorder hollow:(BOOL)isHollow cornerRadius:(CGFloat)cornerRadius {
+- (void)wm_addProgressViewWithFrame:(CGRect)frame isTriangle:(BOOL)isTriangle hasBorder:(BOOL)hasBorder hollow:(BOOL)isHollow cornerRadius:(CGFloat)cornerRadius {
     WMProgressView *pView = [[WMProgressView alloc] initWithFrame:frame];
     pView.itemFrames = [self convertProgressWidthsToFrames];
     pView.color = self.lineColor.CGColor;
+    pView.isTriangle = isTriangle;
     pView.hasBorder = hasBorder;
     pView.hollow = isHollow;
     pView.cornerRadius = cornerRadius;

@@ -104,9 +104,6 @@
 }
 
 #pragma mark - Private Methods
-- (void)dealloc {
-
-}
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if ([self.delegate respondsToSelector:@selector(didPressedMenuItem:)]) {

@@ -16,9 +16,11 @@
 @property (nonatomic, assign) CGFloat speedFactor;
 @property (nonatomic, assign) CGFloat cornerRadius;
 
+@property (nonatomic, assign) BOOL isTriangle;
 @property (nonatomic, assign) BOOL hollow;
 @property (nonatomic, assign) BOOL hasBorder;
 
 - (void)setProgressWithOutAnimate:(CGFloat)progress;
 - (void)moveToPostion:(NSInteger)pos;
+
 @end

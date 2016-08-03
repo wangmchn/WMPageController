@@ -24,7 +24,8 @@
                     @"WMMenuViewStyleFlood",
                     @"WMMenuViewStyleFloodHollow",
                     @"WMMenuViewShowOnNav",
-                    @"WMMenuViewStyleSegmented"];
+                    @"WMMenuViewStyleSegmented",
+                    @"WMMenuViewStyleTriangle"];
     }
     return _styles;
 }
@@ -112,7 +113,21 @@
         pageController.titleColorNormal = [UIColor blackColor];
         pageController.progressColor = [UIColor blackColor];
         pageController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
+    } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleTriangle"]) {
+        pageController.progressHeight = 5;
+        
+        pageController.progressViewWidths = ({
+            NSMutableArray *tmp = [NSMutableArray array];
+            [pageController.titles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [tmp addObject:@10];
+            }];
+            tmp.copy;
+        });
+        pageController.menuViewStyle = WMMenuViewStyleTriangle;
+        pageController.titleSizeSelected = 15;
+
     }
+    
     [self.navigationController pushViewController:pageController animated:YES];
 }
 

@@ -14,6 +14,7 @@
 typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
     WMMenuViewStyleDefault,      // 默认
     WMMenuViewStyleLine,         // 带下划线 (若要选中字体大小不变，设置选中和非选中大小一样即可)
+    WMMenuViewStyleTriangle,     // 三角形 (progressHeight 为三角形的高, progressWidths 为底边长)
     WMMenuViewStyleFlood,        // 涌入效果 (填充)
     WMMenuViewStyleFloodHollow,  // 涌入效果 (空心的)
     WMMenuViewStyleSegmented,    // 涌入带边框,即网易新闻选项卡
