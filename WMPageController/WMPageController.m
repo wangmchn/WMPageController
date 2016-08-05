@@ -193,6 +193,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)willEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
+    _selectIndex = (int)index;
     if (self.childControllersCount && [self.delegate respondsToSelector:@selector(pageController:willEnterViewController:withInfo:)]) {
         NSDictionary *info = [self infoWithIndex:index];
         [self.delegate pageController:self willEnterViewController:vc withInfo:info];
@@ -422,7 +423,11 @@ static NSInteger const kWMControllerCountUndefined = -1;
     } else {
         [self.view addSubview:menuView];
     }
-    self.menuView = menuView;
+    self.menuView = menuView; 
+    
+    if (self.selectIndex != 0) {
+        [self.menuView selectItemAtIndex:self.selectIndex];
+    }
 }
 
 - (void)wm_layoutChildViewControllers {
@@ -594,10 +599,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     // Wait for a better solution.
     _shouldNotScroll = YES;
     CGRect scrollFrame = CGRectMake(_viewX, _viewY + self.menuHeight + self.menuViewBottomSpace, _viewWidth, _viewHeight);
+    CGFloat oldContentOffsetX = self.scrollView.contentOffset.x;
+    CGFloat contentWidth = self.scrollView.contentSize.width;
     scrollFrame.origin.y -= self.showOnNavigationBar && self.navigationController.navigationBar ? self.menuHeight : 0;
     self.scrollView.frame = scrollFrame;
     self.scrollView.contentSize = CGSizeMake(self.childControllersCount * _viewWidth, 0);
-    [self.scrollView setContentOffset:CGPointMake(self.selectIndex * _viewWidth, 0)];
+    CGFloat xContentOffset = contentWidth == 0 ? self.selectIndex * _viewWidth : oldContentOffsetX / contentWidth * self.childControllersCount * _viewWidth;
+    [self.scrollView setContentOffset:CGPointMake(xContentOffset, 0)];
     _shouldNotScroll = NO;
 }
 
@@ -637,11 +645,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
     CGFloat menuWidth = _viewWidth - menuX - rightWidth;
     self.menuView.frame = CGRectMake(menuX, menuY, menuWidth, menuHeight);
     [self.menuView resetFrames];
-    // 如果设置了初始选择的序号，那么选中该item，因为 titleView 的周期问题更改放到这里
-    if (self.selectIndex != 0) {
-        // 不会重复选中
-        [self.menuView selectItemAtIndex:self.selectIndex];
-    }
 }
 
 #pragma mark - Life Cycle

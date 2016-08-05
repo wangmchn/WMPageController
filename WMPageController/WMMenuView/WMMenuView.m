@@ -12,6 +12,7 @@
 @property (nonatomic, weak) WMMenuItem *selItem;
 @property (nonatomic, strong) NSMutableArray *frames;
 @property (nonatomic, readonly) NSInteger titlesCount;
+@property (nonatomic, assign) NSInteger selectIndex;
 @end
 
 // 下划线的高度
@@ -217,6 +218,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 - (void)selectItemAtIndex:(NSInteger)index {
     NSInteger tag = index + WMMenuItemTagOffset;
     NSInteger currentIndex = self.selItem.tag - WMMenuItemTagOffset;
+    self.selectIndex = index;
     if (index == currentIndex || !self.selItem) { return; }
     
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
@@ -262,6 +264,9 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self addItems];
     [self makeStyle];
     [self addBadgeViews];
+    
+    if (self.selectIndex == 0) { return; }
+    [self selectItemAtIndex:self.selectIndex];
 }
 
 - (void)resetFrames {
