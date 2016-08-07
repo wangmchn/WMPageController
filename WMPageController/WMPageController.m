@@ -125,6 +125,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)setViewFrame:(CGRect)viewFrame {
+    if (CGRectEqualToRect(viewFrame, _viewFrame)) {
+        return;
+    }
     _viewFrame = viewFrame;
     if (self.menuView) {
         _hasInited = NO;
@@ -732,7 +735,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
         CGFloat rate = contentOffsetX / _viewWidth;
         [self.menuView slideMenuAtProgress:rate];
     }
-    
+   
     // fix scrollView.contentOffset.y -> (-20) unexpectedly.
     if (scrollView.contentOffset.y == 0) { return; }
     CGPoint contentOffset = scrollView.contentOffset;
