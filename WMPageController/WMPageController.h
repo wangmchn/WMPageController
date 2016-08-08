@@ -275,7 +275,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
 /** 顶部 menuView 和 scrollView 之间的间隙 */
 @property (nonatomic, assign) CGFloat menuViewBottomSpace;
 
-/**  */
+/** progressView 到 menuView 底部的距离 */
 @property (nonatomic, assign) CGFloat progressViewBottomSpace;
 
 /** 顶部导航栏 */

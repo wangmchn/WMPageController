@@ -185,6 +185,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 }
 
 #pragma mark - Public Methods
+
 - (void)reload {
     [self.frames removeAllObjects];
     [self.progressView removeFromSuperview];
@@ -251,6 +252,31 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self resetBadgeFrame:index];
 }
 
+// 让选中的item位于中间
+- (void)refreshContenOffset {
+    CGRect frame = self.selItem.frame;
+    CGFloat itemX = frame.origin.x;
+    CGFloat width = self.scrollView.frame.size.width;
+    CGSize contentSize = self.scrollView.contentSize;
+    if (itemX > width/2) {
+        CGFloat targetX;
+        if ((contentSize.width-itemX) <= width/2) {
+            targetX = contentSize.width - width;
+        } else {
+            targetX = frame.origin.x - width/2 + frame.size.width/2;
+        }
+        // 应该有更好的解决方法
+        if (targetX + width > contentSize.width) {
+            targetX = contentSize.width - width;
+        }
+        [self.scrollView setContentOffset:CGPointMake(targetX, 0) animated:YES];
+    } else {
+        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }
+    // MARK: 暂时解决多选中问题 (需要复现并找到根本原因 see#67)
+    [self deselectedItemsIfNeeded];
+}
+
 #pragma mark - Data source
 - (NSInteger)titlesCount {
     return [self.dataSource numbersOfTitlesInMenuView:self];
@@ -290,7 +316,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     frame.size.width -= self.contentMargin * 2;
     self.scrollView.frame = frame;
     [self resetFramesFromIndex:0];
-    [self refreshContenOffset];
+//    [self refreshContenOffset];
 }
 
 - (void)resetFramesFromIndex:(NSInteger)index {
@@ -380,31 +406,6 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
                             hasBorder:(self.style == WMMenuViewStyleSegmented)
                                hollow:(self.style == WMMenuViewStyleFloodHollow)
                          cornerRadius:self.progressViewCornerRadius];
-}
-
-// 让选中的item位于中间
-- (void)refreshContenOffset {
-    CGRect frame = self.selItem.frame;
-    CGFloat itemX = frame.origin.x;
-    CGFloat width = self.scrollView.frame.size.width;
-    CGSize contentSize = self.scrollView.contentSize;
-    if (itemX > width/2) {
-        CGFloat targetX;
-        if ((contentSize.width-itemX) <= width/2) {
-            targetX = contentSize.width - width;
-        } else {
-            targetX = frame.origin.x - width/2 + frame.size.width/2;
-        }
-        // 应该有更好的解决方法
-        if (targetX + width > contentSize.width) {
-            targetX = contentSize.width - width;
-        }
-        [self.scrollView setContentOffset:CGPointMake(targetX, 0) animated:YES];
-    } else {
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    }
-    // MARK: 暂时解决多选中问题 (需要复现并找到根本原因 see#67)
-    [self deselectedItemsIfNeeded];
 }
 
 - (void)deselectedItemsIfNeeded {

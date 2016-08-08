@@ -125,9 +125,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)setViewFrame:(CGRect)viewFrame {
-    if (CGRectEqualToRect(viewFrame, _viewFrame)) {
-        return;
-    }
+    if (CGRectEqualToRect(viewFrame, _viewFrame)) { return; }
+    
     _viewFrame = viewFrame;
     if (self.menuView) {
         _hasInited = NO;

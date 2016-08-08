@@ -101,6 +101,9 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (void)reload;
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
 
+/// 立即刷新 menuView 的 contentOffset，使 title 居中
+- (void)refreshContenOffset;
+
 /**
  *  更新角标视图，如要移除，在 -menuView:badgeViewAtIndex: 中返回 nil 即可
  */
