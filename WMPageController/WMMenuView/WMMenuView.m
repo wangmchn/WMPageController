@@ -186,6 +186,13 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 
 #pragma mark - Public Methods
 
+- (void)setProgressViewIsNaughty:(BOOL)progressViewIsNaughty {
+    _progressViewIsNaughty = progressViewIsNaughty;
+    if (self.progressView) {
+        self.progressView.naughty = progressViewIsNaughty;
+    }
+}
+
 - (void)reload {
     [self.frames removeAllObjects];
     [self.progressView removeFromSuperview];
@@ -530,6 +537,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     pView.hasBorder = hasBorder;
     pView.hollow = isHollow;
     pView.cornerRadius = cornerRadius;
+    pView.naughty = self.progressViewIsNaughty;
     pView.speedFactor = self.speedFactor;
     pView.backgroundColor = [UIColor clearColor];
     self.progressView = pView;

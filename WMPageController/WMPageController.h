@@ -209,6 +209,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
 @property (nonatomic, assign) WMMenuViewStyle menuViewStyle;
 
 @property (nonatomic, assign) WMMenuViewLayoutMode menuViewLayoutMode;
+
 /**
  *  进度条的颜色，默认和选中颜色一致(如果 style 为 Default，则该属性无用)
  *  The progress's color,the default color is same with `titleColorSelected`.If you want to have a different color, set this property.
@@ -219,6 +220,13 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  定制进度条在各个 item 下的宽度
  */
 @property (nonatomic, strong) NSArray *progressViewWidths;
+
+/// 定制进度条，若每个进度条长度相同，可设置该属性
+@property (nonatomic, assign) CGFloat progressWidth;
+
+/// 调皮效果，用于实现腾讯视频新效果，请设置一个较小的 progressWidth
+@property (nonatomic, assign) BOOL progressViewIsNaughty;
+
 /**
  *  是否发送在创建控制器或者视图完全展现在用户眼前时通知观察者，默认为不开启，如需利用通知请开启
  *  Whether notify observer when finish init or fully displayed to user, the default is NO.

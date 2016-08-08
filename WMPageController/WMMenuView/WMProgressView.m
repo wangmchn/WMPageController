@@ -27,6 +27,11 @@
     [self setNeedsDisplay];
 }
 
+- (void)setNaughty:(BOOL)naughty {
+    _naughty = naughty;
+    [self setNeedsDisplay];
+}
+
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     _cornerRadius = cornerRadius;
     [self setNeedsDisplay];
@@ -70,6 +75,7 @@
     // Drawing code
     [super drawRect:rect];
     CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGFloat height = self.frame.size.height;
     int index = (int)self.progress;
     index = (index <= self.itemFrames.count - 1) ? index : (int)self.itemFrames.count - 1;
     CGFloat rate = self.progress - index;
@@ -77,18 +83,35 @@
     CGFloat currentWidth = currentFrame.size.width;
     int nextIndex = index + 1 < self.itemFrames.count ? index + 1 : index;
     CGFloat nextWidth = [self.itemFrames[nextIndex] CGRectValue].size.width;
-    CGFloat height = self.frame.size.height;
+
     CGFloat currentX = currentFrame.origin.x;
     CGFloat nextX = [self.itemFrames[nextIndex] CGRectValue].origin.x;
     CGFloat startX = currentX + (nextX - currentX) * rate;
     CGFloat width = currentWidth + (nextWidth - currentWidth)*rate;
+    CGFloat endX = startX + width;
+    
+    if (self.naughty) {
+        CGFloat currentMidX = currentX + currentWidth / 2.0;
+        CGFloat nextMidX   = nextX + nextWidth / 2.0;
+        
+        if (rate <= 0.5) {
+            startX = currentX + (currentMidX - currentX) * rate * 2.0;
+            CGFloat currentMaxX = currentX + currentWidth;
+            endX = currentMaxX + (nextMidX - currentMaxX) * rate * 2.0;
+        } else {
+            startX = currentMidX + (nextX - currentMidX) * (rate - 0.5) * 2.0;
+            CGFloat nextMaxX = nextX + nextWidth;
+            endX = nextMidX + (nextMaxX - nextMidX) * (rate - 0.5) * 2.0;
+        }
+        width = endX - startX;
+    }
     
     CGFloat lineWidth = (self.hollow || self.hasBorder) ? 1.0 : 0.0;
     
     if (self.isTriangle) {
         CGContextMoveToPoint(ctx, startX, height);
-        CGContextAddLineToPoint(ctx, startX + width, height);
-        CGContextAddLineToPoint(ctx, (startX*2 + width)/2.0, 0);
+        CGContextAddLineToPoint(ctx, endX, height);
+        CGContextAddLineToPoint(ctx, startX + width / 2.0, 0);
         CGContextClosePath(ctx);
         CGContextSetFillColorWithColor(ctx, self.color);
         CGContextFillPath(ctx);

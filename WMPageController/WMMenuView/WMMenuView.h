@@ -94,6 +94,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 /** 进度条的速度因数，默认为 15，越小越快， 大于 0 */
 @property (nonatomic, assign) CGFloat speedFactor;
 @property (nonatomic, assign) CGFloat progressViewCornerRadius;
+@property (nonatomic, assign) BOOL progressViewIsNaughty;
 
 - (void)slideMenuAtProgress:(CGFloat)progress;
 - (void)selectItemAtIndex:(NSInteger)index;

@@ -110,6 +110,24 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
+- (void)setProgressViewIsNaughty:(BOOL)progressViewIsNaughty {
+    _progressViewIsNaughty = progressViewIsNaughty;
+    if (self.menuView) {
+        self.menuView.progressViewIsNaughty = progressViewIsNaughty;
+    }
+}
+
+- (void)setProgressWidth:(CGFloat)progressWidth {
+    _progressWidth = progressWidth;
+    self.progressViewWidths = ({
+        NSMutableArray *tmp = [NSMutableArray array];
+        for (int i = 0; i < self.childControllersCount; i++) {
+            [tmp addObject:@(progressWidth)];
+        }
+        tmp.copy;
+    });
+}
+
 - (void)setProgressViewWidths:(NSArray *)progressViewWidths {
     _progressViewWidths = progressViewWidths;
     if (self.menuView) {
@@ -414,6 +432,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     menuView.contentMargin = self.menuViewContentMargin;
     menuView.progressViewBottomSpace = self.progressViewBottomSpace;
     menuView.progressWidths = self.progressViewWidths;
+    menuView.progressViewIsNaughty = self.progressViewIsNaughty;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }

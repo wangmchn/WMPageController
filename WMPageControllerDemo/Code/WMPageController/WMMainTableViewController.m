@@ -25,7 +25,8 @@
                     @"WMMenuViewStyleFloodHollow",
                     @"WMMenuViewShowOnNav",
                     @"WMMenuViewStyleSegmented",
-                    @"WMMenuViewStyleTriangle"];
+                    @"WMMenuViewStyleTriangle",
+                    @"WMMenuViewStyleNaughty"];
     }
     return _styles;
 }
@@ -116,16 +117,16 @@
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleTriangle"]) {
         pageController.progressHeight = 5;
         
-        pageController.progressViewWidths = ({
-            NSMutableArray *tmp = [NSMutableArray array];
-            [pageController.titles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [tmp addObject:@10];
-            }];
-            tmp.copy;
-        });
+        pageController.progressWidth = 10;
         pageController.menuViewStyle = WMMenuViewStyleTriangle;
         pageController.titleSizeSelected = 15;
 
+    } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleNaughty"]) {
+        pageController.title = @"Line";
+        pageController.menuViewStyle = WMMenuViewStyleLine;
+        pageController.titleSizeSelected = 15;
+        pageController.progressWidth = 10;
+        pageController.progressViewIsNaughty = YES;
     }
     
     [self.navigationController pushViewController:pageController animated:YES];

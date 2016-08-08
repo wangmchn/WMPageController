@@ -16,6 +16,8 @@
 @property (nonatomic, assign) CGFloat speedFactor;
 @property (nonatomic, assign) CGFloat cornerRadius;
 
+// 调皮属性，用于实现新腾讯视频效果
+@property (nonatomic, assign) BOOL naughty;
 @property (nonatomic, assign) BOOL isTriangle;
 @property (nonatomic, assign) BOOL hollow;
 @property (nonatomic, assign) BOOL hasBorder;
