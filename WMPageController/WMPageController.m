@@ -154,6 +154,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (void)reloadData {
     [self wm_clearDatas];
+    
+    if (!self.childControllersCount) { return; }
+    
     [self wm_resetScrollView];
     [self.memCache removeAllObjects];
     [self wm_resetMenuView];
