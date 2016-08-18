@@ -44,7 +44,7 @@
     if (self.selected == selected) { return; }
     _selected = selected;
     _sign = (selected == YES) ? 1 : -1;
-    _gap = 1.0;
+    _gap = (selected == YES) ? (1.0 - self.rate) : (self.rate - 0.0);
     _step = _gap / self.speedFactor;
     if (_link) {
         [_link invalidate];
@@ -56,6 +56,7 @@
 }
 
 - (void)rateChange {
+    
     if (_gap > 0.000001) {
         _gap -= _step;
         if (_gap < 0.0) {
@@ -68,6 +69,7 @@
         [_link invalidate];
         _link = nil;
     }
+    
 }
 
 // 设置rate,并刷新标题状态
