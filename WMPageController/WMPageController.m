@@ -298,6 +298,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
     _controllerConut = kWMControllerCountUndefined;
     _hasInited = NO;
     _selectIndex = self.selectIndex < self.childControllersCount ? self.selectIndex : (int)self.childControllersCount - 1;
+    if (self.progressWidth > 0) { self.progressWidth = self.progressWidth; }
+    
     NSArray *displayingViewControllers = self.displayVC.allValues;
     for (UIViewController *vc in displayingViewControllers) {
         [vc.view removeFromSuperview];
@@ -678,6 +680,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
     self.view.backgroundColor = [UIColor whiteColor];
 
     if (!self.childControllersCount) return;
+   
+    [self wm_calculateSize];
     
     [self wm_addScrollView];
     

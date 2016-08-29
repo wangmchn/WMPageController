@@ -60,11 +60,13 @@
         // 默认
         pageController.title = @"Default";
         pageController.preloadPolicy = WMPageControllerPreloadPolicyNeighbour;
+    
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleLine"]) {
         // 下划线
         pageController.title = @"Line";
         pageController.menuViewStyle = WMMenuViewStyleLine;
         pageController.titleSizeSelected = 15;
+        pageController.selectIndex = 3;
     } else if ([self.styles[indexPath.row] isEqualToString:@"WMMenuViewStyleFlood"]) {
         // 涌入
         pageController = [self pageControllerStyleFlood];
@@ -135,7 +137,7 @@
 - (WMPageController *)p_defaultController {
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     NSMutableArray *titles = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 9; i++) {
         Class vcClass;
         NSString *title;
         switch (i % 3) {
