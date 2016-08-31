@@ -286,6 +286,8 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
 /** progressView 到 menuView 底部的距离 */
 @property (nonatomic, assign) CGFloat progressViewBottomSpace;
 
+/** progressView's cornerRadius */
+@property (nonatomic, assign) CGFloat progressViewCornerRadius;
 /** 顶部导航栏 */
 @property (nonatomic, weak) WMMenuView *menuView;
 

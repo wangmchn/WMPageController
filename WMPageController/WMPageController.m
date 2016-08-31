@@ -91,6 +91,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
+- (void)setProgressViewCornerRadius:(CGFloat)progressViewCornerRadius {
+    _progressViewCornerRadius = progressViewCornerRadius;
+    if (self.menuView) {
+        self.menuView.progressViewCornerRadius = progressViewCornerRadius;
+    }
+}
+
 - (void)setMenuViewLayoutMode:(WMMenuViewLayoutMode)menuViewLayoutMode {
     _menuViewLayoutMode = menuViewLayoutMode;
     if (self.menuView.superview) {
@@ -438,6 +445,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     menuView.progressViewBottomSpace = self.progressViewBottomSpace;
     menuView.progressWidths = self.progressViewWidths;
     menuView.progressViewIsNaughty = self.progressViewIsNaughty;
+    menuView.progressViewCornerRadius = self.progressViewCornerRadius;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }

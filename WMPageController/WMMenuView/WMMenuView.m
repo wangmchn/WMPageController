@@ -44,22 +44,23 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     // Make the contentView center, because system will change menuView's frame if it's a titleView.
     if (startX + contentWidth / 2 != self.bounds.size.width / 2) {
         
-        CGFloat xOffset = (contentWidth - self.bounds.size.width) / 2;
-        self.scrollView.frame = ({
-            CGRect frame = self.scrollView.frame;
-            frame.origin.x -= xOffset;
+        CGFloat xOffset = (self.bounds.size.width - contentWidth) / 2;
+        self.leftView.frame = ({
+            CGRect frame = self.leftView.frame;
+            frame.origin.x = xOffset;
             frame;
         });
         
-        self.leftView.frame = ({
-            CGRect frame = self.leftView.frame;
-            frame.origin.x -= xOffset;
+        self.scrollView.frame = ({
+            CGRect frame = self.scrollView.frame;
+            frame.origin.x = self.leftView ? CGRectGetMaxX(self.leftView.frame) + self.contentMargin : xOffset;
             frame;
         });
+       
         
         self.rightView.frame = ({
             CGRect frame = self.rightView.frame;
-            frame.origin.x -= xOffset;
+            frame.origin.x = CGRectGetMaxX(self.scrollView.frame) + self.contentMargin;
             frame;
         });
         
@@ -290,6 +291,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 }
 
 #pragma mark - Private Methods
+
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     if (self.scrollView) { return; }
     
@@ -406,8 +408,8 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     } else {
         self.progressHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height * 0.8;
         frame = CGRectMake(0, (self.frame.size.height - self.progressHeight) / 2, self.scrollView.contentSize.width, self.progressHeight);
+        self.progressViewCornerRadius = self.progressViewCornerRadius > 0 ? self.progressViewCornerRadius : self.progressHeight / 2.0;
     }
-    self.progressViewCornerRadius = self.progressViewCornerRadius > 0 ? self.progressViewCornerRadius : self.progressHeight / 2.0;
     [self wm_addProgressViewWithFrame:frame
                            isTriangle:(self.style == WMMenuViewStyleTriangle)
                             hasBorder:(self.style == WMMenuViewStyleSegmented)
