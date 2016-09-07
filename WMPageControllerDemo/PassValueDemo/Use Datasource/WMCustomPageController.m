@@ -20,25 +20,26 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.menuItemWidth = [[UIScreen mainScreen] bounds].size.width / self.titles.count;
         self.menuViewStyle = WMMenuViewStyleLine;
         self.titleSizeSelected = 14.0f;
         self.titleSizeNormal = 14.0f;
         self.menuHeight = 44;
-//        self.titleColorNormal = [UIColor colorWithHexString:@"999999"];
-//        self.titleColorSelected = [UIColor colorWithHexString:@"35B6F9"];
+        self.titles = @[@"我的", @"他的"];
+        self.progressViewWidths = @[@10, @10];
     }
     return self;
-}
-
-- (NSArray *)titles {
-    return @[@"自己", @"实现", @"实现", @"实现", @"实现",@"实现", @"实现", @"实现"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self addViews];
+//    [self reloadData];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"刷新" style:UIBarButtonItemStyleDone target:self action:@selector(reloadProgressWidth)];
+}
+
+- (void)reloadProgressWidth {
+    self.titles = @[@"不是我的", @"不是他的", @"不是你的", @"到底是谁的"];
+    self.progressWidth = 40;
     [self reloadData];
 }
 

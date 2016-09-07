@@ -371,19 +371,18 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 - (NSArray *)convertProgressWidthsToFrames {
     if (!self.frames.count) { NSAssert(NO, @"BUUUUUUUG...SHOULDN'T COME HERE!!"); }
     
-    if (self.progressWidths.count) {
-        NSMutableArray *progressFrames = [NSMutableArray array];
-        for (int i = 0; i < self.frames.count; i++) {
-            CGRect itemFrame = [self.frames[i] CGRectValue];
-            CGFloat progressWidth = [self.progressWidths[i] floatValue];
-            CGFloat x = itemFrame.origin.x + (itemFrame.size.width - progressWidth) / 2;
-            CGRect progressFrame = CGRectMake(x, itemFrame.origin.y, progressWidth, 0);
-            [progressFrames addObject:[NSValue valueWithCGRect:progressFrame]];
-        }
-        return progressFrames.copy;
-    }
+    if (self.progressWidths.count < self.titlesCount) return self.frames;
     
-    return self.frames;
+    NSMutableArray *progressFrames = [NSMutableArray array];
+    for (int i = 0; i < self.frames.count; i++) {
+        CGRect itemFrame = [self.frames[i] CGRectValue];
+        CGFloat progressWidth = [self.progressWidths[i] floatValue];
+        CGFloat x = itemFrame.origin.x + (itemFrame.size.width - progressWidth) / 2;
+        CGRect progressFrame = CGRectMake(x, itemFrame.origin.y, progressWidth, 0);
+        [progressFrames addObject:[NSValue valueWithCGRect:progressFrame]];
+    }
+    return progressFrames.copy;
+
 }
 
 - (void)addBadgeViews {
