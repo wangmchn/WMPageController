@@ -145,6 +145,9 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  */
 @property (nonatomic, assign) BOOL pageAnimatable;
 
+/** 是否自动通过字符串计算 MenuItem 的宽度，默认为 NO. */
+@property (nonatomic, assign) BOOL automaticallyCalculatesItemWidths;
+
 /**
  *  选中时的标题尺寸
  *  The title size when selected (animatable)

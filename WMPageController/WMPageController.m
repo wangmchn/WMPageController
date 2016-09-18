@@ -361,6 +361,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     _initializedIndex = kWMUndefinedIndex;
     _controllerConut  = kWMControllerCountUndefined;
     
+    self.automaticallyCalculatesItemWidths = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.preloadPolicy = WMPageControllerPreloadPolicyNever;
     self.cachePolicy = WMPageControllerCachePolicyNoLimit;
@@ -407,7 +408,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)wm_addScrollView {
-    
     WMScrollView *scrollView = [[WMScrollView alloc] init];
     scrollView.scrollsToTop = NO;
     scrollView.pagingEnabled = YES;
@@ -424,7 +424,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
     for (UIGestureRecognizer *gestureRecognizer in scrollView.gestureRecognizers) {
         [gestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
     }
-    
 }
 
 - (void)wm_addMenuView {
@@ -686,6 +685,14 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self.menuView resetFrames];
 }
 
+- (CGFloat)wm_calculateItemWithAtIndex:(NSInteger)index {
+    NSString *title = [self titleAtIndex:index];
+    UIFont *titleFont = self.titleFontName ? [UIFont fontWithName:self.titleFontName size:self.titleSizeSelected] : [UIFont systemFontOfSize:self.titleSizeSelected];
+    NSDictionary *attrs = @{NSFontAttributeName: titleFont};
+    CGFloat itemWidth = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:attrs context:nil].size.width;
+    return itemWidth;
+}
+
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -836,6 +843,10 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
+    if (self.automaticallyCalculatesItemWidths) {
+        return [self wm_calculateItemWithAtIndex:index];
+    }
+    
     if (self.itemsWidths.count == self.childControllersCount) {
         return [self.itemsWidths[index] floatValue];
     }
