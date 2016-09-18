@@ -84,7 +84,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)setEdgesForExtendedLayout:(UIRectEdge)edgesForExtendedLayout {
+    if (self.edgesForExtendedLayout == edgesForExtendedLayout) { return; }
     [super setEdgesForExtendedLayout:edgesForExtendedLayout];
+    
     if (_hasInited) {
         _hasInited = NO;
         [self viewDidLayoutSubviews];
@@ -610,6 +612,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
         [self wm_addMenuView];
     } else {
         [self.menuView reload];
+        if (self.menuView.userInteractionEnabled == NO) {
+            self.menuView.userInteractionEnabled = YES;
+        }
         if (self.selectIndex != 0) {
             [self.menuView selectItemAtIndex:self.selectIndex];
         }

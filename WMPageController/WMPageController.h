@@ -140,8 +140,8 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
 @property (nonatomic, assign) int selectIndex;
 
 /**
- *  点击相邻的 MenuItem 是否触发翻页动画 (当当前选中与点击Item相差大于1是不触发)
- *  Whether to animate when press the MenuItem, if distant between the selected and the pressed is larger than 1,never animate.
+ *  点击的 MenuItem 是否触发滚动动画
+ *  Whether to animate when press the MenuItem
  */
 @property (nonatomic, assign) BOOL pageAnimatable;
 
@@ -180,9 +180,6 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  The menu view's height
  */
 @property (nonatomic, assign) CGFloat menuHeight;
-
-// 当所有item的宽度加起来小于屏幕宽时，PageController会自动帮助排版，添加每个item之间的间隙以填充整个宽度
-// When the sum of all the item's width is smaller than the screen's width, pageController will add gap to each item automatically, in order to fill the width.
 
 /**
  *  每个 MenuItem 的宽度
