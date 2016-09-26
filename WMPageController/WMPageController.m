@@ -93,6 +93,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
+- (void)setScrollEnable:(BOOL)scrollEnable {
+    _scrollEnable = scrollEnable;
+    
+    if (!self.scrollView) { return; }
+    self.scrollView.scrollEnabled = scrollEnable;
+}
+
 - (void)setProgressViewCornerRadius:(CGFloat)progressViewCornerRadius {
     _progressViewCornerRadius = progressViewCornerRadius;
     if (self.menuView) {
@@ -360,6 +367,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     _memCache = [[NSCache alloc] init];
     _initializedIndex = kWMUndefinedIndex;
     _controllerConut  = kWMControllerCountUndefined;
+    _scrollEnable = YES;
     
     self.automaticallyCalculatesItemWidths = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -417,6 +425,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.bounces = self.bounces;
     scrollView.otherGestureRecognizerSimultaneously = self.otherGestureRecognizerSimultaneously;
+    scrollView.scrollEnabled = self.scrollEnable;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
     
