@@ -302,10 +302,12 @@ static NSInteger const kWMControllerCountUndefined = -1;
 #pragma mark - Private Methods
 
 - (void)wm_resetScrollView {
-    if (self.scrollView) {
-        [self.scrollView removeFromSuperview];
+    if (!self.scrollView) {
+        [self wm_addScrollView];
     }
-    [self wm_addScrollView];
+    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
     [self wm_addViewControllerAtIndex:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
 }
