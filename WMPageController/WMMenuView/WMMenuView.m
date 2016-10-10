@@ -420,7 +420,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[WMMenuItem class]]) {
             WMMenuItem *item = (WMMenuItem *)obj;
-            if (item != self.selItem && item.selected == YES) {
+            if (item != self.selItem && item.rate != 0) {
                 [item deselectedItemWithoutAnimation];
             }
         }
