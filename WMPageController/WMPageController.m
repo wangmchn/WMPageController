@@ -116,7 +116,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (void)setCachePolicy:(WMPageControllerCachePolicy)cachePolicy {
     _cachePolicy = cachePolicy;
-    self.memCache.countLimit = _cachePolicy;
+    if (cachePolicy!=WMPageControllerCachePolicyDisable) {
+        self.memCache.countLimit = _cachePolicy;
+    }
 }
 
 - (void)setSelectIndex:(int)selectIndex {
@@ -556,10 +558,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self.displayVC removeObjectForKey:@(index)];
     
     // 放入缓存
-    if (![self.memCache objectForKey:@(index)]) {
-        [self willCachedController:viewController atIndex:index];
-        [self.memCache setObject:viewController forKey:@(index)];
+    if (self.cachePolicy!=WMPageControllerCachePolicyDisable) {
+        if (![self.memCache objectForKey:@(index)]) {
+            [self willCachedController:viewController atIndex:index];
+            [self.memCache setObject:viewController forKey:@(index)];
+        }
     }
+
 }
 
 - (void)wm_backToPositionIfNeeded:(UIViewController *)controller atIndex:(NSInteger)index {
