@@ -56,7 +56,6 @@
 }
 
 - (void)rateChange {
-    
     if (_gap > 0.000001) {
         _gap -= _step;
         if (_gap < 0.0) {
@@ -69,7 +68,6 @@
         [_link invalidate];
         _link = nil;
     }
-    
 }
 
 // 设置rate,并刷新标题状态
