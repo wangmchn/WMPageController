@@ -31,6 +31,8 @@
         self.menuItemWidth = [UIScreen mainScreen].bounds.size.width / self.musicCategories.count;
         self.menuHeight = 50;
         self.viewTop = kNavigationBarHeight + kWMHeaderViewHeight;
+        self.titleColorSelected = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0];
+        self.titleColorNormal = [UIColor colorWithRed:0.4 green:0.8 blue:0.1 alpha:1.0];
     }
     return self;
 }
@@ -39,7 +41,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"专辑";
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 200)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 150)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];

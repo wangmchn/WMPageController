@@ -296,8 +296,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
     NSString *title = nil;
     if ([self.dataSource respondsToSelector:@selector(pageController:titleAtIndex:)]) {
         title = [self.dataSource pageController:self titleAtIndex:index];
+    } else {
+        title = self.titles[index];
     }
-    title = self.titles[index];
     return (title ? title : @"");
 }
 
