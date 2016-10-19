@@ -187,6 +187,10 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 
 #pragma mark - Public Methods
 
+- (WMMenuItem *)itemAtIndex:(NSInteger)index {
+    return (WMMenuItem *)[self viewWithTag:(index + WMMenuItemTagOffset)];
+}
+
 - (void)setProgressViewIsNaughty:(BOOL)progressViewIsNaughty {
     _progressViewIsNaughty = progressViewIsNaughty;
     if (self.progressView) {
@@ -203,6 +207,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     
     [self addItems];
     [self makeStyle];
+    [self addBadgeViews];
 }
 
 - (void)slideMenuAtProgress:(CGFloat)progress {

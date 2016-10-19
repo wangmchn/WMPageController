@@ -292,11 +292,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return [[self.viewControllerClasses[index] alloc] init];
 }
 
-- (NSString *)titleAtIndex:(NSInteger)index {
+- (NSString * _Nonnull)titleAtIndex:(NSInteger)index {
+    NSString *title = nil;
     if ([self.dataSource respondsToSelector:@selector(pageController:titleAtIndex:)]) {
-        return [self.dataSource pageController:self titleAtIndex:index];
+        title = [self.dataSource pageController:self titleAtIndex:index];
     }
-    return self.titles[index];
+    title = self.titles[index];
+    return (title ? title : @"");
 }
 
 #pragma mark - Private Methods
