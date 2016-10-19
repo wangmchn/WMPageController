@@ -777,6 +777,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (![scrollView isKindOfClass:WMScrollView.class]) { return; }
+    
     if (_shouldNotScroll || !_hasInited) { return; }
     
     [self wm_layoutChildViewControllers];
@@ -792,7 +794,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
         [self.menuView slideMenuAtProgress:rate];
     }
    
-    // fix scrollView.contentOffset.y -> (-20) unexpectedly.
+    // Fix scrollView.contentOffset.y -> (-20) unexpectedly.
     if (scrollView.contentOffset.y == 0) { return; }
     CGPoint contentOffset = scrollView.contentOffset;
     contentOffset.y = 0.0;
@@ -800,11 +802,15 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (![scrollView isKindOfClass:WMScrollView.class]) { return; }
+    
     _startDragging = YES;
     self.menuView.userInteractionEnabled = NO;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (![scrollView isKindOfClass:WMScrollView.class]) { return; }
+    
     self.menuView.userInteractionEnabled = YES;
     _selectIndex = (int)scrollView.contentOffset.x / _viewWidth;
     [self wm_removeSuperfluousViewControllersIfNeeded];
@@ -814,6 +820,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if (![scrollView isKindOfClass:WMScrollView.class]) { return; }
+    
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self wm_removeSuperfluousViewControllersIfNeeded];
     [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
@@ -821,6 +829,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (![scrollView isKindOfClass:WMScrollView.class]) { return; }
+    
     if (!decelerate) {
         self.menuView.userInteractionEnabled = YES;
         CGFloat rate = _targetX / _viewWidth;
@@ -829,6 +839,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (![scrollView isKindOfClass:WMScrollView.class]) { return; }
+    
     _targetX = targetContentOffset->x;
 }
 

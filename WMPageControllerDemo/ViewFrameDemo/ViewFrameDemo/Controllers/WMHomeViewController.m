@@ -9,8 +9,9 @@
 #import "WMHomeViewController.h"
 #import "WMTableViewController.h"
 
-@interface WMHomeViewController () <UIGestureRecognizerDelegate>
+@interface WMHomeViewController () <UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray *musicCategories;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation WMHomeViewController
@@ -38,8 +39,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"专辑";
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 200)];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 100;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"123"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"123"];
+    }
+    return cell;
+}
 
 // MARK: ChangeViewFrame (Animatable)
 - (void)setViewTop:(CGFloat)viewTop {
