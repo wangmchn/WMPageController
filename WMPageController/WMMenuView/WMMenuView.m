@@ -8,7 +8,7 @@
 
 #import "WMMenuView.h"
 
-@interface WMMenuView () <WMMenuItemDelegate>
+@interface WMMenuView () 
 @property (nonatomic, weak) WMMenuItem *selItem;
 @property (nonatomic, strong) NSMutableArray *frames;
 @property (nonatomic, readonly) NSInteger titlesCount;

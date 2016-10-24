@@ -14,4 +14,8 @@
 
 @implementation WMViewController
 
+- (void)dealloc {
+
+}
+
 @end
