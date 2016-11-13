@@ -14,7 +14,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 @interface WMPageController () {
     CGFloat _viewHeight, _viewWidth, _viewX, _viewY, _targetX, _superviewHeight;
     BOOL    _hasInited, _shouldNotScroll;
-    NSInteger _initializedIndex, _controllerConut;
+    NSInteger _initializedIndex, _controllerConut, _markedSelectIndex;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
@@ -121,8 +121,11 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (void)setSelectIndex:(int)selectIndex {
     _selectIndex = selectIndex;
-    if (self.menuView) {
+    _markedSelectIndex = kWMUndefinedIndex;
+    if (self.menuView && _hasInited) {
         [self.menuView selectItemAtIndex:selectIndex];
+    } else {
+        _markedSelectIndex = selectIndex;
     }
 }
 
@@ -221,7 +224,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 #pragma mark - Delegate
 - (NSDictionary *)infoWithIndex:(NSInteger)index {
     NSString *title = [self titleAtIndex:index];
-    return @{@"title": title, @"index": @(index)};
+    return @{@"title": title ? title : @"", @"index": @(index)};
 }
 
 - (void)willCachedController:(UIViewController *)vc atIndex:(NSInteger)index {
@@ -285,7 +288,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return _controllerConut;
 }
 
-- (UIViewController *)initializeViewControllerAtIndex:(NSInteger)index {
+- (UIViewController * _Nonnull)initializeViewControllerAtIndex:(NSInteger)index {
     if ([self.dataSource respondsToSelector:@selector(pageController:viewControllerAtIndex:)]) {
         return [self.dataSource pageController:self viewControllerAtIndex:index];
     }
@@ -369,6 +372,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     
     _memCache = [[NSCache alloc] init];
     _initializedIndex = kWMUndefinedIndex;
+    _markedSelectIndex = kWMUndefinedIndex;
     _controllerConut  = kWMControllerCountUndefined;
     _scrollEnable = YES;
     
@@ -472,9 +476,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
     self.menuView = menuView; 
     
-    if (self.selectIndex != 0) {
-        [self.menuView selectItemAtIndex:self.selectIndex];
-    }
 }
 
 - (void)wm_layoutChildViewControllers {
@@ -695,6 +696,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     CGFloat menuWidth = _viewWidth - menuX - rightWidth;
     self.menuView.frame = CGRectMake(menuX, menuY, menuWidth, menuHeight);
     [self.menuView resetFrames];
+    
 }
 
 - (CGFloat)wm_calculateItemWithAtIndex:(NSInteger)index {
@@ -703,6 +705,12 @@ static NSInteger const kWMControllerCountUndefined = -1;
     NSDictionary *attrs = @{NSFontAttributeName: titleFont};
     CGFloat itemWidth = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:attrs context:nil].size.width;
     return ceil(itemWidth);
+}
+
+- (void)wm_delaySelectIndexIfNeeded {
+    if (_markedSelectIndex != kWMUndefinedIndex) {
+        self.selectIndex = (int)_markedSelectIndex;
+    }
 }
 
 #pragma mark - Life Cycle
@@ -745,7 +753,11 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self wm_removeSuperfluousViewControllersIfNeeded];
 
     _hasInited = YES;
+
     [self.view layoutIfNeeded];
+
+    [self wm_delaySelectIndexIfNeeded];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {

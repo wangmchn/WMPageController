@@ -35,6 +35,7 @@
     // Do any additional setup after loading the view.
 //    [self reloadData];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"刷新" style:UIBarButtonItemStyleDone target:self action:@selector(reloadProgressWidth)];
+    self.selectIndex = 1;
 }
 
 - (void)reloadProgressWidth {
@@ -95,6 +96,9 @@
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
+    if (index == 0) {
+        return nil;
+    }
     return self.titles[index];
 }
 
