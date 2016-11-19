@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, WMMenuItemState) {
 /** 进度条的速度因数，默认为 15，越小越快， 大于 0 */
 @property (nonatomic, assign) CGFloat speedFactor;
 
-- (void)selectedItemWithoutAnimation;
-- (void)deselectedItemWithoutAnimation;
+- (void)selectedWithoutAnimation;
+- (void)deselectedWithoutAnimation;
 
 @end

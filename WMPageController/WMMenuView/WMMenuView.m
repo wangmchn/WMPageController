@@ -219,9 +219,9 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     WMMenuItem *currentItem = (WMMenuItem *)[self viewWithTag:tag];
     WMMenuItem *nextItem = (WMMenuItem *)[self viewWithTag:tag+1];
     if (rate == 0.0) {
-        [self.selItem deselectedItemWithoutAnimation];
+        [self.selItem deselectedWithoutAnimation];
         self.selItem = currentItem;
-        [self.selItem selectedItemWithoutAnimation];
+        [self.selItem selectedWithoutAnimation];
         [self refreshContenOffset];
         return;
     }
@@ -236,9 +236,9 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     if (index == currentIndex || !self.selItem) { return; }
     
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
-    [self.selItem deselectedItemWithoutAnimation];
+    [self.selItem deselectedWithoutAnimation];
     self.selItem = item;
-    [self.selItem selectedItemWithoutAnimation];
+    [self.selItem selectedWithoutAnimation];
     [self.progressView setProgressWithOutAnimate:index];
     if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
         [self.delegate menuView:self didSelesctedIndex:index currentIndex:currentIndex];
@@ -286,8 +286,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     } else {
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
-    // MARK: 暂时解决多选中问题 (需要复现并找到根本原因 see#67)
-    [self deselectedItemsIfNeeded];
+    
 }
 
 #pragma mark - Data source
@@ -422,14 +421,12 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 }
 
 - (void)deselectedItemsIfNeeded {
-//    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if ([obj isKindOfClass:[WMMenuItem class]]) {
-//            WMMenuItem *item = (WMMenuItem *)obj;
-//            if (item != self.selItem) {
-//                [item deselectedItemWithoutAnimation];
-//            }
-//        }
-//    }];
+    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![obj isKindOfClass:[WMMenuItem class]] || obj == self.selItem) {
+            return;
+        }
+        [(WMMenuItem *)obj deselectedWithoutAnimation];
+    }];
 }
 
 - (void)addScrollView {
@@ -471,10 +468,10 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         item.selectedColor = self.selectedColor;
         item.speedFactor   = self.speedFactor;
         if (i == 0) {
-            [item selectedItemWithoutAnimation];
+            [item selectedWithoutAnimation];
             self.selItem = item;
         } else {
-            [item deselectedItemWithoutAnimation];
+            [item deselectedWithoutAnimation];
         }
         [self.scrollView addSubview:item];
     }

@@ -83,12 +83,18 @@
     self.transform = CGAffineTransformMakeScale(trueScale, trueScale);
 }
 
-- (void)selectedItemWithoutAnimation {
+- (void)selectedWithoutAnimation {
+    if (self.rate == 1.0 && _selected == YES) {
+        return;
+    }
     self.rate = 1.0;
     _selected = YES;
 }
 
-- (void)deselectedItemWithoutAnimation {
+- (void)deselectedWithoutAnimation {
+    if (self.rate == 0.0 && _selected == NO) {
+        return;
+    }
     self.rate = 0;
     _selected = NO;
 }

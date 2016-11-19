@@ -33,3 +33,7 @@ DerivedData
 Carthage/Build
 
 *.DS_Store
+
+*.xcbkptlist
+
+*.xcuserstate

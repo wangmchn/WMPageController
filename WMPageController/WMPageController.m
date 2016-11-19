@@ -830,6 +830,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
+    [self.menuView deselectedItemsIfNeeded];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
@@ -839,6 +840,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self wm_removeSuperfluousViewControllersIfNeeded];
     [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
+    [self.menuView deselectedItemsIfNeeded];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -848,6 +850,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
         self.menuView.userInteractionEnabled = YES;
         CGFloat rate = _targetX / _viewWidth;
         [self.menuView slideMenuAtProgress:rate];
+        [self.menuView deselectedItemsIfNeeded];
     }
 }
 

@@ -104,7 +104,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (WMMenuItem *)itemAtIndex:(NSInteger)index;
 /// 立即刷新 menuView 的 contentOffset，使 title 居中
 - (void)refreshContenOffset;
-
+- (void)deselectedItemsIfNeeded;
 /**
  *  更新角标视图，如要移除，在 -menuView:badgeViewAtIndex: 中返回 nil 即可
  */
