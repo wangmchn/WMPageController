@@ -84,17 +84,11 @@
 }
 
 - (void)selectedWithoutAnimation {
-    if (self.rate == 1.0 && _selected == YES) {
-        return;
-    }
     self.rate = 1.0;
     _selected = YES;
 }
 
 - (void)deselectedWithoutAnimation {
-    if (self.rate == 0.0 && _selected == NO) {
-        return;
-    }
     self.rate = 0;
     _selected = NO;
 }
