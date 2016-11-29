@@ -255,6 +255,15 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self resetFrames];
 }
 
+- (void)setAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
+    if (index >= self.titlesCount || index < 0) { return; }
+    
+    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + index)];
+    item.attributedText = title;
+    if (!update) { return; }
+    [self resetFrames];
+}
+
 - (void)updateBadgeViewAtIndex:(NSInteger)index {
     UIView *oldBadgeView = [self.scrollView viewWithTag:WMBadgeViewTagOffset + index];
     if (oldBadgeView) {

@@ -331,6 +331,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  @param index 目标序号
  */
 - (void)updateTitle:(NSString * _Nonnull)title atIndex:(NSInteger)index;
+- (void)setAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index;
 
 /**
  *  Update designated item's title and width
