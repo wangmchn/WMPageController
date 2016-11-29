@@ -186,6 +186,10 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self.menuView updateTitle:title atIndex:index andWidth:NO];
 }
 
+- (void)setAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index {
+    [self.menuView setAttributeTitle:title atIndex:index];
+}
+
 - (void)updateTitle:(NSString *)title andWidth:(CGFloat)width atIndex:(NSInteger)index {
     if (self.itemsWidths && index < self.itemsWidths.count) {
         NSMutableArray *mutableWidths = [NSMutableArray arrayWithArray:self.itemsWidths];
