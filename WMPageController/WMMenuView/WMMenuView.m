@@ -255,7 +255,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     [self resetFrames];
 }
 
-- (void)setAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
+- (void)updateAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
     if (index >= self.titlesCount || index < 0) { return; }
     
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + index)];

@@ -101,7 +101,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (void)resetFrames;
 - (void)reload;
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
-- (void)setAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
+- (void)updateAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
 - (WMMenuItem *)itemAtIndex:(NSInteger)index;
 /// 立即刷新 menuView 的 contentOffset，使 title 居中
 - (void)refreshContenOffset;

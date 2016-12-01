@@ -331,7 +331,6 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  @param index 目标序号
  */
 - (void)updateTitle:(NSString * _Nonnull)title atIndex:(NSInteger)index;
-- (void)setAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index;
 
 /**
  *  Update designated item's title and width
@@ -342,6 +341,8 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  @param width 对应item的新宽度
  */
 - (void)updateTitle:(NSString * _Nonnull)title andWidth:(CGFloat)width atIndex:(NSInteger)index;
+
+- (void)updateAttributeTitle:(NSAttributedString * _Nonnull)title atIndex:(NSInteger)index;
 
 /** 当 app 即将进入后台接收到的通知 */
 - (void)willResignActive:(NSNotification * _Nonnull)notification;
