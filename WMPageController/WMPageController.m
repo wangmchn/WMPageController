@@ -186,7 +186,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self.menuView updateTitle:title atIndex:index andWidth:NO];
 }
 
-- (void)setAttributeTitle:(NSAttributedString * _Nonnull)title atIndex:(NSInteger)index {
+- (void)updateAttributeTitle:(NSAttributedString * _Nonnull)title atIndex:(NSInteger)index {
     [self.menuView updateAttributeTitle:title atIndex:index andWidth:NO];
 }
 
