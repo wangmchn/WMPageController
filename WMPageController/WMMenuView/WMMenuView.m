@@ -387,7 +387,8 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     if (self.progressWidths.count < self.titlesCount) return self.frames;
     
     NSMutableArray *progressFrames = [NSMutableArray array];
-    for (int i = 0; i < self.frames.count; i++) {
+    NSInteger count = (self.frames.count <= self.progressWidths.count) ? self.frames.count : self.progressWidths.count;
+    for (int i = 0; i < count; i++) {
         CGRect itemFrame = [self.frames[i] CGRectValue];
         CGFloat progressWidth = [self.progressWidths[i] floatValue];
         CGFloat x = itemFrame.origin.x + (itemFrame.size.width - progressWidth) / 2;

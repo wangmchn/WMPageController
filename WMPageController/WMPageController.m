@@ -28,7 +28,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
 @property (nonatomic, strong) NSMutableDictionary *backgroundCache;
 // 收到内存警告的次数
 @property (nonatomic, assign) int memoryWarningCount;
-
 @property (nonatomic, readonly) NSInteger childControllersCount;
 @end
 
