@@ -7,13 +7,15 @@
 //
 
 #import "WMPageController.h"
-#import "WMPageConst.h"
+
+NSString *const WMControllerDidAddToSuperViewNotification = @"WMControllerDidAddToSuperViewNotification";
+NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFullyDisplayedNotification";
 
 static NSInteger const kWMUndefinedIndex = -1;
 static NSInteger const kWMControllerCountUndefined = -1;
 @interface WMPageController () {
     CGFloat _viewHeight, _viewWidth, _viewX, _viewY, _targetX, _superviewHeight;
-    BOOL    _hasInited, _shouldNotScroll;
+    BOOL    _hasInited, _shouldNotScroll, _isTabBarHidden;
     NSInteger _initializedIndex, _controllerConut, _markedSelectIndex;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
@@ -364,14 +366,14 @@ static NSInteger const kWMControllerCountUndefined = -1;
 // 初始化一些参数，在init中调用
 - (void)wm_setup {
     
-    _titleSizeSelected  = WMTitleSizeSelected;
-    _titleColorSelected = WMTitleColorSelected;
-    _titleSizeNormal    = WMTitleSizeNormal;
-    _titleColorNormal   = WMTitleColorNormal;
+    _titleSizeSelected  = 18.0f;
+    _titleSizeNormal    = 15.0f;
+    _titleColorSelected = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
+    _titleColorNormal   = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     
-    _menuBGColor   = WMMenuBGColor;
-    _menuHeight    = WMMenuHeight;
-    _menuItemWidth = WMMenuItemWidth;
+    _menuBGColor   = [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1.0];
+    _menuHeight    = 30.0f;
+    _menuItemWidth = 65.0f;
     
     _memCache = [[NSCache alloc] init];
     _initializedIndex = kWMUndefinedIndex;
@@ -393,14 +395,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 // 包括宽高，子控制器视图 frame
 - (void)wm_calculateSize {
-    
     CGFloat navigationHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    UIView *tabBar = self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
+    UIView *tabBar = [self wm_bottomView];
     CGFloat height = (tabBar && !tabBar.hidden) ? CGRectGetHeight(tabBar.frame) : 0;
-    CGFloat tarBarHeight = self.hidesBottomBarWhenPushed == YES ? 0 : height;
+    CGFloat tarBarHeight = (tabBar.hidden == YES) ? 0 : height;
     // 计算相对 window 的绝对 frame (self.view.window 可能为 nil)
     UIWindow *mainWindow = [[UIApplication sharedApplication].delegate window];
-    CGRect absoluteRect = [self.view.superview convertRect:self.view.frame toView:mainWindow];
+    CGRect absoluteRect = [self.view convertRect:self.view.bounds toView:mainWindow];
     navigationHeight -= absoluteRect.origin.y;
     tarBarHeight -= mainWindow.frame.size.height - CGRectGetMaxY(absoluteRect);
     
@@ -422,7 +423,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
         CGRect frame = CGRectMake(i*_viewWidth, 0, _viewWidth, _viewHeight);
         [_childViewFrames addObject:[NSValue valueWithCGRect:frame]];
     }
-    
 }
 
 - (void)wm_addScrollView {
@@ -646,6 +646,10 @@ static NSInteger const kWMControllerCountUndefined = -1;
     self.cachePolicy = WMPageControllerCachePolicyHigh;
 }
 
+- (UIView *)wm_bottomView {
+    return self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
+}
+
 #pragma mark - Adjust Frame
 - (void)wm_adjustScrollViewFrame {
     // While rotate at last page, set scroll frame will call `-scrollViewDidScroll:` delegate
@@ -741,9 +745,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     
     CGFloat oldSuperviewHeight = _superviewHeight;
     _superviewHeight = self.view.frame.size.height;
-
-    if ((_hasInited && _superviewHeight == oldSuperviewHeight) || !self.view.window) return;
-
+    
+    BOOL oldTabBarIsHidden = _isTabBarHidden;
+    _isTabBarHidden = [self wm_bottomView].hidden;
+    
+    BOOL shouldNotLayout = (_hasInited && _superviewHeight == oldSuperviewHeight && _isTabBarHidden == oldTabBarIsHidden);
+    if (shouldNotLayout) return;
+    
     // 计算宽高及子控制器的视图frame
     [self wm_calculateSize];
     

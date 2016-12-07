@@ -11,6 +11,8 @@
 #import "WMScrollView.h"
 @class WMPageController;
 
+FOUNDATION_EXTERN NSString *const _Nonnull WMControllerDidAddToSuperViewNotification;
+FOUNDATION_EXTERN NSString *const _Nonnull WMControllerDidFullyDisplayedNotification;
 /*
  *  WMPageController 的缓存设置，默认缓存为无限制，当收到 memoryWarning 时，会自动切换到低缓存模式 (WMPageControllerCachePolicyLowMemory)，并在一段时间后切换到 High .
     收到多次警告后，会停留在到 WMPageControllerCachePolicyLowMemory 不再增长

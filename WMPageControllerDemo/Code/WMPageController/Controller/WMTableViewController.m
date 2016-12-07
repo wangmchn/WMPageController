@@ -9,7 +9,6 @@
 #import "WMTableViewController.h"
 #import "WMSecondViewController.h"
 #import "WMLoopView.h"
-#import "WMPageConst.h"
 
 @interface WMTableViewController () <WMLoopViewDelegate>
 

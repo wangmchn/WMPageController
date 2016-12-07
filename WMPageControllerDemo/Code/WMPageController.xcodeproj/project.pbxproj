@@ -85,7 +85,6 @@
 		4DAB33E51C12C6D0004EA0A4 /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
 		4DAB33E61C12C6D0004EA0A4 /* WMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMScrollView.h; sourceTree = "<group>"; };
 		4DAB33E71C12C6D0004EA0A4 /* WMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMScrollView.m; sourceTree = "<group>"; };
-		4DAB33E81C12C6D0004EA0A4 /* WMPageConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageConst.h; sourceTree = "<group>"; };
 		4DAB33E91C12C6D0004EA0A4 /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
 		4DAB33EA1C12C6D0004EA0A4 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
 		4DF161591C816E9F003553A6 /* WMSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMSecondViewController.h; sourceTree = "<group>"; };
@@ -218,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				4DAB33DD1C12C6D0004EA0A4 /* WMMenuView */,
-				4DAB33E81C12C6D0004EA0A4 /* WMPageConst.h */,
 				4DAB33E91C12C6D0004EA0A4 /* WMPageController.h */,
 				4DAB33EA1C12C6D0004EA0A4 /* WMPageController.m */,
 			);
