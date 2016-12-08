@@ -117,7 +117,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (void)setCachePolicy:(WMPageControllerCachePolicy)cachePolicy {
     _cachePolicy = cachePolicy;
-    if (cachePolicy!=WMPageControllerCachePolicyDisable) {
+    if (cachePolicy != WMPageControllerCachePolicyDisabled) {
         self.memCache.countLimit = _cachePolicy;
     }
 }
@@ -563,11 +563,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self.displayVC removeObjectForKey:@(index)];
     
     // 放入缓存
-    if (self.cachePolicy!=WMPageControllerCachePolicyDisable) {
-        if (![self.memCache objectForKey:@(index)]) {
-            [self willCachedController:viewController atIndex:index];
-            [self.memCache setObject:viewController forKey:@(index)];
-        }
+    if (self.cachePolicy == WMPageControllerCachePolicyDisabled) {
+        return;
+    }
+    
+    if (![self.memCache objectForKey:@(index)]) {
+        [self willCachedController:viewController atIndex:index];
+        [self.memCache setObject:viewController forKey:@(index)];
     }
 
 }

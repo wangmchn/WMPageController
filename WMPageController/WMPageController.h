@@ -22,11 +22,11 @@ FOUNDATION_EXTERN NSString *const _Nonnull WMControllerDidFullyDisplayedNotifica
     If recieved too much times, the cache policy will stay at 'LowMemory' and don't grow back any more.
  */
 typedef NS_ENUM(NSInteger, WMPageControllerCachePolicy) {
-    WMPageControllerCachePolicyDisable   = -1,  // Disable Cache
-    WMPageControllerCachePolicyNoLimit   = 0,  // No limit
-    WMPageControllerCachePolicyLowMemory = 1,  // Low Memory but may block when scroll
-    WMPageControllerCachePolicyBalanced  = 3,  // Balanced ↑ and ↓
-    WMPageControllerCachePolicyHigh      = 5   // High
+    WMPageControllerCachePolicyDisabled   = -1,  // Disable Cache
+    WMPageControllerCachePolicyNoLimit    = 0,   // No limit
+    WMPageControllerCachePolicyLowMemory  = 1,   // Low Memory but may block when scroll
+    WMPageControllerCachePolicyBalanced   = 3,   // Balanced ↑ and ↓
+    WMPageControllerCachePolicyHigh       = 5    // High
 };
 
 typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
