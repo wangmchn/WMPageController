@@ -7,7 +7,6 @@
 //
 
 #import "WMTableViewController.h"
-#import "WMHomeViewController.h"
 
 @interface WMTableViewController ()
 
@@ -42,18 +41,10 @@ static NSString *const kTablewCellIdentifier = @"kTablewCellIdentifier";
     return 100;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTablewCellIdentifier forIndexPath:indexPath];
     cell.textLabel.text = @"歌曲";
     return cell;
-}
-
-#pragma mark - Scroll view delegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    WMHomeViewController *hvc = (WMHomeViewController *)self.parentViewController;
-    CGFloat y = scrollView.contentOffset.y;
-    hvc.viewTop = kWMHeaderViewHeight + kNavigationBarHeight - y;
 }
 
 @end

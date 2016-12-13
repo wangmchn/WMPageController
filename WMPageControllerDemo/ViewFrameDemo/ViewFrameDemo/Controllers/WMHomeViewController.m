@@ -8,10 +8,12 @@
 
 #import "WMHomeViewController.h"
 #import "WMTableViewController.h"
+#import "WMPanGestureRecognizer.h"
 
-@interface WMHomeViewController () <UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface WMHomeViewController () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSArray *musicCategories;
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) WMPanGestureRecognizer *panGesture;
+@property (nonatomic, assign) CGPoint lastPoint;
 @end
 
 @implementation WMHomeViewController
@@ -41,26 +43,37 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"专辑";
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 150)];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.view addSubview:self.tableView];
+    
+    self.panGesture = [[WMPanGestureRecognizer alloc] initWithTarget:self action:@selector(panOnView:)];
+    [self.view addGestureRecognizer:self.panGesture];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 100;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"123"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"123"];
+- (void)panOnView:(WMPanGestureRecognizer *)recognizer {
+    NSLog(@"pannnnnning received..");
+    
+    CGPoint currentPoint = [recognizer locationInView:self.view];
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        self.lastPoint = currentPoint;
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
+        CGPoint velocity = [recognizer velocityInView:self.view];
+        CGFloat targetPoint = velocity.y < 0 ? kNavigationBarHeight : kNavigationBarHeight + kWMHeaderViewHeight;
+        NSTimeInterval duration = fabs((targetPoint - self.viewTop) / velocity.y);
+        
+        if (fabs(velocity.y) * 1.0 > fabs(targetPoint - self.viewTop)) {
+            NSLog(@"velocity: %lf", velocity.y);
+            [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.viewTop = targetPoint;
+            } completion:nil];
+            
+            return;
+        }
+        
     }
-    return cell;
+    CGFloat yChange = currentPoint.y - self.lastPoint.y;
+    self.viewTop += yChange;
+    self.lastPoint = currentPoint;
 }
 
 // MARK: ChangeViewFrame (Animatable)
@@ -96,16 +109,6 @@
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     return self.musicCategories[index];
-}
-
-- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
-    NSLog(@"%@",viewController);
-    WMTableViewController *vc = (WMTableViewController *)viewController;
-    NSLog(@"%@", NSStringFromCGPoint(vc.tableView.contentOffset));
-    if (vc.tableView.contentOffset.y > kWMHeaderViewHeight) {
-        return;
-    }
-    vc.tableView.contentOffset = CGPointMake(0, kNavigationBarHeight + kWMHeaderViewHeight - self.viewTop);
 }
 
 @end

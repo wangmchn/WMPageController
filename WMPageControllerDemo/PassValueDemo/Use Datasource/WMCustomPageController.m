@@ -24,8 +24,7 @@
         self.titleSizeSelected = 14.0f;
         self.titleSizeNormal = 14.0f;
         self.menuHeight = 44;
-        self.titles = @[@"我的", @"他的"];
-        self.progressViewWidths = @[@10, @10];
+        self.titles = @[];
     }
     return self;
 }
@@ -38,10 +37,19 @@
     self.selectIndex = 1;
 }
 
-- (void)reloadProgressWidth {
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     self.titles = @[@"不是我的", @"不是他的", @"不是你的", @"到底是谁的"];
     self.progressWidth = 40;
     [self reloadData];
+}
+
+- (void)reloadProgressWidth {
+//    self.titles = @[@"不是我的", @"不是他的", @"不是你的", @"到底是谁的"];
+//    self.progressWidth = 40;
+//    [self reloadData];
+    self.showOnNavigationBar = YES;
 }
 
 - (void)addViews {

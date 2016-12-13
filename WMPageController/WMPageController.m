@@ -94,6 +94,11 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
+- (void)forceLayoutSubviews {
+    _hasInited = NO;
+    [self viewDidLayoutSubviews];
+}
+
 - (void)setScrollEnable:(BOOL)scrollEnable {
     _scrollEnable = scrollEnable;
     
@@ -207,6 +212,21 @@ static NSInteger const kWMControllerCountUndefined = -1;
         self.itemsWidths = [mutableWidths copy];
     }
     [self.menuView updateTitle:title atIndex:index andWidth:YES];
+}
+
+- (void)setShowOnNavigationBar:(BOOL)showOnNavigationBar {
+    if (_showOnNavigationBar == showOnNavigationBar) {
+        return;
+    }
+    
+    _showOnNavigationBar = showOnNavigationBar;
+    if (self.menuView) {
+        [self.menuView removeFromSuperview];
+    }
+    
+    [self wm_addMenuView];
+    [self forceLayoutSubviews];
+    [self.menuView slideMenuAtProgress:self.selectIndex];
 }
 
 #pragma mark - Notification

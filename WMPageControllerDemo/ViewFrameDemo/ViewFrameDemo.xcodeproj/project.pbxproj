@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D9BD00E1DFF992400E26206 /* WMPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BD00D1DFF992400E26206 /* WMPanGestureRecognizer.m */; };
 		4DD02A0E1D46648400BCA5F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A0D1D46648400BCA5F1 /* main.m */; };
 		4DD02A111D46648400BCA5F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A101D46648400BCA5F1 /* AppDelegate.m */; };
 		4DD02A171D46648400BCA5F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DD02A151D46648400BCA5F1 /* Main.storyboard */; };
@@ -33,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D9BD00C1DFF992400E26206 /* WMPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPanGestureRecognizer.h; sourceTree = "<group>"; };
+		4D9BD00D1DFF992400E26206 /* WMPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPanGestureRecognizer.m; sourceTree = "<group>"; };
 		4DD02A091D46648400BCA5F1 /* ViewFrameDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewFrameDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DD02A0D1D46648400BCA5F1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4DD02A0F1D46648400BCA5F1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,7 +59,6 @@
 		4DD02A561D46674E00BCA5F1 /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
 		4DD02A571D46674E00BCA5F1 /* WMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMScrollView.h; sourceTree = "<group>"; };
 		4DD02A581D46674E00BCA5F1 /* WMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMScrollView.m; sourceTree = "<group>"; };
-		4DD02A591D46674E00BCA5F1 /* WMPageConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageConst.h; sourceTree = "<group>"; };
 		4DD02A5A1D46674E00BCA5F1 /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
 		4DD02A5B1D46674E00BCA5F1 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D9BD00B1DFF992400E26206 /* Gesture */ = {
+			isa = PBXGroup;
+			children = (
+				4D9BD00C1DFF992400E26206 /* WMPanGestureRecognizer.h */,
+				4D9BD00D1DFF992400E26206 /* WMPanGestureRecognizer.m */,
+			);
+			path = Gesture;
+			sourceTree = "<group>";
+		};
 		4DD02A001D46648400BCA5F1 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +111,7 @@
 		4DD02A0B1D46648400BCA5F1 /* ViewFrameDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4D9BD00B1DFF992400E26206 /* Gesture */,
 				4DD02A4D1D46674E00BCA5F1 /* WMPageController */,
 				4DD02A461D4664CE00BCA5F1 /* Controllers */,
 				4DD02A0F1D46648400BCA5F1 /* AppDelegate.h */,
@@ -145,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				4DD02A4E1D46674E00BCA5F1 /* WMMenuView */,
-				4DD02A591D46674E00BCA5F1 /* WMPageConst.h */,
 				4DD02A5A1D46674E00BCA5F1 /* WMPageController.h */,
 				4DD02A5B1D46674E00BCA5F1 /* WMPageController.m */,
 			);
@@ -276,6 +287,7 @@
 				4DD02A0E1D46648400BCA5F1 /* main.m in Sources */,
 				4DD02A611D46674E00BCA5F1 /* WMPageController.m in Sources */,
 				4DD02A5D1D46674E00BCA5F1 /* WMMenuItem.m in Sources */,
+				4D9BD00E1DFF992400E26206 /* WMPanGestureRecognizer.m in Sources */,
 				4DD02A601D46674E00BCA5F1 /* WMScrollView.m in Sources */,
 				4DD02A5F1D46674E00BCA5F1 /* WMProgressView.m in Sources */,
 			);

@@ -326,6 +326,8 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  */
 - (void)reloadData;
 
+/** 强制重新布局 */
+- (void)forceLayoutSubviews;
 /**
  *  Update designated item's title
     更新指定序号的控制器的标题
