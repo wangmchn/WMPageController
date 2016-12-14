@@ -346,7 +346,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 - (void)wm_clearDatas {
     _controllerConut = kWMControllerCountUndefined;
     _hasInited = NO;
-    _selectIndex = self.childControllersCount > self.selectIndex ? (int)self.childControllersCount - 1 : self.selectIndex;
+    NSUInteger maxIndex = (self.childControllersCount - 1 > 0) ? (self.childControllersCount - 1) : 0;
+    _selectIndex = self.selectIndex < self.childControllersCount ? self.selectIndex : (int)maxIndex;
     if (self.progressWidth > 0) { self.progressWidth = self.progressWidth; }
     
     NSArray *displayingViewControllers = self.displayVC.allValues;
