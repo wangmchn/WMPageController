@@ -72,6 +72,7 @@
 
 // 设置rate,并刷新标题状态
 - (void)setRate:(CGFloat)rate {
+    if (rate < 0.0 || rate > 1.0) { return; }
     _rate = rate;
     CGFloat r = _normalRed + (_selectedRed - _normalRed) * rate;
     CGFloat g = _normalGreen + (_selectedGreen - _normalGreen) * rate;

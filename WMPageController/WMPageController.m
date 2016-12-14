@@ -222,11 +222,10 @@ static NSInteger const kWMControllerCountUndefined = -1;
     _showOnNavigationBar = showOnNavigationBar;
     if (self.menuView) {
         [self.menuView removeFromSuperview];
+        [self wm_addMenuView];
+        [self forceLayoutSubviews];
+        [self.menuView slideMenuAtProgress:self.selectIndex];
     }
-    
-    [self wm_addMenuView];
-    [self forceLayoutSubviews];
-    [self.menuView slideMenuAtProgress:self.selectIndex];
 }
 
 #pragma mark - Notification
