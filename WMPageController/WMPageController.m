@@ -420,7 +420,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     CGFloat navigationHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     UIView *tabBar = [self wm_bottomView];
     CGFloat height = (tabBar && !tabBar.hidden) ? CGRectGetHeight(tabBar.frame) : 0;
-    CGFloat tarBarHeight = (tabBar.hidden == YES) ? 0 : height;
+    CGFloat tarBarHeight = (self.hidesBottomBarWhenPushed == YES) ? 0 : height;
     // 计算相对 window 的绝对 frame (self.view.window 可能为 nil)
     UIWindow *mainWindow = [[UIApplication sharedApplication].delegate window];
     CGRect absoluteRect = [self.view convertRect:self.view.bounds toView:mainWindow];
