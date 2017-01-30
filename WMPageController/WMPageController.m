@@ -456,7 +456,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.bounces = self.bounces;
-    scrollView.otherGestureRecognizerSimultaneously = self.otherGestureRecognizerSimultaneously;
+    scrollView.otherGestureRecognizerSimultaneously = YES;//self.otherGestureRecognizerSimultaneously;
     scrollView.scrollEnabled = self.scrollEnable;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
@@ -918,7 +918,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return self.itemMargin;
 }
 
-- (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state {
+- (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state atIndex:(NSInteger)index {
     switch (state) {
         case WMMenuItemStateSelected: {
             return self.titleSizeSelected;
@@ -931,7 +931,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
-- (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state {
+- (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state atIndex:(NSInteger)index {
     switch (state) {
         case WMMenuItemStateSelected: {
             return self.titleColorSelected;
