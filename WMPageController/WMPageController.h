@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "WMMenuView.h"
 #import "WMScrollView.h"
+
 @class WMPageController;
 
-FOUNDATION_EXTERN NSString *const _Nonnull WMControllerDidAddToSuperViewNotification;
-FOUNDATION_EXTERN NSString *const _Nonnull WMControllerDidFullyDisplayedNotification;
 /*
  *  WMPageController 的缓存设置，默认缓存为无限制，当收到 memoryWarning 时，会自动切换到低缓存模式 (WMPageControllerCachePolicyLowMemory)，并在一段时间后切换到 High .
     收到多次警告后，会停留在到 WMPageControllerCachePolicyLowMemory 不再增长
@@ -35,6 +34,10 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
     WMPageControllerPreloadPolicyNear      = 2  // Pre-load 2 controllers near the current.
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
+extern NSString *const WMControllerDidAddToSuperViewNotification;
+extern NSString *const WMControllerDidFullyDisplayedNotification;
 @protocol WMPageControllerDataSource <NSObject>
 @optional
 
@@ -45,7 +48,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *
  *  @return The value of child controllers's count.
  */
-- (NSInteger)numbersOfChildControllersInPageController:(WMPageController * _Nonnull)pageController;
+- (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController;
 
 /**
  *  Return a controller that you wanna to display at index. You can set properties easily if you implement this methods.
@@ -55,7 +58,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *
  *  @return The instance of a `UIViewController`.
  */
-- (__kindof UIViewController * _Nonnull)pageController:(WMPageController * _Nonnull)pageController viewControllerAtIndex:(NSInteger)index;
+- (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index;
 
 /**
  *  Each title you wanna show in the `WMMenuView`
@@ -65,7 +68,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *
  *  @return A `NSString` value to show at the top of `WMPageController`.
  */
-- (NSString * _Nonnull)pageController:(WMPageController * _Nonnull)pageController titleAtIndex:(NSInteger)index;
+- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index;
 
 @end
 
@@ -79,7 +82,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  @param viewController The viewController first show up when scroll stop.
  *  @param info           A dictionary that includes some infos, such as: `index` / `title`
  */
-- (void)pageController:(WMPageController * _Nonnull)pageController lazyLoadViewController:(__kindof UIViewController * _Nonnull)viewController withInfo:(NSDictionary * _Nonnull)info;
+- (void)pageController:(WMPageController *)pageController lazyLoadViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
 
 /**
  *  Called when a viewController will be cached. You can clear some data if it's not reusable.
@@ -88,7 +91,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  @param viewController The viewController will be cached.
  *  @param info           A dictionary that includes some infos, such as: `index` / `title`
  */
-- (void)pageController:(WMPageController * _Nonnull)pageController willCachedViewController:(__kindof UIViewController * _Nonnull)viewController withInfo:(NSDictionary * _Nonnull)info;
+- (void)pageController:(WMPageController *)pageController willCachedViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
 
 /**
  *  Called when a viewController will be appear to user's sight. Do some preparatory methods if needed.
@@ -97,7 +100,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  @param viewController The viewController will appear.
  *  @param info           A dictionary that includes some infos, such as: `index` / `title`
  */
-- (void)pageController:(WMPageController * _Nonnull)pageController willEnterViewController:(__kindof UIViewController * _Nonnull)viewController withInfo:(NSDictionary * _Nonnull)info;
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
 
 /**
  *  Called when a viewController will fully displayed, that means, scrollView have stopped scrolling and the controller's view have entirely displayed.
@@ -106,35 +109,35 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  @param viewController The viewController entirely displayed.
  *  @param info           A dictionary that includes some infos, such as: `index` / `title`
  */
-- (void)pageController:(WMPageController * _Nonnull)pageController didEnterViewController:(__kindof UIViewController * _Nonnull)viewController withInfo:(NSDictionary * _Nonnull)info;
+- (void)pageController:(WMPageController *)pageController didEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info;
 
 @end
 
 @interface WMPageController : UIViewController <WMMenuViewDelegate, WMMenuViewDataSource, UIScrollViewDelegate, WMPageControllerDataSource, WMPageControllerDelegate>
 
-@property (nonatomic, weak) id<WMPageControllerDelegate> _Nullable delegate;
-@property (nonatomic, weak) id<WMPageControllerDataSource> _Nullable dataSource;
+@property (nonatomic, weak) id<WMPageControllerDelegate> delegate;
+@property (nonatomic, weak) id<WMPageControllerDataSource> dataSource;
 
 /**
  *  Values and keys can set properties when initialize child controlelr (it's KVC)
  *  values keys 属性可以用于初始化控制器的时候为控制器传值(利用 KVC 来设置)
     使用时请确保 key 与控制器的属性名字一致！！(例如：控制器有需要设置的属性 type，那么 keys 所放的就是字符串 @"type")
  */
-@property (nonatomic, strong) NSMutableArray<id> * _Nullable values;
-@property (nonatomic, strong) NSMutableArray<NSString *> * _Nullable keys;
+@property (nonatomic, nullable, strong) NSMutableArray<id> *values;
+@property (nonatomic, nullable, strong) NSMutableArray<NSString *> *keys;
 
 /**
  *  各个控制器的 class, 例如:[UITableViewController class]
  *  Each controller's class, example:[UITableViewController class]
  */
-@property (nonatomic, copy) NSArray<Class> * _Nullable viewControllerClasses;
+@property (nonatomic, nullable, copy) NSArray<Class> *viewControllerClasses;
 
 /**
  *  各个控制器标题
  *  Titles of view controllers in page controller.
  */
-@property (nonatomic, copy) NSArray<NSString *> * _Nullable titles;
-@property (nonatomic, strong, readonly) UIViewController * _Nonnull currentViewController;
+@property (nonatomic, nullable, copy) NSArray<NSString *> *titles;
+@property (nonatomic, strong, readonly) UIViewController *currentViewController;
 
 /**
  *  设置选中几号 item
@@ -171,19 +174,19 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  标题选中时的颜色, 颜色是可动画的.
  *  The title color when selected, the color is animatable.
  */
-@property (nonatomic, strong) UIColor * _Nullable titleColorSelected;
+@property (nonatomic, strong) UIColor *titleColorSelected;
 
 /**
  *  标题非选择时的颜色, 颜色是可动画的.
  *  The title's normal color, the color is animatable.
  */
-@property (nonatomic, strong) UIColor * _Nullable titleColorNormal;
+@property (nonatomic, strong) UIColor *titleColorNormal;
 
 /**
  *  标题的字体名字
  *  The name of title's font
  */
-@property (nonatomic, copy) NSString * _Nullable titleFontName;
+@property (nonatomic, nullable, copy) NSString *titleFontName;
 
 /**
  *  导航栏高度
@@ -201,13 +204,13 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  各个 MenuItem 的宽度，可不等，数组内为 NSNumber.
  *  Each item's width, when they are not all the same, use this property, Put `NSNumber` in this array.
  */
-@property (nonatomic, copy) NSArray<NSNumber *> * _Nullable itemsWidths;
+@property (nonatomic, nullable, copy) NSArray<NSNumber *> *itemsWidths;
 
 /**
  *  导航栏背景色
  *  The background color of menu view
  */
-@property (nonatomic, strong) UIColor * _Nullable menuBGColor;
+@property (nonatomic, strong) UIColor *menuBGColor;
 
 /**
  *  Menu view 的样式，默认为无下划线
@@ -221,12 +224,12 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  进度条的颜色，默认和选中颜色一致(如果 style 为 Default，则该属性无用)
  *  The progress's color,the default color is same with `titleColorSelected`.If you want to have a different color, set this property.
  */
-@property (nonatomic, strong) UIColor * _Nullable progressColor;
+@property (nonatomic, nullable, strong) UIColor *progressColor;
 
 /**
  *  定制进度条在各个 item 下的宽度
  */
-@property (nonatomic, strong) NSArray * _Nullable progressViewWidths;
+@property (nonatomic, nullable, strong) NSArray *progressViewWidths;
 
 /// 定制进度条，若每个进度条长度相同，可设置该属性
 @property (nonatomic, assign) CGFloat progressWidth;
@@ -279,7 +282,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  Menu view items' margin / make sure it's count is equal to (controllers' count + 1),default is 0
     顶部菜单栏各个 item 的间隙，因为包括头尾两端，所以确保它的数量等于控制器数量 + 1, 默认间隙为 0
  */
-@property (nonatomic, copy) NSArray<NSNumber *> * _Nullable itemsMargins;
+@property (nonatomic, nullable, copy) NSArray<NSNumber *> *itemsMargins;
 
 /**
  *  set itemMargin if all margins are the same, default is 0
@@ -296,10 +299,10 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
 /** progressView's cornerRadius */
 @property (nonatomic, assign) CGFloat progressViewCornerRadius;
 /** 顶部导航栏 */
-@property (nonatomic, weak) WMMenuView * _Nullable menuView;
+@property (nonatomic, nullable, weak) WMMenuView *menuView;
 
 /** 内部容器 */
-@property (nonatomic, weak) WMScrollView * _Nullable scrollView;
+@property (nonatomic, nullable, weak) WMScrollView *scrollView;
 
 /** MenuView 内部视图与左右的间距 */
 @property (nonatomic, assign) CGFloat menuViewContentMargin;
@@ -318,7 +321,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *
  *  @return instancetype
  */
-- (instancetype _Nullable)initWithViewControllerClasses:(NSArray<Class> * _Nonnull)classes andTheirTitles:(NSArray<NSString *> * _Nonnull)titles;
+- (instancetype)initWithViewControllerClasses:(NSArray<Class> *)classes andTheirTitles:(NSArray<NSString *> *)titles;
 
 /**
  *  A method in order to reload MenuView and child view controllers. If you had set `itemsMargins` or `itemsWidths` `values` and `keys` before, make sure you have update them also before you call this method. And most important, PAY ATTENTION TO THE COUNT OF THOSE ARRAY.
@@ -335,7 +338,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  @param title 新的标题
  *  @param index 目标序号
  */
-- (void)updateTitle:(NSString * _Nonnull)title atIndex:(NSInteger)index;
+- (void)updateTitle:(NSString *)title atIndex:(NSInteger)index;
 
 /**
  *  Update designated item's title and width
@@ -345,13 +348,15 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  *  @param index 目标序号
  *  @param width 对应item的新宽度
  */
-- (void)updateTitle:(NSString * _Nonnull)title andWidth:(CGFloat)width atIndex:(NSInteger)index;
+- (void)updateTitle:(NSString *)title andWidth:(CGFloat)width atIndex:(NSInteger)index;
 
-- (void)updateAttributeTitle:(NSAttributedString * _Nonnull)title atIndex:(NSInteger)index;
+- (void)updateAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index;
 
 /** 当 app 即将进入后台接收到的通知 */
-- (void)willResignActive:(NSNotification * _Nonnull)notification;
+- (void)willResignActive:(NSNotification *)notification;
 /** 当 app 即将回到前台接收到的通知 */
-- (void)willEnterForeground:(NSNotification * _Nonnull)notification;
+- (void)willEnterForeground:(NSNotification *)notification;
 
 @end
+
+NS_ASSUME_NONNULL_END

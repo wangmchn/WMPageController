@@ -8,7 +8,7 @@
 
 #import "WMMenuItem.h"
 
-@interface WMMenuItem () {
+@implementation WMMenuItem {
     CGFloat _selectedRed, _selectedGreen, _selectedBlue, _selectedAlpha;
     CGFloat _normalRed, _normalGreen, _normalBlue, _normalAlpha;
     int     _sign;
@@ -16,9 +16,6 @@
     CGFloat _step;
     __weak CADisplayLink *_link;
 }
-@end
-
-@implementation WMMenuItem
 
 #pragma mark - Public Methods
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -39,16 +36,17 @@
     return _speedFactor;
 }
 
-// 设置选中，隐式动画所在
-- (void)setSelected:(BOOL)selected {
-    if (self.selected == selected) { return; }
+- (void)setSelected:(BOOL)selected withAnimation:(BOOL)animation {
     _selected = selected;
+    if (!animation) {
+        self.rate = selected ? 1.0 : 0.0;
+        return;
+    }
     _sign = (selected == YES) ? 1 : -1;
-    _gap = (selected == YES) ? (1.0 - self.rate) : (self.rate - 0.0);
+    _gap  = (selected == YES) ? (1.0 - self.rate) : (self.rate - 0.0);
     _step = _gap / self.speedFactor;
     if (_link) {
         [_link invalidate];
-//        [_link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
     CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(rateChange)];
     [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
@@ -82,16 +80,6 @@
     CGFloat minScale = self.normalSize / self.selectedSize;
     CGFloat trueScale = minScale + (1 - minScale)*rate;
     self.transform = CGAffineTransformMakeScale(trueScale, trueScale);
-}
-
-- (void)selectedWithoutAnimation {
-    self.rate = 1.0;
-    _selected = YES;
-}
-
-- (void)deselectedWithoutAnimation {
-    self.rate = 0;
-    _selected = NO;
 }
 
 - (void)setSelectedColor:(UIColor *)selectedColor {

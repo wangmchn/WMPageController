@@ -219,9 +219,9 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     WMMenuItem *currentItem = (WMMenuItem *)[self viewWithTag:tag];
     WMMenuItem *nextItem = (WMMenuItem *)[self viewWithTag:tag+1];
     if (rate == 0.0) {
-        [self.selItem deselectedWithoutAnimation];
+        [self.selItem setSelected:NO withAnimation:NO];
         self.selItem = currentItem;
-        [self.selItem selectedWithoutAnimation];
+        [self.selItem setSelected:YES withAnimation:NO];
         [self refreshContenOffset];
         return;
     }
@@ -236,9 +236,9 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     if (index == currentIndex || !self.selItem) { return; }
     
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
-    [self.selItem deselectedWithoutAnimation];
+    [self.selItem setSelected:NO withAnimation:NO];
     self.selItem = item;
-    [self.selItem selectedWithoutAnimation];
+    [self.selItem setSelected:YES withAnimation:NO];
     [self.progressView setProgressWithOutAnimate:index];
     if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
         [self.delegate menuView:self didSelesctedIndex:index currentIndex:currentIndex];
@@ -435,7 +435,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         if (![obj isKindOfClass:[WMMenuItem class]] || obj == self.selItem) {
             return;
         }
-        [(WMMenuItem *)obj deselectedWithoutAnimation];
+        [(WMMenuItem *)obj setSelected:NO withAnimation:NO];
     }];
 }
 
@@ -478,10 +478,10 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         item.selectedColor = self.selectedColor;
         item.speedFactor   = self.speedFactor;
         if (i == 0) {
-            [item selectedWithoutAnimation];
+            [item setSelected:YES withAnimation:NO];
             self.selItem = item;
         } else {
-            [item deselectedWithoutAnimation];
+            [item setSelected:NO withAnimation:NO];
         }
         [self.scrollView addSubview:item];
     }
@@ -569,8 +569,8 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         [self.delegate menuView:self didSelesctedIndex:menuItem.tag-WMMenuItemTagOffset currentIndex:currentIndex];
     }
     
-    menuItem.selected = YES;
-    self.selItem.selected = NO;
+    [menuItem setSelected:YES withAnimation:YES];
+    [self.selItem setSelected:NO withAnimation:YES];
     self.selItem = menuItem;
     
     NSTimeInterval delay = self.style == WMMenuViewStyleDefault ? 0 : 0.3f;
