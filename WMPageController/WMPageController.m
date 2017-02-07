@@ -503,7 +503,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 - (void)wm_layoutChildViewControllers {
-    int currentPage = (int)self.scrollView.contentOffset.x / _viewWidth;
+    int currentPage = (int)(self.scrollView.contentOffset.x / _viewWidth);
     int start = currentPage == 0 ? currentPage : (currentPage - 1);
     int end = (currentPage == self.childControllersCount - 1) ? currentPage : (currentPage + 1);
     for (int i = start; i <= end; i++) {
@@ -844,7 +844,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     if (![scrollView isKindOfClass:WMScrollView.class]) return;
     
     self.menuView.userInteractionEnabled = YES;
-    _selectIndex = (int)scrollView.contentOffset.x / _viewWidth;
+    _selectIndex = (int)(scrollView.contentOffset.x / _viewWidth);
     [self wm_removeSuperfluousViewControllersIfNeeded];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
