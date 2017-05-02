@@ -321,7 +321,6 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     frame.size.width -= self.contentMargin * 2;
     self.scrollView.frame = frame;
     [self resetFramesFromIndex:0];
-//    [self refreshContenOffset];
 }
 
 - (void)resetFramesFromIndex:(NSInteger)index {
@@ -379,7 +378,6 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         [progressFrames addObject:[NSValue valueWithCGRect:progressFrame]];
     }
     return progressFrames.copy;
-
 }
 
 - (void)addBadgeViews {
