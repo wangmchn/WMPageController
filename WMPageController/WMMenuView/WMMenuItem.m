@@ -25,6 +25,8 @@
         self.normalSize    = 15;
         self.selectedSize  = 18;
         self.numberOfLines = 0;
+        
+        [self setupGestureRecognizer];
     }
     return self;
 }
@@ -34,6 +36,11 @@
         _speedFactor = 15.0;
     }
     return _speedFactor;
+}
+
+- (void)setupGestureRecognizer {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpInside:)];
+    [self addGestureRecognizer:tap];
 }
 
 - (void)setSelected:(BOOL)selected withAnimation:(BOOL)animation {
@@ -92,9 +99,7 @@
     [normalColor getRed:&_normalRed green:&_normalGreen blue:&_normalBlue alpha:&_normalAlpha];
 }
 
-#pragma mark - Private Methods
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchUpInside:(id)sender {
     if ([self.delegate respondsToSelector:@selector(didPressedMenuItem:)]) {
         [self.delegate didPressedMenuItem:self];
     }

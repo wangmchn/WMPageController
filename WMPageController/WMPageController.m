@@ -506,6 +506,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 - (void)wm_layoutChildViewControllers {
     int currentPage = (int)(self.scrollView.contentOffset.x / _viewWidth);
     int length = (int)self.preloadPolicy;
+    int left = currentPage - length - 1;
+    int right = currentPage + length + 1;
     for (int i = 0; i < self.childControllersCount; i++) {
         UIViewController *vc = [self.displayVC objectForKey:@(i)];
         CGRect frame = [self.childViewFrames[i] CGRectValue];
@@ -513,7 +515,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
             if ([self wm_isInScreen:frame]) {
                 [self wm_initializedControllerWithIndexIfNeeded:i];
             }
-        } else if (i <= currentPage - length - 1 || i >= currentPage + length + 1) {
+        } else if (i <= left || i >= right) {
             if (![self wm_isInScreen:frame]) {
                 [self wm_removeViewController:vc atIndex:i];
             }
