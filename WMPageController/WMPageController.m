@@ -829,7 +829,15 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (![scrollView isKindOfClass:WMScrollView.class]) return;
-    
+    CGPoint velocity = [scrollView.panGestureRecognizer velocityInView:self.view];
+    NSInteger shouldIndex = self.selectIndex + ((velocity.x > 0) ? -1 : 1);
+    if (_delegate && [_delegate respondsToSelector:@selector(pageController:shouldEnterIndex:)]) {
+        BOOL should = [_delegate pageController:self shouldEnterIndex:shouldIndex];
+        if (!should) {
+            //取消滚动事件
+            
+        }
+    }
     _startDragging = YES;
     self.menuView.userInteractionEnabled = NO;
 }
@@ -872,6 +880,14 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 #pragma mark - WMMenuView Delegate
+- (BOOL)menuView:(WMMenuView *)menu shouldSelesctedIndex:(NSInteger)index {
+    if (_delegate && [_delegate respondsToSelector:@selector(pageController:shouldEnterIndex:)]) {
+        BOOL should = [_delegate pageController:self shouldEnterIndex:index];
+        return should;
+    }
+    return YES;
+}
+
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex {
     if (!_hasInited) return;
     _selectIndex = (int)index;

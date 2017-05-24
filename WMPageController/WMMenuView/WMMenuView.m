@@ -540,6 +540,13 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 - (void)didPressedMenuItem:(WMMenuItem *)menuItem {
     if (self.selItem == menuItem) { return; }
     
+    if ([self.delegate respondsToSelector:@selector(menuView:shouldSelesctedIndex:)]) {
+        BOOL should = [self.delegate menuView:self shouldSelesctedIndex:menuItem.tag - WMMenuItemTagOffset];
+        if (!should) {
+            return;
+        }
+    }
+    
     CGFloat progress = menuItem.tag - WMMenuItemTagOffset;
     [self.progressView moveToPostion:progress];
     
