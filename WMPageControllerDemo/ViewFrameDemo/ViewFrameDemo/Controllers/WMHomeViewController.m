@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSArray *musicCategories;
 @property (nonatomic, strong) WMPanGestureRecognizer *panGesture;
 @property (nonatomic, assign) CGPoint lastPoint;
+@property (nonatomic, strong) UIView *redView;
 @end
 
 @implementation WMHomeViewController
@@ -43,9 +44,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"专辑";
-    
+    UIView *redView = [[UIView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight, [UIScreen mainScreen].bounds.size.width, kWMHeaderViewHeight)];
+    redView.backgroundColor = [UIColor redColor];
+    self.redView = redView;
+    [self.view addSubview:self.redView];
     self.panGesture = [[WMPanGestureRecognizer alloc] initWithTarget:self action:@selector(panOnView:)];
     [self.view addGestureRecognizer:self.panGesture];
+}
+
+- (void)btnClicked:(id)sender {
+    NSLog(@"touch up inside");
 }
 
 - (void)panOnView:(WMPanGestureRecognizer *)recognizer {
@@ -72,13 +80,13 @@
         
     }
     CGFloat yChange = currentPoint.y - self.lastPoint.y;
+    
     self.viewTop += yChange;
     self.lastPoint = currentPoint;
 }
 
 // MARK: ChangeViewFrame (Animatable)
 - (void)setViewTop:(CGFloat)viewTop {
-    
     _viewTop = viewTop;
     
     if (_viewTop <= kNavigationBarHeight) {
@@ -89,6 +97,11 @@
         _viewTop = kWMHeaderViewHeight + kNavigationBarHeight;
     }
     
+    self.redView.frame = ({
+        CGRect oriFrame = self.redView.frame;
+        oriFrame.origin.y = _viewTop - kWMHeaderViewHeight;
+        oriFrame;
+    });
     self.viewFrame = CGRectMake(0, _viewTop, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - _viewTop);
 }
 
