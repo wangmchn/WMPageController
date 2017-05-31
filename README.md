@@ -95,8 +95,10 @@ Here is an example:
 这是解决：这个tabVC创建的时候，需要多个参数，但是在别的地方传值的时候，不需要这么多个参数，可能是其中的一两个参数即可。如果要将其所有参数都用字典传值，就会导致所有要跳转的地方都改成字典传值。
 ```
     self.keys = @[@"paramDic", @"paramDic", @"paramDic"].mutableCopy; //这里key名字随便写的  
+    
     //这里生成tabVC的时候需要传两个值，但是在别的界面跳转过来只需要一个参数即可。这里这样写keys和Values，项目其他地方都不用修改
-    self.values = @[@{@"communityVcType":@(WChildCommunityVcTypeRecommend),@"isFromHomeLink":@(self.isFromHomeLink)}, @{@"communityVcType":@(WChildCommunityVcTypeFollowed),@"isFromHomeLink":@(self.isFromHomeLink)}, @{@"communityVcType":@(WChildCommunityVcTypeMine),@"isFromHomeLink":@(self.isFromHomeLink)}].mutableCopy;
+    
+    self.values = @[@{@"communityVcType":@(WChildCommunityVcTypeRecommend),@"isFromHomeLink":@(self.isFromHomeLink)},  @{@"communityVcType":@(WChildCommunityVcTypeFollowed),@"isFromHomeLink":@(self.isFromHomeLink)},  @{@"communityVcType":@(WChildCommunityVcTypeMine),@"isFromHomeLink":@(self.isFromHomeLink)}].mutableCopy;   
 ```
 
 ## License
