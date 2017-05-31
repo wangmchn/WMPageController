@@ -551,7 +551,19 @@ static NSInteger const kWMControllerCountUndefined = -1;
     _initializedIndex = index;
     UIViewController *viewController = [self initializeViewControllerAtIndex:index];
     if (self.values.count == self.childControllersCount && self.keys.count == self.childControllersCount) {
-        [viewController setValue:self.values[index] forKey:self.keys[index]];
+        //这里将参数传值进行一下修改 扩展， 传多个参数封装成字典，然后遍历出参数 目前要传的参数只能封装成字典类型
+        //eg：这个tab界面 你需要两个参数，但是不能直接用字典传值，因为在别的界面跳转也有传值过去，可能只需要其中的一个参数就可以了，如果全改成字典，就要全局所有跳转的地方进行改动。
+        
+        id obj = self.values[index];
+        if( [obj isKindOfClass:[NSDictionary class]]){ //多个参数的操作
+            
+            NSDictionary * dic = (NSDictionary *)obj;
+            [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                [viewController setValue:obj forKey:key];
+            }];
+        }else{  //单个参数的操作
+            [viewController setValue:self.values[index] forKey:self.keys[index]];
+        }
     }
     [self addChildViewController:viewController];
     CGRect frame = self.childViewFrames.count ? [self.childViewFrames[index] CGRectValue] : self.view.frame;
