@@ -32,7 +32,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    [self reloadData];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"刷新" style:UIBarButtonItemStyleDone target:self action:@selector(reloadProgressWidth)];
     self.selectIndex = 1;
 }
@@ -46,9 +45,6 @@
 }
 
 - (void)reloadProgressWidth {
-//    self.titles = @[@"不是我的", @"不是他的", @"不是你的", @"到底是谁的"];
-//    self.progressWidth = 40;
-//    [self reloadData];
     self.showOnNavigationBar = YES;
 }
 
@@ -109,10 +105,6 @@
     }
     return self.titles[index];
 }
-
-//- (void)pageController:(WMPageController *)pageController lazyLoadViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
-//    NSLog(@"%@", info);
-//}
 
 - (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info {
     NSLog(@"%@", info);
