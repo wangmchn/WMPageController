@@ -76,7 +76,9 @@ If you want `menuView` to show on the navigation bar, set `.showOnNavigationBar 
     pod 'WMPageController'
 
 ## Note
-You can put every controller in `WMPageController`,But if you want have a `UICollectionViewController` in, please have an attention to `UICollectionViewController's` init method.<br>
+1. If you have any trouble with content controller's frame or size,just try set `viewFrame` property, which make you free to customize your own size.
+
+2. You can put every controller in `WMPageController`,But if you want have a `UICollectionViewController` in, please have an attention to `UICollectionViewController's` init method.<br>
 You should override the `- init` to give `UICollectionViewController` a `UICollectionViewLayout`.
 Here is an example:
 ```objective-c
