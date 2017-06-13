@@ -71,7 +71,9 @@
     pod 'WMPageController'
 
 ## 要点
-如果需要传入 `UICollectionViewController`, 需要重写 `- init` 方法，来为`UICollectionViewController`提供一个 `UICollectionViewLayout`。
+1.如果你的控制器的位置或者大小出现了任何问题，试试设置下 `viewFrame` 这个属性可以帮助你自定义你的控制器大小及位置
+
+2.如果需要传入 `UICollectionViewController`, 需要重写 `- init` 方法，来为`UICollectionViewController`提供一个 `UICollectionViewLayout`。
 方式如下：
 ```objective-c
 - (instancetype)init {
