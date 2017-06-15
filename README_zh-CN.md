@@ -24,6 +24,7 @@
 * 可通过设置`itemsWidths`属性来设置不同的标题宽度，例如 `@[@(100),@(80),@(50).....]`;
 * 增加了`reload`功能，可以像网易新闻那样重新更新标题和控制器。
 * 新类型 `WMMenuViewStyleSegmented`, 用于实现 <a href="https://github.com/wangmchn/WMPageController/issues/120">#120</a>
+* 如果自动计算的大小有误，可以设置 viewFrame 来获得正确的子控制器大小！
 
 ## 使用
 首先，把下面红框里的内容拖入项目。<br>
