@@ -699,7 +699,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     __block CGFloat rightWidth = 0;
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
-            if (![obj isKindOfClass:[WMMenuView class]] && ![obj isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")] && obj.alpha != 0 && obj.hidden == NO) {
+            if (![obj isKindOfClass:[WMMenuView class]] && obj.alpha != 0 && obj.hidden == NO) {
                 CGFloat maxX = CGRectGetMaxX(obj.frame);
                 if (maxX < _viewWidth / 2) {
                     CGFloat leftWidth = maxX;
