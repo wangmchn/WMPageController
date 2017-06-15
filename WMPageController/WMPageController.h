@@ -75,11 +75,6 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 @optional
 
 /**
- *  Is allow user goto the index?
- */
-- (BOOL)pageController:(WMPageController *)pageController shouldEnterIndex:(NSInteger)index;
-
-/**
  *  If the child controller is heavy, put some work in this method. This method will only be called when the controller is initialized and stop scrolling. (That means if the controller is cached and hasn't released will never call this method.)
  *
  *  @param pageController The parent controller (WMPageController)
@@ -311,11 +306,6 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 /** MenuView 内部视图与左右的间距 */
 @property (nonatomic, assign) CGFloat menuViewContentMargin;
 
-/**
- *  左滑时同时启用其他手势，比如系统左滑、sidemenu左滑。默认 NO
-    (会引起一个小问题，第一个和最后一个控制器会变得可以斜滑, 还未解决)
- */
-@property (assign, nonatomic) BOOL otherGestureRecognizerSimultaneously;
 /**
  *  构造方法，请使用该方法创建控制器. 或者实现数据源方法. /
  *  Init method，recommend to use this instead of `-init`. Or you can implement datasource by yourself.
