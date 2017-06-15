@@ -15,6 +15,7 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if ([otherGestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] &&
+        otherGestureRecognizer.state == UIGestureRecognizerStateBegan &&
         [gestureRecognizer.view isKindOfClass:[WMScrollView class]] &&
         [gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         return YES;
