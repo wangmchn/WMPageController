@@ -38,6 +38,10 @@ The usage is very familiar to `UITableView`, these are the methods need to imple
 - (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index;
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index;
+
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView;
+
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView;
 ```
 Just implement these three datasource methods in YOUR WMPageController after initialize it.
 
