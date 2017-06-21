@@ -331,15 +331,19 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         [self resetBadgeFrame:i];
     }
     if (!self.progressView.superview) { return; }
-    CGRect frame = self.progressView.frame;
-    frame.size.width = self.scrollView.contentSize.width;
+    CGRect frame = CGRectZero;
+    if (self.style == WMMenuViewStyleDefault) { return; }
     if (self.style == WMMenuViewStyleLine || self.style == WMMenuViewStyleTriangle) {
-        frame.origin.y = self.frame.size.height - self.progressHeight - self.progressViewBottomSpace;
+        self.progressHeight = self.progressHeight > 0 ? self.progressHeight : 2.0;
+        frame = CGRectMake(0, self.frame.size.height - self.progressHeight - self.progressViewBottomSpace, self.scrollView.contentSize.width, self.progressHeight);
     } else {
-        frame.origin.y = (self.scrollView.frame.size.height - frame.size.height) / 2.0;
+        self.progressHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height * 0.8;
+        frame = CGRectMake(0, (self.frame.size.height - self.progressHeight) / 2, self.scrollView.contentSize.width, self.progressHeight);
+        self.progressViewCornerRadius = self.progressViewCornerRadius > 0 ? self.progressViewCornerRadius : self.progressHeight / 2.0;
     }
-    
+    frame.size.width = self.scrollView.contentSize.width;
     self.progressView.frame = frame;
+    self.progressView.cornerRadius = self.progressViewCornerRadius;
     self.progressView.itemFrames = [self convertProgressWidthsToFrames];
     [self.progressView setNeedsDisplay];
 }

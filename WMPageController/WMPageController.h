@@ -69,6 +69,24 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
  */
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index;
 
+/**
+ Implement this datasource method, in order to customize your own contentView's frame
+
+ @param pageController The container controller
+ @param contentView The contentView, each is the superview of the child controllers
+ @return The frame of the contentView
+ */
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView;
+
+/**
+ Implement this datasource method, in order to customize your own menuView's frame
+ 
+ @param pageController The container controller
+ @param menuView The menuView
+ @return The frame of the menuView
+ */
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView;
+
 @end
 
 @protocol WMPageControllerDelegate <NSObject>
@@ -188,12 +206,6 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 @property (nonatomic, nullable, copy) NSString *titleFontName;
 
 /**
- *  导航栏高度
- *  The menu view's height
- */
-@property (nonatomic, assign) CGFloat menuHeight;
-
-/**
  *  每个 MenuItem 的宽度
  *  The item width,when all are same,use this property
  */
@@ -204,12 +216,6 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
  *  Each item's width, when they are not all the same, use this property, Put `NSNumber` in this array.
  */
 @property (nonatomic, nullable, copy) NSArray<NSNumber *> *itemsWidths;
-
-/**
- *  导航栏背景色
- *  The background color of menu view
- */
-@property (nonatomic, strong) UIColor *menuBGColor;
 
 /**
  *  Menu view 的样式，默认为无下划线
@@ -274,9 +280,6 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 /** 下划线进度条的高度 */
 @property (nonatomic, assign) CGFloat progressHeight;
 
-/** WMPageController View' frame */
-@property (nonatomic, assign) CGRect viewFrame;
-
 /**
  *  Menu view items' margin / make sure it's count is equal to (controllers' count + 1),default is 0
     顶部菜单栏各个 item 的间隙，因为包括头尾两端，所以确保它的数量等于控制器数量 + 1, 默认间隙为 0
@@ -288,9 +291,6 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
     如果各个间隙都想同，设置该属性，默认为 0
  */
 @property (nonatomic, assign) CGFloat itemMargin;
-
-/** 顶部 menuView 和 scrollView 之间的间隙 */
-@property (nonatomic, assign) CGFloat menuViewBottomSpace;
 
 /** progressView 到 menuView 底部的距离 */
 @property (nonatomic, assign) CGFloat progressViewBottomSpace;
@@ -323,7 +323,10 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
  */
 - (void)reloadData;
 
-/** 强制重新布局 */
+/**
+ Layout all views in WMPageController
+ @discussion This method will recall `-pageController:preferredFrameForContentView:` and `-pageContoller:preferredFrameForMenuView:`
+ */
 - (void)forceLayoutSubviews;
 /**
  *  Update designated item's title
