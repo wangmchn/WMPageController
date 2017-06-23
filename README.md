@@ -10,10 +10,7 @@ An easy solution to page controllers like `NetEase News`
 <img height="600" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/ScreenShot/Overview.gif" />
 
 ## Basic use
-1. These are the all files you may need.<br>
-<img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/ScreenShot/Files.png" />
-
-2. Create an controller extends from `WMPageController`.There are two ways to init the `WMPageController`:
+Create an controller extends from `WMPageController`.There are two ways to init the `WMPageController`:
 
 #### Init with Classes
 Use the following constructor to init the controller:
