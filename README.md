@@ -7,8 +7,7 @@
 
 An easy solution to page controllers like `NetEase News`
 ## Overview
-<img height="400" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/ScreenShot/Overview.gif" />
-<br>
+<img height="600" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/ScreenShot/Overview.gif" />
 
 ## Basic use
 1. These are the all files you may need.<br>
