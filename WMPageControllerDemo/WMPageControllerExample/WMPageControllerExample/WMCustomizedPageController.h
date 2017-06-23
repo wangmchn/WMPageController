@@ -8,5 +8,11 @@
 
 #import "WMPageController.h"
 
+typedef NS_ENUM(NSUInteger, WMMenuViewPosition) {
+    WMMenuViewPositionDefault,
+    WMMenuViewPositionBottom,
+};
+
 @interface WMCustomizedPageController : WMPageController
+@property (nonatomic, assign) WMMenuViewPosition menuViewPosition;
 @end

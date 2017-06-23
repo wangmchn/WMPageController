@@ -26,7 +26,8 @@
                     @"WMMenuViewStyleSegmented",
                     @"WMMenuViewStyleTriangle",
                     @"WMMenuViewStyleNaughty",
-                    @"WMMenuViewStyleCornerRadius"];
+                    @"WMMenuViewCornerRadius",
+                    @"WMMenuViewPositionBottom"];
     }
     return _titles;
 }
@@ -41,7 +42,8 @@
                        @"WMMenuViewStyleSegmented": @(WMMenuViewStyleSegmented),
                        @"WMMenuViewStyleTriangle": @(WMMenuViewStyleTriangle),
                        @"WMMenuViewStyleNaughty": @(WMMenuViewStyleLine),
-                       @"WMMenuViewStyleCornerRadius": @(WMMenuViewStyleFlood)};
+                       @"WMMenuViewCornerRadius": @(WMMenuViewStyleFlood),
+                       @"WMMenuViewPositionBottom": @(WMMenuViewStyleDefault)};
     }
     return _stylesMap;
 }
@@ -89,6 +91,9 @@
     }
     if ([key isEqualToString:@"WMMenuViewStyleCornerRadius"]) {
         vc.progressViewCornerRadius = 5.0f;
+    }
+    if ([key isEqualToString:@"WMMenuViewPositionBottom"]) {
+        vc.menuViewPosition = WMMenuViewPositionBottom;
     }
     [self customizePageController:vc];
     [self.navigationController pushViewController:vc animated:YES];
