@@ -13,9 +13,6 @@
 如果你有什么好的建议或者修改，非常欢迎提出 issue 或者直接发起 Pull request. 
 任何改进都非常欢迎：bug 修复, 拼写错误或者用词语法错误, 以及文档补充以及特性需求等等。期待你的贡献！
 
-## Swift 实现
-戳这里: https://github.com/wangmchn/WMPageController-Swift
-
 ## 特性
 * 增加了缓存机制，对加载过的控制器进行缓存，当内存过高时自动清理缓存。
 * 可通过`itemMargin`和`itemsMargins`来定制顶部标题的间距，通过`viewFrame`来定制子控制器的`frame`属性。
@@ -27,10 +24,8 @@
 * 如果自动计算的大小有误，可以设置 viewFrame 来获得正确的子控制器大小！
 
 ## 使用
-首先，把下面红框里的内容拖入项目。<br>
-<img height="300" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Code/WMPageController/ScreenShot/guide.png" />
 
-然后，创建一个控制器继承自`WMPageController`, 可以通过两种方式来初始化控制器<br>
+创建一个控制器继承自`WMPageController`, 可以通过两种方式来初始化控制器<br>
 #### 通过 Class 创建
 使用以下方法创建控制器：
 ```objective-c
@@ -38,7 +33,7 @@
                                andTheirTitles:(NSArray *)titles;
 ```
 其中，`Classes`是要传人显示的控制器的类型，比如`[UITableViewController class]`, `titles`是要显示的控制对应的标题。
-#### 使用 datasource
+#### 使用 datasource (推荐！)
 使用方法和 UITableView 相似，在子类中实现以下数据源方法即可：
 ```objective-c 
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController;
