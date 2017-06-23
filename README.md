@@ -7,7 +7,7 @@
 
 An easy solution to page controllers like `NetEase News`
 ## Overview
-<img height="600" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/ScreenShot/Overview.gif" />
+<img height="600" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Overview.gif" />
 
 ## Basic use
 Create an controller extends from `WMPageController`.There are two ways to init the `WMPageController`:
