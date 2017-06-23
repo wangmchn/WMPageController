@@ -89,7 +89,7 @@
         vc.progressViewIsNaughty = YES;
         vc.progressWidth = 10;
     }
-    if ([key isEqualToString:@"WMMenuViewStyleCornerRadius"]) {
+    if ([key isEqualToString:@"WMMenuViewCornerRadius"]) {
         vc.progressViewCornerRadius = 5.0f;
     }
     if ([key isEqualToString:@"WMMenuViewPositionBottom"]) {
