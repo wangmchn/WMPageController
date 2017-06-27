@@ -64,7 +64,13 @@
 如果想要在 NavigationBar 上显示导航栏， 设置`.showOnNavigationBar = YES`即可。
 
 ## 使用Pod管理
-    pod 'WMPageController'
+最新版本是2.4.0，相比较2.3.0有一些 API 接口改动，谨慎选择（可以更加自由的定义 menuView 和 contentView 的 frame）
+
+    pod 'WMPageController', ~> '2.4.0'
+
+使用旧的稳定版本：
+
+    pod 'WMPageController', ~> '2.3.0'
 
 ## 要点
 1.如果你的控制器的位置或者大小出现了任何问题，试试设置下 `viewFrame` 这个属性可以帮助你自定义你的控制器大小及位置
