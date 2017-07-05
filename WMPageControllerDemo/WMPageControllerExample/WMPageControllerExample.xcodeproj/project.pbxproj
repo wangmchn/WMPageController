@@ -332,6 +332,7 @@
 				TargetAttributes = {
 					4D4EC70F1EFA6A7700DDFF36 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9M5YW84CE4;
 						ProvisioningStyle = Automatic;
 					};
 					4D4EC7281EFA6A7700DDFF36 = {
@@ -571,6 +572,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9M5YW84CE4;
 				INFOPLIST_FILE = WMPageControllerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yq.WMPageControllerExample;
@@ -582,6 +584,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9M5YW84CE4;
 				INFOPLIST_FILE = WMPageControllerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yq.WMPageControllerExample;
