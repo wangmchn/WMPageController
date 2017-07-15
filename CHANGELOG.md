@@ -1,3 +1,9 @@
+## [2.4.1 [BUGFIXS]](https://github.com/wangmchn/WMPageController/releases/tag/2.4.1)
+### FIX [#286](https://github.com/wangmchn/WMPageController/issues/286), Layout Stragety adjusted. 
+
+- Now: WMPageController will layout every time when `-viewDidLayoutSubviews` called.
+- Before: Early returned if `self.view.frame.size.height` is not changed.
+
 ## [2.4.0 [API CHANGED][BETA]]()
 **[IMPORTANT] WMPAGECONTROLLER ARE NO LONGER ADAPT VIEW'S FRAMES & SOME GESTURES CONFLICTS!!**
 ### [DELETE] Some properties have been deleted.
