@@ -1,4 +1,4 @@
-# WMPageController <a href="https://github.com/wangmchn/WMPageController/blob/master/README_zh-CN.md">中文介绍</a>
+# WMPageController [中文介绍](https://github.com/wangmchn/WMPageController/blob/master/README_zh-CN.md)
 [![Platform](http://img.shields.io/badge/platform-iOS-blue.svg?style=flat
 )](https://developer.apple.com/iphone/index.action)
 [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
@@ -8,6 +8,9 @@
 An easy solution to page controllers like `NetEase News`
 ## Overview
 <img height="600" src="https://github.com/wangmchn/WMPageController/blob/master/WMPageControllerDemo/Overview.gif" />
+
+## Change Log
+See [CHANGELOG](https://github.com/wangmchn/WMPageController/blob/master/CHANGELOG.md) for more information.
 
 ## Basic use
 Create an controller extends from `WMPageController`.There are two ways to init the `WMPageController`:
