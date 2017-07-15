@@ -14,9 +14,9 @@ NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFul
 static NSInteger const kWMUndefinedIndex = -1;
 static NSInteger const kWMControllerCountUndefined = -1;
 @interface WMPageController () {
-    CGFloat _targetX, _superviewHeight;
+    CGFloat _targetX;
     CGRect  _contentViewFrame, _menuViewFrame;
-    BOOL    _hasInited, _shouldNotScroll, _isTabBarHidden;
+    BOOL    _hasInited, _shouldNotScroll;
     NSInteger _initializedIndex, _controllerCount, _markedSelectIndex;
 }
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
@@ -85,19 +85,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return self;
 }
 
-- (void)setEdgesForExtendedLayout:(UIRectEdge)edgesForExtendedLayout {
-    if (self.edgesForExtendedLayout == edgesForExtendedLayout) return;
-    [super setEdgesForExtendedLayout:edgesForExtendedLayout];
-    
-    if (_hasInited) {
-        _hasInited = NO;
-        [self viewDidLayoutSubviews];
-    }
-}
-
 - (void)forceLayoutSubviews {
-    _hasInited = NO;
-    [self viewDidLayoutSubviews];
+    if (!self.childControllersCount) return;
+    // 计算宽高及子控制器的视图frame
+    [self wm_calculateSize];
+    [self wm_adjustScrollViewFrame];
+    [self wm_adjustMenuViewFrame];
+    [self wm_adjustDisplayingViewControllersFrame];
 }
 
 - (void)setScrollEnable:(BOOL)scrollEnable {
@@ -696,21 +690,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [super viewDidLayoutSubviews];
     
     if (!self.childControllersCount) return;
-    
-    CGFloat oldSuperviewHeight = _superviewHeight;
-    _superviewHeight = self.view.frame.size.height;
-    BOOL oldTabBarIsHidden = _isTabBarHidden;
-    _isTabBarHidden = [self wm_bottomView].hidden;
-    
-    BOOL shouldNotLayout = (_hasInited && _superviewHeight == oldSuperviewHeight && _isTabBarHidden == oldTabBarIsHidden);
-    if (shouldNotLayout) return;
-    // 计算宽高及子控制器的视图frame
-    [self wm_calculateSize];
-    [self wm_adjustScrollViewFrame];
-    [self wm_adjustMenuViewFrame];
-    [self wm_adjustDisplayingViewControllersFrame];
+    [self forceLayoutSubviews];
     _hasInited = YES;
-    [self.view layoutIfNeeded];
     [self wm_delaySelectIndexIfNeeded];
 }
 
