@@ -87,7 +87,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        [self setup];
+        [self wm_setup];
     }
     return self;
 }
