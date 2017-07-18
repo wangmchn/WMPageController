@@ -85,6 +85,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return self;
 }
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self setup];
+    }
+    return self;
+}
+
 - (void)forceLayoutSubviews {
     if (!self.childControllersCount) return;
     // 计算宽高及子控制器的视图frame
