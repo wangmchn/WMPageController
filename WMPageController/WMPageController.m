@@ -180,6 +180,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self.memCache removeAllObjects];
     [self wm_resetMenuView];
     [self viewDidLayoutSubviews];
+    [self didEnterController:self.currentViewController atIndex:self.selectIndex];
 }
 
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -263,6 +264,10 @@ static NSInteger const kWMControllerCountUndefined = -1;
 // 完全进入控制器 (即停止滑动后调用)
 - (void)didEnterController:(UIViewController *)vc atIndex:(NSInteger)index {
     if (!self.childControllersCount) return;
+    
+    // Post FullyDisplayedNotification
+    [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
+    
     NSDictionary *info = [self infoWithIndex:index];
     if ([self.delegate respondsToSelector:@selector(pageController:didEnterViewController:withInfo:)]) {
         [self.delegate pageController:self didEnterViewController:vc withInfo:info];
@@ -364,7 +369,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
                            @"title":[self titleAtIndex:index]
                            };
     [[NSNotificationCenter defaultCenter] postNotificationName:WMControllerDidAddToSuperViewNotification
-                                                        object:info];
+                                                        object:self
+                                                      userInfo:info];
 }
 
 // 当子控制器完全展示在user面前时发送通知
@@ -375,7 +381,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
                            @"title":[self titleAtIndex:index]
                            };
     [[NSNotificationCenter defaultCenter] postNotificationName:WMControllerDidFullyDisplayedNotification
-                                                        object:info];
+                                                        object:self
+                                                      userInfo:info];
 }
 
 // 初始化一些参数，在init中调用
@@ -691,6 +698,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self wm_addViewControllerAtIndex:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self wm_addMenuView];
+    [self didEnterController:self.currentViewController atIndex:self.selectIndex];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -702,14 +710,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self wm_delaySelectIndexIfNeeded];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    if (!self.childControllersCount) return;
-    
-    [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
-    [self didEnterController:self.currentViewController atIndex:self.selectIndex];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -769,7 +769,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
     self.menuView.userInteractionEnabled = YES;
     _selectIndex = (int)(scrollView.contentOffset.x / _contentViewFrame.size.width);
     self.currentViewController = self.displayVC[@(self.selectIndex)];
-    [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
     [self.menuView deselectedItemsIfNeeded];
 }
@@ -778,7 +777,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
     if (![scrollView isKindOfClass:WMScrollView.class]) return;
     
     self.currentViewController = self.displayVC[@(self.selectIndex)];
-    [self wm_postFullyDisplayedNotificationWithCurrentIndex:self.selectIndex];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
     [self.menuView deselectedItemsIfNeeded];
 }
@@ -815,7 +813,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
     [self wm_layoutChildViewControllers];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
-    [self wm_postFullyDisplayedNotificationWithCurrentIndex:(int)index];
+    
     [self didEnterController:self.currentViewController atIndex:index];
 }
 
