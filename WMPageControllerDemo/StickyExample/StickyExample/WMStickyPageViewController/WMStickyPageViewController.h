@@ -44,4 +44,6 @@
  */
 @property (nonatomic, readonly) CGFloat maximumContentOffsetY;
 
+
+- (void)updateStreachScrollViewIfNeeded;
 @end
