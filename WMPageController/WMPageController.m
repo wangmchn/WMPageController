@@ -59,27 +59,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 #pragma mark - Public Methods
-
-- (instancetype)initWithViewControllerClasses:(NSArray<Class> *)classes andTheirTitles:(NSArray<NSString *> *)titles {
-    if (self = [super init]) {
-        NSParameterAssert(classes.count == titles.count);
-        _viewControllerClasses = [NSArray arrayWithArray:classes];
-        _titles = [NSArray arrayWithArray:titles];
-
-        [self wm_setup];
-    }
-    return self;
-}
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        [self wm_setup];
-    }
-    return self;
-}
-
-- (instancetype)init {
-    if (self = [super init]) {
         [self wm_setup];
     }
     return self;
@@ -91,6 +72,16 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
     return self;
 }
+
+- (instancetype)initWithViewControllerClasses:(NSArray<Class> *)classes andTheirTitles:(NSArray<NSString *> *)titles {
+    if (self = [self initWithNibName:nil bundle:nil]) {
+        NSParameterAssert(classes.count == titles.count);
+        _viewControllerClasses = [NSArray arrayWithArray:classes];
+        _titles = [NSArray arrayWithArray:titles];
+    }
+    return self;
+}
+
 
 - (void)forceLayoutSubviews {
     if (!self.childControllersCount) return;

@@ -78,9 +78,7 @@
             delegate = (id<UIScrollViewDelegate>)self.matrioska;
         }
         
-        if (![NSStringFromClass([beforeDelegate class]) isEqualToString:matrioskaClassName]) {
-            [self MultipleDelegate_setDelegate:delegate];
-        }
+        [self MultipleDelegate_setDelegate:delegate];
     }
     
 }
@@ -89,17 +87,17 @@
 - (void)addMethodIfNecessaryWithTarget:(id)target {
     SEL sel = @selector(scrollViewDidScroll:);
     if (![target respondsToSelector:sel]) {
-        class_addMethod([target class], sel, (IMP)_emptyMethod, "v@:");
+        class_addMethod([target class], sel, (IMP)_emptyMethod, "v@:@");
     }
     
     sel = @selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:);
     if (![target respondsToSelector:sel]) {
-        class_addMethod([target class], sel, (IMP)_emptyMethod1, "v@:dd*");
+        class_addMethod([target class], sel, (IMP)_emptyMethod1, "v@:@dd*");
     }
     
     sel = @selector(scrollViewWillBeginDragging:);
     if (![target respondsToSelector:sel]) {
-        class_addMethod([target class], sel, (IMP)_emptyMethod, "v@:");
+        class_addMethod([target class], sel, (IMP)_emptyMethod, "v@:@");
     }
     
 }
@@ -186,9 +184,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 
 #pragma mark - notification
 - (void)didFullyDisplayedNotification {
-    UIViewController *currentViewController = self.currentViewController;
-    UIScrollView *scrollView = [self streachScrollViewFromViewController:currentViewController];
-    scrollView.delegate = self;
+    [self configureStreachScrollViewDelegate];
 }
 
 
@@ -209,6 +205,11 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
             }
         }
     }
+}
+
+#pragma mark - public
+- (void)updateStreachScrollViewIfNeeded {
+    [self configureStreachScrollViewDelegate];
 }
 
 
@@ -335,10 +336,11 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 }
 
 #pragma mark - utilities
-- (CGFloat)maximumContentOffsetY {
-    return floor(self.headerViewHeight - self.minimumTopInset);
+- (void)configureStreachScrollViewDelegate {
+    UIViewController *currentViewController = self.currentViewController;
+    UIScrollView *scrollView = [self streachScrollViewFromViewController:currentViewController];
+    scrollView.delegate = self;
 }
-
 
 - (UIScrollView *)streachScrollViewFromViewController:(UIViewController *)viewController {
     if ([self hasStreachScrollViewWithViewController:viewController]) {
@@ -359,5 +361,8 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 }
 
 
+- (CGFloat)maximumContentOffsetY {
+    return floor(self.headerViewHeight - self.minimumTopInset);
+}
 
 @end
