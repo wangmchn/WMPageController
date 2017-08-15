@@ -53,11 +53,9 @@
 }
 
 - (void)MultipleDelegate_setDelegate:(id<UIScrollViewDelegate>)delegate {
-    id<UIScrollViewDelegate> beforeDelegate = self.delegate;
     id<UIScrollViewDelegate> originDelegate = delegate;
     
-    NSString *matrioskaClassName = NSStringFromClass([TPDelegateMatrioska class]);
-    if ([NSStringFromClass([beforeDelegate class]) isEqualToString:matrioskaClassName]) {
+    if (self.matrioska) {
         TPDelegateMatrioska *matrioska = self.matrioska;
         if (originDelegate && ![matrioska containsDelegate:originDelegate]) {
             [self addMethodIfNecessaryWithTarget:originDelegate];
