@@ -90,7 +90,11 @@
     
     sel = @selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:);
     if (![target respondsToSelector:sel]) {
+#if CGFLOAT_IS_DOUBLE
         class_addMethod([target class], sel, (IMP)_emptyMethod1, "v@:@dd*");
+#else
+        class_addMethod([target class], sel, (IMP)_emptyMethod1, "v@:@ff*");
+#endif
     }
     
     sel = @selector(scrollViewWillBeginDragging:);
@@ -277,6 +281,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [super scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    NSLog(@"CGPoint: %@", NSStringFromCGPoint(velocity));
     if (scrollView != [self streachScrollViewFromViewController:self.currentViewController]) {
         return;
     }
