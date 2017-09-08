@@ -17,9 +17,9 @@
 
 @property (readonly, nonatomic, strong) NSArray *delegates;
 
-- (instancetype)initWithQOS:(NSQualityOfService)qos;
+- (instancetype)initWithDelegateQueueQOS:(NSQualityOfService)qos;
 
-- (instancetype)initWithDelegates:(NSArray *)delegates qos:(NSQualityOfService)qos;
+- (instancetype)initWithDelegates:(NSArray *)delegates delegateQueueQOS:(NSQualityOfService)qos;
 
 - (instancetype)initWithDelegates:(NSArray *)delegates;
 

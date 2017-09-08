@@ -39,7 +39,7 @@ static inline qos_class_t NSQualityOfServiceToQOSClass(NSQualityOfService qos) {
 
 @implementation TPDelegateMatrioska
 
-- (instancetype)initWithQOS:(NSQualityOfService)qos {
+- (instancetype)initWithDelegateQueueQOS:(NSQualityOfService)qos {
     _mutableDelegates = [NSPointerArray weakObjectsPointerArray];
     dispatch_qos_class_t qosClass = NSQualityOfServiceToQOSClass(qos);
     dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, qosClass, 0);
@@ -47,8 +47,8 @@ static inline qos_class_t NSQualityOfServiceToQOSClass(NSQualityOfService qos) {
     return self;
 }
 
-- (instancetype)initWithDelegates:(NSArray *)delegates qos:(NSQualityOfService)qos {
-    self = [self initWithQOS:qos];
+- (instancetype)initWithDelegates:(NSArray *)delegates delegateQueueQOS:(NSQualityOfService)qos {
+    self = [self initWithDelegateQueueQOS:qos];
     [delegates enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [_mutableDelegates addPointer:(void *)obj];
     }];
@@ -56,7 +56,7 @@ static inline qos_class_t NSQualityOfServiceToQOSClass(NSQualityOfService qos) {
 }
 
 - (instancetype)initWithDelegates:(NSArray *)delegates {
-    return [self initWithDelegates:delegates qos:NSQualityOfServiceDefault];
+    return [self initWithDelegates:delegates delegateQueueQOS:NSQualityOfServiceDefault];
 }
 
 
