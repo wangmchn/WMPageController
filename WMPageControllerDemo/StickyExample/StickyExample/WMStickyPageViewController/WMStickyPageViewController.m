@@ -65,7 +65,7 @@
     }else {
         if ([originDelegate conformsToProtocol:@protocol(WMStickyPageViewControllerDelegate)]) {
             if (!self.matrioska) {
-                self.matrioska = [[TPDelegateMatrioska alloc] initWithQOS:NSQualityOfServiceUserInitiated];
+                self.matrioska = [[TPDelegateMatrioska alloc] initWithDelegateQueueQOS:NSQualityOfServiceUserInitiated];
             }
             
             if (originDelegate) {
@@ -90,7 +90,11 @@
     
     sel = @selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:);
     if (![target respondsToSelector:sel]) {
+#if CGFLOAT_IS_DOUBLE
         class_addMethod([target class], sel, (IMP)_emptyMethod1, "v@:@dd*");
+#else
+        class_addMethod([target class], sel, (IMP)_emptyMethod1, "v@:@ff*");
+#endif
     }
     
     sel = @selector(scrollViewWillBeginDragging:);
@@ -277,6 +281,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [super scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    NSLog(@"CGPoint: %@", NSStringFromCGPoint(velocity));
     if (scrollView != [self streachScrollViewFromViewController:self.currentViewController]) {
         return;
     }
@@ -286,11 +291,16 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
         return;
     }
     
+    if (velocity.y == 0) {
+        return;
+    }
+    
     [self.animator removeAllBehaviors];
     WMStickyPageViewControllerDynamicItem *item = [WMStickyPageViewControllerDynamicItem new];
     item.center = self.basicScrollView.contentOffset;
     UIDynamicItemBehavior *inertialBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[item]];
-    [inertialBehavior addLinearVelocity:CGPointMake(0, velocity.y / fabs(velocity.y)  * 400) forItem:item];
+    CGFloat dynamicItemVelocityY = velocity.y > 0 ? 400 : -400;
+    [inertialBehavior addLinearVelocity:CGPointMake(0, dynamicItemVelocityY) forItem:item];
     inertialBehavior.resistance = 1;
     __weak __typeof(self) weak_self = self;
     inertialBehavior.action = ^(){
@@ -305,7 +315,9 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
             contentOffsetY = 0;
         }
         
-        self.basicScrollView.contentOffset = CGPointMake(0, contentOffsetY);
+        if (!isnan(contentOffsetY)) {
+            self.basicScrollView.contentOffset = CGPointMake(0, contentOffsetY);
+        }
     };
     [self.animator addBehavior:inertialBehavior];
 }
