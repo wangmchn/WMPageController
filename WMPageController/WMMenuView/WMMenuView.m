@@ -542,7 +542,6 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 
 #pragma mark - Menu item delegate
 - (void)didPressedMenuItem:(WMMenuItem *)menuItem {
-    if (self.selItem == menuItem) { return; }
     
     if ([self.delegate respondsToSelector:@selector(menuView:shouldSelesctedIndex:)]) {
         BOOL should = [self.delegate menuView:self shouldSelesctedIndex:menuItem.tag - WMMenuItemTagOffset];
@@ -559,8 +558,8 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         [self.delegate menuView:self didSelesctedIndex:menuItem.tag-WMMenuItemTagOffset currentIndex:currentIndex];
     }
     
-    [menuItem setSelected:YES withAnimation:YES];
     [self.selItem setSelected:NO withAnimation:YES];
+    [menuItem setSelected:YES withAnimation:YES];
     self.selItem = menuItem;
     
     NSTimeInterval delay = self.style == WMMenuViewStyleDefault ? 0 : 0.3f;
