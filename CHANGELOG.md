@@ -1,3 +1,7 @@
+## [2.4.3 [BUGFIXS]()
+### Remove observer / Cancel performSelector when dealloc.
+### -initWithNib supoort.
+
 ## [2.4.1 [BUGFIXS]](https://github.com/wangmchn/WMPageController/releases/tag/2.4.1)
 ### FIX [#286](https://github.com/wangmchn/WMPageController/issues/286), Layout Stragety adjusted. 
 
