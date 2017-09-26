@@ -82,6 +82,11 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(wm_growCachePolicyAfterMemoryWarning) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(wm_growCachePolicyToHigh) object:nil];
+}
 
 - (void)forceLayoutSubviews {
     if (!self.childControllersCount) return;
