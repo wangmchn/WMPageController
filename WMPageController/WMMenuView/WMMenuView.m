@@ -11,8 +11,8 @@
 @interface WMMenuView () 
 @property (nonatomic, weak) WMMenuItem *selItem;
 @property (nonatomic, strong) NSMutableArray *frames;
-@property (nonatomic, readonly) NSInteger titlesCount;
 @property (nonatomic, assign) NSInteger selectIndex;
+@property (nonatomic, readonly) NSInteger titlesCount;
 @end
 
 static NSInteger const WMMenuItemTagOffset  = 6250;
@@ -29,6 +29,11 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 }
 
 - (void)setFrame:(CGRect)frame {
+    // Adapt iOS 11 if is a titleView
+    if (@available(iOS 11.0, *)) {
+        if (self.showOnNavigationBar) { frame.origin.x = 0; }
+    }
+    
     [super setFrame:frame];
     
     if (!self.scrollView) { return; }
@@ -53,16 +58,13 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
             frame.origin.x = self.leftView ? CGRectGetMaxX(self.leftView.frame) + self.contentMargin : xOffset;
             frame;
         });
-       
         
         self.rightView.frame = ({
             CGRect frame = self.rightView.frame;
             frame.origin.x = CGRectGetMaxX(self.scrollView.frame) + self.contentMargin;
             frame;
         });
-        
     }
-    
 }
 
 - (void)setProgressViewCornerRadius:(CGFloat)progressViewCornerRadius {
@@ -83,7 +85,6 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
             ((WMMenuItem *)obj).speedFactor = _speedFactor;
         }
     }];
-    
 }
 
 - (void)setProgressWidths:(NSArray *)progressWidths {
@@ -289,13 +290,18 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 #pragma mark - Private Methods
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    
     if (self.scrollView) { return; }
     
     [self addScrollView];
     [self addItems];
     [self makeStyle];
     [self addBadgeViews];
-    
+    [self resetSelectionIfNeeded];
+}
+
+- (void)resetSelectionIfNeeded {
     if (self.selectIndex == 0) { return; }
     [self selectItemAtIndex:self.selectIndex];
 }
