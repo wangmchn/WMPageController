@@ -1,4 +1,19 @@
-## [2.4.3 [BUGFIXS]()
+## [2.5.0 [Adapt iOS 11]]()
+### Adapt iOS 11 when .showOnNavigationBar = YES
+```objective-c
+- (void)setFrame:(CGRect)frame {
+    // Adapt iOS 11 if is a titleView
+    if (@available(iOS 11.0, *)) {
+        if (self.showOnNavigationBar) { frame.origin.x = 0; }
+    }
+    
+    [super setFrame:frame];
+    // ...
+    // ...
+}
+```
+
+## [2.4.3 [BUGFIXS]]()
 ### Remove observer / Cancel performSelector when dealloc.
 ### -initWithNib supoort.
 
