@@ -1,6 +1,7 @@
 ## [2.5.0 [Adapt iOS 11]]()
 ### Adapt iOS 11 when .showOnNavigationBar = YES
 ```objective-c
+// Wait for a better solution
 - (void)setFrame:(CGRect)frame {
     // Adapt iOS 11 if is a titleView
     if (@available(iOS 11.0, *)) {
