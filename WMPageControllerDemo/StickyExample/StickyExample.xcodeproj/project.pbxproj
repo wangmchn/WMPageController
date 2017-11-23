@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32A979981FC6B88B00C392A0 /* UIViewController+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A979971FC6B88B00C392A0 /* UIViewController+WMPageController.m */; };
 		F00251291F2358E70045B118 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251281F2358E70045B118 /* main.m */; };
 		F002512C1F2358E70045B118 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F002512B1F2358E70045B118 /* AppDelegate.m */; };
 		F002512F1F2358E70045B118 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F002512E1F2358E70045B118 /* ViewController.m */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		32A979961FC6B88B00C392A0 /* UIViewController+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPageController.h"; sourceTree = "<group>"; };
+		32A979971FC6B88B00C392A0 /* UIViewController+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPageController.m"; sourceTree = "<group>"; };
 		F00251241F2358E70045B118 /* StickyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00251281F2358E70045B118 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F002512A1F2358E70045B118 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 		F002517E1F2359F10045B118 /* WMPageController */ = {
 			isa = PBXGroup;
 			children = (
+				32A979961FC6B88B00C392A0 /* UIViewController+WMPageController.h */,
+				32A979971FC6B88B00C392A0 /* UIViewController+WMPageController.m */,
 				F002517F1F2359F10045B118 /* WMMenuView */,
 				F00251881F2359F10045B118 /* WMPageController.h */,
 				F00251891F2359F10045B118 /* WMPageController.m */,
@@ -376,6 +381,7 @@
 				F002512C1F2358E70045B118 /* AppDelegate.m in Sources */,
 				F002519C1F235E930045B118 /* WMHomeViewController.m in Sources */,
 				F002518C1F2359F10045B118 /* WMProgressView.m in Sources */,
+				32A979981FC6B88B00C392A0 /* UIViewController+WMPageController.m in Sources */,
 				F00251291F2358E70045B118 /* main.m in Sources */,
 				F002518A1F2359F10045B118 /* WMMenuItem.m in Sources */,
 			);
