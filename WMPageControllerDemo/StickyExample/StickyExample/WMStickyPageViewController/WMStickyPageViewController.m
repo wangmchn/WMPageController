@@ -193,34 +193,20 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 
 #pragma mark - notification
 - (void)didFullyDisplayedNotification {
-    [self configureStreachScrollViewDelegate];
+    [self configureStretchScrollViewDelegate];
 }
 
 
 
 - (void)didAddToSuperViewNotification {
-    UIScrollView *basicScrollView = self.basicScrollView;
-    CGFloat basicScrollViewContentOffsetY = basicScrollView.contentOffset.y;
-    if (basicScrollViewContentOffsetY != [self maximumContentOffsetY]) {
-        NSArray<UIViewController *> *childViewControllers = self.childViewControllers;
-        for (UIViewController *viewController in childViewControllers) {
-            if ([self hasStreachScrollViewWithViewController:viewController]) {
-                if (viewController != self.currentViewController) {
-                    UIScrollView *scrollView = [(id<WMStickyPageViewControllerDelegate>)viewController stretchScrollView];
-                    if (scrollView.contentOffset.y != 0) {
-                        scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, 0);
-                    }
-                }
-            }
-        }
-    }
+    [self resetStretchViewsWithPageViewController:self];
 }
+
 
 #pragma mark - public
-- (void)updateStreachScrollViewIfNeeded {
-    [self configureStreachScrollViewDelegate];
+- (void)updateStretchScrollViewIfNeeded {
+    [self configureStretchScrollViewDelegate];
 }
-
 
 
 #pragma mark - delegate
@@ -237,7 +223,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
     CGFloat maximumContentOffsetY = self.maximumContentOffsetY;
     
     UIViewController *currentViewController = self.currentViewController;
-    if ([self hasStreachScrollViewWithViewController:currentViewController]) {
+    if ([self hasStretchScrollViewWithViewController:currentViewController]) {
         UIScrollView *currentScrollView = [(id<WMStickyPageViewControllerDelegate>)currentViewController stretchScrollView];
         if (currentScrollView == scrollView) {
             UIScrollView *basicScrollView = self.basicScrollView;
@@ -289,7 +275,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [super scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
     
-    if (scrollView != [self streachScrollViewFromViewController:self.currentViewController]) {
+    if (scrollView != [self stretchScrollViewFromViewController:self.currentViewController]) {
         return;
     }
     CGFloat maximumContentOffsetY = self.maximumContentOffsetY;
@@ -353,23 +339,51 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 }
 
 #pragma mark - utilities
-- (void)configureStreachScrollViewDelegate {
+- (void)configureStretchScrollViewDelegate {
     UIViewController *currentViewController = self.currentViewController;
-    UIScrollView *scrollView = [self streachScrollViewFromViewController:currentViewController];
+    UIScrollView *scrollView = [self stretchScrollViewFromViewController:currentViewController];
     scrollView.delegate = self;
 }
 
-- (UIScrollView *)streachScrollViewFromViewController:(UIViewController *)viewController {
-    if ([self hasStreachScrollViewWithViewController:viewController]) {
+- (UIScrollView *)stretchScrollViewFromViewController:(UIViewController *)viewController {
+    if ([self hasStretchScrollViewWithViewController:viewController]) {
         return [(id<WMStickyPageViewControllerDelegate>)viewController stretchScrollView];
     }else {
         return nil;
     }
 }
 
-- (BOOL)hasStreachScrollViewWithViewController:(UIViewController *)viewController {
+- (BOOL)hasStretchScrollViewWithViewController:(UIViewController *)viewController {
     return [viewController conformsToProtocol:@protocol(WMStickyPageViewControllerDelegate)] &&
     [viewController respondsToSelector:@selector(stretchScrollView)];
+}
+
+
+- (void)resetStretchViewsWithPageViewController:(WMPageController *)pageViewController {
+    UIScrollView *basicScrollView = self.basicScrollView;
+    CGFloat basicScrollViewContentOffsetY = basicScrollView.contentOffset.y;
+    
+    if (basicScrollViewContentOffsetY >= [self maximumContentOffsetY]) return;
+    
+    NSArray<UIViewController *> *childViewControllers = pageViewController.childViewControllers;
+    for (UIViewController *viewController in childViewControllers) {
+        if (![self hasStretchScrollViewWithViewController:viewController]) continue;
+        
+        if (viewController == self.currentViewController && ![viewController isKindOfClass:[WMPageController class]]) continue;
+        
+        if ([viewController isKindOfClass:[WMPageController class]])
+        {
+            [self resetStretchViewsWithPageViewController:(WMPageController *)viewController];
+        }
+        else
+        {
+            UIScrollView *scrollView = [(id<WMStickyPageViewControllerDelegate>)viewController stretchScrollView];
+            if (scrollView.contentOffset.y != 0) {
+                scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, 0);
+            }
+        }
+        
+    }
 }
 
 #pragma mark - setter && getter
