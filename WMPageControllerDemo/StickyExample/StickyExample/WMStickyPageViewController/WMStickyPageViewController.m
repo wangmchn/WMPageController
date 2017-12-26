@@ -199,7 +199,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
         for (UIViewController *viewController in childViewControllers) {
             if ([self hasStreachScrollViewWithViewController:viewController]) {
                 if (viewController != self.currentViewController) {
-                    UIScrollView *scrollView = [(id<WMStickyPageViewControllerDelegate>)viewController streachScrollView];
+                    UIScrollView *scrollView = [(id<WMStickyPageViewControllerDelegate>)viewController stretchScrollView];
                     if (scrollView.contentOffset.y != 0) {
                         scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, 0);
                     }
@@ -231,7 +231,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
     
     UIViewController *currentViewController = self.currentViewController;
     if ([self hasStreachScrollViewWithViewController:currentViewController]) {
-        UIScrollView *currentScrollView = [(id<WMStickyPageViewControllerDelegate>)currentViewController streachScrollView];
+        UIScrollView *currentScrollView = [(id<WMStickyPageViewControllerDelegate>)currentViewController stretchScrollView];
         if (currentScrollView == scrollView) {
             UIScrollView *basicScrollView = self.basicScrollView;
             CGFloat basicScrollViewContentOffsetY = basicScrollView.contentOffset.y;
@@ -281,7 +281,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [super scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
-    NSLog(@"CGPoint: %@", NSStringFromCGPoint(velocity));
+    
     if (scrollView != [self streachScrollViewFromViewController:self.currentViewController]) {
         return;
     }
@@ -354,7 +354,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 
 - (UIScrollView *)streachScrollViewFromViewController:(UIViewController *)viewController {
     if ([self hasStreachScrollViewWithViewController:viewController]) {
-        return [(id<WMStickyPageViewControllerDelegate>)viewController streachScrollView];
+        return [(id<WMStickyPageViewControllerDelegate>)viewController stretchScrollView];
     }else {
         return nil;
     }
@@ -362,7 +362,7 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
 
 - (BOOL)hasStreachScrollViewWithViewController:(UIViewController *)viewController {
     return [viewController conformsToProtocol:@protocol(WMStickyPageViewControllerDelegate)] &&
-    [viewController respondsToSelector:@selector(streachScrollView)];
+    [viewController respondsToSelector:@selector(stretchScrollView)];
 }
 
 #pragma mark - setter && getter

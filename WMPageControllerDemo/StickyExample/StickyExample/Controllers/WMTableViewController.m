@@ -32,7 +32,7 @@ static NSString *const kTablewCellIdentifier = @"kTablewCellIdentifier";
 }
 
 #pragma mark - WMStickyPageViewControllerDelegate
-- (UIScrollView *)streachScrollView {
+- (UIScrollView *)stretchScrollView {
     return self.tableView;
 }
 

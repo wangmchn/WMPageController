@@ -11,7 +11,7 @@
 @protocol WMStickyPageViewControllerDelegate <NSObject>
 
 @optional
-- (UIScrollView *)streachScrollView;
+- (UIScrollView *)stretchScrollView;
 
 @end
 
