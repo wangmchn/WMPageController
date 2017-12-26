@@ -41,8 +41,8 @@
 }
 
 #pragma mark - WMStickyPageViewControllerDelegate
-- (UIScrollView *)streachScrollView {
-    return [(id<WMStickyPageViewControllerDelegate>)self.currentViewController streachScrollView];
+- (UIScrollView *)stretchScrollView {
+    return [(id<WMStickyPageViewControllerDelegate>)self.currentViewController stretchScrollView];
 }
 
 #pragma mark - Datasource & Delegate

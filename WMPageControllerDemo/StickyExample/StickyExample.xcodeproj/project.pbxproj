@@ -22,10 +22,10 @@
 		F002518D1F2359F10045B118 /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251871F2359F10045B118 /* WMScrollView.m */; };
 		F002518E1F2359F10045B118 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251891F2359F10045B118 /* WMPageController.m */; };
 		F00251921F235AF60045B118 /* WMStickyPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251911F235AF60045B118 /* WMStickyPageViewController.m */; };
-		F00251961F235B240045B118 /* TPDelegateMatrioska.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251951F235B240045B118 /* TPDelegateMatrioska.m */; };
 		F002519C1F235E930045B118 /* WMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251991F235E930045B118 /* WMHomeViewController.m */; };
 		F002519D1F235E930045B118 /* WMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F002519B1F235E930045B118 /* WMTableViewController.m */; };
 		F00251A01F2362EA0045B118 /* WMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F002519F1F2362EA0045B118 /* WMDetailViewController.m */; };
+		F09A0A4B1FF235090039C530 /* TPDelegateMatrioska.m in Sources */ = {isa = PBXBuildFile; fileRef = F0FB15921FF0C8FE00EE102A /* TPDelegateMatrioska.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,14 +76,14 @@
 		F00251891F2359F10045B118 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
 		F00251901F235AF60045B118 /* WMStickyPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMStickyPageViewController.h; sourceTree = "<group>"; };
 		F00251911F235AF60045B118 /* WMStickyPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStickyPageViewController.m; sourceTree = "<group>"; };
-		F00251941F235B240045B118 /* TPDelegateMatrioska.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDelegateMatrioska.h; sourceTree = "<group>"; };
-		F00251951F235B240045B118 /* TPDelegateMatrioska.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDelegateMatrioska.m; sourceTree = "<group>"; };
 		F00251981F235E930045B118 /* WMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHomeViewController.h; sourceTree = "<group>"; };
 		F00251991F235E930045B118 /* WMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHomeViewController.m; sourceTree = "<group>"; };
 		F002519A1F235E930045B118 /* WMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMTableViewController.h; sourceTree = "<group>"; };
 		F002519B1F235E930045B118 /* WMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMTableViewController.m; sourceTree = "<group>"; };
 		F002519E1F2362EA0045B118 /* WMDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDetailViewController.h; sourceTree = "<group>"; };
 		F002519F1F2362EA0045B118 /* WMDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDetailViewController.m; sourceTree = "<group>"; };
+		F0FB15921FF0C8FE00EE102A /* TPDelegateMatrioska.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDelegateMatrioska.m; sourceTree = "<group>"; };
+		F0FB15931FF0C8FE00EE102A /* TPDelegateMatrioska.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDelegateMatrioska.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,20 +207,11 @@
 		F002518F1F235A140045B118 /* WMStickyPageViewController */ = {
 			isa = PBXGroup;
 			children = (
-				F00251931F235B240045B118 /* TPDelegateMatrioska */,
+				F0FB15911FF0C8FE00EE102A /* TPDelegateMatrioska */,
 				F00251901F235AF60045B118 /* WMStickyPageViewController.h */,
 				F00251911F235AF60045B118 /* WMStickyPageViewController.m */,
 			);
 			path = WMStickyPageViewController;
-			sourceTree = "<group>";
-		};
-		F00251931F235B240045B118 /* TPDelegateMatrioska */ = {
-			isa = PBXGroup;
-			children = (
-				F00251941F235B240045B118 /* TPDelegateMatrioska.h */,
-				F00251951F235B240045B118 /* TPDelegateMatrioska.m */,
-			);
-			path = TPDelegateMatrioska;
 			sourceTree = "<group>";
 		};
 		F00251971F235E930045B118 /* Controllers */ = {
@@ -234,6 +225,16 @@
 				F002519F1F2362EA0045B118 /* WMDetailViewController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F0FB15911FF0C8FE00EE102A /* TPDelegateMatrioska */ = {
+			isa = PBXGroup;
+			children = (
+				F0FB15931FF0C8FE00EE102A /* TPDelegateMatrioska.h */,
+				F0FB15921FF0C8FE00EE102A /* TPDelegateMatrioska.m */,
+			);
+			name = TPDelegateMatrioska;
+			path = ../../../../../../GitHub/TPDelegateMatrioska/TPDelegateMatrioska;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,8 +375,8 @@
 				F002518D1F2359F10045B118 /* WMScrollView.m in Sources */,
 				F002512F1F2358E70045B118 /* ViewController.m in Sources */,
 				F00251921F235AF60045B118 /* WMStickyPageViewController.m in Sources */,
+				F09A0A4B1FF235090039C530 /* TPDelegateMatrioska.m in Sources */,
 				F002518E1F2359F10045B118 /* WMPageController.m in Sources */,
-				F00251961F235B240045B118 /* TPDelegateMatrioska.m in Sources */,
 				F002519D1F235E930045B118 /* WMTableViewController.m in Sources */,
 				F002518B1F2359F10045B118 /* WMMenuView.m in Sources */,
 				F002512C1F2358E70045B118 /* AppDelegate.m in Sources */,

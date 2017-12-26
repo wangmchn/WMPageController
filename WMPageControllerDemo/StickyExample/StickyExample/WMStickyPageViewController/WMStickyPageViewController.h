@@ -11,7 +11,7 @@
 @protocol WMStickyPageViewControllerDelegate <NSObject>
 
 @optional
-- (UIScrollView *)streachScrollView;
+- (UIScrollView *)stretchScrollView;
 
 @end
 
@@ -45,5 +45,5 @@
 @property (nonatomic, readonly) CGFloat maximumContentOffsetY;
 
 
-- (void)updateStreachScrollViewIfNeeded;
+- (void)updateStretchScrollViewIfNeeded;
 @end
