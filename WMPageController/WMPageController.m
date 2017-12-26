@@ -82,6 +82,11 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(wm_growCachePolicyAfterMemoryWarning) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(wm_growCachePolicyToHigh) object:nil];
+}
 
 - (void)forceLayoutSubviews {
     if (!self.childControllersCount) return;
@@ -456,6 +461,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     menuView.progressWidths = self.progressViewWidths;
     menuView.progressViewIsNaughty = self.progressViewIsNaughty;
     menuView.progressViewCornerRadius = self.progressViewCornerRadius;
+    menuView.showOnNavigationBar = self.showOnNavigationBar;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }
@@ -700,7 +706,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
     _hasInited = YES;
     [self wm_delaySelectIndexIfNeeded];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

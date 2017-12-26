@@ -1,3 +1,23 @@
+## [2.5.0 [Adapt iOS 11]]()
+### Adapt iOS 11 when .showOnNavigationBar = YES
+```objective-c
+// Wait for a better solution
+- (void)setFrame:(CGRect)frame {
+    // Adapt iOS 11 if is a titleView
+    if (@available(iOS 11.0, *)) {
+        if (self.showOnNavigationBar) { frame.origin.x = 0; }
+    }
+    
+    [super setFrame:frame];
+    // ...
+    // ...
+}
+```
+
+## [2.4.3 [BUGFIXS]]()
+### Remove observer / Cancel performSelector when dealloc.
+### -initWithNib supoort.
+
 ## [2.4.1 [BUGFIXS]](https://github.com/wangmchn/WMPageController/releases/tag/2.4.1)
 ### FIX [#286](https://github.com/wangmchn/WMPageController/issues/286), Layout Stragety adjusted. 
 

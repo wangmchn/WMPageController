@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32A9799B1FC6B8BF00C392A0 /* UIViewController+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A9799A1FC6B8BF00C392A0 /* UIViewController+WMPageController.m */; };
 		4DAB33FF1C12C762004EA0A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB33FE1C12C762004EA0A4 /* main.m */; };
 		4DAB34021C12C762004EA0A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB34011C12C762004EA0A4 /* AppDelegate.m */; };
 		4DAB34081C12C762004EA0A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DAB34061C12C762004EA0A4 /* Main.storyboard */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		32A979991FC6B8BF00C392A0 /* UIViewController+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPageController.h"; sourceTree = "<group>"; };
+		32A9799A1FC6B8BF00C392A0 /* UIViewController+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPageController.m"; sourceTree = "<group>"; };
 		4DAB33FA1C12C762004EA0A4 /* Storyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DAB33FE1C12C762004EA0A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4DAB34001C12C762004EA0A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 		4DAB34301C12C7F8004EA0A4 /* WMPageController */ = {
 			isa = PBXGroup;
 			children = (
+				32A979991FC6B8BF00C392A0 /* UIViewController+WMPageController.h */,
+				32A9799A1FC6B8BF00C392A0 /* UIViewController+WMPageController.m */,
 				4DAB34311C12C7F8004EA0A4 /* WMMenuView */,
 				4DAB343D1C12C7F8004EA0A4 /* WMPageController.h */,
 				4DAB343E1C12C7F8004EA0A4 /* WMPageController.m */,
@@ -334,6 +339,7 @@
 				4DAB34821C12CA96004EA0A4 /* CustomPageViewController.m in Sources */,
 				4DAB34741C12C90C004EA0A4 /* WMViewController.m in Sources */,
 				4DAB34431C12C7F8004EA0A4 /* WMScrollView.m in Sources */,
+				32A9799B1FC6B8BF00C392A0 /* UIViewController+WMPageController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

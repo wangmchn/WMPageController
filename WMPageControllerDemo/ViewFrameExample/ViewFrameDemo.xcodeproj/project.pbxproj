@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32A9799E1FC6B8D600C392A0 /* UIViewController+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A9799D1FC6B8D600C392A0 /* UIViewController+WMPageController.m */; };
 		4D9BD00E1DFF992400E26206 /* WMPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BD00D1DFF992400E26206 /* WMPanGestureRecognizer.m */; };
 		4DD02A0E1D46648400BCA5F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A0D1D46648400BCA5F1 /* main.m */; };
 		4DD02A111D46648400BCA5F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD02A101D46648400BCA5F1 /* AppDelegate.m */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		32A9799C1FC6B8D600C392A0 /* UIViewController+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPageController.h"; sourceTree = "<group>"; };
+		32A9799D1FC6B8D600C392A0 /* UIViewController+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPageController.m"; sourceTree = "<group>"; };
 		4D9BD00C1DFF992400E26206 /* WMPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPanGestureRecognizer.h; sourceTree = "<group>"; };
 		4D9BD00D1DFF992400E26206 /* WMPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPanGestureRecognizer.m; sourceTree = "<group>"; };
 		4DD02A091D46648400BCA5F1 /* ViewFrameDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewFrameDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +159,8 @@
 		4DD02A4D1D46674E00BCA5F1 /* WMPageController */ = {
 			isa = PBXGroup;
 			children = (
+				32A9799C1FC6B8D600C392A0 /* UIViewController+WMPageController.h */,
+				32A9799D1FC6B8D600C392A0 /* UIViewController+WMPageController.m */,
 				4DD02A4E1D46674E00BCA5F1 /* WMMenuView */,
 				4DD02A5A1D46674E00BCA5F1 /* WMPageController.h */,
 				4DD02A5B1D46674E00BCA5F1 /* WMPageController.m */,
@@ -283,6 +288,7 @@
 				4DD02A111D46648400BCA5F1 /* AppDelegate.m in Sources */,
 				4DD02A4B1D4664CE00BCA5F1 /* WMHomeViewController.m in Sources */,
 				4DD02A4C1D4664CE00BCA5F1 /* WMTableViewController.m in Sources */,
+				32A9799E1FC6B8D600C392A0 /* UIViewController+WMPageController.m in Sources */,
 				4DD02A5E1D46674E00BCA5F1 /* WMMenuView.m in Sources */,
 				4DD02A0E1D46648400BCA5F1 /* main.m in Sources */,
 				4DD02A611D46674E00BCA5F1 /* WMPageController.m in Sources */,

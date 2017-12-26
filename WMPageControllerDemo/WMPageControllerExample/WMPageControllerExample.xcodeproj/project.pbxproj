@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32A979A11FC6B8E500C392A0 /* UIViewController+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A979A01FC6B8E500C392A0 /* UIViewController+WMPageController.m */; };
 		4D4EC7151EFA6A7700DDFF36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4EC7141EFA6A7700DDFF36 /* main.m */; };
 		4D4EC7181EFA6A7700DDFF36 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4EC7171EFA6A7700DDFF36 /* AppDelegate.m */; };
 		4D4EC71E1EFA6A7700DDFF36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4EC71C1EFA6A7700DDFF36 /* Main.storyboard */; };
@@ -55,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		32A9799F1FC6B8E500C392A0 /* UIViewController+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPageController.h"; sourceTree = "<group>"; };
+		32A979A01FC6B8E500C392A0 /* UIViewController+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPageController.m"; sourceTree = "<group>"; };
 		4D4EC7101EFA6A7700DDFF36 /* WMPageControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WMPageControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D4EC7141EFA6A7700DDFF36 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4D4EC7161EFA6A7700DDFF36 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -243,6 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				4D4EC76F1EFA6D5000DDFF36 /* WMMenuView */,
+				32A9799F1FC6B8E500C392A0 /* UIViewController+WMPageController.h */,
+				32A979A01FC6B8E500C392A0 /* UIViewController+WMPageController.m */,
 				4D4EC7781EFA6D5000DDFF36 /* WMPageController.h */,
 				4D4EC7791EFA6D5000DDFF36 /* WMPageController.m */,
 			);
@@ -410,6 +415,7 @@
 				4D4EC7811EFA6E3D00DDFF36 /* WMCustomizedPageController.m in Sources */,
 				4D4EC7501EFA6B9000DDFF36 /* WMSecondViewController.m in Sources */,
 				4D4EC77A1EFA6D5000DDFF36 /* WMMenuItem.m in Sources */,
+				32A979A11FC6B8E500C392A0 /* UIViewController+WMPageController.m in Sources */,
 				4D4EC77E1EFA6D5000DDFF36 /* WMPageController.m in Sources */,
 				4D4EC7181EFA6A7700DDFF36 /* AppDelegate.m in Sources */,
 				4D4EC77C1EFA6D5000DDFF36 /* WMProgressView.m in Sources */,

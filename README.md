@@ -76,7 +76,7 @@ pod 'WMPageController', '~> 2.4.0'
 ```
 If you perfer the old, just use 2.3.0 and it's fine.
 ```
-pod 'WMPageController', '~> 2.3.0' 
+pod 'WMPageController', '2.3.0' 
 ```
 
 ## Note
