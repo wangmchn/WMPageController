@@ -132,6 +132,12 @@ static NSInteger const kWMControllerCountUndefined = -1;
         [self.menuView selectItemAtIndex:selectIndex];
     } else {
         _markedSelectIndex = selectIndex;
+        UIViewController *vc = [self.memCache objectForKey:@(selectIndex)];
+        if (!vc) {
+            vc = [self initializeViewControllerAtIndex:selectIndex];
+            [self.memCache setObject:vc forKey:@(selectIndex)];
+        }
+        self.currentViewController = vc;
     }
 }
 
