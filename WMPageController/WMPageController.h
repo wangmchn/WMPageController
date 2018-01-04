@@ -69,6 +69,7 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
  */
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index;
 
+@required
 /**
  Implement this datasource method, in order to customize your own contentView's frame
 

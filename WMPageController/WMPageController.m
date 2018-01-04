@@ -415,20 +415,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 // 包括宽高，子控制器视图 frame
 - (void)wm_calculateSize {
-    if ([self.dataSource respondsToSelector:@selector(pageController:preferredFrameForMenuView:)]) {
-        _menuViewFrame = [self.dataSource pageController:self preferredFrameForMenuView:self.menuView];
-    } else {
-        CGFloat originY = (self.showOnNavigationBar && self.navigationController.navigationBar) ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
-        _menuViewFrame = CGRectMake(0, originY, self.view.frame.size.width, 30.0f);
-    }
-    if ([self.dataSource respondsToSelector:@selector(pageController:preferredFrameForContentView:)]) {
-        _contentViewFrame = [self.dataSource pageController:self preferredFrameForContentView:self.scrollView];
-    } else {
-        CGFloat originY = (self.showOnNavigationBar && self.navigationController.navigationBar) ? CGRectGetMaxY(self.navigationController.navigationBar.frame) : CGRectGetMaxY(_menuViewFrame);
-        CGFloat tabBarHeight = self.tabBarController.tabBar && !self.tabBarController.tabBar.hidden ? self.tabBarController.tabBar.frame.size.height : 0;
-        CGFloat sizeHeight = self.view.frame.size.height - tabBarHeight - originY;
-        _contentViewFrame = CGRectMake(0, originY, self.view.frame.size.width, sizeHeight);
-    }
+    _menuViewFrame = [self.dataSource pageController:self preferredFrameForMenuView:self.menuView];
+    _contentViewFrame = [self.dataSource pageController:self preferredFrameForContentView:self.scrollView];
     _childViewFrames = [NSMutableArray array];
     for (int i = 0; i < self.childControllersCount; i++) {
         CGRect frame = CGRectMake(i * _contentViewFrame.size.width, 0, _contentViewFrame.size.width, _contentViewFrame.size.height);
