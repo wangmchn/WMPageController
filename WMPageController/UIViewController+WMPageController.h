@@ -15,6 +15,6 @@
 /**
  获取控制器所在的WMPageController
  */
-@property(nonatomic, nullable, strong, readonly) WMPageController *wm_pageController;
+@property (nonatomic, nullable, strong, readonly) WMPageController *wm_pageController;
 
 @end

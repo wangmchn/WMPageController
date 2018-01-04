@@ -11,10 +11,10 @@
 
 @implementation UIViewController (WMPageController)
 
-- (WMPageController *)wm_pageController{
+- (WMPageController *)wm_pageController {
     UIViewController *parentViewController = self.parentViewController;
     while (parentViewController) {
-        if([parentViewController isKindOfClass:[WMPageController class]]){
+        if ([parentViewController isKindOfClass:[WMPageController class]]) {
             return (WMPageController *)parentViewController;
         }
         parentViewController = parentViewController.parentViewController;

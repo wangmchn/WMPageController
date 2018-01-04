@@ -860,4 +860,15 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return [self titleAtIndex:index];
 }
 
+#pragma mark - WMPageControllerDataSource
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
+    NSAssert(0, @"[%@] MUST IMPLEMENT DATASOURCE METHOD `-pageController:preferredFrameForMenuView:`", [self.dataSource class]);
+    return CGRectZero;
+}
+
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
+    NSAssert(0, @"[%@] MUST IMPLEMENT DATASOURCE METHOD `-pageController:preferredFrameForContentView:`", [self.dataSource class]);
+    return CGRectZero;
+}
+
 @end
