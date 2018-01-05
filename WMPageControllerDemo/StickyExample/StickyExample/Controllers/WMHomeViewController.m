@@ -42,6 +42,10 @@ static CGFloat const kWMMenuViewHeight = 44.0;
     redView.backgroundColor = [UIColor redColor];
     self.redView = redView;
     [self.view addSubview:self.redView];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self reloadData];
+    });
 }
 
 - (void)btnClicked:(id)sender {
