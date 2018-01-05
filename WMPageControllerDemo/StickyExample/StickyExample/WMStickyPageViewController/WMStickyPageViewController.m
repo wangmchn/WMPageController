@@ -169,9 +169,8 @@ void _emptyMethod1(id current_self, SEL current_cmd, UIScrollView *scrollView, C
     if (@available(iOS 11.0, *)) {
         self.basicScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-#else
-    self.automaticallyAdjustsScrollViewInsets = NO;
 #endif
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
 }
 
