@@ -434,6 +434,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.bounces = self.bounces;
     scrollView.scrollEnabled = self.scrollEnable;
+    if (@available(iOS 11.0, *)) {
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
     
