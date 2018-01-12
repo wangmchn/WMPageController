@@ -629,10 +629,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
     self.cachePolicy = WMPageControllerCachePolicyHigh;
 }
 
-- (UIView *)wm_bottomView {
-    return self.tabBarController.tabBar ? self.tabBarController.tabBar : self.navigationController.toolbar;
-}
-
 #pragma mark - Adjust Frame
 - (void)wm_adjustScrollViewFrame {
     // While rotate at last page, set scroll frame will call `-scrollViewDidScroll:` delegate
@@ -686,7 +682,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     if (!self.childControllersCount) return;
     [self wm_calculateSize];
     [self wm_addScrollView];
-    [self wm_addViewControllerAtIndex:self.selectIndex];
+    [self wm_initializedControllerWithIndexIfNeeded:self.selectIndex];
     self.currentViewController = self.displayVC[@(self.selectIndex)];
     [self wm_addMenuView];
     [self didEnterController:self.currentViewController atIndex:self.selectIndex];
@@ -827,27 +823,15 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state atIndex:(NSInteger)index {
     switch (state) {
-        case WMMenuItemStateSelected: {
-            return self.titleSizeSelected;
-            break;
-        }
-        case WMMenuItemStateNormal: {
-            return self.titleSizeNormal;
-            break;
-        }
+        case WMMenuItemStateSelected: return self.titleSizeSelected;
+        case WMMenuItemStateNormal: return self.titleSizeNormal;
     }
 }
 
 - (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state atIndex:(NSInteger)index {
     switch (state) {
-        case WMMenuItemStateSelected: {
-            return self.titleColorSelected;
-            break;
-        }
-        case WMMenuItemStateNormal: {
-            return self.titleColorNormal;
-            break;
-        }
+        case WMMenuItemStateSelected: return self.titleColorSelected;
+        case WMMenuItemStateNormal: return self.titleColorNormal;
     }
 }
 
