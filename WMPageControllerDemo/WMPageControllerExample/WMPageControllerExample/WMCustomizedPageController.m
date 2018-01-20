@@ -19,7 +19,7 @@
 
 - (UIView *)redView {
     if (!_redView) {
-        _redView = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 44, self.view.frame.size.width, 2.0)];
+        _redView = [[UIView alloc] initWithFrame:CGRectZero];
         _redView.backgroundColor = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
     }
     return _redView;
@@ -31,6 +31,11 @@
     if (self.menuViewStyle == WMMenuViewStyleTriangle) {
         [self.view addSubview:self.redView];
     }
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.redView.frame = CGRectMake(0, CGRectGetMaxY(self.menuView.frame), self.view.frame.size.width, 2.0);
 }
 
 - (void)didReceiveMemoryWarning {

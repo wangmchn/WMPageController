@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "WMMenuItem.h"
 #import "WMProgressView.h"
+#define WMUNDEFINED_VALUE -1
+
 @class WMMenuView;
 
 typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {

@@ -400,6 +400,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
     _markedSelectIndex = kWMUndefinedIndex;
     _controllerCount  = kWMControllerCountUndefined;
     _scrollEnable = YES;
+    _progressViewCornerRadius = WMUNDEFINED_VALUE;
+    _progressHeight = WMUNDEFINED_VALUE;
     
     self.automaticallyCalculatesItemWidths = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
