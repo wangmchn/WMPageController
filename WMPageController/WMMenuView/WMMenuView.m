@@ -466,6 +466,9 @@
     scrollView.showsVerticalScrollIndicator   = NO;
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.scrollsToTop = NO;
+    if (@available(iOS 11.0, *)) {
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self addSubview:scrollView];
     self.scrollView = scrollView;
 }
