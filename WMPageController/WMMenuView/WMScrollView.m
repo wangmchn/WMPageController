@@ -20,4 +20,23 @@
     return NO;
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    UIView *result = [super hitTest:point withEvent:event];
+    
+    if(self.scrollEnableIgnoreClass != nil)
+    {
+        if([result isKindOfClass:[self.scrollEnableIgnoreClass class]])
+        {
+            self.scrollEnabled = NO;
+        }
+        else
+        {
+            self.scrollEnabled = YES;
+        }
+    }
+
+    return result ;
+}
+
 @end

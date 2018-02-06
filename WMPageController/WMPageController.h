@@ -176,6 +176,10 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 /** Whether the controller can scroll. Default is YES. */
 @property (nonatomic, assign) BOOL scrollEnable;
 
+//scrollEnable 为YES下 左右滑动会和一些类冲突
+//可以设置scrollEnableIgnoreClass暂时禁用scrollEnable
+@property (nonatomic, copy) Class scrollEnableIgnoreClass;
+
 /**
  *  选中时的标题尺寸
  *  The title size when selected (animatable)
