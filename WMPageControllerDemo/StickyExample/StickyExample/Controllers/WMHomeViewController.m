@@ -14,7 +14,7 @@ static CGFloat const kWMMenuViewHeight = 44.0;
 static CGFloat const kWMHeaderViewHeight = 200;
 static CGFloat const kNavigationBarHeight = 64;
 
-@interface WMHomeViewController () <WMMagicScrollViewDelegate>
+@interface WMHomeViewController () 
 @property (nonatomic, strong) NSArray *musicCategories;
 @property (nonatomic, strong) UIView *redView;
 @end

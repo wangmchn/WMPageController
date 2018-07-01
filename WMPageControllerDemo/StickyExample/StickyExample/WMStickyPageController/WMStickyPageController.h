@@ -7,22 +7,15 @@
 //
 
 #import <WMPageController.h>
-#import "WMMagicScrollView.h"
+
 @class WMStickyPageController;
 
-@protocol WMStickyPageControllerDelegate <WMPageControllerDelegate>
-
-@optional
-- (BOOL)pageController:(WMStickyPageController *)pageController shouldScrollWithSubview:(UIScrollView *)subview;
-
-@end
+@protocol WMStickyPageControllerDelegate;
 
 /**
  The self.view is custom UIScrollView
  */
 @interface WMStickyPageController : WMPageController
-
-@property(nonatomic, weak) id<WMStickyPageControllerDelegate> delegate;
 
 /**
  It's determine the sticky locatio.
@@ -38,5 +31,12 @@
  The menuView's height, default 44
  */
 @property (nonatomic, assign) CGFloat menuViewHeight;
+
+@end
+
+@protocol WMStickyPageControllerDelegate <WMPageControllerDelegate>
+
+@optional
+- (BOOL)pageController:(WMStickyPageController *)pageController shouldScrollWithSubview:(UIScrollView *)subview;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "WMStickyPageController.h"
+#import "WMMagicScrollView.h"
 
 @interface WMStickyPageController () <WMMagicScrollViewDelegate>
 
@@ -17,21 +18,17 @@
 @implementation WMStickyPageController
 @dynamic delegate;
 
-#pragma mark - life cycle
+#pragma mark - Life Cycle
 - (void)loadView {
     self.contentView.frame = [UIScreen mainScreen].bounds;
     self.view = self.contentView;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-}
-
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.contentView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) + self.maximumHeaderViewHeight);
+    self.contentView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),
+                                              CGRectGetHeight(self.view.bounds) +
+                                              self.maximumHeaderViewHeight);
 }
 
 #pragma mark - WMMagicScrollViewDelegate
@@ -41,8 +38,11 @@
         return NO;
     }
     
-    if ([self.delegate respondsToSelector:@selector(pageController:shouldScrollWithSubview:)]) {
-        return [self.delegate pageController:self shouldScrollWithSubview:subview];
+    if ([self.delegate conformsToProtocol:@protocol(WMStickyPageControllerDelegate)]) {
+        id<WMStickyPageControllerDelegate> delegate = (id<WMStickyPageControllerDelegate>)self.delegate;
+        if ([delegate respondsToSelector:@selector(pageController:shouldScrollWithSubview:)]) {
+            return [delegate pageController:self shouldScrollWithSubview:subview];
+        }
     }
     
     return YES;
@@ -53,15 +53,23 @@
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
     CGFloat originY = self.maximumHeaderViewHeight;
     if (originY <= 0) {
-        originY = (self.showOnNavigationBar && self.navigationController.navigationBar) ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
+        UINavigationBar *navigationBar = self.navigationController.navigationBar;
+        originY = (self.showOnNavigationBar && navigationBar) ? 0 : CGRectGetMaxY(navigationBar.frame);
     }
-    return CGRectMake(0, originY, self.view.frame.size.width, self.menuViewHeight);
+    return CGRectMake(0, originY, CGRectGetWidth( self.view.frame), self.menuViewHeight);
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     CGRect preferredFrameForMenuView = [self pageController:pageController preferredFrameForMenuView:pageController.menuView];
-    CGFloat tabBarHeight = self.tabBarController.tabBar && !self.tabBarController.tabBar.hidden ? self.tabBarController.tabBar.frame.size.height : 0;
-    return CGRectMake(0, CGRectGetMaxY(preferredFrameForMenuView), CGRectGetWidth(preferredFrameForMenuView),self.view.frame.size.height - self.minimumHeaderViewHeight - CGRectGetHeight(preferredFrameForMenuView) - tabBarHeight);
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    CGFloat tabBarHeight = tabBar && !tabBar.hidden ? CGRectGetHeight(tabBar.frame) : 0;
+    return CGRectMake(0,
+                      CGRectGetMaxY(preferredFrameForMenuView),
+                      CGRectGetWidth(preferredFrameForMenuView),
+                      CGRectGetHeight(self.view.frame) -
+                      self.minimumHeaderViewHeight -
+                      CGRectGetHeight(preferredFrameForMenuView) -
+                      tabBarHeight);
     
 }
 
@@ -92,3 +100,4 @@
 }
 
 @end
+
