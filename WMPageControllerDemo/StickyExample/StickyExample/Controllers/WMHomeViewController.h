@@ -8,8 +8,6 @@
 
 #import "WMStickyPageViewController.h"
 
-static CGFloat const kWMHeaderViewHeight = 200;
-static CGFloat const kNavigationBarHeight = 64;
 @interface WMHomeViewController : WMStickyPageViewController 
 
 @end

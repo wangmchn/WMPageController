@@ -6,44 +6,29 @@
 //  Copyright © 2017年 Tpphha. All rights reserved.
 //
 
-#import "WMPageController.h"
-
-@protocol WMStickyPageViewControllerDelegate <NSObject>
-
-@optional
-- (UIScrollView *)stretchScrollView;
-
-@end
+#import <WMPageController.h>
+#import "WMMagicScrollView.h"
 
 @interface WMStickyPageViewController : WMPageController
 
 /**
- self.view == self.basicScrollView
+ You should add subviews to the content view, contentView is equal self.view
  */
-@property (nonatomic, readonly) UIScrollView *basicScrollView;
+@property(nonatomic, strong, readonly) WMMagicScrollView *contentView;
 
+/**
+ It's determine the sticky locatio.
+ */
+@property (nonatomic, assign)  CGFloat  minimumHeaderViewHeight;
+
+/**
+ The custom headerView's height, default 0 means no effective.
+ */
+@property (nonatomic, assign) CGFloat maximumHeaderViewHeight;
+
+/**
+ The menuView's height, default 44
+ */
 @property (nonatomic, assign) CGFloat menuViewHeight;
 
-/**
- It's determine the sticky location and the best is set to an integer.
- */
-@property (nonatomic, assign)  CGFloat  minimumTopInset;
-
-/**
- custom header view height, default 0 means no effective and the best is set to an integer.
- */
-@property (nonatomic, assign) CGFloat headerViewHeight;
-
-/**
- turn off the sticky
- */
-@property (nonatomic, assign) BOOL disableSticky;
-
-/**
- the basicScrollView's maximum contentOffsetY
- */
-@property (nonatomic, readonly) CGFloat maximumContentOffsetY;
-
-
-- (void)updateStretchScrollViewIfNeeded;
 @end

@@ -40,11 +40,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - WMStickyPageViewControllerDelegate
-- (UIScrollView *)stretchScrollView {
-    return [(id<WMStickyPageViewControllerDelegate>)self.currentViewController stretchScrollView];
-}
-
 #pragma mark - Datasource & Delegate
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
     return self.musicCategories.count;
@@ -60,6 +55,11 @@
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
     return CGRectMake(0, 0, self.view.frame.size.width, 44);
+}
+
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
+    CGFloat menuViewHeight = [self pageController:pageController preferredFrameForMenuView:self.menuView].size.height;
+    return CGRectMake(0, menuViewHeight, self.view.frame.size.width, self.view.frame.size.height - menuViewHeight);
 }
 
 #pragma mark - lazy

@@ -7,8 +7,7 @@
 //
 
 #import "WMPageController.h"
-#import "WMStickyPageViewController.h"
 
-@interface WMDetailViewController : WMPageController <WMStickyPageViewControllerDelegate>
+@interface WMDetailViewController : WMPageController
 
 @end
