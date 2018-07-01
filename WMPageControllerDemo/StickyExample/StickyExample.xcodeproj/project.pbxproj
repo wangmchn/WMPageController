@@ -17,7 +17,7 @@
 		F00251371F2358E70045B118 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F00251351F2358E70045B118 /* LaunchScreen.storyboard */; };
 		F00251421F2358E70045B118 /* StickyExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251411F2358E70045B118 /* StickyExampleTests.m */; };
 		F002514D1F2358E70045B118 /* StickyExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F002514C1F2358E70045B118 /* StickyExampleUITests.m */; };
-		F00251921F235AF60045B118 /* WMStickyPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251911F235AF60045B118 /* WMStickyPageViewController.m */; };
+		F00251921F235AF60045B118 /* WMStickyPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251911F235AF60045B118 /* WMStickyPageController.m */; };
 		F002519C1F235E930045B118 /* WMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251991F235E930045B118 /* WMHomeViewController.m */; };
 		F002519D1F235E930045B118 /* WMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F002519B1F235E930045B118 /* WMTableViewController.m */; };
 		F00251A01F2362EA0045B118 /* WMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F002519F1F2362EA0045B118 /* WMDetailViewController.m */; };
@@ -63,8 +63,8 @@
 		F00251481F2358E70045B118 /* StickyExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StickyExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F002514C1F2358E70045B118 /* StickyExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StickyExampleUITests.m; sourceTree = "<group>"; };
 		F002514E1F2358E70045B118 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F00251901F235AF60045B118 /* WMStickyPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMStickyPageViewController.h; sourceTree = "<group>"; };
-		F00251911F235AF60045B118 /* WMStickyPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStickyPageViewController.m; sourceTree = "<group>"; };
+		F00251901F235AF60045B118 /* WMStickyPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMStickyPageController.h; sourceTree = "<group>"; };
+		F00251911F235AF60045B118 /* WMStickyPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStickyPageController.m; sourceTree = "<group>"; };
 		F00251981F235E930045B118 /* WMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHomeViewController.h; sourceTree = "<group>"; };
 		F00251991F235E930045B118 /* WMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHomeViewController.m; sourceTree = "<group>"; };
 		F002519A1F235E930045B118 /* WMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMTableViewController.h; sourceTree = "<group>"; };
@@ -194,8 +194,8 @@
 			children = (
 				3D15268120E86E6C0045E646 /* WMMagicScrollView.h */,
 				3D15268020E86E6C0045E646 /* WMMagicScrollView.m */,
-				F00251901F235AF60045B118 /* WMStickyPageViewController.h */,
-				F00251911F235AF60045B118 /* WMStickyPageViewController.m */,
+				F00251901F235AF60045B118 /* WMStickyPageController.h */,
+				F00251911F235AF60045B118 /* WMStickyPageController.m */,
 			);
 			path = WMStickyPageViewController;
 			sourceTree = "<group>";
@@ -407,7 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F00251A01F2362EA0045B118 /* WMDetailViewController.m in Sources */,
-				F00251921F235AF60045B118 /* WMStickyPageViewController.m in Sources */,
+				F00251921F235AF60045B118 /* WMStickyPageController.m in Sources */,
 				F002519D1F235E930045B118 /* WMTableViewController.m in Sources */,
 				3D15268220E86E6D0045E646 /* WMMagicScrollView.m in Sources */,
 				F002512C1F2358E70045B118 /* AppDelegate.m in Sources */,

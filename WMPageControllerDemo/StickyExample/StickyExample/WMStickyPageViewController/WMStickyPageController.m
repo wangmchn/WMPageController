@@ -6,15 +6,15 @@
 //  Copyright © 2017年 Tpphha. All rights reserved.
 //
 
-#import "WMStickyPageViewController.h"
+#import "WMStickyPageController.h"
 
-@interface WMStickyPageViewController () <WMMagicScrollViewDelegate>
+@interface WMStickyPageController () <WMMagicScrollViewDelegate>
 
 @property(nonatomic, strong) WMMagicScrollView *contentView;
 
 @end
 
-@implementation WMStickyPageViewController
+@implementation WMStickyPageController
 @dynamic delegate;
 
 #pragma mark - life cycle

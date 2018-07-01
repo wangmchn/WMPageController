@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Wecan Studio. All rights reserved.
 //
 
-#import "WMStickyPageViewController.h"
+#import "WMStickyPageController.h"
 
-@interface WMHomeViewController : WMStickyPageViewController 
+@interface WMHomeViewController : WMStickyPageController 
 
 @end
