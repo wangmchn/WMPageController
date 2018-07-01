@@ -8,11 +8,12 @@
 
 #import <WMPageController.h>
 #import "WMMagicScrollView.h"
+@class WMStickyPageController;
 
 @protocol WMStickyPageControllerDelegate <WMPageControllerDelegate>
 
 @optional
-- (BOOL)pageController:(WMPageController *)pageController shouldScrollWithSubview:(UIScrollView *)subview;
+- (BOOL)pageController:(WMStickyPageController *)pageController shouldScrollWithSubview:(UIScrollView *)subview;
 
 @end
 
