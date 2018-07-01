@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
    s.source       = { :git => "https://github.com/wangmchn/WMPageController.git", :tag => s.version.to_s }
    s.ios.deployment_target = '6.0'
 
-   s.source_files = 'WMPageController/**/*.{h,m}'
+   s.source_files = 'WMPageController/', 'WMPageController/**/*.{h,m}'
 
    s.frameworks = 'Foundation', 'CoreGraphics', 'UIKit'
    s.requires_arc = true
