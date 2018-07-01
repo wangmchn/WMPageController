@@ -33,7 +33,6 @@ static CGFloat const kNavigationBarHeight = 64;
         self.menuViewHeight = kWMMenuViewHeight;
         self.maximumHeaderViewHeight = kWMHeaderViewHeight;
         self.minimumHeaderViewHeight = kNavigationBarHeight;
-        self.contentView.delegate = self;
     }
     return self;
 }
@@ -55,8 +54,9 @@ static CGFloat const kNavigationBarHeight = 64;
     [super viewDidLayoutSubviews];
     CGFloat headerViewHeight = kWMHeaderViewHeight;
     CGFloat headerViewX = 0;
-    if (self.contentView.contentOffset.y < 0) {
-        headerViewX = self.contentView.contentOffset.y;
+    UIScrollView *scrollView = (UIScrollView *)self.view;
+    if (scrollView.contentOffset.y < 0) {
+        headerViewX = scrollView.contentOffset.y;
         headerViewHeight -= headerViewX;
     }
     self.redView.frame = CGRectMake(0, headerViewX, CGRectGetWidth(self.view.bounds), headerViewHeight);
@@ -73,7 +73,7 @@ static CGFloat const kNavigationBarHeight = 64;
     NSLog(@"touch up inside");
 }
 
-#pragma mark - WMMagicScrollViewDelegate
+#pragma mark - ScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [super scrollViewDidScroll:scrollView];

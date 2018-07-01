@@ -36,11 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
  Asks the page if the scrollview should scroll with the subview.
  
  @param scrollView The scrollview. This is the object sending the message.
- @param subScrollView    An instance of a sub view.
+ @param subview    An instance of a sub view.
  
  @return YES to allow scrollview and subview to scroll together. YES by default.
  */
-- (BOOL)scrollView:(WMMagicScrollView *)scrollView shouldScrollWithSubScrollView:(UIScrollView *)subScrollView;
+- (BOOL)scrollView:(WMMagicScrollView *)scrollView shouldScrollWithSubview:(UIScrollView *)subview;
 
 @end
 

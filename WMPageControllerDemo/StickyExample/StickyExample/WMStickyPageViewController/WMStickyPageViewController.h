@@ -9,12 +9,19 @@
 #import <WMPageController.h>
 #import "WMMagicScrollView.h"
 
-@interface WMStickyPageViewController : WMPageController
+@protocol WMStickyPageViewControllerDelegate <WMPageControllerDelegate>
+
+@optional
+- (BOOL)pageController:(WMPageController *)pageController shouldScrollWithSubview:(UIScrollView *)subview;
+
+@end
 
 /**
- You should add subviews to the content view, contentView is equal self.view
+ The self.view is custom UIScrollView
  */
-@property(nonatomic, strong, readonly) WMMagicScrollView *contentView;
+@interface WMStickyPageViewController : WMPageController
+
+@property(nonatomic, weak) id<WMStickyPageViewControllerDelegate> delegate;
 
 /**
  It's determine the sticky locatio.

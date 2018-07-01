@@ -129,8 +129,8 @@ static void * const kMXScrollViewKVOContext = (void*)&kMXScrollViewKVOContext;
     }
     
     BOOL shouldScroll = YES;
-    if ([self.delegate respondsToSelector:@selector(scrollView:shouldScrollWithSubScrollView:)]) {
-        shouldScroll = [self.delegate scrollView:self shouldScrollWithSubScrollView:scrollView];;
+    if ([self.delegate respondsToSelector:@selector(scrollView:shouldScrollWithSubview:)]) {
+        shouldScroll = [self.delegate scrollView:self shouldScrollWithSubview:scrollView];;
     }
     
     if (shouldScroll) {
@@ -181,6 +181,8 @@ static void * const kMXScrollViewKVOContext = (void*)&kMXScrollViewKVOContext;
                 [self scrollView:self setContentOffset:CGPointMake(self.contentOffset.x, -self.contentInset.top)];
             } else if (self.contentOffset.y > maximumContentOffsetY) {
                 [self scrollView:self setContentOffset:CGPointMake(self.contentOffset.x, maximumContentOffsetY)];
+            } else {
+                
             }
             
         } else {

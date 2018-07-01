@@ -8,13 +8,14 @@
 
 #import "WMStickyPageViewController.h"
 
-@interface WMStickyPageViewController ()
+@interface WMStickyPageViewController () <WMMagicScrollViewDelegate>
 
 @property(nonatomic, strong) WMMagicScrollView *contentView;
 
 @end
 
 @implementation WMStickyPageViewController
+@dynamic delegate;
 
 #pragma mark - life cycle
 - (void)loadView {
@@ -31,6 +32,20 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.contentView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) + self.maximumHeaderViewHeight);
+}
+
+#pragma mark - WMMagicScrollViewDelegate
+
+- (BOOL)scrollView:(WMMagicScrollView *)scrollView shouldScrollWithSubview:(UIScrollView *)subview {
+    if ([subview isKindOfClass:WMScrollView.class]) {
+        return NO;
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(pageController:shouldScrollWithSubview:)]) {
+        return [self.delegate pageController:self shouldScrollWithSubview:subview];
+    }
+    
+    return YES;
 }
 
 #pragma mark - WMPageControllerDataSource
@@ -55,6 +70,7 @@
 - (WMMagicScrollView *)contentView {
     if (!_contentView) {
         _contentView = [WMMagicScrollView new];
+        _contentView.delegate = self;
     }
     return _contentView;
 }
