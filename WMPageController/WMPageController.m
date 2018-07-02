@@ -790,7 +790,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 }
 
 #pragma mark - WMMenuView Delegate
-- (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex {
+- (void)menuView:(WMMenuView *)menu didSelectedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex {
     if (!_hasInited) return;
     _selectIndex = (int)index;
     _startDragging = NO;

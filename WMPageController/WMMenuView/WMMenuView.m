@@ -244,8 +244,8 @@
     self.selItem = item;
     [self.selItem setSelected:YES withAnimation:NO];
     [self.progressView setProgressWithOutAnimate:index];
-    if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
-        [self.delegate menuView:self didSelesctedIndex:index currentIndex:currentIndex];
+    if ([self.delegate respondsToSelector:@selector(menuView:didSelectedIndex:currentIndex:)]) {
+        [self.delegate menuView:self didSelectedIndex:index currentIndex:currentIndex];
     }
     [self refreshContenOffset];
 }
@@ -592,8 +592,8 @@
     [self.progressView moveToPostion:progress];
     
     NSInteger currentIndex = self.selItem.tag - WMMENUITEM_TAG_OFFSET;
-    if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
-        [self.delegate menuView:self didSelesctedIndex:menuItem.tag - WMMENUITEM_TAG_OFFSET currentIndex:currentIndex];
+    if ([self.delegate respondsToSelector:@selector(menuView:didSelectedIndex:currentIndex:)]) {
+        [self.delegate menuView:self didSelectedIndex:menuItem.tag - WMMENUITEM_TAG_OFFSET currentIndex:currentIndex];
     }
     
     [self.selItem setSelected:NO withAnimation:YES];
