@@ -20,7 +20,9 @@
     // Override point for customization after application launch.
     WMHomeViewController *homeController = [[WMHomeViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:homeController];
+    self.window = [UIWindow new];
     self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

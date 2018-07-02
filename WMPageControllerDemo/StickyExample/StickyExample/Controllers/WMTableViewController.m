@@ -38,11 +38,6 @@ static NSString *const kTablewCellIdentifier = @"kTablewCellIdentifier";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - WMStickyPageViewControllerDelegate
-- (UIScrollView *)stretchScrollView {
-    return self.tableView;
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

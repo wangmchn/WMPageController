@@ -7,25 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32A979981FC6B88B00C392A0 /* UIViewController+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A979971FC6B88B00C392A0 /* UIViewController+WMPageController.m */; };
+		3D15269220E8D9F10045E646 /* WMMagicScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D15268F20E8D9F10045E646 /* WMMagicScrollView.m */; };
+		3D15269320E8D9F10045E646 /* WMStickyPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D15269020E8D9F10045E646 /* WMStickyPageController.m */; };
+		43B20EBC856C0297C9DFA68B /* libPods-StickyExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A68A8B2FFE88774587E0CA /* libPods-StickyExampleTests.a */; };
+		86C97BC1582C35E8CFB38E8F /* libPods-StickyExampleUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D957046F554CD211632EC8BE /* libPods-StickyExampleUITests.a */; };
+		A9F9E5D26900F56F4DD6276D /* libPods-StickyExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B2EC023EFB565FABE17D30 /* libPods-StickyExample.a */; };
 		F00251291F2358E70045B118 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251281F2358E70045B118 /* main.m */; };
 		F002512C1F2358E70045B118 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F002512B1F2358E70045B118 /* AppDelegate.m */; };
-		F002512F1F2358E70045B118 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F002512E1F2358E70045B118 /* ViewController.m */; };
-		F00251321F2358E70045B118 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F00251301F2358E70045B118 /* Main.storyboard */; };
 		F00251341F2358E70045B118 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F00251331F2358E70045B118 /* Assets.xcassets */; };
 		F00251371F2358E70045B118 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F00251351F2358E70045B118 /* LaunchScreen.storyboard */; };
 		F00251421F2358E70045B118 /* StickyExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251411F2358E70045B118 /* StickyExampleTests.m */; };
 		F002514D1F2358E70045B118 /* StickyExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F002514C1F2358E70045B118 /* StickyExampleUITests.m */; };
-		F002518A1F2359F10045B118 /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251811F2359F10045B118 /* WMMenuItem.m */; };
-		F002518B1F2359F10045B118 /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251831F2359F10045B118 /* WMMenuView.m */; };
-		F002518C1F2359F10045B118 /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251851F2359F10045B118 /* WMProgressView.m */; };
-		F002518D1F2359F10045B118 /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251871F2359F10045B118 /* WMScrollView.m */; };
-		F002518E1F2359F10045B118 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251891F2359F10045B118 /* WMPageController.m */; };
-		F00251921F235AF60045B118 /* WMStickyPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251911F235AF60045B118 /* WMStickyPageViewController.m */; };
 		F002519C1F235E930045B118 /* WMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F00251991F235E930045B118 /* WMHomeViewController.m */; };
 		F002519D1F235E930045B118 /* WMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F002519B1F235E930045B118 /* WMTableViewController.m */; };
 		F00251A01F2362EA0045B118 /* WMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F002519F1F2362EA0045B118 /* WMDetailViewController.m */; };
-		F05504DC1FFF1DAC0097AF65 /* TPDelegateMatrioska.m in Sources */ = {isa = PBXBuildFile; fileRef = F05504DA1FFF1DAC0097AF65 /* TPDelegateMatrioska.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,15 +41,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		32A979961FC6B88B00C392A0 /* UIViewController+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPageController.h"; sourceTree = "<group>"; };
-		32A979971FC6B88B00C392A0 /* UIViewController+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPageController.m"; sourceTree = "<group>"; };
+		0E00270DE663E8DC2A9CBA86 /* Pods-StickyExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickyExampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StickyExampleUITests/Pods-StickyExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		2AA9F6E89623C0CEDE8532C1 /* Pods-StickyExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickyExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StickyExampleTests/Pods-StickyExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		34AC57DD9EDC00C12494A0E9 /* Pods-StickyExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickyExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-StickyExample/Pods-StickyExample.release.xcconfig"; sourceTree = "<group>"; };
+		3D15268E20E8D9F10045E646 /* WMStickyPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMStickyPageController.h; sourceTree = "<group>"; };
+		3D15268F20E8D9F10045E646 /* WMMagicScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMagicScrollView.m; sourceTree = "<group>"; };
+		3D15269020E8D9F10045E646 /* WMStickyPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStickyPageController.m; sourceTree = "<group>"; };
+		3D15269120E8D9F10045E646 /* WMMagicScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMagicScrollView.h; sourceTree = "<group>"; };
+		5AED0D4C624121FE11B88B5C /* Pods-StickyExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickyExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StickyExampleTests/Pods-StickyExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C0246FAD39EBD7B70B357817 /* Pods-StickyExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickyExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StickyExample/Pods-StickyExample.debug.xcconfig"; sourceTree = "<group>"; };
+		D957046F554CD211632EC8BE /* libPods-StickyExampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StickyExampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E90E20F27B2CA010F5BD9D76 /* Pods-StickyExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickyExampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StickyExampleUITests/Pods-StickyExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F00251241F2358E70045B118 /* StickyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00251281F2358E70045B118 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F002512A1F2358E70045B118 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F002512B1F2358E70045B118 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F002512D1F2358E70045B118 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F002512E1F2358E70045B118 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		F00251311F2358E70045B118 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F00251331F2358E70045B118 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F00251361F2358E70045B118 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F00251381F2358E70045B118 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -64,53 +65,78 @@
 		F00251481F2358E70045B118 /* StickyExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StickyExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F002514C1F2358E70045B118 /* StickyExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StickyExampleUITests.m; sourceTree = "<group>"; };
 		F002514E1F2358E70045B118 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F00251801F2359F10045B118 /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
-		F00251811F2359F10045B118 /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
-		F00251821F2359F10045B118 /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
-		F00251831F2359F10045B118 /* WMMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuView.m; sourceTree = "<group>"; };
-		F00251841F2359F10045B118 /* WMProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProgressView.h; sourceTree = "<group>"; };
-		F00251851F2359F10045B118 /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
-		F00251861F2359F10045B118 /* WMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMScrollView.h; sourceTree = "<group>"; };
-		F00251871F2359F10045B118 /* WMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMScrollView.m; sourceTree = "<group>"; };
-		F00251881F2359F10045B118 /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
-		F00251891F2359F10045B118 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
-		F00251901F235AF60045B118 /* WMStickyPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMStickyPageViewController.h; sourceTree = "<group>"; };
-		F00251911F235AF60045B118 /* WMStickyPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStickyPageViewController.m; sourceTree = "<group>"; };
 		F00251981F235E930045B118 /* WMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHomeViewController.h; sourceTree = "<group>"; };
 		F00251991F235E930045B118 /* WMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHomeViewController.m; sourceTree = "<group>"; };
 		F002519A1F235E930045B118 /* WMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMTableViewController.h; sourceTree = "<group>"; };
 		F002519B1F235E930045B118 /* WMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMTableViewController.m; sourceTree = "<group>"; };
 		F002519E1F2362EA0045B118 /* WMDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDetailViewController.h; sourceTree = "<group>"; };
 		F002519F1F2362EA0045B118 /* WMDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDetailViewController.m; sourceTree = "<group>"; };
-		F05504DA1FFF1DAC0097AF65 /* TPDelegateMatrioska.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDelegateMatrioska.m; sourceTree = "<group>"; };
-		F05504DB1FFF1DAC0097AF65 /* TPDelegateMatrioska.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDelegateMatrioska.h; sourceTree = "<group>"; };
+		F2B2EC023EFB565FABE17D30 /* libPods-StickyExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StickyExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3A68A8B2FFE88774587E0CA /* libPods-StickyExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StickyExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F00251211F2358E70045B118 /* Frameworks */ = {
+		18F435BE72BBFC7086EC587F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9F9E5D26900F56F4DD6276D /* libPods-StickyExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F002513A1F2358E70045B118 /* Frameworks */ = {
+		48D0ACC38E44003C5C42AB07 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86C97BC1582C35E8CFB38E8F /* libPods-StickyExampleUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F00251451F2358E70045B118 /* Frameworks */ = {
+		4A98F8ADC9DE1EC330F99852 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43B20EBC856C0297C9DFA68B /* libPods-StickyExampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D15268D20E8D9F10045E646 /* WMStickyPageController */ = {
+			isa = PBXGroup;
+			children = (
+				3D15269120E8D9F10045E646 /* WMMagicScrollView.h */,
+				3D15268F20E8D9F10045E646 /* WMMagicScrollView.m */,
+				3D15268E20E8D9F10045E646 /* WMStickyPageController.h */,
+				3D15269020E8D9F10045E646 /* WMStickyPageController.m */,
+			);
+			path = WMStickyPageController;
+			sourceTree = "<group>";
+		};
+		6EE792294AE3806F3E7BDE89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2B2EC023EFB565FABE17D30 /* libPods-StickyExample.a */,
+				F3A68A8B2FFE88774587E0CA /* libPods-StickyExampleTests.a */,
+				D957046F554CD211632EC8BE /* libPods-StickyExampleUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E3F8E5651A2B244A61D63534 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C0246FAD39EBD7B70B357817 /* Pods-StickyExample.debug.xcconfig */,
+				34AC57DD9EDC00C12494A0E9 /* Pods-StickyExample.release.xcconfig */,
+				5AED0D4C624121FE11B88B5C /* Pods-StickyExampleTests.debug.xcconfig */,
+				2AA9F6E89623C0CEDE8532C1 /* Pods-StickyExampleTests.release.xcconfig */,
+				E90E20F27B2CA010F5BD9D76 /* Pods-StickyExampleUITests.debug.xcconfig */,
+				0E00270DE663E8DC2A9CBA86 /* Pods-StickyExampleUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F002511B1F2358E70045B118 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +144,8 @@
 				F00251401F2358E70045B118 /* StickyExampleTests */,
 				F002514B1F2358E70045B118 /* StickyExampleUITests */,
 				F00251251F2358E70045B118 /* Products */,
+				6EE792294AE3806F3E7BDE89 /* Frameworks */,
+				E3F8E5651A2B244A61D63534 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,14 +162,10 @@
 		F00251261F2358E70045B118 /* StickyExample */ = {
 			isa = PBXGroup;
 			children = (
-				F002518F1F235A140045B118 /* WMStickyPageViewController */,
-				F002517E1F2359F10045B118 /* WMPageController */,
+				3D15268D20E8D9F10045E646 /* WMStickyPageController */,
 				F00251971F235E930045B118 /* Controllers */,
 				F002512A1F2358E70045B118 /* AppDelegate.h */,
 				F002512B1F2358E70045B118 /* AppDelegate.m */,
-				F002512D1F2358E70045B118 /* ViewController.h */,
-				F002512E1F2358E70045B118 /* ViewController.m */,
-				F00251301F2358E70045B118 /* Main.storyboard */,
 				F00251331F2358E70045B118 /* Assets.xcassets */,
 				F00251351F2358E70045B118 /* LaunchScreen.storyboard */,
 				F00251381F2358E70045B118 /* Info.plist */,
@@ -176,44 +200,6 @@
 			path = StickyExampleUITests;
 			sourceTree = "<group>";
 		};
-		F002517E1F2359F10045B118 /* WMPageController */ = {
-			isa = PBXGroup;
-			children = (
-				32A979961FC6B88B00C392A0 /* UIViewController+WMPageController.h */,
-				32A979971FC6B88B00C392A0 /* UIViewController+WMPageController.m */,
-				F002517F1F2359F10045B118 /* WMMenuView */,
-				F00251881F2359F10045B118 /* WMPageController.h */,
-				F00251891F2359F10045B118 /* WMPageController.m */,
-			);
-			name = WMPageController;
-			path = ../../../WMPageController;
-			sourceTree = "<group>";
-		};
-		F002517F1F2359F10045B118 /* WMMenuView */ = {
-			isa = PBXGroup;
-			children = (
-				F00251801F2359F10045B118 /* WMMenuItem.h */,
-				F00251811F2359F10045B118 /* WMMenuItem.m */,
-				F00251821F2359F10045B118 /* WMMenuView.h */,
-				F00251831F2359F10045B118 /* WMMenuView.m */,
-				F00251841F2359F10045B118 /* WMProgressView.h */,
-				F00251851F2359F10045B118 /* WMProgressView.m */,
-				F00251861F2359F10045B118 /* WMScrollView.h */,
-				F00251871F2359F10045B118 /* WMScrollView.m */,
-			);
-			path = WMMenuView;
-			sourceTree = "<group>";
-		};
-		F002518F1F235A140045B118 /* WMStickyPageViewController */ = {
-			isa = PBXGroup;
-			children = (
-				F05504D91FFF1DAC0097AF65 /* TPDelegateMatrioska */,
-				F00251901F235AF60045B118 /* WMStickyPageViewController.h */,
-				F00251911F235AF60045B118 /* WMStickyPageViewController.m */,
-			);
-			path = WMStickyPageViewController;
-			sourceTree = "<group>";
-		};
 		F00251971F235E930045B118 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,15 +213,6 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		F05504D91FFF1DAC0097AF65 /* TPDelegateMatrioska */ = {
-			isa = PBXGroup;
-			children = (
-				F05504DA1FFF1DAC0097AF65 /* TPDelegateMatrioska.m */,
-				F05504DB1FFF1DAC0097AF65 /* TPDelegateMatrioska.h */,
-			);
-			path = TPDelegateMatrioska;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -243,9 +220,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F00251511F2358E70045B118 /* Build configuration list for PBXNativeTarget "StickyExample" */;
 			buildPhases = (
+				4144C55BC71E774C5674CB8F /* [CP] Check Pods Manifest.lock */,
 				F00251201F2358E70045B118 /* Sources */,
-				F00251211F2358E70045B118 /* Frameworks */,
 				F00251221F2358E70045B118 /* Resources */,
+				18F435BE72BBFC7086EC587F /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,9 +238,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F00251541F2358E70045B118 /* Build configuration list for PBXNativeTarget "StickyExampleTests" */;
 			buildPhases = (
+				375FBF72D682E76B569005A5 /* [CP] Check Pods Manifest.lock */,
 				F00251391F2358E70045B118 /* Sources */,
-				F002513A1F2358E70045B118 /* Frameworks */,
 				F002513B1F2358E70045B118 /* Resources */,
+				4A98F8ADC9DE1EC330F99852 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -278,9 +257,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F00251571F2358E70045B118 /* Build configuration list for PBXNativeTarget "StickyExampleUITests" */;
 			buildPhases = (
+				8CAE9EAFDFEBF461409E0A57 /* [CP] Check Pods Manifest.lock */,
 				F00251441F2358E70045B118 /* Sources */,
-				F00251451F2358E70045B118 /* Frameworks */,
 				F00251461F2358E70045B118 /* Resources */,
+				48D0ACC38E44003C5C42AB07 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -298,7 +278,7 @@
 		F002511C1F2358E70045B118 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Tpphha;
 				TargetAttributes = {
 					F00251231F2358E70045B118 = {
@@ -345,7 +325,6 @@
 			files = (
 				F00251371F2358E70045B118 /* LaunchScreen.storyboard in Resources */,
 				F00251341F2358E70045B118 /* Assets.xcassets in Resources */,
-				F00251321F2358E70045B118 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,25 +344,75 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		375FBF72D682E76B569005A5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StickyExampleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4144C55BC71E774C5674CB8F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StickyExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8CAE9EAFDFEBF461409E0A57 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StickyExampleUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F00251201F2358E70045B118 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F00251A01F2362EA0045B118 /* WMDetailViewController.m in Sources */,
-				F002518D1F2359F10045B118 /* WMScrollView.m in Sources */,
-				F002512F1F2358E70045B118 /* ViewController.m in Sources */,
-				F00251921F235AF60045B118 /* WMStickyPageViewController.m in Sources */,
-				F05504DC1FFF1DAC0097AF65 /* TPDelegateMatrioska.m in Sources */,
-				F002518E1F2359F10045B118 /* WMPageController.m in Sources */,
 				F002519D1F235E930045B118 /* WMTableViewController.m in Sources */,
-				F002518B1F2359F10045B118 /* WMMenuView.m in Sources */,
 				F002512C1F2358E70045B118 /* AppDelegate.m in Sources */,
+				3D15269220E8D9F10045E646 /* WMMagicScrollView.m in Sources */,
 				F002519C1F235E930045B118 /* WMHomeViewController.m in Sources */,
-				F002518C1F2359F10045B118 /* WMProgressView.m in Sources */,
-				32A979981FC6B88B00C392A0 /* UIViewController+WMPageController.m in Sources */,
+				3D15269320E8D9F10045E646 /* WMStickyPageController.m in Sources */,
 				F00251291F2358E70045B118 /* main.m in Sources */,
-				F002518A1F2359F10045B118 /* WMMenuItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,14 +448,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F00251301F2358E70045B118 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F00251311F2358E70045B118 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F00251351F2358E70045B118 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -448,15 +469,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -497,15 +526,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -532,30 +569,33 @@
 		};
 		F00251521F2358E70045B118 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0246FAD39EBD7B70B357817 /* Pods-StickyExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = N9D9Y52FAG;
 				INFOPLIST_FILE = StickyExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tpphha.www.StickyExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tpphha.StickyExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		F00251531F2358E70045B118 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34AC57DD9EDC00C12494A0E9 /* Pods-StickyExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = N9D9Y52FAG;
 				INFOPLIST_FILE = StickyExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tpphha.www.StickyExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tpphha.StickyExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		F00251551F2358E70045B118 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AED0D4C624121FE11B88B5C /* Pods-StickyExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = StickyExampleTests/Info.plist;
@@ -568,6 +608,7 @@
 		};
 		F00251561F2358E70045B118 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2AA9F6E89623C0CEDE8532C1 /* Pods-StickyExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = StickyExampleTests/Info.plist;
@@ -580,6 +621,7 @@
 		};
 		F00251581F2358E70045B118 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E90E20F27B2CA010F5BD9D76 /* Pods-StickyExampleUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = StickyExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -591,6 +633,7 @@
 		};
 		F00251591F2358E70045B118 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E00270DE663E8DC2A9CBA86 /* Pods-StickyExampleUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = StickyExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

@@ -6,10 +6,8 @@
 //  Copyright © 2016年 Wecan Studio. All rights reserved.
 //
 
-#import "WMStickyPageViewController.h"
+#import "WMStickyPageController.h"
 
-static CGFloat const kWMHeaderViewHeight = 200;
-static CGFloat const kNavigationBarHeight = 64;
-@interface WMHomeViewController : WMStickyPageViewController 
+@interface WMHomeViewController : WMStickyPageController 
 
 @end

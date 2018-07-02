@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WMStickyPageViewController.h"
 
-@interface WMTableViewController : UITableViewController <WMStickyPageViewControllerDelegate>
+@interface WMTableViewController : UITableViewController
 
 @end
