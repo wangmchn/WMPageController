@@ -10,4 +10,6 @@
 
 @interface WMScrollView : UIScrollView <UIGestureRecognizerDelegate>
 
+@property (nonatomic, weak) Class scrollEnableIgnoreClass;
+
 @end

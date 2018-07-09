@@ -104,6 +104,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
     self.scrollView.scrollEnabled = scrollEnable;
 }
 
+- (void)setScrollEnableIgnoreClass:(Class)scrollEnableIgnoreClass {
+    _scrollEnableIgnoreClass = scrollEnableIgnoreClass;
+
+    if (!self.scrollView) return;
+    self.scrollView.scrollEnableIgnoreClass = scrollEnableIgnoreClass;
+}
+
 - (void)setProgressViewCornerRadius:(CGFloat)progressViewCornerRadius {
     _progressViewCornerRadius = progressViewCornerRadius;
     if (self.menuView) {
@@ -400,6 +407,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     _markedSelectIndex = kWMUndefinedIndex;
     _controllerCount  = kWMControllerCountUndefined;
     _scrollEnable = YES;
+    _scrollEnableIgnoreClass = nil;
     _progressViewCornerRadius = WMUNDEFINED_VALUE;
     _progressHeight = WMUNDEFINED_VALUE;
     
@@ -436,6 +444,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.bounces = self.bounces;
     scrollView.scrollEnabled = self.scrollEnable;
+    scrollView.scrollEnableIgnoreClass = self.scrollEnableIgnoreClass;
     if (@available(iOS 11.0, *)) {
         scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
