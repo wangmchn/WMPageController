@@ -289,7 +289,7 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 
 /**
  *  set itemMargin if all margins are the same, default is 0
-    如果各个间隙都想同，设置该属性，默认为 0
+    如果各个间隙都相同，设置该属性，默认为 0
  */
 @property (nonatomic, assign) CGFloat itemMargin;
 
