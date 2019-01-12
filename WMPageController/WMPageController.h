@@ -304,6 +304,9 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 /** 内部容器 */
 @property (nonatomic, nullable, weak) WMScrollView *scrollView;
 
+/** 内部容器背景色 */
+@property (nonatomic, nullable, weak) UIColor *scrollViewBackgroundColor;
+
 /** MenuView 内部视图与左右的间距 */
 @property (nonatomic, assign) CGFloat menuViewContentMargin;
 
