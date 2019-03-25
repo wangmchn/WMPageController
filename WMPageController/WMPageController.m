@@ -427,7 +427,12 @@ static NSInteger const kWMControllerCountUndefined = -1;
 - (void)wm_calculateViewControllerFrames {
     _childViewFrames = [NSMutableArray array];
     for (int i = 0; i < self.childControllersCount; i++) {
-        CGRect frame = CGRectMake(i * _contentViewFrame.size.width, 0, _contentViewFrame.size.width, _contentViewFrame.size.height);
+        CGRect frame = CGRectZero;
+        if ([self.dataSource respondsToSelector:@selector(pageController:preferredFrameForViewControllerAtIndex:)]) {
+            frame = [self.dataSource pageController:self preferredFrameForViewControllerAtIndex:i];
+        } else {
+            frame = CGRectMake(i * _contentViewFrame.size.width, 0, _contentViewFrame.size.width, _contentViewFrame.size.height);
+        }
         [_childViewFrames addObject:[NSValue valueWithCGRect:frame]];
     }
 }
