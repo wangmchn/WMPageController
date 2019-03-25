@@ -178,6 +178,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
     
     if (!self.childControllersCount) return;
     
+    /// fix: -[self wm_resetScrollView] 会用到 childViewFrames 数组, 需要根据最新的 vcArray 重新计算, 否则可能数组越界崩溃
+    [self wm_calculateViewControllerFrames];
     [self wm_resetScrollView];
     [self.memCache removeAllObjects];
     [self wm_resetMenuView];
@@ -419,6 +421,10 @@ static NSInteger const kWMControllerCountUndefined = -1;
 - (void)wm_calculateSize {
     _menuViewFrame = [self.dataSource pageController:self preferredFrameForMenuView:self.menuView];
     _contentViewFrame = [self.dataSource pageController:self preferredFrameForContentView:self.scrollView];
+    [self wm_calculateViewControllerFrames];
+}
+
+- (void)wm_calculateViewControllerFrames {
     _childViewFrames = [NSMutableArray array];
     for (int i = 0; i < self.childControllersCount; i++) {
         CGRect frame = CGRectMake(i * _contentViewFrame.size.width, 0, _contentViewFrame.size.width, _contentViewFrame.size.height);
