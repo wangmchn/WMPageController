@@ -166,6 +166,20 @@ static NSInteger const kWMControllerCountUndefined = -1;
     }
 }
 
+- (void)setProgressColor:(UIColor *)progressColor {
+    _progressColor = progressColor;
+    if (self.menuView) {
+        self.menuView.lineColor = progressColor;
+    }
+}
+
+- (void)setMenuViewStyle:(WMMenuViewStyle)menuViewStyle {
+    _menuViewStyle = menuViewStyle;
+    if (self.menuView) {
+        self.menuView.style = menuViewStyle;
+    }
+}
+
 - (void)setMenuViewContentMargin:(CGFloat)menuViewContentMargin {
     _menuViewContentMargin = menuViewContentMargin;
     if (self.menuView) {
