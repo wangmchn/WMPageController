@@ -453,7 +453,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
     
-    if (!self.navigationController) return;
+    if (!self.navigationController.interactivePopGestureRecognizer) return;
     for (UIGestureRecognizer *gestureRecognizer in scrollView.gestureRecognizers) {
         [gestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
     }
