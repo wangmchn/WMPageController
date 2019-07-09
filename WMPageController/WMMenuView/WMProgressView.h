@@ -11,7 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface WMProgressView : UIView
 @property (nonatomic, strong) NSArray *itemFrames;
+/** 若image有值，优先使用image*/
 @property (nonatomic, assign) CGColorRef color;
+@property (nonatomic, strong) UIImage *image; // image优先于color
+
 @property (nonatomic, assign) CGFloat progress;
 /** 进度条的速度因数，默认为 15，越小越快， 大于 0 */
 @property (nonatomic, assign) CGFloat speedFactor;

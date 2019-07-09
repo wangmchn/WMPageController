@@ -233,6 +233,12 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
 @property (nonatomic, nullable, strong) UIColor *progressColor;
 
 /**
+ *  进度条的填充图片，若该属性有值，progressColor属性将无效
+ *  The progress's image.if it's not empty,'progressColor' property will be ignored.
+ */
+@property (nonatomic, nullable, strong) UIImage *progressImage;
+
+/**
  *  定制进度条在各个 item 下的宽度
  */
 @property (nonatomic, nullable, strong) NSArray *progressViewWidths;

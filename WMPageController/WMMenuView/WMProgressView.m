@@ -117,7 +117,8 @@
         return;
     }
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(startX, lineWidth / 2.0, width, height - lineWidth) cornerRadius:self.cornerRadius];
+    CGRect barframe = CGRectMake(startX, lineWidth / 2.0, width, height - lineWidth);
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:barframe cornerRadius:self.cornerRadius];
     CGContextAddPath(ctx, path.CGPath);
     
     if (self.hollow) {
@@ -125,8 +126,14 @@
         CGContextStrokePath(ctx);
         return;
     }
-    CGContextSetFillColorWithColor(ctx, self.color);
-    CGContextFillPath(ctx);
+    
+    if (self.image) {
+        CGContextDrawImage(ctx, barframe, self.image.CGImage);
+    } else {
+        CGContextSetFillColorWithColor(ctx, self.color);
+        CGContextFillPath(ctx);
+    }
+    
     
     if (self.hasBorder) {
         // 计算点
