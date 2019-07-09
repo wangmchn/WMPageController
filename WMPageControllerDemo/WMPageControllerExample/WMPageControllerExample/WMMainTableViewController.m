@@ -122,6 +122,11 @@
             vc.titleSizeSelected = 16;
         }
             break;
+        case WMMenuViewStyleLine: {
+//            vc.progressColor = [UIColor redColor];
+            vc.progressImage = [UIImage imageNamed:@"tab_selected"];
+        }
+            break;
         default:
             break;
     }

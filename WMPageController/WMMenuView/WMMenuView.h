@@ -81,6 +81,8 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 @property (nonatomic, assign) WMMenuViewLayoutMode layoutMode;
 @property (nonatomic, assign) CGFloat contentMargin;
 @property (nonatomic, strong) UIColor *lineColor;
+/** lineImage优先于lineColor */
+@property (nonatomic, strong) UIImage *lineImage;
 @property (nonatomic, assign) CGFloat progressViewBottomSpace;
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
 @property (nonatomic, weak) id<WMMenuViewDataSource> dataSource;

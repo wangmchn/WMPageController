@@ -467,6 +467,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
     if (self.progressColor) {
         menuView.lineColor = self.progressColor;
     }
+    if (self.progressImage) {
+        menuView.lineImage = self.progressImage;
+    }
     if (self.showOnNavigationBar && self.navigationController.navigationBar) {
         self.navigationItem.titleView = menuView;
     } else {
