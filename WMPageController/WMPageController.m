@@ -7,6 +7,7 @@
 //
 
 #import "WMPageController.h"
+#import "UIFont+WMPageController.h"
 
 NSString *const WMControllerDidAddToSuperViewNotification = @"WMControllerDidAddToSuperViewNotification";
 NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFullyDisplayedNotification";
@@ -679,7 +680,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (CGFloat)wm_calculateItemWithAtIndex:(NSInteger)index {
     NSString *title = [self titleAtIndex:index];
-    UIFont *titleFont = self.titleFontName ? [UIFont fontWithName:self.titleFontName size:self.titleSizeSelected] : [UIFont systemFontOfSize:self.titleSizeSelected];
+    UIFont *titleFont = self.titleFontName ? [UIFont wm_fontWithName:self.titleFontName size:self.titleSizeSelected] : [UIFont systemFontOfSize:self.titleSizeSelected];
     NSDictionary *attrs = @{NSFontAttributeName: titleFont};
     CGFloat itemWidth = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:attrs context:nil].size.width;
     return ceil(itemWidth);
