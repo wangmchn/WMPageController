@@ -7,6 +7,7 @@
 //
 
 #import "WMMenuView.h"
+#import "UIFont+WMPageController.h"
 #define WMMENUITEM_TAG_OFFSET 6250
 #define WMBADGEVIEW_TAG_OFFSET 1212
 #define WMDEFAULT_VAULE(value, defaultValue) (value != WMUNDEFINED_VALUE ? value : defaultValue)
@@ -491,7 +492,7 @@
         item.selectedColor = [self colorForState:WMMenuItemStateSelected atIndex:i];
         item.speedFactor   = self.speedFactor;
         if (self.fontName) {
-            item.font = [UIFont fontWithName:self.fontName size:item.selectedSize];
+            item.font = [UIFont wm_fontWithName:self.fontName size:item.selectedSize];
         } else {
             item.font = [UIFont systemFontOfSize:item.selectedSize];
         }

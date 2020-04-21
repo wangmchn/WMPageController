@@ -7,6 +7,7 @@
 //
 
 #import "WMPageController.h"
+#import "UIFont+WMPageController.h"
 
 NSString *const WMControllerDidAddToSuperViewNotification = @"WMControllerDidAddToSuperViewNotification";
 NSString *const WMControllerDidFullyDisplayedNotification = @"WMControllerDidFullyDisplayedNotification";
@@ -178,6 +179,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
     
     if (!self.childControllersCount) return;
     
+    /// fix: -[self wm_resetScrollView] 会用到 childViewFrames 数组, 需要根据最新的 vcArray 重新计算, 否则可能数组越界崩溃
+    [self wm_calculateViewControllerFrames];
     [self wm_resetScrollView];
     [self.memCache removeAllObjects];
     [self wm_resetMenuView];
@@ -419,9 +422,18 @@ static NSInteger const kWMControllerCountUndefined = -1;
 - (void)wm_calculateSize {
     _menuViewFrame = [self.dataSource pageController:self preferredFrameForMenuView:self.menuView];
     _contentViewFrame = [self.dataSource pageController:self preferredFrameForContentView:self.scrollView];
+    [self wm_calculateViewControllerFrames];
+}
+
+- (void)wm_calculateViewControllerFrames {
     _childViewFrames = [NSMutableArray array];
     for (int i = 0; i < self.childControllersCount; i++) {
-        CGRect frame = CGRectMake(i * _contentViewFrame.size.width, 0, _contentViewFrame.size.width, _contentViewFrame.size.height);
+        CGRect frame = CGRectZero;
+        if ([self.dataSource respondsToSelector:@selector(pageController:preferredFrameForViewControllerAtIndex:)]) {
+            frame = [self.dataSource pageController:self preferredFrameForViewControllerAtIndex:i];
+        } else {
+            frame = CGRectMake(i * _contentViewFrame.size.width, 0, _contentViewFrame.size.width, _contentViewFrame.size.height);
+        }
         [_childViewFrames addObject:[NSValue valueWithCGRect:frame]];
     }
 }
@@ -442,7 +454,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
     
-    if (!self.navigationController) return;
+    if (!self.navigationController.interactivePopGestureRecognizer) return;
     for (UIGestureRecognizer *gestureRecognizer in scrollView.gestureRecognizers) {
         [gestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
     }
@@ -668,7 +680,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (CGFloat)wm_calculateItemWithAtIndex:(NSInteger)index {
     NSString *title = [self titleAtIndex:index];
-    UIFont *titleFont = self.titleFontName ? [UIFont fontWithName:self.titleFontName size:self.titleSizeSelected] : [UIFont systemFontOfSize:self.titleSizeSelected];
+    UIFont *titleFont = self.titleFontName ? [UIFont wm_fontWithName:self.titleFontName size:self.titleSizeSelected] : [UIFont systemFontOfSize:self.titleSizeSelected];
     NSDictionary *attrs = @{NSFontAttributeName: titleFont};
     CGFloat itemWidth = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:attrs context:nil].size.width;
     return ceil(itemWidth);

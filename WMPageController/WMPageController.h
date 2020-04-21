@@ -88,6 +88,15 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
  */
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView;
 
+/**
+ Implement this datasource method, in order to customize child view controller's frame
+
+ @param pageController pageController The container controller
+ @param index The index of target view controller
+ @return The frame of the target view controller
+ */
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForViewControllerAtIndex:(NSInteger)index;
+
 @end
 
 @protocol WMPageControllerDelegate <NSObject>
