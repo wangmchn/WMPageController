@@ -464,6 +464,11 @@ static NSInteger const kWMControllerCountUndefined = -1;
     if (self.titleFontName) {
         menuView.fontName = self.titleFontName;
     }
+    
+    if (self.titleStrokeWidth) {
+        menuView.strokeWidth = self.titleStrokeWidth;
+    }
+    
     if (self.progressColor) {
         menuView.lineColor = self.progressColor;
     }
