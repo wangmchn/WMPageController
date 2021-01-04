@@ -495,6 +495,11 @@
         } else {
             item.font = [UIFont systemFontOfSize:item.selectedSize];
         }
+        
+        if (self.strokeWidth) {
+           item.strokeWidth = self.strokeWidth;
+        }
+               
         if ([self.dataSource respondsToSelector:@selector(menuView:initialMenuItem:atIndex:)]) {
             item = [self.dataSource menuView:self initialMenuItem:item atIndex:i];
         }

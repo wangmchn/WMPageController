@@ -25,6 +25,7 @@
         self.normalSize    = 15;
         self.selectedSize  = 18;
         self.numberOfLines = 0;
+        self.strokeWidth = 0;
         
         [self setupGestureRecognizer];
     }
@@ -87,6 +88,24 @@
     CGFloat minScale = self.normalSize / self.selectedSize;
     CGFloat trueScale = minScale + (1 - minScale)*rate;
     self.transform = CGAffineTransformMakeScale(trueScale, trueScale);
+}
+
+- (void)drawTextInRect:(CGRect)rect
+
+{
+    //描边
+    CGContextRef c = UIGraphicsGetCurrentContext ();
+
+    CGContextSetLineWidth (c, _strokeWidth * _rate);
+
+    CGContextSetLineJoin (c, kCGLineJoinRound);
+
+    self.textColor = self.textColor;
+
+    CGContextSetTextDrawingMode (c, kCGTextFillStroke);
+
+    [super drawTextInRect:rect];
+
 }
 
 - (void)setSelectedColor:(UIColor *)selectedColor {

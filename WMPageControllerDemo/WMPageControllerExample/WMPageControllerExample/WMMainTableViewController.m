@@ -86,6 +86,7 @@
     vc.title = key;
     vc.menuViewStyle = style;
     vc.automaticallyCalculatesItemWidths = YES;
+    vc.titleStrokeWidth = 2;
     if ([key isEqualToString:@"WMMenuViewStyleNaughty"]) {
         vc.progressViewIsNaughty = YES;
         vc.progressWidth = 10;

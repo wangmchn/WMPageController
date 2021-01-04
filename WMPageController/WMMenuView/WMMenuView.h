@@ -87,6 +87,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 @property (nonatomic, weak) UIView *leftView;
 @property (nonatomic, weak) UIView *rightView;
 @property (nonatomic, copy) NSString *fontName;
+@property(nonatomic,assign) CGFloat strokeWidth;
 @property (nonatomic, weak) UIScrollView *scrollView;
 /** 进度条的速度因数，默认为 15，越小越快， 大于 0 */
 @property (nonatomic, assign) CGFloat speedFactor;
