@@ -171,7 +171,10 @@ static void * const kMXScrollViewKVOContext = (void*)&kMXScrollViewKVOContext;
         
         if (diff == 0.0 || !_isObserving) return;
         
+        static CGFloat onePixel  = 1/[UIScreen mainScreen].scale;
         CGFloat maximumContentOffsetY = _maximumHeaderViewHeight - _minimumHeaderViewHeight;
+        maximumContentOffsetY = roundf(maximumContentOffsetY / onePixel) * onePixel;
+
         if (object == self) {
             //Adjust self scroll offset when scroll down
             if (diff > 0 && _lock) {

@@ -580,7 +580,9 @@
 
 #pragma mark - Menu item delegate
 - (void)didPressedMenuItem:(WMMenuItem *)menuItem {
-    
+    if (self.selItem == menuItem) {
+        return;
+    }
     if ([self.delegate respondsToSelector:@selector(menuView:shouldSelesctedIndex:)]) {
         BOOL should = [self.delegate menuView:self shouldSelesctedIndex:menuItem.tag - WMMENUITEM_TAG_OFFSET];
         if (!should) {
