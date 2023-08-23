@@ -817,6 +817,18 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return self.menuItemWidth;
 }
 
+- (void)menuView:(WMMenuView *)menu widthCallback:(void (^)(CGFloat, NSInteger))callBackForItemAtIndex :(NSInteger)index {
+    if (self.automaticallyCalculatesItemWidths) {
+        callBackForItemAtIndex([self wm_calculateItemWithAtIndex:index],index);
+        return;
+    }
+    if (self.itemsWidths.count == self.childControllersCount) {
+        callBackForItemAtIndex([self.itemsWidths[index] floatValue], index);
+        return;
+    }
+    callBackForItemAtIndex(self.menuItemWidth,index);
+}
+
 - (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index {
     if (self.itemsMargins.count == self.childControllersCount + 1) {
         return [self.itemsMargins[index] floatValue];

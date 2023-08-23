@@ -478,7 +478,17 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 
 // 计算所有item的frame值，主要是为了适配所有item的宽度之和小于屏幕宽的情况
 // 这里与后面的 `-addItems` 做了重复的操作，并不是很合理
+
 - (void)calculateItemFrames {
+    if ([self.delegate respondsToSelector:@selector(menuView:widthCallback::)]) {
+        [self asyncCalculateItemFrames];
+    } else {
+        [self syncCalculateItemFrames];
+    }
+    
+}
+
+- (void)syncCalculateItemFrames {
     CGFloat contentWidth = [self itemMarginAtIndex:0];
     for (int i = 0; i < self.titlesCount; i++) {
         CGFloat itemW = 60.0;
@@ -489,6 +499,66 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         // 记录frame
         [self.frames addObject:[NSValue valueWithCGRect:frame]];
         contentWidth += itemW + [self itemMarginAtIndex:i+1];
+    }
+    // 如果总宽度小于屏幕宽,重新计算frame,为item间添加间距
+    if (contentWidth < self.scrollView.frame.size.width) {
+        CGFloat distance = self.scrollView.frame.size.width - contentWidth;
+        CGFloat (^shiftDis)(int);
+        switch (self.layoutMode) {
+            case WMMenuViewLayoutModeScatter: {
+                CGFloat gap = distance / (self.titlesCount + 1);
+                shiftDis = ^CGFloat(int index) { return gap * (index + 1); };
+                break;
+            }
+            case WMMenuViewLayoutModeLeft: {
+                shiftDis = ^CGFloat(int index) { return 0.0; };
+                break;
+            }
+            case WMMenuViewLayoutModeRight: {
+                shiftDis = ^CGFloat(int index) { return distance; };
+                break;
+            }
+            case WMMenuViewLayoutModeCenter: {
+                shiftDis = ^CGFloat(int index) { return distance / 2; };
+                break;
+            }
+        }
+        for (int i = 0; i < self.frames.count; i++) {
+            CGRect frame = [self.frames[i] CGRectValue];
+            frame.origin.x += shiftDis(i);
+            self.frames[i] = [NSValue valueWithCGRect:frame];
+        }
+        contentWidth = self.scrollView.frame.size.width;
+    }
+    self.scrollView.contentSize = CGSizeMake(contentWidth, self.frame.size.height);
+}
+
+
+- (void)asyncCalculateItemFrames {
+    __block CGFloat contentWidth = [self itemMarginAtIndex:0];
+    __block CGFloat itemW = 60.0;
+    NSMutableArray *floatArr = [NSMutableArray array];
+    for (int i = 0; i < self.titlesCount; i++) {
+        [floatArr addObject:[NSNumber numberWithFloat:0]];
+    }
+    __block NSInteger flag = self.titlesCount;
+    for (int i = 0; i < self.titlesCount; i++) {
+        if ([self.delegate respondsToSelector:@selector(menuView:widthCallback::)]) {
+            [self.delegate menuView:self widthCallback:^(CGFloat width, NSInteger index) {
+                flag--;
+                [floatArr replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:width]];
+                if (flag == 0) {
+                    for (int i = 0; i < self.titlesCount; i++) {
+                        itemW = [floatArr[i] floatValue];
+                        CGRect frame = CGRectMake(contentWidth, 0, itemW, self.frame.size.height);
+                        // 记录frame
+                        [self.frames addObject:[NSValue valueWithCGRect:frame]];
+                        contentWidth += itemW + [self itemMarginAtIndex:i+1];
+                    }
+                }
+            } :i];
+        }
+        
     }
     // 如果总宽度小于屏幕宽,重新计算frame,为item间添加间距
     if (contentWidth < self.scrollView.frame.size.width) {

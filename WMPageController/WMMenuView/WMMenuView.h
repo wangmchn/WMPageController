@@ -29,11 +29,13 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
     WMMenuViewLayoutModeCenter,  // Item 紧挨且居中分布
 };
 
+
 @protocol WMMenuViewDelegate <NSObject>
 @optional
 - (BOOL)menuView:(WMMenuView *)menu shouldSelesctedIndex:(NSInteger)index;
 - (void)menuView:(WMMenuView *)menu didSelesctedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex;
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index;
+- (void)menuView:(WMMenuView *)menu widthCallback:(void(^)(CGFloat width, NSInteger index))callBackForItemAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state atIndex:(NSInteger)index;
 - (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state atIndex:(NSInteger)index;
